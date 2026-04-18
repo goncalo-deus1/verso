@@ -1,0 +1,48 @@
+import type { Editorial } from '../types'
+
+export const editorials: Editorial[] = [
+  {
+    id: '1',
+    title: 'Os bairros de Lisboa que mais vão valorizar em 2025',
+    slug: 'bairros-lisboa-valorizar-2025',
+    category: 'Tendências de Mercado',
+    excerpt: 'Marvila, Mouraria e a Alta de Lisboa concentram os maiores sinais de transformação urbana. Analisamos os dados e o contexto de planeamento de cada zona.',
+    image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80',
+    readTime: 6,
+    date: '2025-03-12',
+    author: 'Equipa Editorial VERSO',
+  },
+  {
+    id: '2',
+    title: 'Guia para comprar casa em Portugal pela primeira vez',
+    slug: 'guia-comprar-casa-portugal-primeira-vez',
+    category: 'Guia do Comprador',
+    excerpt: 'Do IMT ao IMI, das escrituras às avaliações bancárias — tudo o que precisa de saber antes de assinar o CPCV. Um guia claro, sem jargão desnecessário.',
+    image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80',
+    readTime: 9,
+    date: '2025-02-28',
+    author: 'Equipa Editorial VERSO',
+  },
+  {
+    id: '3',
+    title: 'Porto vs Lisboa: onde investir em 2025?',
+    slug: 'porto-vs-lisboa-onde-investir-2025',
+    category: 'Análise',
+    excerpt: 'As duas maiores cidades portuguesas oferecem perfis de investimento distintos. Analisamos rentabilidade, valorização e liquidez em cada mercado.',
+    image: 'https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=800&q=80',
+    readTime: 7,
+    date: '2025-02-14',
+    author: 'Equipa Editorial VERSO',
+  },
+  {
+    id: '4',
+    title: 'O que é o PDM e porque importa antes de comprar casa',
+    slug: 'o-que-e-pdm-porque-importa',
+    category: 'Contexto Urbanístico',
+    excerpt: 'O Plano Director Municipal define o futuro de qualquer zona. Perceber o que o PDM diz sobre o imóvel que quer comprar pode evitar surpresas — positivas e negativas.',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+    readTime: 5,
+    date: '2025-01-30',
+    author: 'Equipa Editorial VERSO',
+  },
+]
