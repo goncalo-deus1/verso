@@ -55,6 +55,16 @@ export interface Area {
   matchReasons?: string[]
 }
 
+export type ContentBlock =
+  | { type: 'paragraph'; text: string }
+  | { type: 'heading'; level: 2 | 3; text: string }
+  | { type: 'lead'; text: string }
+  | { type: 'callout'; text: string }
+  | { type: 'list'; items: string[] }
+  | { type: 'zone'; name: string; price: string; for: string; vibe: string; future: string; watch: string }
+  | { type: 'divider' }
+  | { type: 'cta'; heading: string; body: string; label: string; href: string }
+
 export interface Editorial {
   id: string
   title: string
@@ -65,7 +75,49 @@ export interface Editorial {
   readTime: number
   date: string
   author: string
+  content?: ContentBlock[]
 }
+
+export type MarketTier = 'premium' | 'activo' | 'moderado' | 'escasso'
+export type Region = 'Norte' | 'Centro' | 'Lisboa e Vale do Tejo' | 'Alentejo' | 'Algarve' | 'Açores' | 'Madeira'
+
+export interface PortugalZone {
+  name: string
+  district: string
+  region: Region
+  slug: string
+  imageSearchQueries: string[]
+  heroImageDescription: string
+  supportingImages: string[]
+  data: {
+    description: string
+    pricePerSqm: { min: number; max: number }
+    marketTier: MarketTier
+    lifestyle: string[]
+    connectivity: string
+    urbanContext: string
+    whoFor: string
+  }
+  trustElements: string[]
+}
+
+// ─── Quiz Engine ──────────────────────────────────────────────────────────────
+
+export interface ZoneScore {
+  zone: PortugalZone
+  score: number        // 0–100 weighted score
+  reasons: string[]    // "Porquê" — positives matched to answers
+  tradeOffs: string[]  // Honest trade-offs for this zone
+  hardFiltered: boolean // true = eliminated by a hard filter (budget, region)
+}
+
+export interface QuizResult {
+  top: ZoneScore[]     // Top N zones (default 3)
+  all: ZoneScore[]     // All zones, scored and sorted descending
+  answers: QuizAnswers
+}
+
+// ─── Quiz Input ───────────────────────────────────────────────────────────────
 
 export interface QuizAnswers {
   budget?: string

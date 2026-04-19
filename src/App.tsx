@@ -9,8 +9,10 @@ import AreaRecommendations from './pages/AreaRecommendations'
 import PropertyListingPage from './pages/PropertyListingPage'
 import PropertyDetailPage from './pages/PropertyDetailPage'
 import EditorialPage from './pages/EditorialPage'
+import ArticleDetailPage from './pages/ArticleDetailPage'
 import AuthPage from './pages/AuthPage'
 import ProfilePage from './pages/ProfilePage'
+import QuizResults from './pages/QuizResults'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -35,6 +37,7 @@ function AppRoutes() {
       <Routes>
         {/* Standalone pages — no header/footer */}
         <Route path="/quiz" element={<QuizFlow />} />
+        <Route path="/quiz/resultados" element={<QuizResults />} />
         <Route path="/entrar" element={<AuthPage />} />
 
         {/* Main layout */}
@@ -44,6 +47,7 @@ function AppRoutes() {
         <Route path="/imoveis" element={<Layout><PropertyListingPage /></Layout>} />
         <Route path="/imoveis/:slug" element={<Layout><PropertyDetailPage /></Layout>} />
         <Route path="/editorial" element={<Layout><EditorialPage /></Layout>} />
+        <Route path="/editorial/:slug" element={<Layout><ArticleDetailPage /></Layout>} />
         <Route path="/perfil" element={<Layout><ProfilePage /></Layout>} />
       </Routes>
     </>
