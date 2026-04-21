@@ -13,6 +13,9 @@ import ArticleDetailPage from './pages/ArticleDetailPage'
 import AuthPage from './pages/AuthPage'
 import ProfilePage from './pages/ProfilePage'
 import QuizResults from './pages/QuizResults'
+import ZoneDetailPage from './pages/ZoneDetailPage'
+import FreguesiDetailPage from './pages/FreguesiDetailPage'
+import ConcelhoDetailPage from './pages/ConcelhoDetailPage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -39,6 +42,13 @@ function AppRoutes() {
         <Route path="/quiz" element={<QuizFlow />} />
         <Route path="/quiz/resultados" element={<QuizResults />} />
         <Route path="/entrar" element={<AuthPage />} />
+
+        {/* Zone detail (legado) */}
+        <Route path="/zona/:slug" element={<ZoneDetailPage />} />
+
+        {/* Nova camada geográfica */}
+        <Route path="/freguesia/:slug" element={<FreguesiDetailPage />} />
+        <Route path="/concelho/:slug" element={<ConcelhoDetailPage />} />
 
         {/* Main layout */}
         <Route path="/" element={<Layout><HomePage /></Layout>} />
