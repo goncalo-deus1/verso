@@ -121,9 +121,9 @@ export default function QuizDossier() {
 
       {/* § 01 — Porque esta zona */}
       <PorqueEstaZona
-        nome={displayData.nome}
-        vector={displayData.vector}
-        descricao={displayData.descricao}
+        nome={best.zone.name}
+        contributions={best.contributions}
+        descricao={best.justification}
         tradeoff={displayData.tradeoff}
         tradeoffConfidence={displayData.tradeoffConfidence}
       />

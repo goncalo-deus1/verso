@@ -10,7 +10,7 @@ import type { TradeoffConfidence } from '../../lib/quiz/tradeoffs'
 
 type Props = {
   nome: string
-  vector: ZoneProfile
+  contributions: Record<keyof ZoneProfile, number>
   descricao: string
   tradeoff?: string
   tradeoffConfidence?: TradeoffConfidence
@@ -35,10 +35,11 @@ function VariavelBar({ nome, valor }: { nome: string; valor: number }) {
   )
 }
 
-export function PorqueEstaZona({ vector, tradeoff, tradeoffConfidence }: Props) {
-  // Top 4 atributos pelo valor mais alto
-  const topVariaveis = (Object.entries(vector) as [keyof ZoneProfile, number][])
+export function PorqueEstaZona({ contributions, tradeoff, tradeoffConfidence }: Props) {
+  // Top 4 atributos pela contribuição mais alta para este match
+  const topVariaveis = (Object.entries(contributions) as [keyof ZoneProfile, number][])
     .sort((a, b) => b[1] - a[1])
+    .filter(([, val]) => val > 0)
     .slice(0, 4)
     .map(([key, val]) => ({ nome: ATTRIBUTE_LABELS[key], valor: val }))
 

@@ -28,6 +28,7 @@ export type ScoredZone = {
   justification:      string
   tradeoff:           string             // sentence or '' when none
   tradeoffConfidence: TradeoffConfidence // tier of the tradeoff sentence
+  contributions:      Record<keyof ZoneProfile, number>  // 0–100 normalised, within this result
 }
 
 export type QuizResult = {
@@ -37,6 +38,32 @@ export type QuizResult = {
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function calculateContributions(
+  userProfile: ZoneProfile,
+  weights: Weights,
+  zoneVector: ZoneProfile,
+): Record<keyof ZoneProfile, number> {
+  const raw = {} as Record<keyof ZoneProfile, number>
+
+  for (const attr of Object.keys(userProfile) as (keyof ZoneProfile)[]) {
+    // Alignment: 1.0 when perfect match, 0.0 when opposite extreme
+    const alignment = 1 - Math.abs(userProfile[attr] - zoneVector[attr]) / 100
+    raw[attr] = weights[attr] * alignment
+  }
+
+  // Normalise within this result: highest-contributing attribute = 100
+  const maxContribution = Math.max(...Object.values(raw))
+  const normalised = {} as Record<keyof ZoneProfile, number>
+
+  for (const attr of Object.keys(raw) as (keyof ZoneProfile)[]) {
+    normalised[attr] = maxContribution > 0
+      ? Math.round((raw[attr] / maxContribution) * 100)
+      : 0
+  }
+
+  return normalised
+}
 
 function euclideanScore(
   userProfile: ZoneProfile,
@@ -139,6 +166,7 @@ export function scoreAnswers(answers: QuizAnswers): QuizResult {
         justification:      getJustification(userProfile, zone.profile, weights),
         tradeoff:           tradeoffResult.sentence ?? '',
         tradeoffConfidence: tradeoffResult.confidence,
+        contributions:      calculateContributions(userProfile, weights, zone.profile),
       }
     })
     .sort((a, b) => b.score - a.score)
