@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, User, LogOut, ChevronDown } from 'lucide-react'
-import { useAuth } from '../context/AuthContext'
+import { useAuth, displayName } from '../context/AuthContext'
+import { useQuiz } from '../context/QuizContext'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
+import { Wordmark } from './Wordmark'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
-  const { user, logout } = useAuth()
+  const { user, signOut } = useAuth()
+  const name = displayName(user)
+  const { open: openQuiz, quizResult } = useQuiz()
+  const { lang, toggle } = useLang()
+  const tr = useT(lang)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -18,10 +26,8 @@ export default function Header() {
   }, [])
 
   const links = [
-    { to: '/imoveis', label: 'Imóveis' },
-    { to: '/quiz', label: 'Encontrar a minha zona' },
-    { to: '/areas', label: 'Zonas' },
-    { to: '/editorial', label: 'Guias' },
+    { to: '/areas', label: tr('header.areas') },
+    { to: '/editorial', label: tr('header.guides') },
   ]
 
   const isActive = (to: string) => pathname.startsWith(to)
@@ -34,8 +40,8 @@ export default function Header() {
           width: '100%',
           maxWidth: '1240px',
           background: 'rgba(248,247,244,0.97)',
-          border: '1px solid #E8E4DC',
-          borderRadius: '100px',
+          border: '1px solid rgba(30, 31, 24, 0.125)',
+          borderRadius: open ? '20px' : '100px',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           boxShadow: scrolled
@@ -48,69 +54,105 @@ export default function Header() {
 
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <span className="font-display" style={{ fontSize: '20px', letterSpacing: '-0.5px', color: '#0A0A0B' }}>
-              VERSO
-            </span>
+            <Wordmark variant="navbar" />
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-8">
+            <button
+              onClick={openQuiz}
+              className="text-sm font-medium transition-colors duration-150"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#3A3B2E', padding: 0 }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#1E1F18')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#3A3B2E')}
+            >
+              {tr('header.findZone')}
+            </button>
             {links.map(link => (
               <Link
                 key={link.to}
                 to={link.to}
                 className="text-sm font-medium transition-colors duration-150"
-                style={{ color: isActive(link.to) ? '#C45D3E' : '#5A5A5A', textDecoration: 'none' }}
-                onMouseEnter={e => { if (!isActive(link.to)) e.currentTarget.style.color = '#0A0A0B' }}
-                onMouseLeave={e => { if (!isActive(link.to)) e.currentTarget.style.color = '#5A5A5A' }}
+                style={{ color: isActive(link.to) ? '#C2553A' : '#3A3B2E', textDecoration: 'none' }}
+                onMouseEnter={e => { if (!isActive(link.to)) e.currentTarget.style.color = '#1E1F18' }}
+                onMouseLeave={e => { if (!isActive(link.to)) e.currentTarget.style.color = '#3A3B2E' }}
               >
                 {link.label}
               </Link>
             ))}
+            {quizResult && (
+              <Link
+                to="/quiz/dossier"
+                className="text-sm font-medium transition-colors duration-150 flex items-center gap-1.5"
+                style={{ color: '#C2553A', textDecoration: 'none' }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = '0.75')}
+                onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+              >
+                <span style={{ fontSize: '10px', opacity: 0.6 }}>●</span>
+                A minha zona
+              </Link>
+            )}
           </nav>
 
           {/* Desktop right */}
           <div className="hidden lg:flex items-center gap-2">
+
+            {/* Language toggle */}
+            <button
+              onClick={toggle}
+              className="text-xs font-semibold transition-colors duration-150"
+              style={{
+                background: 'none', border: '1px solid rgba(30, 31, 24, 0.125)', cursor: 'pointer',
+                color: '#3A3B2E', padding: '5px 10px', borderRadius: '50px',
+                fontFamily: 'IBM Plex Mono', letterSpacing: '0.5px',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#C2553A'; e.currentTarget.style.color = '#C2553A' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(30, 31, 24, 0.125)'; e.currentTarget.style.color = '#3A3B2E' }}
+              aria-label="Toggle language"
+            >
+              {lang === 'pt' ? 'EN' : 'PT'}
+            </button>
+
             {user ? (
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="flex items-center gap-2 px-3 py-1.5 transition-colors duration-150"
-                  style={{ border: '1px solid #E8E4DC', borderRadius: '50px', background: 'white' }}
+                  style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '50px', background: 'white' }}
                 >
                   <div className="w-5 h-5 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0"
-                    style={{ background: '#C45D3E', borderRadius: '50%' }}>
-                    {user.name.charAt(0).toUpperCase()}
+                    style={{ background: '#C2553A', borderRadius: '50%' }}>
+                    {name.charAt(0).toUpperCase()}
                   </div>
-                  <span className="text-sm font-medium max-w-[100px] truncate" style={{ color: '#0A0A0B' }}>
-                    {user.name}
+                  <span className="text-sm font-medium max-w-[100px] truncate" style={{ color: '#1E1F18' }}>
+                    {name}
                   </span>
-                  <ChevronDown size={11} style={{ color: '#9A9590' }} />
+                  <ChevronDown size={11} style={{ color: '#3A3B2E' }} />
                 </button>
 
                 {userMenuOpen && (
                   <>
                     <div className="fixed inset-0 z-10" onClick={() => setUserMenuOpen(false)} />
                     <div className="absolute right-0 top-full mt-2 w-52 z-20 overflow-hidden"
-                      style={{ background: '#0A0A0B', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.16)' }}>
+                      style={{ background: '#1E1F18', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.16)' }}>
                       <div className="px-4 py-3.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                        <p className="text-xs" style={{ color: '#9A9590', fontFamily: 'IBM Plex Mono' }}>ligado como</p>
-                        <p className="text-sm font-medium truncate mt-0.5" style={{ color: '#F7F5F0' }}>{user.email}</p>
+                        <p className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>{tr('header.loggedAs')}</p>
+                        <p className="text-sm font-medium truncate mt-0.5" style={{ color: '#F2EDE4' }}>{user.email ?? ''}</p>
                       </div>
                       <div className="p-1.5">
-                        <Link to="/perfil" onClick={() => setUserMenuOpen(false)}
+                        <Link to="/minha-conta" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors duration-150"
-                          style={{ color: '#C9C5BD', borderRadius: '8px' }}
-                          onMouseEnter={e => (e.currentTarget.style.color = '#F7F5F0')}
-                          onMouseLeave={e => (e.currentTarget.style.color = '#C9C5BD')}>
-                          <User size={14} /> O meu perfil
+                          style={{ color: 'rgba(30, 31, 24, 0.125)', borderRadius: '8px' }}
+                          onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
+                          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(30, 31, 24, 0.125)')}>
+                          <User size={14} /> {tr('header.myProfile')}
                         </Link>
-                        <button onClick={() => { logout(); setUserMenuOpen(false) }}
+                        <button onClick={() => { signOut(); setUserMenuOpen(false) }}
                           className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors duration-150"
-                          style={{ color: '#C9C5BD', borderRadius: '8px' }}
-                          onMouseEnter={e => (e.currentTarget.style.color = '#F7F5F0')}
-                          onMouseLeave={e => (e.currentTarget.style.color = '#C9C5BD')}>
-                          <LogOut size={14} /> Terminar sessão
+                          style={{ color: 'rgba(30, 31, 24, 0.125)', borderRadius: '8px' }}
+                          onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
+                          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(30, 31, 24, 0.125)')}>
+                          <LogOut size={14} /> {tr('header.signOut')}
                         </button>
                       </div>
                     </div>
@@ -121,69 +163,96 @@ export default function Header() {
               <>
                 <Link to="/entrar"
                   className="px-4 py-2 text-sm font-medium transition-colors duration-150"
-                  style={{ color: '#5A5A5A', textDecoration: 'none' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#0A0A0B')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#5A5A5A')}>
-                  Entrar
+                  style={{ color: '#3A3B2E', textDecoration: 'none' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#1E1F18')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#3A3B2E')}>
+                  {tr('header.signIn')}
                 </Link>
                 <Link to="/entrar?mode=register"
                   className="px-5 py-2 text-sm font-semibold transition-all duration-150"
-                  style={{ background: '#0A0A0B', color: '#F7F5F0', borderRadius: '50px', textDecoration: 'none' }}
-                  onMouseEnter={e => (e.currentTarget.style.background = '#C45D3E')}
-                  onMouseLeave={e => (e.currentTarget.style.background = '#0A0A0B')}>
-                  Criar conta
+                  style={{ background: '#1E1F18', color: '#F2EDE4', borderRadius: '50px', textDecoration: 'none' }}
+                  onMouseEnter={e => (e.currentTarget.style.background = '#C2553A')}
+                  onMouseLeave={e => (e.currentTarget.style.background = '#1E1F18')}>
+                  {tr('header.createAcc')}
                 </Link>
               </>
             )}
           </div>
 
           {/* Mobile toggle */}
-          <button onClick={() => setOpen(!open)} className="lg:hidden p-2" style={{ color: '#0A0A0B' }} aria-label="Menu">
+          <button onClick={() => setOpen(!open)} className="lg:hidden p-2" style={{ color: '#1E1F18' }} aria-label="Menu">
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
         {/* Mobile menu — drops inside the pill */}
         {open && (
-          <div style={{ borderTop: '1px solid #E8E4DC', padding: '20px 24px 24px' }} className="lg:hidden">
+          <div style={{ borderTop: '1px solid rgba(30, 31, 24, 0.125)', padding: '20px 24px 24px' }} className="lg:hidden">
             <nav className="flex flex-col gap-4">
+              <button
+                onClick={() => { openQuiz(); setOpen(false) }}
+                className="text-base font-medium text-left"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#C2553A', padding: 0 }}
+              >
+                {tr('header.findZone')}
+              </button>
               {links.map(link => (
                 <Link key={link.to} to={link.to} onClick={() => setOpen(false)}
                   className="text-base font-medium"
-                  style={{ color: isActive(link.to) ? '#C45D3E' : '#0A0A0B', textDecoration: 'none' }}>
+                  style={{ color: isActive(link.to) ? '#C2553A' : '#1E1F18', textDecoration: 'none' }}>
                   {link.label}
                 </Link>
               ))}
+              {quizResult && (
+                <Link to="/quiz/dossier" onClick={() => setOpen(false)}
+                  className="text-base font-medium flex items-center gap-2"
+                  style={{ color: '#C2553A', textDecoration: 'none' }}>
+                  <span style={{ fontSize: '10px', opacity: 0.6 }}>●</span>
+                  A minha zona
+                </Link>
+              )}
             </nav>
-            <div style={{ borderTop: '1px solid #E8E4DC', marginTop: '20px', paddingTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ borderTop: '1px solid rgba(30, 31, 24, 0.125)', marginTop: '20px', paddingTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {/* Language toggle mobile */}
+              <button
+                onClick={toggle}
+                style={{
+                  alignSelf: 'flex-start', background: 'none', border: '1px solid rgba(30, 31, 24, 0.125)',
+                  cursor: 'pointer', color: '#3A3B2E', padding: '6px 14px',
+                  borderRadius: '50px', fontSize: '12px', fontFamily: 'IBM Plex Mono',
+                }}
+              >
+                {lang === 'pt' ? 'Switch to English' : 'Mudar para Português'}
+              </button>
+
               {user ? (
                 <>
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 flex items-center justify-center text-white text-sm font-semibold"
-                      style={{ background: '#C45D3E', borderRadius: '50%' }}>
-                      {user.name.charAt(0).toUpperCase()}
+                      style={{ background: '#C2553A', borderRadius: '50%' }}>
+                      {name.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <p className="text-sm font-medium" style={{ color: '#0A0A0B' }}>{user.name}</p>
-                      <p className="text-xs" style={{ color: '#9A9590', fontFamily: 'IBM Plex Mono' }}>{user.email}</p>
+                      <p className="text-sm font-medium" style={{ color: '#1E1F18' }}>{name}</p>
+                      <p className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>{user.email ?? ''}</p>
                     </div>
                   </div>
-                  <button onClick={() => { logout(); setOpen(false) }}
-                    className="flex items-center gap-2 text-sm font-medium" style={{ color: '#5A5A5A' }}>
-                    <LogOut size={14} /> Terminar sessão
+                  <button onClick={() => { signOut(); setOpen(false) }}
+                    className="flex items-center gap-2 text-sm font-medium" style={{ color: '#3A3B2E' }}>
+                    <LogOut size={14} /> {tr('header.signOut')}
                   </button>
                 </>
               ) : (
                 <>
                   <Link to="/entrar" onClick={() => setOpen(false)}
                     className="block text-center py-3 text-sm font-medium"
-                    style={{ border: '1px solid #E8E4DC', color: '#0A0A0B', borderRadius: '50px', textDecoration: 'none' }}>
-                    Entrar
+                    style={{ border: '1px solid rgba(30, 31, 24, 0.125)', color: '#1E1F18', borderRadius: '50px', textDecoration: 'none' }}>
+                    {tr('header.signIn')}
                   </Link>
                   <Link to="/entrar?mode=register" onClick={() => setOpen(false)}
                     className="block text-center py-3 text-white text-sm font-semibold"
-                    style={{ background: '#0A0A0B', borderRadius: '50px', textDecoration: 'none' }}>
-                    Criar conta
+                    style={{ background: '#1E1F18', borderRadius: '50px', textDecoration: 'none' }}>
+                    {tr('header.createAcc')}
                   </Link>
                 </>
               )}

@@ -1,4 +1,4 @@
-// ─── VERSO Copilot — Shared Types ─────────────────────────────────────────────
+// ─── Habitta Copilot — Shared Types ─────────────────────────────────────────────
 
 export type CopilotContext = 'homepage' | 'property' | 'area'
 export type FlowPhase = 'questions' | 'thinking' | 'results'

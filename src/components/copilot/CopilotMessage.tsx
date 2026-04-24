@@ -6,11 +6,11 @@ export function CopilotMessage({ msg }: { msg: CopilotMsg }) {
   if (msg.isTyping) {
     return (
       <div className="flex justify-start mb-3">
-        <div className="flex items-center gap-1 px-4 py-3" style={{ background: '#FAF8F3', border: '1px solid #E8E4DC', borderRadius: '2px' }}>
+        <div className="flex items-center gap-1 px-4 py-3" style={{ background: '#F2EDE4', border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
           {[0, 1, 2].map(i => (
             <span key={i} style={{
               width: '5px', height: '5px', borderRadius: '50%',
-              background: '#C45D3E', display: 'inline-block',
+              background: '#C2553A', display: 'inline-block',
               animation: `copilot-blink 1s ${i * 0.2}s ease-in-out infinite`,
             }} />
           ))}
@@ -25,11 +25,11 @@ export function CopilotMessage({ msg }: { msg: CopilotMsg }) {
         className="max-w-[82%] text-sm leading-relaxed"
         style={{
           padding: '10px 14px',
-          background: isUser ? '#0A0A0B' : '#FAF8F3',
-          color: isUser ? '#F7F5F0' : '#2C2C2C',
+          background: isUser ? '#1E1F18' : '#F2EDE4',
+          color: isUser ? '#F2EDE4' : '#1E1F18',
           borderRadius: '2px',
-          border: isUser ? 'none' : '1px solid #E8E4DC',
-          fontFamily: 'Plus Jakarta Sans, sans-serif',
+          border: isUser ? 'none' : '1px solid rgba(30, 31, 24, 0.125)',
+          fontFamily: 'Inter, Arial, sans-serif',
         }}
       >
         {msg.text}

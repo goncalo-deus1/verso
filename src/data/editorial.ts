@@ -2,6 +2,469 @@ import type { Editorial } from '../types'
 
 export const editorials: Editorial[] = [
   {
+    id: '6',
+    title: 'Financiamento a 100% para jovens: tens direito, mas devias usar?',
+    slug: 'financiamento-100-jovens-comprar-casa',
+    category: 'Financiamento',
+    excerpt: 'A Garantia Pública permite financiamento até 100% para jovens em Portugal. Quando faz sentido usar e quando é má ideia — a conversa honesta que falta.',
+    image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&q=80',
+    readTime: 9,
+    date: '2026-04-22',
+    author: 'Equipa Editorial Habitta',
+    content: [
+      {
+        type: 'lead',
+        text: 'A Garantia Pública do Estado é real, é legítima, e não serve para toda a gente. Aqui está a conversa honesta.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Tens entre 18 e 35 anos, rendimento coletável até ao 8.º escalão do IRS (cerca de 81.199€/ano), nunca foste dono de uma casa, e queres comprar a primeira. Podes aceder a financiamento bancário até 100% do valor do imóvel — até 450.000€, em contratos celebrados até 31 de dezembro de 2026 — graças a uma garantia dada pelo Estado, que cobre até 15% do empréstimo. A medida está prevista no Decreto-Lei 44/2024 e regulamentada pela Portaria 236-A/2024.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Este artigo não é um guia. Guias sobre este tema já existem em todos os bancos e nos três maiores comparadores do país. O que ainda não existe é a conversa honesta sobre quando esta ferramenta é uma boa ideia, quando é uma armadilha, e o que os materiais dos bancos não te dizem. É isso que vais ler aqui.',
+      },
+      { type: 'heading', level: 2, text: 'O que o Estado faz e não faz' },
+      {
+        type: 'paragraph',
+        text: 'A confusão mais comum é pensar que o Estado paga 15% da casa. Não paga. O Estado é fiador.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Funciona assim. Tradicionalmente, o Banco de Portugal obriga os bancos a financiarem no máximo 90% do valor do imóvel — os outros 10% têm de sair do teu bolso como entrada. Desde 2024, se cumprires os requisitos do regime jovem, o Estado passa a ser fiador dos restantes 10 a 15%. O banco aceita emprestar 100% porque, em caso de incumprimento, tem o Estado a garantir a parte que antes pedia em entrada.',
+      },
+      {
+        type: 'paragraph',
+        text: 'O dinheiro vem todo do banco. O Estado apenas diz: se o jovem falhar, eu cobro uma parte da dívida.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Esta distinção parece técnica mas tem consequências práticas. O crédito continua a ser analisado como qualquer outro — taxa de esforço, estabilidade de rendimentos, historial bancário. Ter direito à Garantia não significa ter crédito aprovado. O banco pode recusar mesmo quando cumpres todos os critérios oficiais.',
+      },
+      { type: 'heading', level: 2, text: 'Quem pode candidatar-se' },
+      {
+        type: 'paragraph',
+        text: 'Os requisitos são cumulativos — falhas um, falhas tudo.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Tens de ter entre 18 e 35 anos na data da escritura. Se fores comprar em casal, ambos têm de ter até 35. Basta um com mais e perdem o acesso. Precisas de domicílio fiscal em Portugal, independentemente da nacionalidade.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Não podes ser proprietário de outra casa — nem nos três anos anteriores. O imóvel a comprar tem de ser habitação própria e permanente, não segunda casa nem investimento.',
+      },
+      {
+        type: 'paragraph',
+        text: 'O teu rendimento coletável anual não pode ultrapassar o 8.º escalão do IRS. Em 2025 esse limite era de 81.199€. O valor para 2026 será atualizado pela tabela oficial — confirma no ano da candidatura.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Não podes ter dívidas à Autoridade Tributária nem à Segurança Social. Também não podes já ter beneficiado desta garantia antes: é uma vez por vida.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Em valores rápidos, é isto:',
+      },
+      { type: 'heading', level: 3, text: 'Qual é a idade máxima para o financiamento a 100%?' },
+      {
+        type: 'paragraph',
+        text: '35 anos. Se for um casal, ambos têm de ter até 35 anos na data da escritura.',
+      },
+      {
+        type: 'table',
+        headers: ['Limite', 'Valor'],
+        rows: [
+          ['Idade máxima', '35 anos (casal: ambos)'],
+          ['Valor máximo do imóvel', '450.000€'],
+          ['Rendimento anual máximo', '~81.199€ (8.º escalão IRS)'],
+          ['Prazo para contratar', 'até 31 dezembro 2026'],
+          ['Cobertura do Estado', 'até 15% do empréstimo'],
+          ['Isenção IMT + Imposto do Selo', 'até 316.772€'],
+          ['Taxa de esforço máxima', '50%'],
+        ],
+      },
+      {
+        type: 'paragraph',
+        text: 'A isenção de IMT e Imposto do Selo vem por decreto separado (DL 48-D/2024) mas aplica-se ao mesmo perfil. Num imóvel de 330.539€, a poupança fiscal chega a 15.324€ — tanto quanto uma entrada de 10% num T1 em Almada.',
+      },
+      { type: 'heading', level: 2, text: 'Os três casos em que faz sentido usar' },
+      { type: 'heading', level: 3, text: 'Quando tens rendimento estável mas zero poupança para entrada' },
+      {
+        type: 'paragraph',
+        text: 'É o caso para que a medida foi desenhada. Ganhas 1.800 a 2.500€ líquidos por mês, tens contrato sem termo há mais de dois anos, pagas renda a um senhorio há cinco, e não tens 30.000€ na conta — porque quem tem vinte e muitos anos em Portugal raramente tem.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Neste cenário, esperar mais três anos a poupar é matemática contra ti. Os preços em Lisboa e AML subiram em média 6% ao ano na última década. Em três anos, a tua entrada de 30.000€ vale menos em metros quadrados do que hoje. A Garantia Pública encurta a espera e transfere o risco da inflação do mercado para o teu rendimento futuro — que, se for estável, é um trade aceitável.',
+      },
+      { type: 'heading', level: 3, text: 'Quando a alternativa é continuar a pagar renda num mercado apertado' },
+      {
+        type: 'paragraph',
+        text: 'Uma renda de T2 em Lisboa anda entre 1.200€ e 1.800€. Num crédito de 280.000€ a 30 anos com TAN de 3,3%, a prestação fica em torno dos 1.230€. A diferença mensal é nula; a diferença patrimonial ao fim de dez anos são 150.000€ em capital amortizado.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Este cálculo só funciona se ficares pelo menos sete anos no imóvel — o tempo mínimo para os juros acumulados não comerem o que poupaste em IMT e em renda. Se sabes que vais estar no mesmo sítio durante esse tempo, a matemática compensa.',
+      },
+      { type: 'heading', level: 3, text: 'Quando compras com outro jovem e conseguem dividir a prestação' },
+      {
+        type: 'paragraph',
+        text: 'Dois ordenados de 1.800€ suportam uma prestação de 1.400€ com folga. Um ordenado de 1.800€ sozinho está no limite. A medida não foi desenhada para casais, mas funciona melhor para eles — o risco de incumprimento baixa quando há duas fontes de rendimento.',
+      },
+      { type: 'heading', level: 2, text: 'Os três casos em que é má ideia' },
+      { type: 'heading', level: 3, text: 'Quando compras por pressão e não por encaixe' },
+      {
+        type: 'paragraph',
+        text: 'A medida acaba em 31 de dezembro de 2026. Esta data está a criar uma urgência artificial — bancos e mediadores a dizer "tens de decidir antes que acabe". A urgência empurra gente para fechar negócios que em condições normais não fechariam.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Um mau imóvel comprado com Garantia Pública continua a ser um mau imóvel. A zona que não te serve hoje não te serve melhor por ter sido comprada com desconto fiscal. Se ainda estás a decidir onde queres viver, a pressão do prazo não é razão suficiente para escolher depressa.',
+      },
+      { type: 'heading', level: 3, text: 'Quando o imóvel consome mais de 35% do teu rendimento líquido' },
+      {
+        type: 'paragraph',
+        text: 'A lei permite taxa de esforço até 50%. Os bancos aprovam até aí. A prudência financeira diz outra coisa.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Com 40% do ordenado líquido na prestação, uma avaria do carro, um mês de redução de horário, um filho, ou uma subida da Euribor transformam um orçamento apertado num orçamento impossível. A Garantia Pública é um empréstimo a 30 anos — muita coisa pode mudar em 30 anos, e a margem para absorver surpresas não pode ser uma linha no Excel.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Se a prestação máxima aprovada pelo banco for 1.400€ e tu ganhas 3.000€ líquidos, procura casas que te deixem em 1.050€. A diferença entre 35% e 47% de taxa de esforço é a diferença entre uma vida com espaço e uma vida a fazer contas todos os dias.',
+      },
+      { type: 'heading', level: 3, text: 'Quando estás a comprar sozinho e a tua carreira ainda está a estabilizar' },
+      {
+        type: 'paragraph',
+        text: 'Se mudas de emprego de dois em dois anos, se estás a considerar ir trabalhar para fora, se não tens certeza de que vais ficar em Portugal nos próximos cinco anos — a Garantia é um mau instrumento para ti.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Vender uma casa em Portugal demora em média seis a doze meses. Se precisares de te mudar com pressa, o imóvel pode-se tornar uma âncora. Para quem tem a vida em movimento, a flexibilidade do arrendamento ainda é, em muitos casos, o caminho mais prudente.',
+      },
+      { type: 'heading', level: 2, text: 'O que os guias dos bancos não te dizem' },
+      { type: 'heading', level: 3, text: 'A Garantia não cobre o sinal do CPCV' },
+      {
+        type: 'paragraph',
+        text: 'O sinal de 10% pago na assinatura do Contrato de Promessa de Compra e Venda vem sempre do teu bolso. Se vais comprar um imóvel de 300.000€, precisas de 30.000€ em liquidez no início do processo — mesmo com financiamento a 100% aprovado pelo banco.',
+      },
+      { type: 'heading', level: 3, text: 'O banco pode recusar mesmo com todos os requisitos cumpridos' },
+      {
+        type: 'paragraph',
+        text: 'A medida dá-te o direito a pedir. Não dá o direito a receber. A taxa de esforço, a estabilidade do emprego, o historial de crédito — tudo isto continua a contar, e continua a poder bloquear a aprovação.',
+      },
+      { type: 'heading', level: 3, text: 'Alguns bancos aplicam spread mais alto nos créditos com Garantia Pública' },
+      {
+        type: 'paragraph',
+        text: 'O risco é o mesmo para o banco, mas nem todos pensam assim. Vale a pena simular em pelo menos três aderentes antes de aceitar a primeira proposta. A lista de bancos aderentes é pública — está no Diário da República (Despacho 14916/2024) e inclui, entre outros, Caixa Geral de Depósitos, Santander, novobanco, ABANCA, Banco CTT.',
+      },
+      { type: 'heading', level: 3, text: 'A isenção de IMT só é total até 316.772€' },
+      {
+        type: 'paragraph',
+        text: 'Acima desse valor, pagas a diferença — não perdes a isenção inteira, mas também não é grátis. Num imóvel de 400.000€, a poupança face ao regime normal fica em torno dos 9.000€, não dos 15.000€.',
+      },
+      { type: 'heading', level: 3, text: 'Se venderes a casa cedo, podes ter de devolver parte da garantia' },
+      {
+        type: 'paragraph',
+        text: 'O Estado é fiador de um empréstimo para habitação permanente. Se sais dessa habitação antes de cumprires o plano, o enquadramento jurídico muda. Lê a cláusula específica antes de assinares — cada banco implementa de forma ligeiramente diferente.',
+      },
+      { type: 'heading', level: 2, text: 'A decisão em três perguntas' },
+      {
+        type: 'paragraph',
+        text: 'Antes de marcar a reunião no banco, responde a estas três perguntas em voz alta. Se não respondes com confiança, volta a pensar.',
+      },
+      { type: 'heading', level: 3, text: 'Se o apoio não existisse, esperaria mais dois anos a comprar?' },
+      {
+        type: 'paragraph',
+        text: 'Se sim, o apoio está a fazer-te avançar mais cedo do que avançarias — isto é o seu propósito e é bom sinal. Se não (ias comprar à mesma, em dois anos, com as poupanças que farias), então o apoio está a acelerar uma má decisão.',
+      },
+      { type: 'heading', level: 3, text: 'Consigo pagar esta prestação durante 30 anos, mesmo num cenário em que perco seis meses de rendimento?' },
+      {
+        type: 'paragraph',
+        text: 'Se não, estás a usar o apoio para comprar mais casa do que devias. A Garantia permite-te, não te protege.',
+      },
+      { type: 'heading', level: 3, text: 'Vou ficar pelo menos sete anos nesta casa?' },
+      {
+        type: 'paragraph',
+        text: 'Se não, o custo dos juros a 100% pode não compensar a isenção de IMT. Vender cedo transforma o apoio num custo.',
+      },
+      { type: 'heading', level: 2, text: 'O que fazer a seguir' },
+      {
+        type: 'paragraph',
+        text: 'Se depois das três perguntas ainda queres avançar, o caminho é este:',
+      },
+      {
+        type: 'paragraph',
+        text: 'Primeiro, simula em pelo menos três bancos aderentes. As condições variam mais do que esperas — spread, custos de formalização, exigência de seguros associados.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Segundo, calcula a tua taxa de esforço real. Soma prestação, seguros obrigatórios, condomínio, IMI — divide pelo rendimento líquido. Se passa de 35%, procura casa mais barata.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Terceiro — e este é o passo que ninguém te diz para dar primeiro — percebe onde queres viver antes de decidires quanto podes gastar. O financiamento é uma ferramenta; a zona é a decisão. Começa pelo sítio, não pelo banco.',
+      },
+      {
+        type: 'cta',
+        heading: 'Ainda estás no "onde?" antes do "como?"',
+        body: 'O quiz da Habitta recomenda a zona certa em três minutos. Depois do "onde?", as contas do banco fazem muito mais sentido.',
+        label: 'Fazer o quiz',
+        href: '/quiz',
+      },
+      { type: 'heading', level: 2, text: 'Perguntas frequentes' },
+      { type: 'heading', level: 3, text: 'O Estado paga os 15% ao jovem?' },
+      {
+        type: 'paragraph',
+        text: 'Não. O Estado é fiador. O banco empresta 100%; o Estado apenas garante que, se o jovem falhar, cobre até 15% da dívida ao banco.',
+      },
+      { type: 'heading', level: 3, text: 'Até quando está disponível esta medida?' },
+      {
+        type: 'paragraph',
+        text: 'Os contratos de crédito têm de ser celebrados até 31 de dezembro de 2026. A medida pode ser prorrogada por decisão governamental, mas não há garantia de que isso aconteça.',
+      },
+      { type: 'heading', level: 3, text: 'A Garantia Pública cobre o sinal do CPCV?' },
+      {
+        type: 'paragraph',
+        text: 'Não. O apoio cobre a falta de entrada para o financiamento bancário, mas o sinal de 10% normalmente pedido na assinatura do Contrato de Promessa de Compra e Venda continua a ser responsabilidade do comprador.',
+      },
+      { type: 'heading', level: 3, text: 'Qual é o valor máximo do imóvel?' },
+      {
+        type: 'paragraph',
+        text: '450.000€ — sobre o menor dos seguintes valores: preço de aquisição ou avaliação bancária.',
+      },
+      { type: 'heading', level: 3, text: 'Que bancos oferecem financiamento a 100% para jovens?' },
+      {
+        type: 'paragraph',
+        text: 'Só os bancos aderentes ao protocolo de Garantia Pública. A lista oficial está publicada em Diário da República (Despacho 14916/2024) e inclui, entre outros, Caixa Geral de Depósitos, Santander, novobanco, ABANCA, Banco CTT. Confirma sempre com o banco antes de avançar.',
+      },
+      { type: 'heading', level: 3, text: 'Posso juntar a Garantia Pública à isenção de IMT?' },
+      {
+        type: 'paragraph',
+        text: 'Sim. São medidas independentes mas desenhadas para o mesmo perfil. Cumprindo os requisitos, beneficias das duas em simultâneo — financiamento a 100% e isenção fiscal até 316.772€.',
+      },
+      { type: 'divider' },
+      {
+        type: 'callout',
+        text: 'Este artigo foi escrito para ajudar, não para aconselhar juridicamente. A Garantia Pública é regulada pelo Decreto-Lei 44/2024 e pela Portaria 236-A/2024. Para casos concretos, consulta o Portal do Cliente Bancário do Banco de Portugal ou um mediador de crédito habilitado.',
+      },
+    ],
+  },
+  {
+    id: '5',
+    title: 'Melhores zonas para viver em Lisboa em 2026',
+    slug: 'melhores-zonas-viver-lisboa-2026',
+    category: 'Guia por Zona',
+    excerpt: 'Marvila, Príncipe Real, Parque das Nações, Mouraria, Campo de Ourique e Belém. Preços reais, contexto urbano e para quem é cada zona — antes de ver um único anúncio.',
+    image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200&q=80',
+    readTime: 8,
+    date: '2026-04-18',
+    author: 'Equipa Editorial Habitta',
+    content: [
+      {
+        type: 'lead',
+        text: 'Lisboa tem mais de 50 bairros. Mas quando está a pensar em comprar casa, a questão não é "qual o melhor bairro de Lisboa" — é "qual o bairro certo para mim". Esta guia responde exactamente a isso: para cada zona, explicamos os preços reais, o estilo de vida, o potencial futuro e quem deve (e quem não deve) considerar viver lá.',
+      },
+      {
+        type: 'callout',
+        text: 'Nota metodológica: os preços apresentados referem-se ao valor médio por m² em transacções concluídas entre Janeiro e Março de 2026, com base em dados de registo predial e análise de mercado própria. Não são preços de anúncio — são preços de escritura.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Marvila — O bairro que mais cresceu',
+      },
+      {
+        type: 'zone',
+        name: 'Marvila',
+        price: '4.200 – 6.800 €/m²',
+        for: 'Jovens profissionais, primeiros compradores, investidores de médio prazo',
+        vibe: 'Industrial reconvertido, galerias de arte, restaurantes emergentes, Tejo a poucos metros',
+        future: 'Alto. Plano de urbanização da Beato em expansão, nova linha de metro prevista para 2028, campus tecnológico Hub Criativo consolidado.',
+        watch: 'Algumas zonas ainda em transição — verifique o PDM antes de comprar. Ruído de obras pode ser frequente nos próximos 3 anos.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Há dez anos, Marvila era o nome de uma zona industrial ignorada pelos compradores. Hoje é o bairro mais falado de Lisboa — e por boas razões. A reconversão de armazéns e fábricas criou uma vibe única: espaços amplos, pés-direitos altos, janelas grandes e um ambiente que mistura criatividade com a proximidade ao Tejo.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Para quem compra hoje, Marvila ainda oferece uma relação qualidade-preço difícil de encontrar noutras zonas da cidade. Um T2 de 80m² custa entre 340.000€ e 545.000€ — mais barato do que Príncipe Real ou Chiado, com uma dinâmica de crescimento ainda activa.',
+      },
+      {
+        type: 'paragraph',
+        text: 'O principal risco é a variabilidade dentro do próprio bairro. Entre a Rua de Marvila e a zona de Braço de Prata, a diferença de perfil urbano e social é significativa. Antes de comprar, vale a pena perceber exactamente em que subzona está a investir.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Príncipe Real — Sofisticação consolidada',
+      },
+      {
+        type: 'zone',
+        name: 'Príncipe Real',
+        price: '7.500 – 12.000 €/m²',
+        for: 'Compradores premium, expatriados, investidores em arrendamento de alta gama',
+        vibe: 'Jardins históricos, lojas de design independente, restaurantes estrelados, moradores internacionais',
+        future: 'Estável. Zona consolidada sem espaço para nova construção de grande escala. Valorização mais lenta mas consistente.',
+        watch: 'Preços ao nível de capitais europeias mais caras. Liquidez alta para revenda, mas o investimento inicial é elevado.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Príncipe Real é o bairro onde Lisboa mostra a sua versão mais sofisticada. Ruas de paralelepípedos, palácios reconvertidos, uma das zonas verdes mais agradáveis do centro histórico e uma população internacional que valoriza qualidade acima de tudo.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Em 2026, os preços estabilizaram depois de uma subida acentuada entre 2020 e 2024. Isso não significa que estão acessíveis — um T1 de 60m² dificilmente aparece abaixo dos 500.000€. Mas para quem tem orçamento, é uma das zonas com menor risco de desvalorização em Lisboa.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Não é uma zona para primeiros compradores, nem para quem prioriza rendimento imediato de arrendamento. É para quem quer a melhor morada da cidade — e está disposto a pagar por isso.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Parque das Nações — Modernidade funcional',
+      },
+      {
+        type: 'zone',
+        name: 'Parque das Nações',
+        price: '4.800 – 7.200 €/m²',
+        for: 'Famílias, executivos, investidores em arrendamento de longa duração',
+        vibe: 'Urbanismo planeado, espaços amplos, frente ribeirinha, proximidade ao aeroporto e escritórios',
+        future: 'Moderado. Zona já madura, com pouca margem de crescimento adicional. Boa para quem valoriza estabilidade.',
+        watch: 'Alguma monotonia urbana. Menos vida de bairro do que outros locais. Dependência do transporte próprio em algumas zonas.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Construída de raiz para a Expo\'98, o Parque das Nações é o bairro mais planeado de Lisboa. Avenidas largas, jardins bem cuidados, frente ribeirinha extensa e um parque de habitação maioritariamente novo — características raras na maioria das zonas lisboetas.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Para famílias com crianças, é uma das escolhas mais práticas da cidade: boas escolas, espaços de lazer ao ar livre, fácil acesso de carro e transportes eficientes para o centro. O aeroporto fica a 10 minutos, o que é uma vantagem clara para quem viaja frequentemente por trabalho.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A grande limitação é o carácter funcional mas pouco orgânico da zona. Quem quer o caos criativo de Marvila ou o charme histórico de Alfama não vai encontrar isso no Parque das Nações. É confortável, seguro e eficiente — mas pouco surpreendente.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Mouraria — Entre autenticidade e transformação',
+      },
+      {
+        type: 'zone',
+        name: 'Mouraria',
+        price: '3.800 – 5.600 €/m²',
+        for: 'Compradores com menor orçamento, amantes de Lisboa histórica, investidores pacientes',
+        vibe: 'Multicultural, fado, mercados locais, mistura de comunidades, em lenta mas real transformação',
+        future: 'Alto, mas a prazo. Zona incluída no perímetro de ARU (Área de Reabilitação Urbana), com benefícios fiscais para reabilitação.',
+        watch: 'Qualidade do edificado muito variável. Muitos imóveis precisam de obras significativas. A transformação é real mas ainda incompleta.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Mouraria é um dos poucos bairros de Lisboa onde ainda é possível comprar a menos de 4.000€/m² no centro histórico. Isso tem uma explicação: o edificado é antigo, muitas vezes degradado, e a zona passa por uma transição social que ainda não está concluída.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Para quem está disposto a investir em reabilitação e tem horizonte de 5 a 8 anos, Mouraria oferece uma das melhores equações risco/retorno em Lisboa. O programa ARU garante benefícios fiscais relevantes para obras de reabilitação — o IMI pode ser reduzido ou isento durante vários anos.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Não é para toda a gente. Quem precisa de um imóvel pronto a habitar ou tem aversão a incerteza urbana vai sentir-se mais confortável noutras zonas. Mas para quem aprecia autenticidade e tem visão de longo prazo, Mouraria merece uma visita.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Campo de Ourique — Vida de bairro no centro',
+      },
+      {
+        type: 'zone',
+        name: 'Campo de Ourique',
+        price: '5.500 – 8.000 €/m²',
+        for: 'Famílias, profissionais liberais, compradores que querem vida de bairro sem abdicar do centro',
+        vibe: 'Mercado de produtos locais, cafés independentes, parques, moradores permanentes, muito tranquilo',
+        future: 'Estável. Zona consolidada e valorizada. Pouca volatilidade. Boa para quem quer previsibilidade.',
+        watch: 'Oferta de imóveis limitada. Quando algo aparece, sai rápido. Prepare-se para agir em dias, não semanas.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Campo de Ourique é o antídoto ao frenesim turístico de Chiado ou Bairro Alto. A 15 minutos a pé do centro histórico, tem um ritmo próprio: o Mercado de Campo de Ourique, os jardins do Alvito, comércio de proximidade real e uma comunidade estável de moradores com raízes no bairro.',
+      },
+      {
+        type: 'paragraph',
+        text: 'É um dos bairros preferidos por famílias lisboetas que não querem sair da cidade mas precisam de espaço e qualidade de vida. A contrapartida é o preço: Campo de Ourique cobra um prémio claro pela sua reputação. Um T3 com boas condições raramente aparece abaixo dos 600.000€.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Belém / Ajuda — O oeste em transformação',
+      },
+      {
+        type: 'zone',
+        name: 'Belém / Ajuda',
+        price: '3.200 – 5.200 €/m²',
+        for: 'Compradores sensíveis ao preço, famílias jovens, investidores de longo prazo',
+        vibe: 'Histórico, turístico na zona ribeirinha, mais residencial e tranquilo no interior, em crescimento gradual',
+        future: 'Moderado a alto. A extensão da frente ribeirinha de Lisboa para oeste está em curso. Novos equipamentos culturais e urbanos previstos.',
+        watch: 'Algumas zonas de Ajuda têm pouca oferta de transportes e comércio de proximidade. Verifique a acessibilidade específica do imóvel.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Belém tem monumentos e pastéis de nata — mas a zona de Ajuda, logo a seguir, tem preços que poucas áreas de Lisboa conseguem oferecer a tão curta distância do centro. É possível encontrar T2 com boas características abaixo dos 350.000€, o que em 2026 é raro na cidade.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A aposta tem lógica: a extensão da EDP e de novos projectos culturais junto ao Tejo vai trazer mais população e mais serviços para este corredor ao longo dos próximos anos. Quem comprar agora entra ainda antes da valorização estar totalmente reflectida nos preços.',
+      },
+      {
+        type: 'paragraph',
+        text: 'A desvantagem real é a acessibilidade. Sem carro, algumas zonas de Ajuda podem sentir-se isoladas. Antes de comprar, faça a viagem de transportes públicos até ao trabalho — na hora de ponta, para perceber se funciona.',
+      },
+      {
+        type: 'divider',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Resumo: quem deve escolher o quê',
+      },
+      {
+        type: 'list',
+        items: [
+          'Quer vibração urbana e ainda entrar antes do pico → Marvila',
+          'Orçamento alto, quer o melhor endereço da cidade → Príncipe Real',
+          'Família com crianças, precisa de praticidade → Parque das Nações',
+          'Menor orçamento, aceita obras, horizonte longo → Mouraria ou Belém/Ajuda',
+          'Quer vida de bairro sem turismo, no centro → Campo de Ourique',
+          'Aposta especulativa com menor capital → Belém/Ajuda ou Mouraria',
+        ],
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'A zona certa depende de si, não do bairro mais popular',
+      },
+      {
+        type: 'paragraph',
+        text: 'Lisboa tem bairros excelentes para perfis completamente diferentes. O erro mais comum que os compradores cometem é seguir tendências — "toda a gente fala em Marvila" — sem perceber se esse bairro se alinha com a sua vida, orçamento e objectivos.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Um bairro pode ser o melhor do mundo no geral e o errado para si em particular. A pergunta certa não é "qual o melhor bairro?" — é "qual o bairro certo para o meu perfil?".',
+      },
+      {
+        type: 'cta',
+        heading: 'Descubra a sua zona em 3 minutos',
+        body: 'Responda a 8 perguntas sobre orçamento, estilo de vida e prioridades. Recomendamos as zonas de Lisboa (e de Portugal) que melhor se encaixam no seu perfil — com contexto real, sem pressão de vendas.',
+        label: 'Fazer o quiz gratuito',
+        href: '/quiz',
+      },
+    ],
+  },
+  {
     id: '1',
     title: 'Os bairros de Lisboa que mais vão valorizar em 2025',
     slug: 'bairros-lisboa-valorizar-2025',
@@ -10,7 +473,7 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80',
     readTime: 6,
     date: '2025-03-12',
-    author: 'Equipa Editorial VERSO',
+    author: 'Equipa Editorial Habitta',
   },
   {
     id: '2',
@@ -21,7 +484,7 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80',
     readTime: 9,
     date: '2025-02-28',
-    author: 'Equipa Editorial VERSO',
+    author: 'Equipa Editorial Habitta',
   },
   {
     id: '3',
@@ -32,7 +495,7 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=800&q=80',
     readTime: 7,
     date: '2025-02-14',
-    author: 'Equipa Editorial VERSO',
+    author: 'Equipa Editorial Habitta',
   },
   {
     id: '4',
@@ -43,6 +506,6 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
     readTime: 5,
     date: '2025-01-30',
-    author: 'Equipa Editorial VERSO',
+    author: 'Equipa Editorial Habitta',
   },
 ]

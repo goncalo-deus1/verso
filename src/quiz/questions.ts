@@ -1,7 +1,7 @@
 /**
  * quiz/questions.ts
  *
- * Definições das 8 perguntas do quiz VERSO para casais.
+ * Definições das 9 perguntas do quiz Habitta.
  * Cada opção tem um `value` que mapeia directamente para o tipo da resposta.
  */
 
@@ -23,6 +23,19 @@ export interface QuizQuestionDef {
 export const questions: QuizQuestionDef[] = [
   {
     step: 1,
+    field: 'agregado_familiar',
+    question: 'Com quem vais viver nesta casa?',
+    subtext: 'A composição do agregado influencia o espaço, as escolas e o bairro ideal.',
+    options: [
+      { value: 'sozinho_a',            label: 'Sozinho/a' },
+      { value: 'casal_sem_filhos',     label: 'Casal sem filhos' },
+      { value: 'casal_com_filhos',     label: 'Casal com filhos em casa' },
+      { value: 'familia_monoparental', label: 'Pai ou mãe a solo' },
+      { value: 'ninho_vazio',          label: 'Filhos crescidos — a repensar o espaço' },
+    ],
+  },
+  {
+    step: 2,
     field: 'cidade_base',
     question: 'Onde precisam de estar durante a semana?',
     subtext: 'Pensem no vosso centro de gravidade actual — onde passam a maior parte do tempo.',
@@ -34,7 +47,7 @@ export const questions: QuizQuestionDef[] = [
     ],
   },
   {
-    step: 2,
+    step: 3,
     field: 'modo_trabalho',
     question: 'Como trabalham actualmente?',
     subtext: 'Considerem a situação dos dois — se for diferente, escolham o que define mais o dia-a-dia.',
@@ -45,7 +58,7 @@ export const questions: QuizQuestionDef[] = [
     ],
   },
   {
-    step: 3,
+    step: 4,
     field: 'tolerancia_commute',
     question: 'Qual o tempo máximo de deslocação aceitável?',
     subtext: 'De casa ao local de trabalho, cada sentido. Se for remoto, escolham o que prefeririam.',
@@ -57,7 +70,7 @@ export const questions: QuizQuestionDef[] = [
     ],
   },
   {
-    step: 4,
+    step: 5,
     field: 'orcamento',
     question: 'Qual o vosso orçamento para comprar casa?',
     subtext: 'Incluam o que podem financiar. Consideram o total disponível, não o que já têm em cash.',
@@ -69,7 +82,7 @@ export const questions: QuizQuestionDef[] = [
     ],
   },
   {
-    step: 5,
+    step: 6,
     field: 'lifestyle',
     question: 'Que estilo de vida preferem?',
     subtext: 'Pensem no dia-a-dia ideal, não apenas nos fins-de-semana.',
@@ -80,7 +93,7 @@ export const questions: QuizQuestionDef[] = [
     ],
   },
   {
-    step: 6,
+    step: 7,
     field: 'preferencia_casa',
     question: 'O que valorizam mais na casa?',
     subtext: 'Escolham o que é verdadeiramente prioritário — não o que seria ideal em todos.',
@@ -92,7 +105,7 @@ export const questions: QuizQuestionDef[] = [
     ],
   },
   {
-    step: 7,
+    step: 8,
     field: 'objetivo',
     question: 'Qual o principal objectivo da compra?',
     options: [
@@ -102,13 +115,13 @@ export const questions: QuizQuestionDef[] = [
     ],
   },
   {
-    step: 8,
+    step: 9,
     field: 'familia',
     question: 'Estão a planear mudanças familiares nos próximos anos?',
     subtext: 'A resposta influencia a adequação das zonas a diferentes fases de vida.',
     options: [
-      { value: 'manter_estilo',  label: 'Não, queremos manter o estilo de vida actual' },
-      { value: 'pensar_filhos',  label: 'Pensamos ter filhos' },
+      { value: 'manter_estilo',   label: 'Não, queremos manter o estilo de vida actual' },
+      { value: 'pensar_filhos',   label: 'Pensamos ter filhos' },
       { value: 'ja_temos_filhos', label: 'Já temos filhos' },
     ],
   },

@@ -16,10 +16,10 @@ export default function ProgressIndicator({ current, total }: Props) {
   return (
     <div className="w-full">
       {/* Barra de progresso superior */}
-      <div className="fixed top-0 left-0 right-0 z-50 h-0.5" style={{ background: '#D9D2C3' }}>
+      <div className="fixed top-0 left-0 right-0 z-50 h-0.5" style={{ background: 'rgba(30, 31, 24, 0.125)' }}>
         <div
           className="h-full transition-all duration-500 ease-out"
-          style={{ width: `${pct}%`, background: '#B8624A' }}
+          style={{ width: `${pct}%`, background: '#C2553A' }}
         />
       </div>
 
@@ -27,7 +27,7 @@ export default function ProgressIndicator({ current, total }: Props) {
       <div className="flex items-center gap-4">
         <span
           className="text-xs font-medium tabular-nums"
-          style={{ color: '#6B6B68', fontFamily: 'IBM Plex Mono' }}>
+          style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
           {current} / {total}
         </span>
 
@@ -43,7 +43,7 @@ export default function ProgressIndicator({ current, total }: Props) {
                   height: '3px',
                   borderRadius: '2px',
                   width: active ? '20px' : '6px',
-                  background: done ? '#B8624A' : active ? '#0E1116' : '#D9D2C3',
+                  background: done ? '#C2553A' : active ? '#1E1F18' : 'rgba(30, 31, 24, 0.125)',
                 }}
               />
             )

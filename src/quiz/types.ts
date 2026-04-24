@@ -1,7 +1,7 @@
 /**
  * quiz/types.ts
  *
- * Todos os tipos do sistema de quiz VERSO para casais.
+ * Todos os tipos do sistema de quiz Habitta para casais.
  * Scoped aqui para não poluir os tipos globais do projecto.
  */
 
@@ -51,8 +51,16 @@ export type Familia =
   | 'pensar_filhos'
   | 'ja_temos_filhos'
 
-/** Respostas completas do casal ao quiz de 8 perguntas. */
+export type AgregadoFamiliar =
+  | 'sozinho_a'
+  | 'casal_sem_filhos'
+  | 'casal_com_filhos'
+  | 'familia_monoparental'
+  | 'ninho_vazio'
+
+/** Respostas completas do casal ao quiz de 9 perguntas. */
 export interface QuizAnswers {
+  agregado_familiar: AgregadoFamiliar
   cidade_base: CidadeBase
   modo_trabalho: ModoTrabalho
   tolerancia_commute: ToleranciaCommute

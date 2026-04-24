@@ -1,7 +1,7 @@
 /**
  * matchPhrases.ts
  *
- * 18 entradas (9 dimensões × 2 níveis) em português europeu, voz VERSO.
+ * 18 entradas (9 dimensões × 2 níveis) em português europeu, voz Habitta.
  * Cada função recebe o nome do sítio e devolve uma frase que acaba em ponto final.
  */
 

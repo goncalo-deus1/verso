@@ -1,4 +1,4 @@
-// ─── VERSO Copilot — Flow Definitions & Scoring ───────────────────────────────
+// ─── Habitta Copilot — Flow Definitions & Scoring ───────────────────────────────
 import type { FlowStep, BuyerProfile, Recommendation } from './types'
 import { areas } from '../../data/areas'
 

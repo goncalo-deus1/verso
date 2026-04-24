@@ -11,19 +11,19 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div style={{ border: '1px solid #E8E4DC' }}>
+    <div style={{ border: '1px solid rgba(30, 31, 24, 0.125)' }}>
       {/* Header */}
-      <div style={{ background: '#FAF8F3', borderBottom: '1px solid #E8E4DC' }} className="px-6 py-5">
+      <div style={{ background: '#F2EDE4', borderBottom: '1px solid rgba(30, 31, 24, 0.125)' }} className="px-6 py-5">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 flex items-center justify-center" style={{ background: '#E8E4DC' }}>
-              <MapPin size={14} style={{ color: '#5A5A5A' }} />
+            <div className="w-8 h-8 flex items-center justify-center" style={{ background: 'rgba(30, 31, 24, 0.125)' }}>
+              <MapPin size={14} style={{ color: '#3A3B2E' }} />
             </div>
             <div>
-              <h3 className="font-display text-lg" style={{ color: '#0A0A0B', letterSpacing: '-0.3px' }}>
+              <h3 className="font-display text-lg" style={{ color: '#1E1F18', letterSpacing: '-0.3px' }}>
                 Contexto Urbanístico
               </h3>
-              <p className="text-xs mt-0.5" style={{ color: '#9A9590', fontFamily: 'IBM Plex Mono' }}>
+              <p className="text-xs mt-0.5" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
                 {data.municipality} — planeamento territorial
               </p>
             </div>
@@ -31,7 +31,7 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
           <button
             onClick={() => setExpanded(!expanded)}
             className="flex items-center gap-1.5 text-xs font-medium transition-colors duration-150"
-            style={{ color: '#9A9590' }}
+            style={{ color: '#3A3B2E' }}
           >
             {expanded ? <><ChevronUp size={13} /> Menos</> : <><ChevronDown size={13} /> Ver tudo</>}
           </button>
@@ -42,12 +42,12 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
         {/* PDM Status */}
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <FileText size={13} style={{ color: '#9A9590' }} />
-            <span className="text-xs font-semibold uppercase" style={{ color: '#9A9590', letterSpacing: '2px', fontFamily: 'IBM Plex Mono' }}>
+            <FileText size={13} style={{ color: '#3A3B2E' }} />
+            <span className="text-xs font-semibold uppercase" style={{ color: '#3A3B2E', letterSpacing: '2px', fontFamily: 'IBM Plex Mono' }}>
               Plano Director Municipal
             </span>
           </div>
-          <p className="text-sm font-medium" style={{ color: '#0A0A0B' }}>{data.pdmStatus}</p>
+          <p className="text-sm font-medium" style={{ color: '#1E1F18' }}>{data.pdmStatus}</p>
 
           <div className="mt-3">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold"
@@ -64,13 +64,13 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
         {/* Planning notes */}
         {data.planningNotes.length > 0 && (
           <div>
-            <p className="text-xs font-semibold uppercase mb-3" style={{ color: '#9A9590', letterSpacing: '2px', fontFamily: 'IBM Plex Mono' }}>
+            <p className="text-xs font-semibold uppercase mb-3" style={{ color: '#3A3B2E', letterSpacing: '2px', fontFamily: 'IBM Plex Mono' }}>
               Condicionantes e zonamento
             </p>
             <ul className="space-y-2">
               {data.planningNotes.map((note, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: '#5A5A5A' }}>
-                  <span className="w-1 h-1 mt-2 flex-shrink-0" style={{ background: '#C45D3E', borderRadius: '50%' }} />
+                <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: '#3A3B2E' }}>
+                  <span className="w-1 h-1 mt-2 flex-shrink-0" style={{ background: '#C2553A', borderRadius: '50%' }} />
                   {note}
                 </li>
               ))}
@@ -81,17 +81,17 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
         {/* Nearby projects (expanded) */}
         {expanded && data.nearbyProjects.length > 0 && (
           <div>
-            <p className="text-xs font-semibold uppercase mb-3" style={{ color: '#9A9590', letterSpacing: '2px', fontFamily: 'IBM Plex Mono' }}>
+            <p className="text-xs font-semibold uppercase mb-3" style={{ color: '#3A3B2E', letterSpacing: '2px', fontFamily: 'IBM Plex Mono' }}>
               Sinais de transformação urbana
             </p>
-            <div className="p-4 space-y-2.5" style={{ background: '#FAF8F3', border: '1px solid #E8E4DC' }}>
-              <p className="text-xs leading-relaxed mb-3" style={{ color: '#9A9590' }}>
+            <div className="p-4 space-y-2.5" style={{ background: '#F2EDE4', border: '1px solid rgba(30, 31, 24, 0.125)' }}>
+              <p className="text-xs leading-relaxed mb-3" style={{ color: '#3A3B2E' }}>
                 Os projetos abaixo são sinais de planeamento e não devem ser interpretados como obras confirmadas.
               </p>
               {data.nearbyProjects.map((project, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <span className="text-xs mt-0.5 flex-shrink-0" style={{ color: '#C45D3E' }}>◆</span>
-                  <p className="text-sm" style={{ color: '#5A5A5A' }}>{project}</p>
+                  <span className="text-xs mt-0.5 flex-shrink-0" style={{ color: '#C2553A' }}>◆</span>
+                  <p className="text-sm" style={{ color: '#3A3B2E' }}>{project}</p>
                 </div>
               ))}
             </div>
@@ -101,16 +101,16 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
         {!expanded && data.nearbyProjects.length > 0 && (
           <button onClick={() => setExpanded(true)}
             className="text-xs font-medium transition-colors duration-150"
-            style={{ color: '#C45D3E' }}>
+            style={{ color: '#C2553A' }}>
             + {data.nearbyProjects.length} {data.nearbyProjects.length === 1 ? 'sinal' : 'sinais'} de transformação urbana
           </button>
         )}
 
         {propertyAddress && (
-          <div className="px-4 py-3 flex items-start gap-2" style={{ background: '#FAF8F3' }}>
-            <MapPin size={12} style={{ color: '#9A9590', marginTop: '2px', flexShrink: 0 }} />
-            <p className="text-xs leading-relaxed" style={{ color: '#9A9590' }}>
-              <strong style={{ color: '#5A5A5A' }}>Imóvel:</strong> {propertyAddress}
+          <div className="px-4 py-3 flex items-start gap-2" style={{ background: '#F2EDE4' }}>
+            <MapPin size={12} style={{ color: '#3A3B2E', marginTop: '2px', flexShrink: 0 }} />
+            <p className="text-xs leading-relaxed" style={{ color: '#3A3B2E' }}>
+              <strong style={{ color: '#3A3B2E' }}>Imóvel:</strong> {propertyAddress}
             </p>
           </div>
         )}
@@ -118,14 +118,14 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
         {/* Official source */}
         <a href={data.officialSourceUrl} target="_blank" rel="noopener noreferrer"
           className="flex items-center gap-2 text-sm font-medium transition-colors duration-150"
-          style={{ color: '#C45D3E' }}>
+          style={{ color: '#C2553A' }}>
           <ExternalLink size={13} />
           Fonte oficial — {data.municipality}
         </a>
 
         {/* Disclaimer */}
         <div className="p-4 flex items-start gap-3" style={{ background: '#FFF7ED', border: '1px solid #FED7AA' }}>
-          <AlertCircle size={14} style={{ color: '#C45D3E', marginTop: '1px', flexShrink: 0 }} />
+          <AlertCircle size={14} style={{ color: '#C2553A', marginTop: '1px', flexShrink: 0 }} />
           <p className="text-xs leading-relaxed" style={{ color: '#78350F' }}>
             <strong>Aviso legal:</strong> {data.disclaimer}
           </p>

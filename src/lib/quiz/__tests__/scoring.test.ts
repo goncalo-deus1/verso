@@ -1,123 +1,126 @@
 import { describe, it, expect } from 'vitest'
 import { scoreAnswers } from '../scoring'
 import type { QuizAnswers } from '../scoring'
-import { freguesias } from '../../../data/freguesias'
-import { concelhos } from '../../../data/concelhos'
-import { VECTOR_DIMENSIONS } from '../../../data/vectorSchema'
-import { computeConcelhoVectorFromFreguesias } from '../../../data/concelhos'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function slugsOf(recs: ReturnType<typeof scoreAnswers>) {
-  return recs.map(r => r.slug)
+function topSlugs(result: ReturnType<typeof scoreAnswers>): string[] {
+  return [result.best.slug, ...result.alternatives.map(a => a.slug)]
 }
 
-const PORTUGUESE_TRIGGER_WORDS = ['Disseste', 'Pediste', 'Aceitas', 'Procuras', 'Escolheste', 'Quiseste', 'Querias']
+function randomAnswers(): QuizAnswers {
+  const pick = <T,>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)]
+  return {
+    q1_household: pick(['h1', 'h2', 'h3', 'h4'] as const),
+    q2_budget:    pick(['b1', 'b2', 'b3', 'b4', 'b5', 'b6'] as const),
+    q3_lifestyle: pick(['l1', 'l2', 'l3', 'l4', 'l5'] as const),
+    q4_work:      pick(['w1', 'w2', 'w3', 'w4'] as const),
+    q5_commute:   pick(['c1', 'c2', 'c3', 'c4'] as const),
+    q6_intent:    pick(['i1', 'i2', 'i3', 'i4'] as const),
+    q7_priority:  [pick(['p1', 'p2', 'p3', 'p4', 'p5', 'p6'] as const)],
+    q8_dwelling:  pick(['d1', 'd2', 'd3'] as const),
+    q9_maturity:  pick(['m1', 'm2', 'm3'] as const),
+  }
+}
 
 // ─── Testes ───────────────────────────────────────────────────────────────────
 
 describe('scoreAnswers', () => {
 
-  it('1. Perfil Campo de Ourique aparece no top 3', () => {
+  it('1. Perfil urbano → zona central de Lisboa é a melhor', () => {
     const answers: QuizAnswers = {
-      q1_pace: 'quiet',
-      q2_distance: 'walking',
-      q3_saturday: ['market'],
-      q4_trade: 'smaller-for-street',
+      q1_household: 'h2',
+      q3_lifestyle: 'l1',
+      q4_work:      'w1',
+      q5_commute:   'c1',
+      q7_priority:  ['p3'],
+      q9_maturity:  'm1',
     }
-    const results = scoreAnswers(answers, freguesias, concelhos)
-    expect(slugsOf(results)).toContain('campo-de-ourique')
+    const result = scoreAnswers(answers)
+    const centralZones = ['santo-antonio', 'santa-maria-maior', 'misericordia', 'avenidas-novas']
+    expect(centralZones).toContain(result.best.slug)
   })
 
-  it('2. Perfil Parque das Nações aparece no top 3', () => {
+  it('2. Perfil familiar e suburbano → Oeiras, Cascais ou Alvalade é a melhor', () => {
     const answers: QuizAnswers = {
-      q1_pace: 'quiet',
-      q2_distance: 'further',
-      q3_saturday: ['coast'],
-      q4_trade: 'quieter-for-family',
-      q5_stage: 'family',
+      q1_household: 'h3',
+      q2_budget:    'b3',
+      q3_lifestyle: 'l3',
+      q4_work:      'w2',
+      q5_commute:   'c3',
+      q7_priority:  ['p4'],
+      q8_dwelling:  'd2',
+      q9_maturity:  'm1',
     }
-    const results = scoreAnswers(answers, freguesias, concelhos)
-    expect(slugsOf(results)).toContain('parque-das-nacoes')
+    const result = scoreAnswers(answers)
+    expect(['oeiras', 'cascais', 'alvalade']).toContain(result.best.slug)
   })
 
-  it('3. scoreAnswers devolve sempre exactamente 3 recomendações', () => {
+  it('3. Perfil à beira-mar → Cascais ou Parque das Nações nas top 3', () => {
     const answers: QuizAnswers = {
-      q1_pace: 'gentle-bustle',
-      q2_distance: 'one-ride',
-      q3_saturday: ['culture'],
-      q4_trade: 'pay-more-for-walkable',
+      q1_household: 'h2',
+      q3_lifestyle: 'l4',
+      q7_priority:  ['p5'],
+      q9_maturity:  'm2',
     }
-    const results = scoreAnswers(answers, freguesias, concelhos)
-    expect(results).toHaveLength(3)
+    const result = scoreAnswers(answers)
+    const slugs = topSlugs(result)
+    expect(slugs.some(s => s === 'cascais' || s === 'parque-das-nacoes')).toBe(true)
   })
 
-  it('4. Nunca há três recomendações do mesmo concelho', () => {
+  it('4. Orçamento b1 filtra zonas caras — Santa Maria Maior e Misericórdia não aparecem', () => {
     const answers: QuizAnswers = {
-      q1_pace: 'quiet',
-      q2_distance: 'walking',
-      q3_saturday: ['market', 'culture'],
-      q4_trade: 'smaller-for-street',
-      q5_stage: 'first-home',
+      q2_budget:    'b1',
+      q3_lifestyle: 'l1',
+      q4_work:      'w1',
     }
-    const results = scoreAnswers(answers, freguesias, concelhos)
-    const concelhoSlugs = results.map(r =>
-      r.kind === 'freguesia'
-        ? (concelhos.find(c => c.slug === (r as { kind: 'freguesia'; slug: string; concelhoName?: string }).concelhoName?.toLowerCase().replace(/\s+/g, '-')) ?? concelhos.find(c => c.slug === r.slug))?.slug ?? r.slug
-        : r.slug
-    )
-    // Verifica que não há 3 iguais
-    const counts = concelhoSlugs.reduce<Record<string, number>>((acc, s) => {
-      if (s) acc[s] = (acc[s] ?? 0) + 1
-      return acc
-    }, {})
-    const max = Math.max(...Object.values(counts))
-    expect(max).toBeLessThan(3)
+    const result = scoreAnswers(answers)
+    const slugs = topSlugs(result)
+    expect(slugs).not.toContain('santa-maria-maior')
+    expect(slugs).not.toContain('misericordia')
   })
 
-  it('5. Valores do user vector são clampados a [0, 3] com deltas extremos', () => {
-    const answers: QuizAnswers = {
-      q1_pace: 'quiet',            // pace: -1.5
-      q2_distance: 'walking',      // central: +1.5, walkable: +1.5
-      q3_saturday: ['market', 'culture'], // central: +1, character: +1.5, food: +1
-      q4_trade: 'smaller-for-street',    // character: +1.5, central: +0.5, price: +1
-      q5_stage: 'first-home',            // central: +0.5
-    }
-    // central ficaria em 1.5+1.5+1+0.5+0.5 = 5 sem clamp → verificamos que há 3 resultados válidos
-    const results = scoreAnswers(answers, freguesias, concelhos)
-    expect(results).toHaveLength(3)
-    for (const r of results) {
-      expect(Number.isFinite(r.distance)).toBe(true)
-      expect(r.distance).toBeGreaterThanOrEqual(0)
+  it('5. Score é sempre 0–100 em 100 runs aleatórios', () => {
+    for (let i = 0; i < 100; i++) {
+      const result = scoreAnswers(randomAnswers())
+      expect(result.best.score).toBeGreaterThanOrEqual(0)
+      expect(result.best.score).toBeLessThanOrEqual(100)
+      for (const alt of result.alternatives) {
+        expect(alt.score).toBeGreaterThanOrEqual(0)
+        expect(alt.score).toBeLessThanOrEqual(100)
+      }
     }
   })
 
-  it('6. Cada matchReason é não-vazia, acaba em ponto final, e contém palavra portuguesa', () => {
+  it('6. As alternativas nunca têm mais de 2 do mesmo concelho que a melhor zona', () => {
     const answers: QuizAnswers = {
-      q1_pace: 'full-engine',
-      q2_distance: 'walking',
-      q3_saturday: ['culture', 'hosting'],
-      q4_trade: 'pay-more-for-walkable',
-      q5_stage: 'relocating',
+      q1_household: 'h2',
+      q3_lifestyle: 'l1',
+      q4_work:      'w1',
+      q5_commute:   'c1',
+      q7_priority:  ['p3'],
+      q9_maturity:  'm1',
     }
-    const results = scoreAnswers(answers, freguesias, concelhos)
-    for (const r of results) {
-      expect(r.matchReason.length).toBeGreaterThan(0)
-      expect(r.matchReason.trimEnd().endsWith('.')).toBe(true)
-      const hasPortugueseWord = PORTUGUESE_TRIGGER_WORDS.some(w => r.matchReason.includes(w))
-      expect(hasPortugueseWord).toBe(true)
-    }
+    const result = scoreAnswers(answers)
+    const bestConcelhoSlug = result.best.concelhoSlug
+    const sameCount = result.alternatives.filter(a => a.concelhoSlug === bestConcelhoSlug).length
+    expect(sameCount).toBeLessThanOrEqual(2)
   })
 
-  it('7. Vector de Lisboa calculado a partir das suas freguesias é aproximadamente correcto', () => {
-    const lisboa = concelhos.find(c => c.slug === 'lisboa')
-    expect(lisboa).toBeDefined()
-    if (!lisboa) return
-
-    const computed = computeConcelhoVectorFromFreguesias('lisboa', freguesias)
-
-    for (const dim of VECTOR_DIMENSIONS) {
-      expect(Math.abs(computed[dim] - lisboa.vector[dim])).toBeLessThanOrEqual(0.01)
+  it('7. Trade-off é sempre string não vazia terminada em ponto final', () => {
+    const answers: QuizAnswers = {
+      q1_household: 'h2',
+      q3_lifestyle: 'l2',
+      q4_work:      'w2',
+      q5_commute:   'c2',
+      q9_maturity:  'm2',
+    }
+    const result = scoreAnswers(answers)
+    expect(result.best.tradeoff.length).toBeGreaterThan(0)
+    expect(result.best.tradeoff.trimEnd().endsWith('.')).toBe(true)
+    for (const alt of result.alternatives) {
+      expect(alt.tradeoff.length).toBeGreaterThan(0)
+      expect(alt.tradeoff.trimEnd().endsWith('.')).toBe(true)
     }
   })
 

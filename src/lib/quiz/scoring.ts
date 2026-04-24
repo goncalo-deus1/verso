@@ -1,206 +1,152 @@
-/**
- * scoring.ts — Motor de recomendação do quiz VERSO
- *
- * 1. Converte respostas em vector de utilizador (9 dimensões, escala 0–3)
- * 2. Calcula distância euclidiana para cada freguesia e cada concelho
- * 3. Aplica regras de mistura (máx 1 por concelho, barreira de 1.5 para freguesias)
- * 4. Devolve exactamente 3 recomendações
- * 5. Gera matchReason a partir da dimensão mais alinhada
- */
+// scoring.ts — Motor de recomendação do quiz Habitta (v2)
+// Passo 1: perfil de utilizador (profileBuilder.ts)
+// Passo 2: filtro de orçamento
+// Passo 3: pesos dinâmicos (weights.ts)
+// Passo 4: distância euclidiana ponderada → score 0–100
+// Passo 5: top 1 + até 3 alternativas com regra de diversidade de concelho
 
-import type { ZoneVector } from '../../data/vectorSchema'
-import { VECTOR_DIMENSIONS } from '../../data/vectorSchema'
-import type { Freguesia } from '../../data/freguesias'
-import type { Concelho } from '../../data/concelhos'
-import { matchPhrases } from './matchPhrases'
+import { zones, getZoneConcelhoId } from '../../data/zones'
+import { ATTRIBUTES } from '../../data/attributes'
+import type { Zone } from '../../data/zones'
+import type { ZoneProfile } from '../../data/attributes'
+import { buildProfile } from './profileBuilder'
+import { getWeights, maxDistance } from './weights'
+import type { Weights } from './weights'
+import { getTradeoff, getJustification } from './tradeoffs'
+import type { QuizAnswers } from './questions'
 
-// ─── Tipos públicos ───────────────────────────────────────────────────────────
+export type { QuizAnswers }
 
-export type QuizAnswers = {
-  q1_pace: 'quiet' | 'gentle-bustle' | 'full-engine'
-  q2_distance: 'walking' | 'one-ride' | 'further'
-  q3_saturday: Array<'market' | 'coast' | 'culture' | 'hosting' | 'weekend-away'>
-  q4_trade: 'smaller-for-street' | 'longer-commute-for-space' | 'pay-more-for-walkable' | 'quieter-for-family'
-  q5_stage?: 'first-home' | 'family' | 'downsizing' | 'relocating' | 'prefer-not-say'
+export type ScoredZone = {
+  zone:          Zone
+  slug:          string         // zone.slug — atalho para testes e UI
+  vector:        ZoneProfile    // zone.profile — atalho para inspecção nos testes
+  concelhoSlug:  string         // ID de concelho (para regra de diversidade)
+  score:         number         // 0–100, 100 é match perfeito
+  justification: string
+  tradeoff:      string
 }
 
-export type Recommendation = {
-  kind: 'freguesia' | 'concelho'
-  slug: string
-  name: string
-  concelhoName?: string   // preenchido se kind === 'freguesia'
-  distance: number        // distância euclidiana — menor = melhor
-  matchReason: string     // em português, termina em ponto final
-  oneLine: string
-  vector: ZoneVector
+export type QuizResult = {
+  best:            ScoredZone
+  alternatives:    ScoredZone[]
+  lowScoreWarning: boolean
 }
 
-// ─── Conversão de respostas em vector ────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function clamp(v: number): number {
-  return Math.min(3, Math.max(0, v))
+function euclideanScore(
+  userProfile: ZoneProfile,
+  zoneProfile: ZoneProfile,
+  weights: Weights,
+): number {
+  const rawDistance = Math.sqrt(
+    ATTRIBUTES.reduce((sum, attr) => {
+      const delta = userProfile[attr] - zoneProfile[attr]
+      return sum + delta * delta * weights[attr]
+    }, 0),
+  )
+  const maxDist = maxDistance(weights)
+  return Math.round(100 * (1 - rawDistance / maxDist))
 }
 
-function answersToVector(answers: QuizAnswers): Record<string, number> {
-  const vec: Record<string, number> = {
-    pace: 1.5, central: 1.5, green: 1.5, night: 1.5,
-    family: 1.5, food: 1.5, walkable: 1.5, price: 1.5, character: 1.5,
-  }
+function applyBudgetFilter(
+  allZones: Zone[],
+  maxBudget: number | null | typeof Infinity,
+): Zone[] {
+  // b6 "Ainda estou a definir" (null) → não filtra
+  if (maxBudget === null) return allZones
+  // b5 "Mais de 1M" (Infinity) → não filtra
+  if (maxBudget === Infinity) return allZones
 
-  // Q1 — ritmo da rua
-  if (answers.q1_pace === 'quiet')         vec.pace    -= 1.5
-  if (answers.q1_pace === 'gentle-bustle') vec.pace    += 0.5
-  if (answers.q1_pace === 'full-engine')   vec.pace    += 1.5
+  const maxMonthlyRent = maxBudget / 300
 
-  // Q2 — distância ao centro
-  if (answers.q2_distance === 'walking') {
-    vec.central  += 1.5
-    vec.walkable += 1.5
-  }
-  if (answers.q2_distance === 'further') {
-    vec.central  -= 1.5
-    vec.green    += 1
-    vec.price    -= 0.5
-  }
+  const filtered = allZones.filter(z => {
+    if (!z.budgetFitT2) return true   // sem dados → passa
+    return z.budgetFitT2.min <= maxMonthlyRent
+  })
 
-  // Q3 — sábado ideal (multi-select)
-  for (const choice of answers.q3_saturday) {
-    if (choice === 'market')      { vec.food      += 1;   vec.character += 0.5 }
-    if (choice === 'coast')       { vec.green     += 1;   vec.central   -= 0.5 }
-    if (choice === 'culture')     { vec.central   += 1;   vec.character += 1 }
-    if (choice === 'hosting')     { vec.family    += 0.5; vec.green     += 0.5 }
-    // 'weekend-away' → neutro
-  }
-
-  // Q4 — trade-off
-  if (answers.q4_trade === 'smaller-for-street')       { vec.character += 1.5; vec.central  += 0.5; vec.price += 1 }
-  if (answers.q4_trade === 'longer-commute-for-space') { vec.central   -= 1;   vec.green    += 1 }
-  if (answers.q4_trade === 'pay-more-for-walkable')    { vec.walkable  += 1.5; vec.central  += 1 }
-  if (answers.q4_trade === 'quieter-for-family')       { vec.family    += 1.5; vec.night    -= 1 }
-
-  // Q5 — fase de vida (opcional)
-  if (answers.q5_stage === 'family')     { vec.family  += 1;   vec.night   -= 0.5 }
-  if (answers.q5_stage === 'first-home') { vec.central += 0.5 }
-  if (answers.q5_stage === 'downsizing') { vec.pace    -= 0.5 }
-
-  // Clamp a [0, 3]
-  for (const dim of VECTOR_DIMENSIONS) {
-    vec[dim] = clamp(vec[dim])
-  }
-
-  return vec
-}
-
-// ─── Distância euclidiana ────────────────────────────────────────────────────
-
-function euclidean(userVec: Record<string, number>, zoneVec: ZoneVector): number {
-  let sum = 0
-  for (const dim of VECTOR_DIMENSIONS) {
-    const diff = userVec[dim] - zoneVec[dim]
-    sum += diff * diff
-  }
-  return Math.sqrt(sum)
-}
-
-// ─── Geração do matchReason ──────────────────────────────────────────────────
-
-function generateMatchReason(userVec: Record<string, number>, zoneVec: ZoneVector, name: string): string {
-  let bestDim: typeof VECTOR_DIMENSIONS[number] = VECTOR_DIMENSIONS[0]
-  let bestDiff = Infinity
-
-  for (const dim of VECTOR_DIMENSIONS) {
-    const diff = Math.abs(userVec[dim] - zoneVec[dim])
-    if (diff < bestDiff) {
-      bestDiff = diff
-      bestDim  = dim
-    }
-  }
-
-  const level = zoneVec[bestDim] >= 2 ? 'high' : 'low'
-  const key   = `${bestDim}-${level}`
-  const fn    = matchPhrases[key]
-
-  if (!fn) {
-    return `${name} alinha bem com o que disseste sobre o teu dia-a-dia.`
-  }
-
-  return fn(name)
-}
-
-// ─── Regras de mistura freguesia/concelho ────────────────────────────────────
-
-/**
- * scoreAnswers
- *
- * Devolve sempre exactamente 3 recomendações.
- * Regras:
- * - Pool combinada: todas as freguesias + todos os concelhos, ordenados por distância euclidiana.
- * - Nunca inclui duas entradas do mesmo concelho (uma freguesia bloqueia o seu concelho e vice-versa).
- * - Prefere freguesias quando disponíveis — por entrarem no pool pela mesma ordem de distância.
- */
-export function scoreAnswers(
-  answers: QuizAnswers,
-  allFreguesias: Freguesia[],
-  allConcelhos: Concelho[]
-): Recommendation[] {
-  const userVec = answersToVector(answers)
-
-  type Candidate = {
-    kind: 'freguesia' | 'concelho'
-    slug: string
-    name: string
-    concelhoSlug: string
-    concelhoName?: string
-    distance: number
-    oneLine: string
-    vector: ZoneVector
-  }
-
-  // Score todas as freguesias
-  const scoredFreguesias: Candidate[] = allFreguesias.map(f => ({
-    kind: 'freguesia',
-    slug: f.slug,
-    name: f.name,
-    concelhoSlug: f.concelhoSlug,
-    concelhoName: allConcelhos.find(c => c.slug === f.concelhoSlug)?.name,
-    distance: euclidean(userVec, f.vector),
-    oneLine: f.oneLine,
-    vector: f.vector,
-  }))
-
-  // Score todos os concelhos
-  const scoredConcelhos: Candidate[] = allConcelhos.map(c => ({
-    kind: 'concelho',
-    slug: c.slug,
-    name: c.name,
-    concelhoSlug: c.slug,
-    distance: euclidean(userVec, c.vector),
-    oneLine: c.oneLine,
-    vector: c.vector,
-  }))
-
-  // Pool combinada, ordenada por distância crescente
-  const pool = [...scoredFreguesias, ...scoredConcelhos]
-    .sort((a, b) => a.distance - b.distance)
-
-  const results: Recommendation[] = []
-  const usedConcelhos = new Set<string>()
-
-  for (const candidate of pool) {
-    if (results.length >= 3) break
-    if (usedConcelhos.has(candidate.concelhoSlug)) continue
-    usedConcelhos.add(candidate.concelhoSlug)
-    results.push({
-      kind: candidate.kind,
-      slug: candidate.slug,
-      name: candidate.name,
-      concelhoName: candidate.concelhoName,
-      distance: candidate.distance,
-      matchReason: generateMatchReason(userVec, candidate.vector, candidate.name),
-      oneLine: candidate.oneLine,
-      vector: candidate.vector,
+  // Relaxa +20% se sobram menos de 10 zonas
+  if (filtered.length < 10) {
+    return allZones.filter(z => {
+      if (!z.budgetFitT2) return true
+      return z.budgetFitT2.min <= maxMonthlyRent * 1.2
     })
   }
 
-  return results
+  return filtered
+}
+
+function selectAlternatives(
+  ranked: ScoredZone[],
+  bestZone: Zone,
+  maxCount: number,
+): ScoredZone[] {
+  const bestConcelhoId = getZoneConcelhoId(bestZone)
+  const result: ScoredZone[] = []
+  let sameConcelhoCount = 0
+
+  for (const candidate of ranked) {
+    if (result.length >= maxCount) break
+    if (candidate.concelhoSlug === bestConcelhoId && sameConcelhoCount >= 2) continue
+    if (candidate.concelhoSlug === bestConcelhoId) sameConcelhoCount++
+    result.push(candidate)
+  }
+
+  return result
+}
+
+// ─── Função principal ─────────────────────────────────────────────────────────
+
+export function scoreAnswers(answers: QuizAnswers): QuizResult {
+  const userProfile = buildProfile(answers)
+  const weights     = getWeights(answers)
+
+  // Filtro de orçamento (q2_budget)
+  const budgetOption = answers.q2_budget
+  let filtered: Zone[]
+
+  if (!budgetOption) {
+    filtered = zones
+  } else {
+    const maxBudgets: Record<string, number | null | typeof Infinity> = {
+      b1: 250_000,
+      b2: 400_000,
+      b3: 600_000,
+      b4: 1_000_000,
+      b5: Infinity,
+      b6: null,       // "Ainda estou a definir" — não filtra
+    }
+    const maxBudget = maxBudgets[budgetOption] ?? null
+    filtered = applyBudgetFilter(zones, maxBudget)
+  }
+
+  // Pontuação de cada zona
+  const scored: ScoredZone[] = filtered
+    .map(zone => ({
+      zone,
+      slug:         zone.slug,
+      vector:       zone.profile,
+      concelhoSlug: getZoneConcelhoId(zone),
+      score:        euclideanScore(userProfile, zone.profile, weights),
+      justification: getJustification(userProfile, zone.profile, weights),
+      tradeoff:     getTradeoff(userProfile, zone.profile, weights),
+    }))
+    .sort((a, b) => b.score - a.score)
+
+  const viable = scored.filter(s => s.score >= 40)
+  const lowScoreWarning = viable.length === 0
+
+  if (lowScoreWarning) {
+    return {
+      best:            scored[0],
+      alternatives:    scored.slice(1, 4),
+      lowScoreWarning: true,
+    }
+  }
+
+  const best         = viable[0]
+  const alternatives = selectAlternatives(viable.slice(1), best.zone, 3)
+
+  return { best, alternatives, lowScoreWarning: false }
 }

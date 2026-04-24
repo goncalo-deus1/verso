@@ -64,6 +64,7 @@ export type ContentBlock =
   | { type: 'zone'; name: string; price: string; for: string; vibe: string; future: string; watch: string }
   | { type: 'divider' }
   | { type: 'cta'; heading: string; body: string; label: string; href: string }
+  | { type: 'table'; headers: string[]; rows: string[][] }
 
 export interface Editorial {
   id: string

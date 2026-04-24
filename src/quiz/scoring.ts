@@ -178,24 +178,54 @@ export function scoreObjetivo(zone: Zone, answers: QuizAnswers): number {
 /**
  * Adequação da zona ao perfil familiar do casal.
  *
- * Mapeamento:
- *  - manter_estilo    → qualidadeVida (querem o que têm, bem-estar geral)
- *  - pensar_filhos    → média família + qualidadeVida (preparar terreno)
- *  - ja_temos_filhos  → zona.familia directamente (escolas, espaço, segurança)
+ * Combina duas respostas:
+ *  - agregado_familiar: composição actual do agregado
+ *  - familia: planos futuros
+ *
+ * Quem já tem filhos ou é monoparental → zona.familia pesa mais.
+ * Quem está sozinho/a → zona.familia pesa menos; qualidadeVida domina.
+ * Ninho vazio → tranquilidade e qualidade de vida.
  */
 export function scoreFamilia(zone: Zone, answers: QuizAnswers): number {
   const PESO = 10
 
+  // Peso base do atributo familia da zona consoante o agregado actual
+  let familiaWeight: number
+  switch (answers.agregado_familiar) {
+    case 'casal_com_filhos':
+    case 'familia_monoparental':
+      familiaWeight = 0.8
+      break
+    case 'casal_sem_filhos':
+      familiaWeight = 0.5
+      break
+    case 'ninho_vazio':
+      familiaWeight = 0.3
+      break
+    case 'sozinho_a':
+    default:
+      familiaWeight = 0.2
+      break
+  }
+  const qualidadeWeight = 1 - familiaWeight
+
+  // Ajuste consoante planos futuros
   switch (answers.familia) {
-    case 'manter_estilo': {
-      return clamp(Math.round(norm(zone.qualidadeVida, PESO)), PESO)
+    case 'ja_temos_filhos': {
+      // Já foi capturado pelo agregado — zona.familia pesa 100%
+      return clamp(Math.round(norm(zone.familia, PESO)), PESO)
     }
     case 'pensar_filhos': {
-      const v = (zone.familia * 0.6) + (zone.qualidadeVida * 0.4)
+      // Preparar terreno: mistura do peso do agregado com reforço futuro
+      const boostedFamilia = Math.min(1, familiaWeight + 0.2)
+      const v = (zone.familia * boostedFamilia) + (zone.qualidadeVida * (1 - boostedFamilia))
       return clamp(Math.round(norm(v, PESO)), PESO)
     }
-    case 'ja_temos_filhos': {
-      return clamp(Math.round(norm(zone.familia, PESO)), PESO)
+    case 'manter_estilo':
+    default: {
+      // Sem planos de mudança → mix baseado puramente no agregado actual
+      const v = (zone.familia * familiaWeight) + (zone.qualidadeVida * qualidadeWeight)
+      return clamp(Math.round(norm(v, PESO)), PESO)
     }
   }
 }

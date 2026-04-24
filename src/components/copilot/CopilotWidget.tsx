@@ -188,7 +188,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
     setInputDisabled(true)
 
     const thinkingMsgs = {
-      homepage: 'A calcular compatibilidade com as zonas da VERSO...',
+      homepage: 'A calcular compatibilidade com as zonas da Habitta...',
       property: 'A avaliar o match com o teu perfil...',
       area: 'A comparar as duas zonas segundo o teu perfil...',
     }
@@ -259,14 +259,14 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
       >
         <div
           className="flex items-center gap-2.5 px-4 py-3 text-white font-semibold transition-all duration-200"
-          style={{ background: '#C45D3E', borderRadius: '8px 8px 0 0', fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '13px' }}
+          style={{ background: '#C2553A', borderRadius: '8px 8px 0 0', fontFamily: 'Inter, Arial, sans-serif', fontSize: '13px' }}
         >
           <Sparkles size={14} />
           {triggerLabel}
         </div>
         <div
           className="px-3 py-1 text-xs mt-0.5"
-          style={{ background: '#0A0A0B', color: 'rgba(255,255,255,0.45)', fontFamily: 'IBM Plex Mono', letterSpacing: '0.5px', borderRadius: '0 0 8px 8px' }}
+          style={{ background: '#1E1F18', color: 'rgba(255,255,255,0.45)', fontFamily: 'IBM Plex Mono', letterSpacing: '0.5px', borderRadius: '0 0 8px 8px' }}
         >
           {triggerSubLabel}
         </div>
@@ -295,15 +295,15 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
               {/* ─── Header ─── */}
               <div
                 className="flex items-center justify-between px-5 py-4 flex-shrink-0"
-                style={{ background: '#0A0A0B', borderBottom: 'none' }}
+                style={{ background: '#1E1F18', borderBottom: 'none' }}
               >
                 <div className="flex items-center gap-3">
-                  <div style={{ width: '28px', height: '28px', background: '#C45D3E', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '28px', height: '28px', background: '#C2553A', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Sparkles size={13} color="white" />
                   </div>
                   <div>
-                    <p className="font-display text-sm font-medium" style={{ color: '#F7F5F0', letterSpacing: '-0.3px' }}>
-                      VERSO Copilot
+                    <p className="font-display text-sm font-medium" style={{ color: '#F2EDE4', letterSpacing: '-0.3px' }}>
+                      Habitta Copilot
                     </p>
                     <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'IBM Plex Mono' }}>
                       {context === 'homepage' ? 'Descoberta de zonas' : context === 'property' ? 'Análise de imóvel' : 'Comparação de zonas'}
@@ -316,7 +316,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
                       onClick={handleRestart}
                       className="w-7 h-7 flex items-center justify-center transition-colors duration-150"
                       style={{ color: 'rgba(255,255,255,0.4)' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#F7F5F0')}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
                       onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
                       title="Recomeçar"
                     >
@@ -327,7 +327,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
                     onClick={() => setOpen(false)}
                     className="w-7 h-7 flex items-center justify-center transition-colors duration-150"
                     style={{ color: 'rgba(255,255,255,0.5)' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#F7F5F0')}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
                     onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
                   >
                     <X size={16} />
@@ -352,8 +352,8 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
                     {recs.map(rec => (
                       <CopilotRecommendationCard key={rec.id} rec={rec} onCTA={handleCTA} />
                     ))}
-                    <p className="text-center text-xs pb-2" style={{ color: '#C9C5BD', fontFamily: 'IBM Plex Mono' }}>
-                      Recomendações VERSO — baseadas no teu perfil
+                    <p className="text-center text-xs pb-2" style={{ color: 'rgba(30, 31, 24, 0.125)', fontFamily: 'IBM Plex Mono' }}>
+                      Recomendações Habitta — baseadas no teu perfil
                     </p>
                   </div>
                 )}
@@ -393,9 +393,9 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
                   <button
                     onClick={handleRestart}
                     className="w-full py-3 text-sm font-medium transition-colors duration-150"
-                    style={{ border: '1px solid #E8E4DC', color: '#5A5A5A', borderRadius: '8px', background: 'transparent' }}
-                    onMouseEnter={e => { e.currentTarget.style.background = '#FAF8F3'; e.currentTarget.style.color = '#0A0A0B' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#5A5A5A' }}
+                    style={{ border: '1px solid rgba(30, 31, 24, 0.125)', color: '#3A3B2E', borderRadius: '8px', background: 'transparent' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#F2EDE4'; e.currentTarget.style.color = '#1E1F18' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#3A3B2E' }}
                   >
                     Recomeçar com novo perfil
                   </button>
@@ -405,7 +405,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
               {/* Thinking state footer */}
               {phase === 'thinking' && (
                 <div className="flex-shrink-0 px-5 py-4 text-center" style={{ borderTop: '1px solid #F0EDE8' }}>
-                  <p className="text-xs" style={{ color: '#9A9590', fontFamily: 'IBM Plex Mono' }}>
+                  <p className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
                     A calcular compatibilidade...
                   </p>
                 </div>

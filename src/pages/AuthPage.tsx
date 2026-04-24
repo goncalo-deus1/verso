@@ -1,204 +1,295 @@
 import { useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, Eye, EyeOff, Check } from 'lucide-react'
+import { Link, useNavigate, useSearchParams, useLocation } from 'react-router-dom'
+import { ArrowLeft, Eye, EyeOff, Check, Mail } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+
+const INK      = '#1E1F18'
+const BONE     = '#F2EDE4'
+const CLAY     = '#C2553A'
+const STONE    = '#3A3B2E'
+const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
+
+type Mode = 'login' | 'register'
+type Method = 'password' | 'magic'
 
 export default function AuthPage() {
   const [params] = useSearchParams()
-  const defaultMode = params.get('mode') === 'register' ? 'register' : 'login'
-  const [mode, setMode] = useState<'login' | 'register'>(defaultMode)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { signIn, signUp, signInWithMagicLink } = useAuth()
+
+  const defaultMode: Mode = params.get('mode') === 'register' ? 'register' : 'login'
+  const [mode, setMode] = useState<Mode>(defaultMode)
+  const [method, setMethod] = useState<Method>('password')
   const [showPwd, setShowPwd] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [magicSent, setMagicSent] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', password: '' })
-  const { login } = useAuth()
-  const navigate = useNavigate()
+
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? '/'
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm(p => ({ ...p, [e.target.name]: e.target.value }))
     setError('')
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function switchMode(next: Mode) {
+    setMode(next)
+    setError('')
+    setMagicSent(false)
+    setForm({ name: '', email: '', password: '' })
+  }
+
+  async function handlePasswordSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!form.email || !form.password) { setError('Preencha todos os campos.'); return }
     if (mode === 'register' && !form.name) { setError('Introduza o seu nome.'); return }
     if (form.password.length < 6) { setError('A password deve ter pelo menos 6 caracteres.'); return }
+
     setLoading(true)
-    await new Promise(r => setTimeout(r, 800))
-    setLoading(false)
-    login(form.email, mode === 'register' ? form.name : undefined)
-    navigate('/')
+    setError('')
+
+    if (mode === 'register') {
+      const { error } = await signUp(form.email, form.password, form.name)
+      setLoading(false)
+      if (error) { setError(translateError(error)); return }
+      // Show "check your email" message
+      setMagicSent(true)
+    } else {
+      const { error } = await signIn(form.email, form.password)
+      setLoading(false)
+      if (error) { setError(translateError(error)); return }
+      navigate(from, { replace: true })
+    }
   }
 
-  function switchMode(next: 'login' | 'register') {
-    setMode(next); setError(''); setForm({ name: '', email: '', password: '' })
+  async function handleMagicSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!form.email) { setError('Introduza o seu email.'); return }
+
+    setLoading(true)
+    setError('')
+    const { error } = await signInWithMagicLink(form.email)
+    setLoading(false)
+    if (error) { setError(translateError(error)); return }
+    setMagicSent(true)
+  }
+
+  const inputStyle: React.CSSProperties = {
+    width: '100%', padding: '12px 16px', fontSize: '14px', outline: 'none',
+    border: `1px solid ${HAIRLINE}`, background: 'white', color: INK, borderRadius: '2px',
+    boxSizing: 'border-box',
   }
 
   const perks = ['Imóveis guardados', 'Perfil de comprador', 'Alertas personalizados', 'Histórico do quiz']
 
-  const inputStyle = {
-    width: '100%', padding: '12px 16px', fontSize: '14px', outline: 'none',
-    border: '1px solid #E8E4DC', background: 'white', color: '#0A0A0B', borderRadius: '2px',
-  }
-
   return (
-    <div className="min-h-screen flex">
+    <div style={{ minHeight: '100vh', display: 'flex' }}>
       {/* Left panel */}
-      <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16" style={{ background: '#0A0A0B' }}>
+      <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between" style={{ padding: '64px', background: INK }}>
         <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80" alt=""
-          className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.12 }} />
-        <div className="relative">
-          <Link to="/">
-            <span className="font-display text-2xl" style={{ color: '#F7F5F0', letterSpacing: '-0.5px' }}>VERSO</span>
-          </Link>
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.12 }} />
+        <div style={{ position: 'relative' }}>
+          <Link to="/"><span style={{ fontFamily: 'var(--font-display, serif)', fontSize: '24px', color: BONE, letterSpacing: '-0.5px' }}>Habitta</span></Link>
         </div>
-        <div className="relative space-y-10">
-          <div>
-            <p className="text-xs font-semibold uppercase mb-5" style={{ color: '#C45D3E', letterSpacing: '3px', fontFamily: 'IBM Plex Mono' }}>
-              A sua conta
-            </p>
-            <h2 className="font-display text-white text-4xl" style={{ letterSpacing: '-1px', lineHeight: '1.15' }}>
-              Decisões melhores<br />começam aqui.
-            </h2>
-            <p className="mt-4 leading-relaxed max-w-sm text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              Crie a sua conta gratuita e aceda a recomendações personalizadas, imóveis guardados e guias editoriais.
-            </p>
-          </div>
-          <ul className="space-y-3">
+        <div style={{ position: 'relative' }}>
+          <p style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '3px', color: CLAY, fontFamily: 'IBM Plex Mono', marginBottom: '20px' }}>
+            A sua conta
+          </p>
+          <h2 style={{ fontFamily: 'var(--font-display, serif)', color: 'white', fontSize: '36px', letterSpacing: '-1px', lineHeight: '1.15', marginBottom: '16px' }}>
+            Decisões melhores<br />começam aqui.
+          </h2>
+          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.65, maxWidth: '340px', marginBottom: '40px' }}>
+            Crie a sua conta gratuita e aceda a recomendações personalizadas, imóveis guardados e guias editoriais.
+          </p>
+          <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {perks.map(p => (
-              <li key={p} className="flex items-center gap-3 text-sm" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                <div className="w-5 h-5 flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(196,93,62,0.15)', border: '1px solid rgba(196,93,62,0.3)' }}>
-                  <Check size={10} style={{ color: '#C45D3E' }} />
+              <li key={p} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', color: 'rgba(255,255,255,0.55)' }}>
+                <div style={{ width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, background: 'rgba(196,93,62,0.15)', border: '1px solid rgba(196,93,62,0.3)' }}>
+                  <Check size={10} color={CLAY} />
                 </div>
                 {p}
               </li>
             ))}
           </ul>
         </div>
-        <p className="relative text-xs" style={{ color: 'rgba(255,255,255,0.15)', fontFamily: 'IBM Plex Mono' }}>© 2025 VERSO</p>
+        <p style={{ position: 'relative', fontSize: '11px', color: 'rgba(255,255,255,0.15)', fontFamily: 'IBM Plex Mono' }}>© 2025 Habitta</p>
       </div>
 
       {/* Right panel */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 lg:px-16 xl:px-24" style={{ background: '#F7F5F0' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '48px 32px', background: BONE }}>
         {/* Mobile logo */}
-        <div className="lg:hidden mb-10">
-          <Link to=""><span className="font-display text-2xl" style={{ color: '#0A0A0B', letterSpacing: '-0.5px' }}>VERSO</span></Link>
+        <div className="lg:hidden" style={{ marginBottom: '40px' }}>
+          <Link to="/"><span style={{ fontFamily: 'var(--font-display, serif)', fontSize: '24px', color: INK, letterSpacing: '-0.5px' }}>Habitta</span></Link>
         </div>
 
-        <Link to="/" className="hidden lg:inline-flex items-center gap-2 text-sm font-medium mb-10 transition-colors duration-150"
-          style={{ color: '#9A9590' }}
-          onMouseEnter={e => (e.currentTarget.style.color = '#C45D3E')}
-          onMouseLeave={e => (e.currentTarget.style.color = '#9A9590')}>
+        <Link to="/" className="hidden lg:inline-flex" style={{ alignItems: 'center', gap: '8px', fontSize: '14px', color: STONE, textDecoration: 'none', marginBottom: '40px', display: 'inline-flex' }}
+          onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
+          onMouseLeave={e => (e.currentTarget.style.color = STONE)}>
           <ArrowLeft size={13} /> Voltar ao início
         </Link>
 
-        <div className="max-w-sm w-full mx-auto lg:mx-0">
-          {/* Toggle */}
-          <div className="flex p-1 mb-8" style={{ background: '#E8E4DC', borderRadius: '2px' }}>
-            {(['login', 'register'] as const).map(m => (
-              <button key={m} onClick={() => switchMode(m)}
-                className="flex-1 py-2.5 text-sm font-semibold transition-all duration-150"
-                style={mode === m
-                  ? { background: '#F7F5F0', color: '#0A0A0B', borderRadius: '2px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }
-                  : { color: '#9A9590' }}>
-                {m === 'login' ? 'Entrar' : 'Criar conta'}
-              </button>
-            ))}
-          </div>
-
-          <h1 className="font-display text-3xl mb-2" style={{ color: '#0A0A0B', letterSpacing: '-0.8px' }}>
-            {mode === 'login' ? 'Bem-vindo de volta' : 'Criar conta gratuita'}
-          </h1>
-          <p className="text-sm mb-8 leading-relaxed" style={{ color: '#9A9590' }}>
-            {mode === 'login'
-              ? 'Aceda aos seus imóveis guardados e recomendações.'
-              : 'Junte-se à VERSO e encontre o imóvel certo — de forma informada.'}
-          </p>
-
-          <form onSubmit={handleSubmit} noValidate className="space-y-4">
-            {mode === 'register' && (
-              <div>
-                <label className="block text-xs font-semibold uppercase mb-1.5" style={{ color: '#5A5A5A', letterSpacing: '1.5px', fontFamily: 'IBM Plex Mono' }}>Nome</label>
-                <input name="name" type="text" placeholder="O seu nome" value={form.name} onChange={onChange} style={inputStyle} />
-              </div>
-            )}
-            <div>
-              <label className="block text-xs font-semibold uppercase mb-1.5" style={{ color: '#5A5A5A', letterSpacing: '1.5px', fontFamily: 'IBM Plex Mono' }}>Email</label>
-              <input name="email" type="email" placeholder="o.seu@email.com" value={form.email} onChange={onChange} style={inputStyle} />
-            </div>
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-semibold uppercase" style={{ color: '#5A5A5A', letterSpacing: '1.5px', fontFamily: 'IBM Plex Mono' }}>Password</label>
-                {mode === 'login' && (
-                  <button type="button" className="text-xs font-medium transition-colors duration-150" style={{ color: '#C45D3E' }}>
-                    Esqueceu?
+        <div style={{ maxWidth: '380px', width: '100%', margin: '0 auto' }}>
+          {magicSent ? (
+            <ConfirmationScreen email={form.email} isRegister={mode === 'register'} />
+          ) : (
+            <>
+              {/* Mode toggle */}
+              <div style={{ display: 'flex', padding: '4px', marginBottom: '32px', background: 'rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
+                {(['login', 'register'] as const).map(m => (
+                  <button key={m} onClick={() => switchMode(m)}
+                    style={{
+                      flex: 1, padding: '10px', fontSize: '14px', fontWeight: 600,
+                      border: 'none', cursor: 'pointer', borderRadius: '2px', transition: 'all 150ms',
+                      background: mode === m ? BONE : 'transparent',
+                      color: mode === m ? INK : STONE,
+                      boxShadow: mode === m ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+                    }}>
+                    {m === 'login' ? 'Entrar' : 'Criar conta'}
                   </button>
-                )}
+                ))}
               </div>
-              <div className="relative">
-                <input name="password" type={showPwd ? 'text' : 'password'} placeholder="Mínimo 6 caracteres"
-                  value={form.password} onChange={onChange} style={{ ...inputStyle, paddingRight: '44px' }} />
-                <button type="button" onClick={() => setShowPwd(!showPwd)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 transition-colors duration-150" style={{ color: '#9A9590' }}>
-                  {showPwd ? <EyeOff size={15} /> : <Eye size={15} />}
+
+              <h1 style={{ fontFamily: 'var(--font-display, serif)', fontSize: '28px', color: INK, letterSpacing: '-0.8px', marginBottom: '8px' }}>
+                {mode === 'login' ? 'Bem-vindo de volta' : 'Criar conta gratuita'}
+              </h1>
+              <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.6, marginBottom: '32px' }}>
+                {mode === 'login'
+                  ? 'Aceda aos seus imóveis guardados e recomendações.'
+                  : 'Junte-se à Habitta e encontre o imóvel certo — de forma informada.'}
+              </p>
+
+              {/* Method toggle (only login) */}
+              {mode === 'login' && (
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
+                  {(['password', 'magic'] as const).map(m => (
+                    <button key={m} onClick={() => { setMethod(m); setError('') }}
+                      style={{
+                        flex: 1, padding: '8px 12px', fontSize: '13px', fontWeight: 500,
+                        border: `1px solid ${method === m ? INK : HAIRLINE}`,
+                        background: method === m ? INK : 'white',
+                        color: method === m ? BONE : STONE,
+                        borderRadius: '6px', cursor: 'pointer', transition: 'all 150ms',
+                      }}>
+                      {m === 'password' ? 'Password' : 'Magic link'}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {method === 'magic' && mode === 'login' ? (
+                <form onSubmit={handleMagicSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>Email</label>
+                    <input name="email" type="email" placeholder="o.seu@email.com" value={form.email} onChange={onChange} style={inputStyle} autoFocus />
+                  </div>
+                  {error && <ErrorBanner text={error} />}
+                  <button type="submit" disabled={loading}
+                    style={{ width: '100%', padding: '14px', background: loading ? HAIRLINE : INK, color: loading ? STONE : BONE, border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    <Mail size={15} />
+                    {loading ? 'A enviar…' : 'Enviar magic link'}
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handlePasswordSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {mode === 'register' && (
+                    <div>
+                      <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>Nome</label>
+                      <input name="name" type="text" placeholder="O seu nome" value={form.name} onChange={onChange} style={inputStyle} autoFocus />
+                    </div>
+                  )}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>Email</label>
+                    <input name="email" type="email" placeholder="o.seu@email.com" value={form.email} onChange={onChange} style={inputStyle} />
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                      <label style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono' }}>Password</label>
+                      {mode === 'login' && (
+                        <button type="button" onClick={() => { setMethod('magic'); setError('') }}
+                          style={{ fontSize: '12px', fontWeight: 500, color: CLAY, background: 'none', border: 'none', cursor: 'pointer' }}>
+                          Esqueceu?
+                        </button>
+                      )}
+                    </div>
+                    <div style={{ position: 'relative' }}>
+                      <input name="password" type={showPwd ? 'text' : 'password'} placeholder="Mínimo 6 caracteres"
+                        value={form.password} onChange={onChange} style={{ ...inputStyle, paddingRight: '44px' }} />
+                      <button type="button" onClick={() => setShowPwd(!showPwd)}
+                        style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: STONE }}>
+                        {showPwd ? <EyeOff size={15} /> : <Eye size={15} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {error && <ErrorBanner text={error} />}
+
+                  {mode === 'register' && (
+                    <p style={{ fontSize: '12px', color: STONE, lineHeight: 1.5 }}>
+                      Ao criar uma conta, aceita os <span style={{ color: CLAY }}>Termos de Serviço</span> e a <span style={{ color: CLAY }}>Política de Privacidade</span>.
+                    </p>
+                  )}
+
+                  <button type="submit" disabled={loading}
+                    style={{ width: '100%', padding: '14px', background: loading ? HAIRLINE : INK, color: loading ? STONE : BONE, border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', marginTop: '4px' }}>
+                    {loading ? 'A processar…' : mode === 'login' ? 'Entrar na conta' : 'Criar conta gratuita'}
+                  </button>
+                </form>
+              )}
+
+              <p style={{ textAlign: 'center', fontSize: '13px', color: STONE, marginTop: '24px' }}>
+                {mode === 'login' ? 'Ainda não tem conta? ' : 'Já tem conta? '}
+                <button type="button" onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}
+                  style={{ fontWeight: 600, color: CLAY, background: 'none', border: 'none', cursor: 'pointer' }}>
+                  {mode === 'login' ? 'Criar conta gratuita' : 'Entrar'}
                 </button>
-              </div>
-            </div>
-
-            {error && (
-              <p className="text-xs px-4 py-3 font-medium" style={{ color: '#C45D3E', background: '#FEF3EE', border: '1px solid #FDDDD3', borderRadius: '2px' }}>
-                {error}
               </p>
-            )}
-
-            {mode === 'register' && (
-              <p className="text-xs leading-relaxed" style={{ color: '#9A9590' }}>
-                Ao criar uma conta, aceita os{' '}
-                <span className="cursor-pointer transition-colors duration-150" style={{ color: '#C45D3E' }}>Termos de Serviço</span>
-                {' '}e a{' '}
-                <span className="cursor-pointer transition-colors duration-150" style={{ color: '#C45D3E' }}>Política de Privacidade</span>.
-              </p>
-            )}
-
-            <button type="submit" disabled={loading}
-              className="w-full py-4 text-white font-semibold text-sm transition-opacity duration-150 mt-2"
-              style={{ background: loading ? '#C9C5BD' : '#0A0A0B', cursor: loading ? 'not-allowed' : 'pointer', borderRadius: '8px' }}>
-              {loading ? 'A processar...' : mode === 'login' ? 'Entrar na conta' : 'Criar conta gratuita'}
-            </button>
-          </form>
-
-          {/* Divider */}
-          <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px" style={{ background: '#E8E4DC' }} />
-            <span className="text-xs" style={{ color: '#C9C5BD', fontFamily: 'IBM Plex Mono' }}>ou</span>
-            <div className="flex-1 h-px" style={{ background: '#E8E4DC' }} />
-          </div>
-
-          {/* Google */}
-          <button type="button"
-            className="w-full flex items-center justify-center gap-3 py-3.5 text-sm font-medium transition-all duration-150"
-            style={{ border: '1px solid #E8E4DC', color: '#0A0A0B', background: 'white', borderRadius: '8px' }}
-            onMouseEnter={e => (e.currentTarget.style.background = '#FAF8F3')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'white')}>
-            <svg width="16" height="16" viewBox="0 0 48 48">
-              <path fill="#FFC107" d="M43.6 20H24v8h11.3C33.7 33.6 29.4 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 6 1.1 8.1 3l5.7-5.7C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 20-7.7 20-21 0-1.4-.1-2.7-.4-4z"/>
-              <path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 6 1.1 8.1 3l5.7-5.7C34.5 5.1 29.5 3 24 3c-7.7 0-14.4 4.4-17.7 11.7z"/>
-              <path fill="#4CAF50" d="M24 45c5.3 0 10.2-1.9 13.9-5.1l-6.4-5.4A13 13 0 0 1 24 37c-5.4 0-9.6-3.4-11.3-8H6.2l-6.5 4.9C5.6 40.6 14.3 45 24 45z"/>
-              <path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.4 5.4C41 35.9 44 30.4 44 24c0-1.4-.1-2.7-.4-4z"/>
-            </svg>
-            Continuar com Google
-          </button>
-
-          <p className="text-center text-xs mt-6" style={{ color: '#9A9590' }}>
-            {mode === 'login' ? 'Ainda não tem conta? ' : 'Já tem conta? '}
-            <button type="button" onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}
-              className="font-semibold transition-colors duration-150" style={{ color: '#C45D3E' }}>
-              {mode === 'login' ? 'Criar conta gratuita' : 'Entrar'}
-            </button>
-          </p>
+            </>
+          )}
         </div>
       </div>
     </div>
   )
+}
+
+function ErrorBanner({ text }: { text: string }) {
+  return (
+    <p style={{ fontSize: '13px', color: '#C2553A', background: '#FEF3EE', border: '1px solid #FDDDD3', borderRadius: '2px', padding: '10px 14px' }}>
+      {text}
+    </p>
+  )
+}
+
+function ConfirmationScreen({ email, isRegister }: { email: string; isRegister: boolean }) {
+  return (
+    <div style={{ textAlign: 'center', padding: '40px 0' }}>
+      <div style={{ width: '52px', height: '52px', background: '#FEF3EE', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+        <Mail size={24} color={CLAY} />
+      </div>
+      <h2 style={{ fontFamily: 'var(--font-display, serif)', fontSize: '24px', color: INK, letterSpacing: '-0.5px', marginBottom: '12px' }}>
+        {isRegister ? 'Confirme o seu email' : 'Verifique o seu email'}
+      </h2>
+      <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.65, marginBottom: '8px' }}>
+        Enviámos um link para
+      </p>
+      <p style={{ fontSize: '14px', fontWeight: 600, color: INK, marginBottom: '24px', fontFamily: 'IBM Plex Mono' }}>
+        {email}
+      </p>
+      <p style={{ fontSize: '13px', color: STONE, lineHeight: 1.6 }}>
+        {isRegister
+          ? 'Clique no link no email para activar a sua conta. Pode fechar esta janela.'
+          : 'Clique no link no email para entrar na sua conta. O link expira em 1 hora.'}
+      </p>
+    </div>
+  )
+}
+
+function translateError(msg: string): string {
+  if (msg.includes('Invalid login credentials')) return 'Email ou password incorrectos.'
+  if (msg.includes('Email not confirmed')) return 'Confirme o seu email antes de entrar.'
+  if (msg.includes('User already registered')) return 'Já existe uma conta com este email.'
+  if (msg.includes('Password should be')) return 'A password deve ter pelo menos 6 caracteres.'
+  if (msg.includes('rate limit')) return 'Demasiadas tentativas. Aguarde alguns minutos.'
+  return msg
 }

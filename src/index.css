@@ -1,20 +1,80 @@
 @import "tailwindcss";
 
-/* ── VERSO Brand Tokens ── */
-:root {
-  --ink:          #0A0A0B;
-  --paper:        #F7F5F0;
-  --warm:         #E8E4DC;
-  --accent:       #C45D3E;
-  --accent-light: #E8957A;
-  --deep:         #1A1A2E;
-  --sage:         #6B7B5E;
-  --mist:         #C9C5BD;
-  --cream:        #FAF8F3;
-  --charcoal:     #2C2C2C;
-  --slate:        #5A5A5A;
-  --ghost:        #9A9590;
+/*
+ * ── Fraunces fallback: size-adjust Georgia to match Fraunces metrics ──
+ *
+ * This reduces Cumulative Layout Shift (CLS) caused by the font swap
+ * from the system fallback (Georgia) to Fraunces. The values below are
+ * approximate — adjust size-adjust if you measure residual shift in DevTools.
+ * ascent-override / descent-override / line-gap-override align vertical metrics
+ * so line heights match before the web font arrives.
+ */
+@font-face {
+  font-family: 'Fraunces-fallback';
+  src: local('Georgia');
+  size-adjust: 105%;
+  ascent-override: 95%;
+  descent-override: 22%;
+  line-gap-override: 0%;
 }
+
+/* ── Habitta design tokens (Tailwind v4 @theme) ── */
+@theme {
+  /* Colour tokens — mapped to Habitta palette */
+  --color-verso-ink:           #1E1F18;   /* azeitona */
+  --color-verso-bone:          #F2EDE4;   /* linho */
+  --color-verso-clay:          #C2553A;   /* telha */
+  --color-verso-moss:          #6B7A5A;   /* salva */
+  --color-verso-sand:          #E8E0D0;   /* papel */
+  --color-verso-sky:           #94A383;   /* salva-claro */
+  --color-verso-stone:         #3A3B2E;   /* azeitona-medio */
+  --color-verso-hairline:      rgba(30, 31, 24, 0.125); /* traco */
+
+  --color-verso-midnight:      #1E1F18;   /* azeitona */
+  --color-verso-midnight-soft: #3A3B2E;   /* azeitona-medio */
+  --color-verso-paper:         #F2EDE4;   /* linho */
+  --color-verso-paper-deep:    #E8E0D0;   /* papel */
+  --color-verso-paper-grain:   #E8E0D0;   /* papel */
+  --color-verso-ochre:         #94A383;   /* salva-claro */
+  --color-verso-rule:          #1E1F18;   /* azeitona */
+  --color-verso-rule-soft:     rgba(30, 31, 24, 0.125); /* traco */
+
+  /* Font stacks — Fraunces-fallback is a size-adjusted Georgia clone (see @font-face above)
+     that minimises CLS while the real Fraunces variable font loads from Google Fonts. */
+  --font-fraunces: 'Fraunces', 'Fraunces-fallback', Georgia, serif;
+  --font-display:  'Fraunces', 'Fraunces-fallback', Georgia, serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, monospace;
+  --font-sans:     'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Habitta brand tokens — CSS variables ── */
+:root {
+  --linho:          #F2EDE4;
+  --linho-claro:    #F8F4EC;
+  --azeitona:       #1E1F18;
+  --azeitona-medio: #3A3B2E;
+  --telha:          #C2553A;
+  --telha-forte:    #B24A30;
+  --telha-claro:    #E08A6F;
+  --salva:          #6B7A5A;
+  --salva-claro:    #94A383;
+  --papel:          #E8E0D0;
+  --traco:          rgba(30, 31, 24, 0.125);
+
+  /* Serif/display variable for wordmark */
+  --serif: 'Fraunces', 'Fraunces-fallback', Georgia, serif;
+
+  /* Legacy aliases — keep for any remaining inline references */
+  --ink:      var(--azeitona);
+  --bone:     var(--linho);
+  --clay:     var(--telha);
+  --moss:     var(--salva);
+  --sand:     var(--papel);
+  --sky:      var(--salva-claro);
+  --stone:    var(--azeitona-medio);
+  --hairline: var(--traco);
+}
+
 
 @layer base {
   *, *::before, *::after {
@@ -30,11 +90,11 @@
   }
 
   body {
-    background-color: #F7F5F0;
-    color: #0A0A0B;
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-    line-height: 1.7;
-    font-size: 15px;
+    background-color: #F2EDE4;
+    color: #1E1F18;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
   }
 
   #root {
@@ -43,40 +103,93 @@
   }
 }
 
-/* Font utilities */
+/* ── Font utilities ── */
 .font-display {
-  font-family: 'Fraunces', Georgia, ui-serif, serif;
+  font-family: 'Fraunces', 'Fraunces-fallback', Georgia, serif;
+  font-variation-settings: "SOFT" 80, "WONK" 1;
 }
 .font-sans {
-  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 .font-mono {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* Glass card utility */
-.glass-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* ── Wordmark component ── */
+.wordmark {
+  font-family: var(--serif);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+}
+.wordmark-accent {
+  color: var(--telha);
+  font-style: italic;
+}
+
+/* ── Wordmark navbar variant ── */
+.wordmark--navbar {
+  font-weight: 400;
+  font-size: 26px;
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--azeitona);
+}
+.wordmark--navbar .wordmark-accent {
+  font-weight: 500;
+  font-style: italic;
+  color: var(--telha-forte);
+  font-size: 30px;
+  line-height: 0.8;
+  margin: 0 -1px;
+}
+@media (max-width: 768px) {
+  .wordmark--navbar { font-size: 22px; }
+  .wordmark--navbar .wordmark-accent { font-size: 26px; }
+}
+
+/* ── Card — clean bordered card ── */
+.verso-card {
+  background: #F2EDE4;
+  border: 1px solid rgba(30, 31, 24, 0.125);
   border-radius: 2px;
-  transition: transform 250ms ease, background 250ms ease, border-color 250ms ease;
+  transition: transform 200ms ease;
+}
+.verso-card:hover {
+  transform: translateY(-2px);
 }
 
-.glass-card:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.14);
+/* ── Sand card — intermediate surface ── */
+.sand-card {
+  background: #E8E0D0;
+  border: 1px solid rgba(30, 31, 24, 0.125);
+  border-radius: 2px;
 }
 
-/* Ticker animation */
+/* ── Mobile step cards ── */
+@media (max-width: 1023px) {
+  .verso-step-card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid rgba(30, 31, 24, 0.125) !important;
+    padding: 24px 0 !important;
+    box-shadow: none !important;
+  }
+  .verso-step-card:last-of-type {
+    border-bottom: none !important;
+  }
+  .verso-step-card:first-of-type {
+    padding-top: 0 !important;
+  }
+}
+
 @keyframes ticker {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* Zone grid asymmetric layout (desktop) */
+/* ── Zone grid asymmetric layout (desktop) ── */
 @media (min-width: 1024px) {
   .verso-zone-grid {
     grid-template-columns: repeat(4, 1fr);

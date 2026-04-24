@@ -1,14 +1,15 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { concelhos } from '../data/concelhos'
 import { freguesias } from '../data/freguesias'
+import SaveZoneButton from '../components/SaveZoneButton'
 
-const INK      = '#0E1116'
-const BONE     = '#F5F1EA'
-const CLAY     = '#B8624A'
-const MOSS     = '#3E5A48'
-const SAND     = '#E6DDCD'
-const STONE    = '#6B6B68'
-const HAIRLINE = '#D9D2C3'
+const INK      = '#1E1F18'
+const BONE     = '#F2EDE4'
+const CLAY     = '#C2553A'
+const MOSS     = '#6B7A5A'
+const SAND     = '#E8E0D0'
+const STONE    = '#3A3B2E'
+const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 
 export default function ConcelhoDetailPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -58,14 +59,7 @@ export default function ConcelhoDetailPage() {
 
   return (
     <div style={{ background: BONE, minHeight: '100vh' }}>
-      {/* Header */}
-      <div style={{ padding: '32px 48px 0', maxWidth: '760px', margin: '0 auto' }}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <span className="font-display" style={{ fontSize: '20px', color: INK, letterSpacing: '-0.5px' }}>VERSO</span>
-        </Link>
-      </div>
-
-      <article style={{ maxWidth: '680px', margin: '0 auto', padding: '64px 48px 120px', boxSizing: 'border-box' }}>
+      <article className="px-5 sm:px-8 md:px-12 pt-24 sm:pt-28 pb-24" style={{ maxWidth: '680px', margin: '0 auto', boxSizing: 'border-box' }}>
 
         {/* Eyebrow */}
         <p style={eyebrow}>
@@ -85,6 +79,11 @@ export default function ConcelhoDetailPage() {
           {concelho.oneLine}
         </p>
 
+        {/* Save button */}
+        <div style={{ marginBottom: '24px' }}>
+          <SaveZoneButton zoneSlug={concelho.slug} zoneKind="concelho" zoneName={concelho.name} />
+        </div>
+
         {/* Divisor */}
         <hr style={{ border: 'none', borderTop: `1px solid ${HAIRLINE}`, marginBottom: '40px' }} />
 
@@ -94,12 +93,8 @@ export default function ConcelhoDetailPage() {
         </p>
 
         {/* Hard facts */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-          gap: '24px',
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 lg:p-8" style={{
           marginBottom: '48px',
-          padding: '32px',
           background: SAND,
           borderRadius: '4px',
         }}>
@@ -116,12 +111,7 @@ export default function ConcelhoDetailPage() {
         </div>
 
         {/* Quem se dá bem / mal */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: '16px',
-          marginBottom: '48px',
-        }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ marginBottom: '48px' }}>
           <div style={{ background: SAND, borderRadius: '4px', padding: '28px' }}>
             <p style={{ ...eyebrow, marginBottom: '12px' }}>Quem se dá bem aqui</p>
             <p style={{ fontSize: '16px', color: INK, lineHeight: 1.6, margin: 0 }}>{concelho.whoFitsHere}</p>
@@ -175,7 +165,7 @@ export default function ConcelhoDetailPage() {
 
         {/* CTA */}
         <Link
-          to="/imoveis"
+          to="/areas"
           style={{
             display: 'inline-block',
             padding: '14px 32px',

@@ -12,23 +12,23 @@ export default function EditorialInsightsSection({ articles, title = 'Guias e pe
   const [featured, ...rest] = articles
 
   return (
-    <section className="py-20 lg:py-28" style={{ background: '#FAF8F3', borderTop: '1px solid #E8E4DC' }}>
+    <section className="py-20 lg:py-28" style={{ background: '#F2EDE4', borderTop: '1px solid rgba(30, 31, 24, 0.125)' }}>
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         {/* Header */}
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="text-xs font-semibold uppercase mb-3" style={{ color: '#C45D3E', letterSpacing: '3px', fontFamily: 'IBM Plex Mono' }}>
+            <p className="text-xs font-semibold uppercase mb-3" style={{ color: '#C2553A', letterSpacing: '3px', fontFamily: 'IBM Plex Mono' }}>
               Editorial
             </p>
-            <h2 className="font-display text-3xl lg:text-4xl max-w-md" style={{ color: '#0A0A0B', letterSpacing: '-1px', lineHeight: '1.15' }}>
+            <h2 className="font-display text-3xl lg:text-4xl max-w-md" style={{ color: '#1E1F18', letterSpacing: '-1px', lineHeight: '1.15' }}>
               {title}
             </h2>
           </div>
           {showViewAll && (
             <Link to="/editorial" className="hidden lg:flex items-center gap-2 text-sm font-medium transition-colors duration-150"
-              style={{ color: '#5A5A5A' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#C45D3E')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#5A5A5A')}>
+              style={{ color: '#3A3B2E' }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#C2553A')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#3A3B2E')}>
               Ver todos os guias <ArrowRight size={14} />
             </Link>
           )}
@@ -43,7 +43,7 @@ export default function EditorialInsightsSection({ articles, title = 'Guias e pe
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,11,0.85) 0%, rgba(10,10,11,0.3) 50%, transparent 100%)' }} />
               <div className="relative h-full flex flex-col justify-end p-8" style={{ minHeight: '420px' }}>
                 <span className="self-start px-2.5 py-1 text-white text-xs font-semibold uppercase mb-4"
-                  style={{ background: '#C45D3E', letterSpacing: '1.5px', fontSize: '10px' }}>
+                  style={{ background: '#C2553A', letterSpacing: '1.5px', fontSize: '10px' }}>
                   {featured.category}
                 </span>
                 <h3 className="font-display text-white text-2xl lg:text-3xl mb-3 leading-tight" style={{ letterSpacing: '-0.5px' }}>
@@ -65,7 +65,7 @@ export default function EditorialInsightsSection({ articles, title = 'Guias e pe
             {rest.map((article) => (
               <article key={article.id}
                 className="group flex gap-4 bg-white overflow-hidden cursor-pointer transition-all duration-200 hover:-translate-y-0.5"
-                style={{ border: '1px solid #E8E4DC', borderRadius: '2px' }}>
+                style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
                 <div className="w-28 flex-shrink-0 overflow-hidden">
                   <img src={article.image} alt={article.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
@@ -73,15 +73,15 @@ export default function EditorialInsightsSection({ articles, title = 'Guias e pe
                 </div>
                 <div className="p-4 flex flex-col justify-between flex-1 min-w-0">
                   <div>
-                    <span className="text-xs font-semibold uppercase" style={{ color: '#C45D3E', letterSpacing: '2px', fontFamily: 'IBM Plex Mono', fontSize: '10px' }}>
+                    <span className="text-xs font-semibold uppercase" style={{ color: '#C2553A', letterSpacing: '2px', fontFamily: 'IBM Plex Mono', fontSize: '10px' }}>
                       {article.category}
                     </span>
-                    <h3 className="font-display text-base leading-tight mt-1.5 transition-colors duration-150 group-hover:text-[#C45D3E] line-clamp-2"
-                      style={{ color: '#0A0A0B', letterSpacing: '-0.2px' }}>
+                    <h3 className="font-display text-base leading-tight mt-1.5 transition-colors duration-150 group-hover:text-[#C2553A] line-clamp-2"
+                      style={{ color: '#1E1F18', letterSpacing: '-0.2px' }}>
                       {article.title}
                     </h3>
                   </div>
-                  <div className="flex items-center gap-3 text-xs mt-3" style={{ color: '#9A9590', fontFamily: 'IBM Plex Mono' }}>
+                  <div className="flex items-center gap-3 text-xs mt-3" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
                     <span className="flex items-center gap-1"><Clock size={10} /> {article.readTime} min</span>
                     <span>{article.date}</span>
                   </div>
@@ -93,7 +93,7 @@ export default function EditorialInsightsSection({ articles, title = 'Guias e pe
 
         {showViewAll && (
           <div className="mt-8 lg:hidden">
-            <Link to="/editorial" className="flex items-center gap-2 text-sm font-medium" style={{ color: '#5A5A5A' }}>
+            <Link to="/editorial" className="flex items-center gap-2 text-sm font-medium" style={{ color: '#3A3B2E' }}>
               Ver todos os guias <ArrowRight size={14} />
             </Link>
           </div>

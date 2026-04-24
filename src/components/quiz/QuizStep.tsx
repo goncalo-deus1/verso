@@ -22,14 +22,14 @@ export default function QuizStep({ question, selected, onSelect }: Props) {
       {/* Enunciado */}
       <h1
         className="font-display text-3xl lg:text-4xl mb-3"
-        style={{ color: '#0E1116', letterSpacing: '-1px', lineHeight: '1.15' }}>
+        style={{ color: '#1E1F18', letterSpacing: '-1px', lineHeight: '1.15' }}>
         {question.question}
       </h1>
 
       {question.subtext && (
         <p
           className="text-sm leading-relaxed mb-8"
-          style={{ color: '#6B6B68' }}>
+          style={{ color: '#3A3B2E' }}>
           {question.subtext}
         </p>
       )}
@@ -48,22 +48,22 @@ export default function QuizStep({ question, selected, onSelect }: Props) {
               onClick={() => onSelect(option.value)}
               className="w-full flex items-center gap-4 p-5 text-left transition-all duration-150 focus-visible:outline-none"
               style={{
-                border: isSel ? '2px solid #B8624A' : '2px solid #D9D2C3',
+                border: isSel ? '2px solid #C2553A' : '2px solid rgba(30, 31, 24, 0.125)',
                 background: isSel ? '#FEF3EE' : '#ffffff',
                 borderRadius: '2px',
                 cursor: 'pointer',
               }}
               onMouseEnter={e => {
-                if (!isSel) (e.currentTarget as HTMLElement).style.borderColor = '#6B6B68'
+                if (!isSel) (e.currentTarget as HTMLElement).style.borderColor = '#3A3B2E'
               }}
               onMouseLeave={e => {
-                if (!isSel) (e.currentTarget as HTMLElement).style.borderColor = '#D9D2C3'
+                if (!isSel) (e.currentTarget as HTMLElement).style.borderColor = 'rgba(30, 31, 24, 0.125)'
               }}>
 
               {/* Label */}
               <span
                 className="font-medium flex-1 text-sm"
-                style={{ color: isSel ? '#B8624A' : '#0E1116' }}>
+                style={{ color: isSel ? '#C2553A' : '#1E1F18' }}>
                 {option.label}
               </span>
 
@@ -71,13 +71,13 @@ export default function QuizStep({ question, selected, onSelect }: Props) {
               {isSel ? (
                 <div
                   className="w-5 h-5 flex items-center justify-center flex-shrink-0"
-                  style={{ background: '#B8624A' }}>
+                  style={{ background: '#C2553A' }}>
                   <Check size={11} color="white" strokeWidth={3} />
                 </div>
               ) : (
                 <div
                   className="w-5 h-5 flex-shrink-0"
-                  style={{ border: '1.5px solid #D9D2C3', borderRadius: '2px' }}
+                  style={{ border: '1.5px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}
                 />
               )}
             </button>

@@ -4,6 +4,14 @@
 
 import type { ZoneVector } from './vectorSchema'
 
+export type FreguesiaStats = {
+  score?: number
+  medianAgeYears?: number | null
+  tramMetroOrTrainToBaixaMinutes?: number | null
+  medianT2RentEuros?: number | null
+  populationTrend3y?: 'growing' | 'stable' | 'declining' | null
+}
+
 export type Freguesia = {
   slug: string
   name: string
@@ -22,6 +30,8 @@ export type Freguesia = {
   }
   referenceStreets: Array<{ name: string; note: string }>
   photoCredits: Array<{ url: string; source: 'unsplash' | 'pexels' | 'owner'; author?: string }>
+  tags?: string[]
+  stats?: FreguesiaStats
 }
 
 export const freguesias: Freguesia[] = [
@@ -135,6 +145,13 @@ export const freguesias: Freguesia[] = [
       { url: 'https://unsplash.com/s/photos/alvalade-lisboa', source: 'unsplash' },
       { url: 'https://unsplash.com/s/photos/avenida-estados-unidos-america-lisbon', source: 'unsplash' },
     ],
+    tags: ['família', 'escola', 'parque', 'planeado', 'silencioso'],
+    stats: {
+      medianAgeYears: 44,
+      tramMetroOrTrainToBaixaMinutes: 15,
+      medianT2RentEuros: 1350,
+      populationTrend3y: 'stable',
+    },
   },
 
   {
@@ -172,6 +189,13 @@ export const freguesias: Freguesia[] = [
       { url: 'https://unsplash.com/s/photos/graca-lisbon-miradouro', source: 'unsplash' },
       { url: 'https://unsplash.com/s/photos/sao-vicente-de-fora-lisbon', source: 'unsplash' },
     ],
+    tags: ['carácter', 'autêntico', 'histórico', 'vistas', 'resistente'],
+    stats: {
+      medianAgeYears: 42,
+      tramMetroOrTrainToBaixaMinutes: 18,
+      medianT2RentEuros: 1400,
+      populationTrend3y: 'growing',
+    },
   },
 
   {
@@ -244,6 +268,48 @@ export const freguesias: Freguesia[] = [
       { url: 'https://unsplash.com/s/photos/marvila-lisbon-warehouse', source: 'unsplash' },
       { url: 'https://unsplash.com/s/photos/beato-lisbon-tejo', source: 'unsplash' },
     ],
+  },
+
+  {
+    slug: 'beato-marvila',
+    name: 'Beato e Marvila',
+    concelhoSlug: 'lisboa',
+    archetype: 'transition',
+    vector: { pace: 1, central: 1, green: 2, night: 2, family: 1, food: 3, walkable: 2, price: 2, character: 2 },
+    oneLine: 'O corredor ribeirinho que Lisboa ainda está a descobrir — criativo, industrial, em aberto.',
+    honestDescription:
+      'Beato e Marvila partilham uma lógica de transformação que avança frente por frente. ' +
+      'Os armazéns do século XX deram lugar a cervejeiras artesanais, ateliers de arquitectura e restaurantes que não existiam há três anos. ' +
+      'A frente ribeirinha tem passadiços novos e a vista para o Tejo é das mais largas de Lisboa. ' +
+      'O Beato Innovation District e a entrada de escritórios de tecnologia estabilizaram o perfil do bairro sem o elitizar de vez. ' +
+      'O que ainda falta: escola pública de referência consolidada, supermercado de dimensão familiar e transporte público de alta frequência no interior dos bairros. ' +
+      'Quem compra agora compra o potencial — e esse potencial está cada vez mais precificado.',
+    whoFitsHere:
+      'Compradores com horizonte de três a cinco anos, tolerância para um bairro em construção e olho para o que o rio e a reabilitação industrial podem valer.',
+    whoDoesNotFit:
+      'Famílias com crianças que precisam de infra-estrutura consolidada já agora — escola, pediatria, actividades ao fim de semana.',
+    hardFacts: {
+      medianAgeYears: 35,
+      tramMetroOrTrainToBaixaMinutes: 25,
+      medianT2RentEuros: 1100,
+      populationTrend3y: 'growing',
+    },
+    referenceStreets: [
+      { name: 'Rua do Açúcar', note: 'onde o industrial e o criativo coexistem — fábrica da manhã, restaurante à noite' },
+      { name: 'Rua de Marvila', note: 'o eixo histórico — ainda com pastelaria de bairro, café de reformados e loja de ferragens' },
+      { name: 'Rua Capitão Leitão', note: 'residencial que ainda resiste à transformação — dois bairros num só percurso' },
+    ],
+    photoCredits: [
+      { url: 'https://unsplash.com/s/photos/marvila-lisbon-creative-district', source: 'unsplash' },
+      { url: 'https://unsplash.com/s/photos/beato-lisbon-ribeirinho', source: 'unsplash' },
+    ],
+    tags: ['potencial', 'criativo', 'industrial', 'junto ao rio', 'em transformação'],
+    stats: {
+      medianAgeYears: 35,
+      tramMetroOrTrainToBaixaMinutes: 25,
+      medianT2RentEuros: 1100,
+      populationTrend3y: 'growing',
+    },
   },
 
   {
@@ -420,6 +486,13 @@ export const freguesias: Freguesia[] = [
       { url: 'https://unsplash.com/s/photos/intendente-lisbon', source: 'unsplash' },
       { url: 'https://unsplash.com/s/photos/mouraria-lisbon', source: 'unsplash' },
     ],
+    tags: ['cosmopolita', 'diverso', 'central', 'em alta', 'vibrante'],
+    stats: {
+      medianAgeYears: 37,
+      tramMetroOrTrainToBaixaMinutes: 12,
+      medianT2RentEuros: 1200,
+      populationTrend3y: 'growing',
+    },
   },
 
   {

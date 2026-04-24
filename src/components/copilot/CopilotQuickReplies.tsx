@@ -34,19 +34,19 @@ export function CopilotQuickReplies({
               style={{
                 padding: '8px 14px',
                 borderRadius: '8px',
-                border: isSel ? '1.5px solid #C45D3E' : '1.5px solid #E8E4DC',
+                border: isSel ? '1.5px solid #C2553A' : '1.5px solid rgba(30, 31, 24, 0.125)',
                 background: isSel ? '#FEF3EE' : 'white',
-                color: isSel ? '#C45D3E' : '#0A0A0B',
+                color: isSel ? '#C2553A' : '#1E1F18',
                 opacity: isDisabled ? 0.35 : 1,
                 cursor: isDisabled ? 'not-allowed' : 'pointer',
                 fontSize: '13px',
-                fontFamily: 'Plus Jakarta Sans, sans-serif',
+                fontFamily: 'Inter, Arial, sans-serif',
               }}
             >
               {reply.emoji && <span style={{ fontSize: '14px' }}>{reply.emoji}</span>}
               {reply.label}
               {type === 'multi' && isSel && (
-                <span style={{ width: '14px', height: '14px', background: '#C45D3E', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <span style={{ width: '14px', height: '14px', background: '#C2553A', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <Check size={9} color="white" strokeWidth={3} />
                 </span>
               )}
@@ -62,12 +62,12 @@ export function CopilotQuickReplies({
             disabled={selected.length === 0}
             className="w-full py-3 text-sm font-semibold transition-opacity duration-150"
             style={{
-              background: selected.length > 0 ? '#0A0A0B' : '#C9C5BD',
+              background: selected.length > 0 ? '#1E1F18' : 'rgba(30, 31, 24, 0.125)',
               color: 'white',
               borderRadius: '8px',
               border: 'none',
               cursor: selected.length > 0 ? 'pointer' : 'not-allowed',
-              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              fontFamily: 'Inter, Arial, sans-serif',
             }}
           >
             {selected.length > 0

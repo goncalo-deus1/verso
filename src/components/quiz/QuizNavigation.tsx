@@ -40,9 +40,9 @@ export default function QuizNavigation({
         onClick={onPrev}
         disabled={isSubmitting}
         className="flex items-center gap-2 text-sm font-medium transition-colors duration-150"
-        style={{ color: '#6B6B68', opacity: isSubmitting ? 0.4 : 1 }}
-        onMouseEnter={e => { if (!isSubmitting) (e.currentTarget as HTMLElement).style.color = '#0E1116' }}
-        onMouseLeave={e => { if (!isSubmitting) (e.currentTarget as HTMLElement).style.color = '#6B6B68' }}>
+        style={{ color: '#3A3B2E', opacity: isSubmitting ? 0.4 : 1 }}
+        onMouseEnter={e => { if (!isSubmitting) (e.currentTarget as HTMLElement).style.color = '#1E1F18' }}
+        onMouseLeave={e => { if (!isSubmitting) (e.currentTarget as HTMLElement).style.color = '#3A3B2E' }}>
         <ArrowLeft size={14} />
         {prevLabel}
       </button>
@@ -54,8 +54,8 @@ export default function QuizNavigation({
         disabled={!canNext || isSubmitting}
         className="flex items-center gap-2 px-7 py-3.5 text-sm font-semibold transition-all duration-200"
         style={{
-          background: canNext && !isSubmitting ? '#0E1116' : '#D9D2C3',
-          color: '#F5F1EA',
+          background: canNext && !isSubmitting ? '#1E1F18' : 'rgba(30, 31, 24, 0.125)',
+          color: '#F2EDE4',
           borderRadius: '2px',
           cursor: canNext && !isSubmitting ? 'pointer' : 'not-allowed',
           minWidth: '148px',

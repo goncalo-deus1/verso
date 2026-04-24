@@ -1,20 +1,35 @@
-import { useParams, Link, Navigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { freguesias } from '../data/freguesias'
 import { concelhos } from '../data/concelhos'
+import SaveZoneButton from '../components/SaveZoneButton'
 
-const INK      = '#0E1116'
-const BONE     = '#F5F1EA'
-const CLAY     = '#B8624A'
-const MOSS     = '#3E5A48'
-const SAND     = '#E6DDCD'
-const STONE    = '#6B6B68'
-const HAIRLINE = '#D9D2C3'
+const INK      = '#1E1F18'
+const BONE     = '#F2EDE4'
+const CLAY     = '#C2553A'
+const MOSS     = '#6B7A5A'
+const SAND     = '#E8E0D0'
+const STONE    = '#3A3B2E'
+const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 
 export default function FreguesiDetailPage() {
   const { slug } = useParams<{ slug: string }>()
-  const freguesia = freguesias.find(f => f.slug === slug)
+  const freguesia = slug ? freguesias.find(f => f.slug === slug) : undefined
 
-  if (!freguesia) return <Navigate to="/404" replace />
+  if (!freguesia) return (
+    <main className="min-h-screen bg-verso-paper flex items-center justify-center px-6">
+      <div className="text-center max-w-md">
+        <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-verso-clay mb-4">
+          § Freguesia não encontrada
+        </p>
+        <p className="font-display text-3xl text-verso-midnight mb-6">
+          Esta freguesia não existe no nosso atlas.
+        </p>
+        <Link to="/" className="font-mono text-xs tracking-[0.15em] uppercase text-verso-midnight hover:text-verso-clay">
+          ← Voltar ao mapa
+        </Link>
+      </div>
+    </main>
+  )
 
   const concelho = concelhos.find(c => c.slug === freguesia.concelhoSlug)
 
@@ -57,15 +72,8 @@ export default function FreguesiDetailPage() {
 
   return (
     <div style={{ background: BONE, minHeight: '100vh' }}>
-      {/* Header */}
-      <div style={{ padding: '32px 48px 0', maxWidth: '760px', margin: '0 auto' }}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <span className="font-display" style={{ fontSize: '20px', color: INK, letterSpacing: '-0.5px' }}>VERSO</span>
-        </Link>
-      </div>
-
       {/* Conteúdo editorial */}
-      <article style={{ maxWidth: '680px', margin: '0 auto', padding: '64px 48px 120px', boxSizing: 'border-box' }}>
+      <article className="px-5 sm:px-8 md:px-12 pt-24 sm:pt-28 pb-24" style={{ maxWidth: '680px', margin: '0 auto', boxSizing: 'border-box' }}>
 
         {/* Eyebrow */}
         <p style={eyebrow}>
@@ -85,6 +93,11 @@ export default function FreguesiDetailPage() {
           {freguesia.oneLine}
         </p>
 
+        {/* Save button */}
+        <div style={{ marginBottom: '24px' }}>
+          <SaveZoneButton zoneSlug={freguesia.slug} zoneKind="freguesia" zoneName={freguesia.name} />
+        </div>
+
         {/* Divisor */}
         <hr style={{ border: 'none', borderTop: `1px solid ${HAIRLINE}`, marginBottom: '40px' }} />
 
@@ -94,12 +107,8 @@ export default function FreguesiDetailPage() {
         </p>
 
         {/* Hard facts */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-          gap: '24px',
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 lg:p-8" style={{
           marginBottom: '48px',
-          padding: '32px',
           background: SAND,
           borderRadius: '4px',
         }}>
@@ -116,12 +125,7 @@ export default function FreguesiDetailPage() {
         </div>
 
         {/* Quem se dá bem / mal */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: '16px',
-          marginBottom: '48px',
-        }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ marginBottom: '48px' }}>
           <div style={{ background: SAND, borderRadius: '4px', padding: '28px' }}>
             <p style={{ ...eyebrow, marginBottom: '12px' }}>Quem se dá bem aqui</p>
             <p style={{ fontSize: '16px', color: INK, lineHeight: 1.6, margin: 0 }}>{freguesia.whoFitsHere}</p>
@@ -157,7 +161,7 @@ export default function FreguesiDetailPage() {
         {/* CTA */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
           <Link
-            to="/imoveis"
+            to="/areas"
             style={{
               display: 'inline-block',
               padding: '14px 32px',

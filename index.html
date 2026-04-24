@@ -4,11 +4,48 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="VERSO — Encontre a zona certa primeiro. Depois o imóvel. Plataforma editorial de apoio à decisão de compra de imóveis em Portugal." />
-    <title>VERSO — Onde encontrar o lugar certo começa com a zona certa.</title>
+    <meta name="description" content="Habitta — A zona certa antes da casa certa. Plataforma editorial de apoio à decisão de compra de imóveis em Portugal." />
+    <title>Habitta — A zona certa antes da casa certa.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    <!--
+      Font strategy:
+      1. Fraunces (display/heading) — narrowed axis ranges to what CSS actually uses:
+           opsz 9..144 (keep — optical size is a key axis)
+           wght 300..700 (was 300..900; 800/900 unused)
+           SOFT 0..100, WONK 0..1 (unchanged)
+         Two separate requests: normal + italic, both async via media="print" swap.
+      2. Inter (body copy) — async, lower priority.
+      3. JetBrains Mono (code/labels) — async, lowest priority.
+      Splitting into two <link> elements lets the browser parallelise
+      the two font CSS fetches and avoids a single mega-bundle timeout
+      blocking all three families.
+    -->
+
+    <!-- Fraunces — display font (headings, wordmark) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <!-- Inter + JetBrains Mono — body/UI fonts (lower priority) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>

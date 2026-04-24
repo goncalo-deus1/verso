@@ -1,7 +1,7 @@
 /**
  * quiz/engine.ts
  *
- * Orquestrador do quiz VERSO para casais.
+ * Orquestrador do quiz Habitta para casais.
  * Pipeline completo: filtros → scoring → explicações → resultado.
  *
  * Uso:
@@ -73,7 +73,7 @@ export function runQuiz(answers: QuizAnswers): QuizResult {
 export function debugQuiz(answers: QuizAnswers): void {
   const result = runQuiz(answers)
 
-  console.group('📍 VERSO Quiz Result')
+  console.group('📍 Habitta Quiz Result')
   console.log(`Zonas analisadas: ${zones.length}`)
   console.log(`Zonas eliminadas por filtros: ${result.filteredCount}`)
   console.log(`Zonas aprovadas: ${result.all.length}`)

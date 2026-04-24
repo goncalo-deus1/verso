@@ -55,9 +55,9 @@ export default function PropertyListingPage() {
   const hasFilters = budget || bedrooms || search
 
   return (
-    <div className="min-h-screen" style={{ background: '#F7F5F0' }}>
+    <div className="min-h-screen" style={{ background: '#F2EDE4' }}>
       {/* Header */}
-      <section style={{ background: '#0A0A0B' }} className="pt-32 pb-14 lg:pt-40 lg:pb-16">
+      <section style={{ background: '#1E1F18' }} className="pt-32 pb-14 lg:pt-40 lg:pb-16">
         <div className="max-w-7xl mx-auto px-8 lg:px-12">
           <BlockLabel light>Imóveis</BlockLabel>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
@@ -73,7 +73,7 @@ export default function PropertyListingPage() {
 
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         <Callout>
-          Cada imóvel na VERSO foi avaliado pelo seu mérito real — localização, contexto urbanístico e potencial de valorização.
+          Cada imóvel na Habitta foi avaliado pelo seu mérito real — localização, contexto urbanístico e potencial de valorização.
         </Callout>
       </div>
 
@@ -84,53 +84,53 @@ export default function PropertyListingPage() {
           <div className="relative flex-1 min-w-64">
             <input type="text" placeholder="Pesquisar zona, cidade..." value={search} onChange={e => setSearch(e.target.value)}
               className="w-full px-4 py-2.5 text-sm outline-none"
-              style={{ border: '1px solid #E8E4DC', background: 'white', color: '#0A0A0B', borderRadius: '2px' }} />
-            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2"><X size={13} style={{ color: '#9A9590' }} /></button>}
+              style={{ border: '1px solid rgba(30, 31, 24, 0.125)', background: 'white', color: '#1E1F18', borderRadius: '2px' }} />
+            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2"><X size={13} style={{ color: '#3A3B2E' }} /></button>}
           </div>
 
           {/* Budget */}
           <div className="relative">
             <select value={budget} onChange={e => setBudget(e.target.value)}
               className="appearance-none pl-4 pr-8 py-2.5 text-sm outline-none cursor-pointer"
-              style={{ border: '1px solid #E8E4DC', background: budget ? '#FAF8F3' : 'white', color: '#0A0A0B', borderRadius: '2px' }}>
+              style={{ border: '1px solid rgba(30, 31, 24, 0.125)', background: budget ? '#F2EDE4' : 'white', color: '#1E1F18', borderRadius: '2px' }}>
               {budgetOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
-            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: '#9A9590' }} />
+            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: '#3A3B2E' }} />
           </div>
 
           {/* Bedrooms */}
           <div className="relative">
             <select value={bedrooms} onChange={e => setBedrooms(e.target.value)}
               className="appearance-none pl-4 pr-8 py-2.5 text-sm outline-none cursor-pointer"
-              style={{ border: '1px solid #E8E4DC', background: bedrooms ? '#FAF8F3' : 'white', color: '#0A0A0B', borderRadius: '2px' }}>
+              style={{ border: '1px solid rgba(30, 31, 24, 0.125)', background: bedrooms ? '#F2EDE4' : 'white', color: '#1E1F18', borderRadius: '2px' }}>
               <option value="">Todos os quartos</option>
               {[1,2,3].map(n => <option key={n} value={n}>{n} quartos</option>)}
               <option value="4">4+ quartos</option>
             </select>
-            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: '#9A9590' }} />
+            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: '#3A3B2E' }} />
           </div>
 
           {/* Sort */}
           <div className="relative">
             <select value={sort} onChange={e => setSort(e.target.value)}
               className="appearance-none pl-4 pr-8 py-2.5 text-sm outline-none cursor-pointer"
-              style={{ border: '1px solid #E8E4DC', background: 'white', color: '#0A0A0B', borderRadius: '2px' }}>
+              style={{ border: '1px solid rgba(30, 31, 24, 0.125)', background: 'white', color: '#1E1F18', borderRadius: '2px' }}>
               {sortOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
-            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: '#9A9590' }} />
+            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: '#3A3B2E' }} />
           </div>
 
           {hasFilters && (
             <button onClick={() => { setBudget(''); setBedrooms(''); setSearch('') }}
               className="flex items-center gap-1.5 text-sm font-medium transition-colors duration-150"
-              style={{ color: '#9A9590' }}>
+              style={{ color: '#3A3B2E' }}>
               <X size={13} /> Limpar
             </button>
           )}
         </div>
 
         {/* Count */}
-        <p className="text-xs mb-8" style={{ color: '#9A9590', fontFamily: 'IBM Plex Mono' }}>
+        <p className="text-xs mb-8" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
           {filtered.length} {filtered.length === 1 ? 'imóvel' : 'imóveis'}
         </p>
 
@@ -142,11 +142,11 @@ export default function PropertyListingPage() {
         ) : (
           <div className="py-20">
             <Divider />
-            <h2 className="font-display text-2xl mb-3" style={{ color: '#0A0A0B' }}>Sem resultados</h2>
-            <p className="text-sm mb-6" style={{ color: '#9A9590' }}>Tente ajustar os filtros ou explore todas as zonas.</p>
+            <h2 className="font-display text-2xl mb-3" style={{ color: '#1E1F18' }}>Sem resultados</h2>
+            <p className="text-sm mb-6" style={{ color: '#3A3B2E' }}>Tente ajustar os filtros ou explore todas as zonas.</p>
             <button onClick={() => { setBudget(''); setBedrooms(''); setSearch('') }}
               className="px-6 py-3 text-white text-sm font-medium transition-opacity hover:opacity-80"
-              style={{ background: '#0A0A0B', borderRadius: '8px' }}>
+              style={{ background: '#1E1F18', borderRadius: '8px' }}>
               Limpar filtros
             </button>
           </div>

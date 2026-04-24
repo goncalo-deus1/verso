@@ -1,21 +1,48 @@
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { X } from 'lucide-react'
 import { AuthProvider } from './context/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
+import { QuizProvider, useQuiz } from './context/QuizContext'
+import { LanguageProvider } from './context/LanguageContext'
+import CookieBanner from './components/CookieBanner'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import HomePage from './pages/HomePage'
-import QuizFlow from './pages/QuizFlow'
-import AreaRecommendations from './pages/AreaRecommendations'
-import PropertyListingPage from './pages/PropertyListingPage'
-import PropertyDetailPage from './pages/PropertyDetailPage'
-import EditorialPage from './pages/EditorialPage'
-import ArticleDetailPage from './pages/ArticleDetailPage'
-import AuthPage from './pages/AuthPage'
-import ProfilePage from './pages/ProfilePage'
-import QuizResults from './pages/QuizResults'
-import ZoneDetailPage from './pages/ZoneDetailPage'
-import FreguesiDetailPage from './pages/FreguesiDetailPage'
-import ConcelhoDetailPage from './pages/ConcelhoDetailPage'
+import { PaperGrain } from './components/layout/PaperGrain'
+
+/**
+ * Minimal page skeleton shown while a lazy route chunk is being fetched.
+ * Uses the site background colour so there is no flash of white and no CLS.
+ */
+function PageSkeleton() {
+  return (
+    <div
+      aria-hidden
+      style={{
+        minHeight: '100vh',
+        background: '#F2EDE4',
+      }}
+    />
+  )
+}
+
+const HomePage           = lazy(() => import('./pages/HomePage'))
+const QuizFlow           = lazy(() => import('./pages/QuizFlow'))
+const AreaRecommendations = lazy(() => import('./pages/AreaRecommendations'))
+const EditorialPage      = lazy(() => import('./pages/EditorialPage'))
+const ArticleDetailPage  = lazy(() => import('./pages/ArticleDetailPage'))
+const AuthPage           = lazy(() => import('./pages/AuthPage'))
+const ProfilePage        = lazy(() => import('./pages/ProfilePage'))
+const QuizResults        = lazy(() => import('./pages/QuizResults'))
+const ZoneDetailPage     = lazy(() => import('./pages/ZoneDetailPage'))
+const ConcelhoDetailPage = lazy(() => import('./pages/ConcelhoDetailPage'))
+const AuthCallback       = lazy(() => import('./pages/AuthCallback'))
+const MinhaConta         = lazy(() => import('./pages/MinhaConta'))
+const QuizDossier        = lazy(() => import('./pages/QuizDossier'))
+const QuizPage           = lazy(() => import('./pages/QuizPage'))
+
+const INK  = '#1E1F18'
+const BONE = '#F2EDE4'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -33,34 +60,134 @@ function Layout({ children }: { children: React.ReactNode }) {
   )
 }
 
+// ─── Quiz Modal ───────────────────────────────────────────────────────────────
+
+function QuizModal() {
+  const { isOpen, close } = useQuiz()
+
+  // Bloqueia scroll do body quando aberto
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [isOpen])
+
+  if (!isOpen) return null
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 9999,
+        background: 'rgba(30, 31, 24,0.72)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px',
+        boxSizing: 'border-box',
+      }}
+      onClick={e => { if (e.target === e.currentTarget) close() }}
+    >
+      <div
+        style={{
+          background: BONE,
+          width: '100%',
+          maxWidth: '620px',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          borderRadius: '6px',
+          boxShadow: '0 32px 80px rgba(30, 31, 24,0.4), 0 8px 24px rgba(30, 31, 24,0.2)',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+        }}
+      >
+        {/* Header da modal */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '20px 28px',
+          borderBottom: '1px solid rgba(30, 31, 24, 0.125)',
+          position: 'sticky',
+          top: 0,
+          background: BONE,
+          zIndex: 1,
+          flexShrink: 0,
+        }}>
+          <span className="font-display" style={{ fontSize: '16px', color: INK, letterSpacing: '-0.3px' }}>
+            Habitta
+          </span>
+          <button
+            onClick={close}
+            aria-label="Fechar quiz"
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#3A3B2E',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '6px',
+              borderRadius: '4px',
+              transition: 'color 150ms',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = INK)}
+            onMouseLeave={e => (e.currentTarget.style.color = '#3A3B2E')}
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Conteúdo do quiz */}
+        <div style={{ padding: '36px 40px 40px', flex: 1 }}>
+          <Suspense fallback={null}>
+            <QuizFlow onClose={close} />
+          </Suspense>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── Rotas ────────────────────────────────────────────────────────────────────
+
 function AppRoutes() {
   return (
-    <>
+    <Suspense fallback={<PageSkeleton />}>
       <ScrollToTop />
       <Routes>
-        {/* Standalone pages — no header/footer */}
-        <Route path="/quiz" element={<QuizFlow />} />
-        <Route path="/quiz/resultados" element={<QuizResults />} />
+        {/* /quiz — página completa com layout editorial */}
+        <Route path="/quiz" element={<Layout><QuizPage /></Layout>} />
+
+        {/* Auth — sem Layout (design split próprio) */}
         <Route path="/entrar" element={<AuthPage />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
 
-        {/* Zone detail (legado) */}
-        <Route path="/zona/:slug" element={<ZoneDetailPage />} />
-
-        {/* Nova camada geográfica */}
-        <Route path="/freguesia/:slug" element={<FreguesiDetailPage />} />
-        <Route path="/concelho/:slug" element={<ConcelhoDetailPage />} />
-
-        {/* Main layout */}
+        {/* Com Layout completo (Header + Footer) */}
         <Route path="/" element={<Layout><HomePage /></Layout>} />
         <Route path="/areas" element={<Layout><AreaRecommendations /></Layout>} />
         <Route path="/areas/:slug" element={<Layout><AreaRecommendations /></Layout>} />
-        <Route path="/imoveis" element={<Layout><PropertyListingPage /></Layout>} />
-        <Route path="/imoveis/:slug" element={<Layout><PropertyDetailPage /></Layout>} />
         <Route path="/editorial" element={<Layout><EditorialPage /></Layout>} />
         <Route path="/editorial/:slug" element={<Layout><ArticleDetailPage /></Layout>} />
+        <Route path="/quiz/resultados" element={<Layout><QuizResults /></Layout>} />
+        <Route path="/quiz/dossier" element={<Layout><QuizDossier /></Layout>} />
+        <Route path="/zona/:slug" element={<Layout><ZoneDetailPage /></Layout>} />
+
+        <Route path="/concelho/:slug" element={<Layout><ConcelhoDetailPage /></Layout>} />
+
+        {/* Protected */}
+        <Route path="/minha-conta" element={<Layout><ProtectedRoute><MinhaConta /></ProtectedRoute></Layout>} />
         <Route path="/perfil" element={<Layout><ProfilePage /></Layout>} />
       </Routes>
-    </>
+    </Suspense>
   )
 }
 
@@ -68,7 +195,14 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppRoutes />
+        <LanguageProvider>
+          <QuizProvider>
+            <PaperGrain />
+            <QuizModal />
+            <CookieBanner />
+            <AppRoutes />
+          </QuizProvider>
+        </LanguageProvider>
       </AuthProvider>
     </BrowserRouter>
   )
