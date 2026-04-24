@@ -8,7 +8,6 @@
 import { Link } from 'react-router-dom'
 import type { ScoredZone } from '../../lib/quiz/scoring'
 import type { ZoneProfile } from '../../data/attributes'
-import { concelhosAML } from '../../data/concelhosAML'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -45,11 +44,10 @@ function scoreBar(score: number) {
 // ─── Card ─────────────────────────────────────────────────────────────────────
 
 function AltCard({ alt }: { alt: ScoredZone }) {
-  const { zone, score, tradeoff } = alt
+  const { zone, score, tradeoff, tradeoffConfidence } = alt
   const tags = deriveTags(alt.vector)
   const href = zoneHref(alt)
   const kind = zone.kind === 'freguesia' ? 'Freguesia · Lisboa' : 'Concelho · AML'
-  const costVerified = concelhosAML.find(c => c.slug === alt.concelhoSlug)?.costVerified ?? false
 
   return (
     <Link
@@ -96,8 +94,8 @@ function AltCard({ alt }: { alt: ScoredZone }) {
         </div>
       )}
 
-      {/* Tradeoff — suppressed until costVerified to avoid factual errors */}
-      {costVerified && (
+      {/* Tradeoff — only renders at high confidence tier */}
+      {tradeoffConfidence === 'high' && (
         <p className="text-[12px] text-verso-midnight-soft leading-[1.6] line-clamp-3">
           {tradeoff}
         </p>

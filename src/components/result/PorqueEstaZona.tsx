@@ -6,13 +6,14 @@
 
 import type { ZoneProfile } from '../../data/attributes'
 import { ATTRIBUTE_LABELS } from '../../data/attributes'
+import type { TradeoffConfidence } from '../../lib/quiz/tradeoffs'
 
 type Props = {
   nome: string
   vector: ZoneProfile
   descricao: string
   tradeoff?: string
-  costVerified?: boolean
+  tradeoffConfidence?: TradeoffConfidence
 }
 
 function VariavelBar({ nome, valor }: { nome: string; valor: number }) {
@@ -34,7 +35,7 @@ function VariavelBar({ nome, valor }: { nome: string; valor: number }) {
   )
 }
 
-export function PorqueEstaZona({ vector, tradeoff, costVerified }: Props) {
+export function PorqueEstaZona({ vector, tradeoff, tradeoffConfidence }: Props) {
   // Top 4 atributos pelo valor mais alto
   const topVariaveis = (Object.entries(vector) as [keyof ZoneProfile, number][])
     .sort((a, b) => b[1] - a[1])
@@ -69,8 +70,8 @@ export function PorqueEstaZona({ vector, tradeoff, costVerified }: Props) {
           ))}
         </div>
 
-        {/* Trade-off — only shown when costVerified to avoid factual errors */}
-        {tradeoff && costVerified && (
+        {/* Trade-off — only renders at high confidence tier */}
+        {tradeoff && tradeoffConfidence === 'high' && (
           <div className="border-l-2 border-verso-clay pl-6 md:pl-8 max-w-3xl">
             <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-verso-clay mb-3">
               O que esta zona te custa

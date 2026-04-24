@@ -70,33 +70,32 @@ export default function QuizDossier() {
 
   const displayData = useMemo(() => {
     if (isQuizTop) {
-      const bestConcelho = concelhosAML.find(c => c.slug === best.concelhoSlug)
       return {
-        nome:          best.zone.name,
-        score:         best.score,
-        leituraCurta:  best.justification,
-        slug:          best.slug,
-        concelhoSlug:  best.concelhoSlug,
-        zoneKind:      (best.zone.kind ?? 'concelho') as 'freguesia' | 'concelho',
-        vector:        best.vector,
-        descricao:     best.justification,
-        tradeoff:      best.tradeoff,
-        costVerified:  bestConcelho?.costVerified ?? false,
+        nome:               best.zone.name,
+        score:              best.score,
+        leituraCurta:       best.justification,
+        slug:               best.slug,
+        concelhoSlug:       best.concelhoSlug,
+        zoneKind:           (best.zone.kind ?? 'concelho') as 'freguesia' | 'concelho',
+        vector:             best.vector,
+        descricao:          best.justification,
+        tradeoff:           best.tradeoff,
+        tradeoffConfidence: best.tradeoffConfidence,
       }
     }
     // Slider top é diferente da zona do quiz — usa dados do concelhosAML
     const concelho = concelhosAML.find(c => c.slug === sliderTop?.slug)
     return {
-      nome:          sliderTop?.name ?? best.zone.name,
-      score:         sliderTop?.score ?? best.score,
-      leituraCurta:  concelho?.oneLine ?? best.justification,
-      slug:          sliderTop?.slug ?? best.slug,
-      concelhoSlug:  sliderTop?.slug ?? best.concelhoSlug,
-      zoneKind:      'concelho' as const,
-      vector:        concelho?.profile ?? best.vector,
-      descricao:     concelho?.shortDescription ?? best.justification,
-      tradeoff:      undefined,
-      costVerified:  false,
+      nome:               sliderTop?.name ?? best.zone.name,
+      score:              sliderTop?.score ?? best.score,
+      leituraCurta:       concelho?.oneLine ?? best.justification,
+      slug:               sliderTop?.slug ?? best.slug,
+      concelhoSlug:       sliderTop?.slug ?? best.concelhoSlug,
+      zoneKind:           'concelho' as const,
+      vector:             concelho?.profile ?? best.vector,
+      descricao:          concelho?.shortDescription ?? best.justification,
+      tradeoff:           undefined,
+      tradeoffConfidence: 'none' as const,
     }
   }, [isQuizTop, sliderTop, best])
 
@@ -114,7 +113,7 @@ export default function QuizDossier() {
         score={displayData.score}
         leituraCurta={displayData.leituraCurta}
         tradeoff={displayData.tradeoff}
-        costVerified={displayData.costVerified}
+        tradeoffConfidence={displayData.tradeoffConfidence}
         slug={displayData.slug}
         concelhoSlug={displayData.concelhoSlug}
         zoneKind={displayData.zoneKind}
@@ -126,7 +125,7 @@ export default function QuizDossier() {
         vector={displayData.vector}
         descricao={displayData.descricao}
         tradeoff={displayData.tradeoff}
-        costVerified={displayData.costVerified}
+        tradeoffConfidence={displayData.tradeoffConfidence}
       />
 
       {/* § 02 — A prova: mapa interactivo */}

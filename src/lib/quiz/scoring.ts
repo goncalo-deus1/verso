@@ -13,18 +13,21 @@ import { buildProfile } from './profileBuilder'
 import { getWeights, maxDistance } from './weights'
 import type { Weights } from './weights'
 import { getTradeoff, getJustification } from './tradeoffs'
+import type { TradeoffConfidence } from './tradeoffs'
+import { concelhosAML } from '../../data/concelhosAML'
 import type { QuizAnswers } from './questions'
 
 export type { QuizAnswers }
 
 export type ScoredZone = {
-  zone:          Zone
-  slug:          string         // zone.slug — atalho para testes e UI
-  vector:        ZoneProfile    // zone.profile — atalho para inspecção nos testes
-  concelhoSlug:  string         // ID de concelho (para regra de diversidade)
-  score:         number         // 0–100, 100 é match perfeito
-  justification: string
-  tradeoff:      string
+  zone:               Zone
+  slug:               string              // zone.slug — atalho para testes e UI
+  vector:             ZoneProfile         // zone.profile — atalho para inspecção nos testes
+  concelhoSlug:       string             // ID de concelho (para regra de diversidade)
+  score:              number             // 0–100, 100 é match perfeito
+  justification:      string
+  tradeoff:           string             // sentence or '' when none
+  tradeoffConfidence: TradeoffConfidence // tier of the tradeoff sentence
 }
 
 export type QuizResult = {
@@ -123,15 +126,21 @@ export function scoreAnswers(answers: QuizAnswers): QuizResult {
 
   // Pontuação de cada zona
   const scored: ScoredZone[] = filtered
-    .map(zone => ({
-      zone,
-      slug:         zone.slug,
-      vector:       zone.profile,
-      concelhoSlug: getZoneConcelhoId(zone),
-      score:        euclideanScore(userProfile, zone.profile, weights),
-      justification: getJustification(userProfile, zone.profile, weights),
-      tradeoff:     getTradeoff(userProfile, zone.profile, weights),
-    }))
+    .map(zone => {
+      const concelhoSlug = getZoneConcelhoId(zone)
+      const concelho = concelhosAML.find(c => c.slug === concelhoSlug)
+      const tradeoffResult = getTradeoff(userProfile, zone.profile, weights, concelho)
+      return {
+        zone,
+        slug:               zone.slug,
+        vector:             zone.profile,
+        concelhoSlug,
+        score:              euclideanScore(userProfile, zone.profile, weights),
+        justification:      getJustification(userProfile, zone.profile, weights),
+        tradeoff:           tradeoffResult.sentence ?? '',
+        tradeoffConfidence: tradeoffResult.confidence,
+      }
+    })
     .sort((a, b) => b.score - a.score)
 
   const viable = scored.filter(s => s.score >= 40)

@@ -17,7 +17,6 @@ import type { QuizResult } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
 import { questions } from '../lib/quiz/questions'
 import type { Zone } from '../data/zones'
-import { concelhosAML } from '../data/concelhosAML'
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -178,10 +177,7 @@ function QuizNav({
 
 // ─── Componente: cartão de zona alternativa ───────────────────────────────────
 
-function AltZoneCard({ zone, score, tradeoff, isLoggedIn }: { zone: Zone; score: number; tradeoff: string; isLoggedIn: boolean }) {
-  const concelhoSlug = zone.kind === 'freguesia' ? 'lisboa' : zone.slug
-  const costVerified = concelhosAML.find(c => c.slug === concelhoSlug)?.costVerified ?? false
-
+function AltZoneCard({ zone, score, tradeoff, tradeoffConfidence, isLoggedIn }: { zone: Zone; score: number; tradeoff: string; tradeoffConfidence: string; isLoggedIn: boolean }) {
   return (
     <div style={{
       background: BONE,
@@ -214,7 +210,7 @@ function AltZoneCard({ zone, score, tradeoff, isLoggedIn }: { zone: Zone; score:
         </h3>
         {!isLoggedIn && <Lock size={13} style={{ color: STONE, flexShrink: 0 }} />}
       </div>
-      {costVerified && (
+      {tradeoffConfidence === 'high' && (
         <p style={{ fontSize: '13px', color: STONE, margin: '0 0 10px', lineHeight: 1.5 }}>
           {tradeoff}
         </p>
@@ -227,7 +223,6 @@ function AltZoneCard({ zone, score, tradeoff, isLoggedIn }: { zone: Zone; score:
 
 function ResultScreen({ result, onRestart, isLoggedIn, tr, onAuth }: { result: QuizResult; onRestart: () => void; isLoggedIn: boolean; tr: (k: Parameters<ReturnType<typeof useT>>[0]) => string; onAuth: (mode: 'register' | 'login') => void }) {
   const { best, alternatives, lowScoreWarning } = result
-  const bestCostVerified = concelhosAML.find(c => c.slug === best.concelhoSlug)?.costVerified ?? false
 
   return (
     <div style={{ width: '100%' }}>
@@ -332,7 +327,7 @@ function ResultScreen({ result, onRestart, isLoggedIn, tr, onAuth }: { result: Q
           <p style={{ fontSize: '16px', color: INK, margin: 0, lineHeight: 1.6 }}>
             {best.justification}
           </p>
-          {bestCostVerified && (
+          {best.tradeoffConfidence === 'high' && (
             <p style={{ fontSize: '15px', fontStyle: 'italic', color: MOSS, margin: 0, lineHeight: 1.6 }}>
               <strong style={{ fontStyle: 'normal', fontWeight: 600, color: INK }}>{tr('quiz.result.tradeoff')}</strong>{' '}
               {best.tradeoff}
@@ -379,6 +374,7 @@ function ResultScreen({ result, onRestart, isLoggedIn, tr, onAuth }: { result: Q
                 zone={alt.zone}
                 score={alt.score}
                 tradeoff={alt.tradeoff}
+                tradeoffConfidence={alt.tradeoffConfidence}
                 isLoggedIn={isLoggedIn}
               />
             ))}

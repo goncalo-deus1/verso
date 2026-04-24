@@ -19,12 +19,11 @@ export type ConcelhoAML = {
   parishes: string[]
   transport: string
   /**
-   * costVerified — editorial flag.
-   * Set to true only after manually confirming the generated cost sentence
-   * is factually accurate for this concelho. Defaults to false for all entries.
-   * When false, the "O que esta zona te custa" block is suppressed in the UI.
+   * tradeoffOverrides — per-concelho sentence overrides for the tiered tradeoff system.
+   * When set, these replace the generic vocabulary for the specified attribute × tier.
+   * Leave unset to use generic vocabulary. Populate only after manual verification.
    */
-  costVerified: boolean
+  tradeoffOverrides?: Partial<Record<keyof ZoneProfile, { medium?: string; high?: string }>>
 }
 
 export const concelhosAML: ConcelhoAML[] = [
@@ -51,7 +50,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'São Domingos de Benfica', 'São Vicente',
     ],
     transport: 'Metro + Comboio',
-    costVerified: false,
   },
   // ─── Margem Norte ─────────────────────────────────────────────────────────────
   {
@@ -75,7 +73,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Porto Salvo',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'cascais',
@@ -97,7 +94,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'São Domingos de Rana',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'sintra',
@@ -126,7 +122,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'São João das Lampas e Terrugem',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'amadora',
@@ -150,7 +145,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Venteira',
     ],
     transport: 'Metro + Comboio',
-    costVerified: false,
   },
   {
     slug: 'odivelas',
@@ -172,7 +166,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Póvoa de Santo Adrião e Olival Basto',
     ],
     transport: 'Metro + Comboio',
-    costVerified: false,
   },
   {
     slug: 'loures',
@@ -199,7 +192,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Unhos',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'mafra',
@@ -228,7 +220,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Venda do Pinheiro',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'vila-franca-de-xira',
@@ -253,7 +244,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Vila Franca de Xira',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   // ─── Margem Sul ───────────────────────────────────────────────────────────────
   {
@@ -277,7 +267,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Laranjeiro e Feijó',
     ],
     transport: 'Metro Sul do Tejo + Comboio',
-    costVerified: false,
   },
   {
     slug: 'seixal',
@@ -301,7 +290,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Seixal',
     ],
     transport: 'Metro Sul do Tejo + Comboio',
-    costVerified: false,
   },
   {
     slug: 'barreiro',
@@ -323,7 +311,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Palhais',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'moita',
@@ -345,7 +332,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Moita',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'montijo',
@@ -369,7 +355,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Sarilhos Grandes',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'alcochete',
@@ -390,7 +375,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'São Francisco',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'sesimbra',
@@ -411,7 +395,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Sesimbra',
     ],
     transport: 'Autocarro',
-    costVerified: false,
   },
   {
     slug: 'setubal',
@@ -434,7 +417,6 @@ export const concelhosAML: ConcelhoAML[] = [
       'Sado',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
   {
     slug: 'palmela',
@@ -456,6 +438,5 @@ export const concelhosAML: ConcelhoAML[] = [
       'Quinta do Anjo',
     ],
     transport: 'Comboio',
-    costVerified: false,
   },
 ]

@@ -17,12 +17,14 @@ import { AnimatePresence, motion } from 'framer-motion'
 import SaveZoneButton from '../SaveZoneButton'
 import { MapaAML } from '../hero/MapaAML'
 
+import type { TradeoffConfidence } from '../../lib/quiz/tradeoffs'
+
 type Props = {
   nome: string
   score: number
   leituraCurta: string
   tradeoff?: string
-  costVerified?: boolean
+  tradeoffConfidence?: TradeoffConfidence
   slug: string
   concelhoSlug: string
   zoneKind: 'freguesia' | 'concelho'
@@ -51,7 +53,7 @@ function ZonaNome({ nome }: { nome: string }) {
   )
 }
 
-export function ZonaHero({ nome, score, leituraCurta, tradeoff, costVerified, slug, concelhoSlug, zoneKind }: Props) {
+export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfidence, slug, concelhoSlug, zoneKind }: Props) {
   return (
     <section className="relative min-h-[92vh] bg-verso-paper border-b border-verso-rule-soft overflow-hidden">
       <div className="grid lg:grid-cols-[1.2fr_1fr] min-h-[92vh]">
@@ -114,8 +116,8 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, costVerified, sl
             </motion.p>
           </AnimatePresence>
 
-          {/* 4 — Winner trade-off surfaced from § 01 — suppressed until costVerified */}
-          {tradeoff && costVerified && (
+          {/* 4 — Winner trade-off — only renders at high confidence tier */}
+          {tradeoff && tradeoffConfidence === 'high' && (
             <AnimatePresence mode="wait">
               <motion.div
                 key={tradeoff}
