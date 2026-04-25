@@ -7,14 +7,17 @@
  */
 
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
+import { useAuth } from '../context/AuthContext'
 import { scoreAnswers } from '../lib/quiz/scoring'
 import { questions } from '../lib/quiz/questions'
 import type { QuizAnswers } from '../lib/quiz/questions'
 import { SectionHead } from '../components/editorial/SectionHead'
 import { QuizProgress } from '../components/quiz/QuizProgress'
 import QuizInvestorWaitlist from './QuizInvestorWaitlist'
+import { QuizConflictModal } from '../components/result/QuizConflictModal'
+import { getUserQuiz, upsertUserQuiz } from '../lib/supabase/userQuiz'
 
 // ─── Constantes ──────────────────────────────────────────────────────────────
 
@@ -246,10 +249,26 @@ function LoadingCard() {
 // ─── Componente principal ─────────────────────────────────────────────────────
 
 export default function QuizPage() {
+  const [searchParams] = useSearchParams()
+  const isRefazer = searchParams.get('refazer') === 'true'
+
   const [screen, setScreen] = useState<Screen>('welcome')
   const [answers, setAnswers] = useState<QuizAnswers>({})
-  const { setQuizResult } = useQuiz()
+  const [showRefazerModal, setShowRefazerModal] = useState(false)
+  const { setQuizResult, setQuizAnswers } = useQuiz()
+  const { user } = useAuth()
   const navigate = useNavigate()
+
+  // Prefill with saved answers when coming from "Refazer o quiz"
+  useEffect(() => {
+    if (!isRefazer || !user) return
+    getUserQuiz(user.id).then(saved => {
+      if (saved) {
+        setAnswers(saved.answers)
+        setScreen('q1')
+      }
+    }).catch(console.error)
+  }, [isRefazer, user?.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Navegação ──────────────────────────────────────────────────────────────
 
@@ -262,17 +281,23 @@ export default function QuizPage() {
     const idx = SCREEN_ORDER.indexOf(screen)
     const next = SCREEN_ORDER[idx + 1]
     if (next === 'loading') {
+      // Refazer: confirm before overwriting saved quiz
+      if (isRefazer && user) {
+        setShowRefazerModal(true)
+        return
+      }
       setScreen('loading')
       setTimeout(() => {
         const res = scoreAnswers(answers)
         setQuizResult(res)
+        setQuizAnswers(answers)
         navigate('/quiz/dossier')
       }, 1100)
     } else if (next) {
       setScreen(next)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  }, [screen, answers, navigate, setQuizResult])
+  }, [screen, answers, navigate, setQuizResult, setQuizAnswers, isRefazer, user])
 
   const goBack = useCallback(() => {
     if (screen === 'investor') {
@@ -285,6 +310,24 @@ export default function QuizPage() {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [screen])
+
+  // ── Refazer confirm modal ──────────────────────────────────────────────────
+
+  async function handleRefazerConfirm() {
+    setShowRefazerModal(false)
+    setScreen('loading')
+    setTimeout(async () => {
+      const res = scoreAnswers(answers)
+      if (user) await upsertUserQuiz(user.id, answers, res).catch(console.error)
+      setQuizResult(res)
+      setQuizAnswers(answers)
+      navigate('/quiz/dossier')
+    }, 1100)
+  }
+
+  function handleRefazerCancel() {
+    setShowRefazerModal(false)
+  }
 
   // ── Selecção de respostas ──────────────────────────────────────────────────
 
@@ -325,6 +368,14 @@ export default function QuizPage() {
   const isQuestion = Q_SCREENS.includes(screen)
 
   return (
+    <>
+    {showRefazerModal && (
+      <QuizConflictModal
+        variant="refazer"
+        onPrimary={handleRefazerConfirm}
+        onSecondary={handleRefazerCancel}
+      />
+    )}
     <div className="min-h-screen bg-verso-paper-deep relative z-[2]">
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12 pt-28 sm:pt-32 pb-24">
 
@@ -394,5 +445,6 @@ export default function QuizPage() {
 
       </div>
     </div>
+    </>
   )
 }

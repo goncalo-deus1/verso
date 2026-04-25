@@ -75,6 +75,28 @@ export interface Database {
         }
         Relationships: []
       }
+      user_quiz: {
+        Row: {
+          user_id:    string
+          answers:    Json
+          result:     Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          user_id:     string
+          answers:     Json
+          result:      Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          answers?:    Json
+          result?:     Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       waitlist: {
         Row: {
           id: string

@@ -8,7 +8,9 @@ export default function AuthCallback() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        navigate('/', { replace: true })
+        const redirect = sessionStorage.getItem('auth_redirect') ?? '/'
+        sessionStorage.removeItem('auth_redirect')
+        navigate(redirect, { replace: true })
       } else {
         navigate('/entrar', { replace: true })
       }

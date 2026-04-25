@@ -28,7 +28,8 @@ export default function AuthPage() {
   const [magicSent, setMagicSent] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', password: '' })
 
-  const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? '/'
+  const redirectParam = params.get('redirect')
+  const from = redirectParam ?? (location.state as { from?: { pathname: string } })?.from?.pathname ?? '/'
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm(p => ({ ...p, [e.target.name]: e.target.value }))
@@ -52,9 +53,10 @@ export default function AuthPage() {
     setError('')
 
     if (mode === 'register') {
+      if (from !== '/') sessionStorage.setItem('auth_redirect', from)
       const { error } = await signUp(form.email, form.password, form.name)
       setLoading(false)
-      if (error) { setError(translateError(error)); return }
+      if (error) { sessionStorage.removeItem('auth_redirect'); setError(translateError(error)); return }
       // Show "check your email" message
       setMagicSent(true)
     } else {
@@ -71,9 +73,10 @@ export default function AuthPage() {
 
     setLoading(true)
     setError('')
+    if (from !== '/') sessionStorage.setItem('auth_redirect', from)
     const { error } = await signInWithMagicLink(form.email)
     setLoading(false)
-    if (error) { setError(translateError(error)); return }
+    if (error) { sessionStorage.removeItem('auth_redirect'); setError(translateError(error)); return }
     setMagicSent(true)
   }
 

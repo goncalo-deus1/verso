@@ -28,6 +28,8 @@ type Props = {
   slug: string
   concelhoSlug: string
   zoneKind: 'freguesia' | 'concelho'
+  /** When true: score, map, tradeoff, and CTAs are blurred / replaced by login gate. */
+  isGated?: boolean
 }
 
 /** Prepend "contigo" if the string starts with "Alinha em ". */
@@ -53,7 +55,7 @@ function ZonaNome({ nome }: { nome: string }) {
   )
 }
 
-export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfidence, slug, concelhoSlug, zoneKind }: Props) {
+export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfidence, slug, concelhoSlug, zoneKind, isGated = false }: Props) {
   return (
     <section className="relative min-h-[92vh] bg-verso-paper border-b border-verso-rule-soft overflow-hidden">
       <div className="grid lg:grid-cols-[1.2fr_1fr] min-h-[92vh]">
@@ -94,97 +96,156 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
             </motion.p>
           </AnimatePresence>
 
-          {/* 3 — Compact score line */}
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={score}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{
-                fontFamily: '"JetBrains Mono", ui-monospace, monospace',
-                fontSize: '12px',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                marginTop: '24px',
-              }}
-            >
-              <span style={{ color: 'var(--telha-forte)' }}>Afinidade</span>
-              {' '}
-              <span style={{ color: 'var(--azeitona)' }}>· {score} / 100</span>
-            </motion.p>
-          </AnimatePresence>
-
-          {/* 4 — Winner trade-off — only renders at high confidence tier */}
-          {tradeoff && tradeoffConfidence === 'high' && (
+          {/* 3 — Compact score line (blurred when gated) */}
+          <div style={isGated ? { filter: 'blur(6px)', pointerEvents: 'none', userSelect: 'none' } : undefined}>
             <AnimatePresence mode="wait">
-              <motion.div
-                key={tradeoff}
+              <motion.p
+                key={score}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, delay: 0.1 }}
+                transition={{ duration: 0.3 }}
                 style={{
-                  borderLeft: '2px solid var(--telha-forte)',
-                  paddingLeft: '16px',
-                  marginTop: '32px',
-                  maxWidth: '520px',
+                  fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+                  fontSize: '12px',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  marginTop: '24px',
                 }}
               >
-                <p style={{
-                  fontFamily: '"JetBrains Mono", ui-monospace, monospace',
-                  fontSize: '10px',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  color: 'var(--telha-forte)',
-                  marginBottom: '8px',
-                }}>
-                  Custo desta escolha
-                </p>
-                <p style={{
-                  fontFamily: 'var(--serif)',
-                  fontStyle: 'italic',
-                  fontSize: '16px',
-                  fontVariationSettings: '"SOFT" 50, "WONK" 1',
-                  color: 'var(--azeitona-medio)',
-                  lineHeight: 1.5,
-                }}>
-                  {tradeoff}
-                </p>
-              </motion.div>
+                <span style={{ color: 'var(--telha-forte)' }}>Afinidade</span>
+                {' '}
+                <span style={{ color: 'var(--azeitona)' }}>· {score} / 100</span>
+              </motion.p>
             </AnimatePresence>
-          )}
 
-          {/* 5 — CTAs */}
-          <div className="flex flex-wrap items-center gap-3 mt-10 md:mt-12">
-            {/* Primary — scroll to § 01 */}
-            <a
-              href="#porque-esta-zona"
-              style={{
-                display: 'inline-flex', alignItems: 'center',
-                padding: '9px 22px', fontSize: '13px', fontWeight: 500,
-                background: '#B24A30', color: '#F2EDE4',
-                border: '1px solid #B24A30', borderRadius: '50px',
-                textDecoration: 'none', transition: 'all 150ms',
-              }}
-              onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#9A3D27'; el.style.borderColor = '#9A3D27' }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#B24A30'; el.style.borderColor = '#B24A30' }}
-            >
-              Continuar ↓
-            </a>
-            {/* Secondary — save zone */}
-            <SaveZoneButton
-              zoneSlug={slug}
-              zoneKind={zoneKind}
-              zoneName={nome}
-              label="Guardar esta análise"
-            />
+            {/* 4 — Winner trade-off — only renders at high confidence tier */}
+            {tradeoff && tradeoffConfidence === 'high' && (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={tradeoff}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, delay: 0.1 }}
+                  style={{
+                    borderLeft: '2px solid var(--telha-forte)',
+                    paddingLeft: '16px',
+                    marginTop: '32px',
+                    maxWidth: '520px',
+                  }}
+                >
+                  <p style={{
+                    fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+                    fontSize: '10px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'var(--telha-forte)',
+                    marginBottom: '8px',
+                  }}>
+                    Custo desta escolha
+                  </p>
+                  <p style={{
+                    fontFamily: 'var(--serif)',
+                    fontStyle: 'italic',
+                    fontSize: '16px',
+                    fontVariationSettings: '"SOFT" 50, "WONK" 1',
+                    color: 'var(--azeitona-medio)',
+                    lineHeight: 1.5,
+                  }}>
+                    {tradeoff}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            )}
           </div>
+
+          {/* 5 — CTAs: login gate when anonymous, normal CTAs when authenticated */}
+          {isGated ? (
+            <div style={{
+              marginTop: '32px', padding: '20px 24px',
+              border: '1px solid rgba(30, 31, 24, 0.15)', maxWidth: '480px',
+              background: 'rgba(242, 237, 228, 0.6)',
+            }}>
+              <p style={{
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: '10px', letterSpacing: '0.15em',
+                textTransform: 'uppercase', color: '#C2553A', marginBottom: '10px',
+              }}>
+                Resultado incompleto
+              </p>
+              <p style={{
+                fontFamily: 'var(--serif)', fontStyle: 'italic',
+                fontSize: '18px', color: '#1E1F18',
+                lineHeight: 1.35, marginBottom: '18px',
+              }}>
+                Cria conta para veres o porquê desta zona.
+              </p>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <a
+                  href="/entrar?redirect=/quiz/dossier&mode=register"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center',
+                    padding: '9px 22px', fontSize: '13px', fontWeight: 500,
+                    background: '#B24A30', color: '#F2EDE4',
+                    border: '1px solid #B24A30', borderRadius: '50px',
+                    textDecoration: 'none', transition: 'all 150ms',
+                  }}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#9A3D27'; el.style.borderColor = '#9A3D27' }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#B24A30'; el.style.borderColor = '#B24A30' }}
+                >
+                  Criar conta
+                </a>
+                <a
+                  href="/entrar?redirect=/quiz/dossier"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center',
+                    padding: '9px 22px', fontSize: '13px', fontWeight: 500,
+                    background: 'transparent', color: '#3A3B2E',
+                    border: '1px solid rgba(30,31,24,0.2)', borderRadius: '50px',
+                    textDecoration: 'none', transition: 'all 150ms',
+                  }}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = '#3A3B2E' }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = 'rgba(30,31,24,0.2)' }}
+                >
+                  Iniciar sessão
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center gap-3 mt-10 md:mt-12">
+              {/* Primary — scroll to § 01 */}
+              <a
+                href="#porque-esta-zona"
+                style={{
+                  display: 'inline-flex', alignItems: 'center',
+                  padding: '9px 22px', fontSize: '13px', fontWeight: 500,
+                  background: '#B24A30', color: '#F2EDE4',
+                  border: '1px solid #B24A30', borderRadius: '50px',
+                  textDecoration: 'none', transition: 'all 150ms',
+                }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#9A3D27'; el.style.borderColor = '#9A3D27' }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#B24A30'; el.style.borderColor = '#B24A30' }}
+              >
+                Continuar ↓
+              </a>
+              {/* Secondary — save zone */}
+              <SaveZoneButton
+                zoneSlug={slug}
+                zoneKind={zoneKind}
+                zoneName={nome}
+                label="Guardar esta análise"
+              />
+            </div>
+          )}
         </div>
 
-        {/* Coluna direita — mini-mapa AML */}
-        <div className="relative order-1 lg:order-2 bg-verso-paper-deep border-l border-verso-rule-soft flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[45vh] lg:min-h-[92vh]">
+        {/* Coluna direita — mini-mapa AML (blurred when gated) */}
+        <div
+          className="relative order-1 lg:order-2 bg-verso-paper-deep border-l border-verso-rule-soft flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[45vh] lg:min-h-[92vh]"
+          style={isGated ? { filter: 'blur(8px)', pointerEvents: 'none', userSelect: 'none' } : undefined}
+          aria-hidden={isGated}
+        >
 
           {/* Metadados topo */}
           <div className="absolute top-6 left-6 right-6 flex justify-between items-start" aria-hidden>
