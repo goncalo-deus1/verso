@@ -82,15 +82,14 @@ function euclideanScore(
 
 function applyBudgetFilter(
   allZones: Zone[],
-  maxBudget: number | null | typeof Infinity,
+  maxMonthlyRent: number | null | typeof Infinity,
 ): Zone[] {
-  // b6 "Ainda estou a definir" (null) → não filtra
-  if (maxBudget === null) return allZones
-  // b5 "Mais de 1M" (Infinity) → não filtra
-  if (maxBudget === Infinity) return allZones
+  // null = "Ainda estou a definir" → não filtra
+  if (maxMonthlyRent === null) return allZones
+  // Infinity = sem limite → não filtra
+  if (maxMonthlyRent === Infinity) return allZones
 
-  const maxMonthlyRent = maxBudget / 300
-
+  // maxMonthlyRent já está em €/mês (chamador converte preço de compra ou passa renda directa)
   const filtered = allZones.filter(z => {
     if (!z.budgetFitT2) return true   // sem dados → passa
     return z.budgetFitT2.min <= maxMonthlyRent
@@ -100,7 +99,7 @@ function applyBudgetFilter(
   if (filtered.length < 10) {
     return allZones.filter(z => {
       if (!z.budgetFitT2) return true
-      return z.budgetFitT2.min <= maxMonthlyRent * 1.2
+      return z.budgetFitT2.min <= (maxMonthlyRent as number) * 1.2
     })
   }
 
@@ -132,23 +131,36 @@ export function scoreAnswers(answers: QuizAnswers): QuizResult {
   const userProfile = buildProfile(answers)
   const weights     = getWeights(answers)
 
-  // Filtro de orçamento (q2_budget)
-  const budgetOption = answers.q2_budget
+  // Filtro de orçamento (q3_budget + q2_ownership)
+  // Para compra: converte preço de compra em renda equivalente (÷ 300)
+  // Para arrendamento: usa o valor de renda directamente — sem conversão
+  const budgetOption = answers.q3_budget
   let filtered: Zone[]
 
   if (!budgetOption) {
     filtered = zones
-  } else {
-    const maxBudgets: Record<string, number | null | typeof Infinity> = {
-      b1: 250_000,
-      b2: 400_000,
-      b3: 600_000,
-      b4: 1_000_000,
-      b5: Infinity,
-      b6: null,       // "Ainda estou a definir" — não filtra
+  } else if (answers.q2_ownership === 'o2_rent') {
+    // Renda: maxMonthlyRent directo
+    const rentMap: Record<string, number | null | typeof Infinity> = {
+      r1_600:       600,
+      r2_600_900:   900,
+      r3_900_1200:  1200,
+      r4_1200_1600: 1600,
+      r5_1600plus:  Infinity,
+      r6_undecided: null,
     }
-    const maxBudget = maxBudgets[budgetOption] ?? null
-    filtered = applyBudgetFilter(zones, maxBudget)
+    filtered = applyBudgetFilter(zones, rentMap[budgetOption] ?? null)
+  } else {
+    // Compra: preço → renda equivalente (÷ 300)
+    const buyMap: Record<string, number | null | typeof Infinity> = {
+      b1_150:       150_000 / 300,   // ≈ 500 €/mês
+      b2_150_250:   250_000 / 300,   // ≈ 833 €/mês
+      b3_250_400:   400_000 / 300,   // ≈ 1 333 €/mês
+      b4_400_600:   600_000 / 300,   // = 2 000 €/mês
+      b5_600plus:   Infinity,
+      b6_undecided: null,
+    }
+    filtered = applyBudgetFilter(zones, buyMap[budgetOption] ?? null)
   }
 
   // Pontuação de cada zona

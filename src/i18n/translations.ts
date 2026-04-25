@@ -109,8 +109,8 @@ const t = {
   'footer.contact':      { pt: 'Contacto',                en: 'Contact' },
 
   // ── QuizFlow ─────────────────────────────────────────────────────────────────
-  'quiz.welcome.title':  { pt: 'Começa com o sítio.',     en: 'Start with location.' },
-  'quiz.welcome.sub':    { pt: 'Nove perguntas. Dois minutos. Depois mostramos-te onde procurar na AML.', en: 'Nine questions. Two minutes. Then we show you where to look in the AML.' },
+  'quiz.welcome.title':  { pt: 'Onde vais viver decide mais do que a casa em si.', en: 'Where you live matters more than the house itself.' },
+  'quiz.welcome.sub':    { pt: '8 perguntas. 90 segundos. Uma resposta honesta.', en: '8 questions. 90 seconds. An honest answer.' },
   'quiz.welcome.start':  { pt: 'Começar',                 en: 'Start' },
   'quiz.welcome.skip':   { pt: 'Já sei onde quero viver — saltar', en: 'I know where I want to live — skip' },
   'quiz.loading':        { pt: 'A cruzar o teu perfil com 41 zonas da AML…', en: 'Matching your profile against 41 AML areas…' },

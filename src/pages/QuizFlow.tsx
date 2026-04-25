@@ -1,7 +1,7 @@
 /**
- * QuizFlow.tsx — Quiz Habitta (9 perguntas, 10 dimensões)
+ * QuizFlow.tsx — Quiz Habitta (8 perguntas, 10 dimensões)
  *
- * Estados: welcome → q1 → q2 → q3 → q4 → q5 → q6 → q7 → q8 → q9 → loading → result
+ * Estados: welcome → q1 → [investor] | q2 → q3 → q4 → q5 → q6 → q7 → q8 → loading → result
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react'
@@ -17,16 +17,19 @@ import type { QuizResult } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
 import { questions } from '../lib/quiz/questions'
 import type { Zone } from '../data/zones'
+import QuizInvestorWaitlist from './QuizInvestorWaitlist'
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
 type Screen =
   | 'welcome'
-  | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'q6' | 'q7' | 'q8' | 'q9'
+  | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'q6' | 'q7' | 'q8'
+  | 'investor'
   | 'loading'
   | 'result'
 
-const QUESTION_SCREENS: Screen[] = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
+const QUESTION_SCREENS: Screen[] = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8']
+// investor is a non-linear branch — not in SCREEN_ORDER for back/forward
 const SCREEN_ORDER: Screen[] = ['welcome', ...QUESTION_SCREENS, 'loading', 'result']
 
 // ─── Tokens visuais ───────────────────────────────────────────────────────────
@@ -45,65 +48,6 @@ function zoneHref(zone: Zone): string {
   return zone.kind === 'freguesia' ? `/freguesia/${zone.slug}` : `/concelho/${zone.slug}`
 }
 
-// ─── Componente: opção de pergunta ────────────────────────────────────────────
-
-function QuizOption({
-  label,
-  selected,
-  onSelect,
-  focusRef,
-}: {
-  label: string
-  selected: boolean
-  onSelect: () => void
-  focusRef?: React.RefObject<HTMLButtonElement | null>
-}) {
-  return (
-    <button
-      ref={focusRef}
-      onClick={onSelect}
-      aria-pressed={selected}
-      style={{
-        display: 'block',
-        width: '100%',
-        textAlign: 'left',
-        padding: '14px 18px',
-        background: BONE,
-        border: selected ? `1px solid ${INK}` : `1px solid ${HAIRLINE}`,
-        borderLeft: selected ? `4px solid ${CLAY}` : `4px solid transparent`,
-        borderRadius: '4px',
-        cursor: 'pointer',
-        fontSize: '15px',
-        lineHeight: '1.45',
-        color: INK,
-        outline: 'none',
-        transition: 'border-color 120ms ease',
-      }}
-      onMouseEnter={e => {
-        if (!selected) {
-          e.currentTarget.style.borderColor = CLAY
-          e.currentTarget.style.borderLeftColor = CLAY
-        }
-      }}
-      onMouseLeave={e => {
-        if (!selected) {
-          e.currentTarget.style.borderColor = HAIRLINE
-          e.currentTarget.style.borderLeftColor = 'transparent'
-        }
-      }}
-      onFocus={e => {
-        e.currentTarget.style.outline = `2px solid ${CLAY}`
-        e.currentTarget.style.outlineOffset = '2px'
-      }}
-      onBlur={e => {
-        e.currentTarget.style.outline = 'none'
-      }}
-    >
-      {label}
-    </button>
-  )
-}
-
 // ─── Componente: eyebrow de progresso ─────────────────────────────────────────
 
 function ProgressEyebrow({ step }: { step: number }) {
@@ -117,7 +61,7 @@ function ProgressEyebrow({ step }: { step: number }) {
       color: CLAY,
       margin: '0 0 20px',
     }}>
-      {String(step).padStart(2, '0')} / 09
+      {String(step).padStart(2, '0')} / 08
     </p>
   )
 }
@@ -497,8 +441,29 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
         return
       }
 
-      if (screen === 'q7') {
-        // multi-select — ArrowUp/Down cycling não aplicável da mesma forma
+      if (screen === 'q8') {
+        // Q8 multi-select: Arrow keys move focus, Space toggles
+        const opts = getAllOptions('q8')
+        const focused = document.activeElement as HTMLButtonElement | null
+        const focusedIdx = focused ? opts.findIndex(o => o.id === focused.dataset?.optionId) : -1
+
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          e.preventDefault()
+          const next = (focusedIdx + 1) % opts.length
+          const btn = document.querySelector<HTMLButtonElement>(`[data-option-id="${opts[next].id}"]`)
+          btn?.focus()
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          e.preventDefault()
+          const prev = (focusedIdx - 1 + opts.length) % opts.length
+          const btn = document.querySelector<HTMLButtonElement>(`[data-option-id="${opts[prev].id}"]`)
+          btn?.focus()
+        } else if (e.key === ' ' && focused?.dataset?.optionId) {
+          e.preventDefault()
+          toggleQ8(focused.dataset.optionId)
+        } else if (e.key === 'Enter') {
+          e.preventDefault()
+          if (canAdvance(screen, answers)) goForward()
+        }
         return
       }
 
@@ -526,11 +491,20 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   // ── Helpers de navegação ──────────────────────────────────────────────────
 
   const goBack = useCallback(() => {
+    if (screen === 'investor') {
+      setScreen('q1')
+      return
+    }
     const idx = SCREEN_ORDER.indexOf(screen)
     if (idx > 0) setScreen(SCREEN_ORDER[idx - 1])
   }, [screen])
 
   const goForward = useCallback(() => {
+    // Investor branch: Q1 → investor when i4_invest
+    if (screen === 'q1' && answers.q1_intent === 'i4_invest') {
+      setScreen('investor')
+      return
+    }
     const idx = SCREEN_ORDER.indexOf(screen)
     const next = SCREEN_ORDER[idx + 1]
     if (next === 'loading') {
@@ -578,62 +552,80 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
     setScreen('welcome')
   }, [])
 
-  // ── Helpers de selecção ────────────────────────────────────────────────────
+  // ── Helpers de opções ─────────────────────────────────────────────────────
 
-  function getAllOptions(s: Screen): { id: string; label: string }[] {
-    const map: Record<string, { id: string; label: string }[]> = {
-      q1: questions.q1_household.options as unknown as { id: string; label: string }[],
-      q2: questions.q2_budget.options    as unknown as { id: string; label: string }[],
-      q3: questions.q3_lifestyle.options as unknown as { id: string; label: string }[],
+  function getAllOptions(s: Screen): { id: string; label: string; helper?: string }[] {
+    const isBuy = answers.q2_ownership !== 'o2_rent'
+
+    const map: Partial<Record<Screen, { id: string; label: string; helper?: string }[]>> = {
+      q1: questions.q1_intent.options    as unknown as { id: string; label: string }[],
+      q2: questions.q2_ownership.options as unknown as { id: string; label: string; helper?: string }[],
+      q3: (isBuy ? questions.q3_budget.optionsBuy : questions.q3_budget.optionsRent) as unknown as { id: string; label: string }[],
       q4: questions.q4_work.options      as unknown as { id: string; label: string }[],
-      q5: questions.q5_commute.options   as unknown as { id: string; label: string }[],
-      q6: questions.q6_intent.options    as unknown as { id: string; label: string }[],
-      q7: questions.q7_priority.options  as unknown as { id: string; label: string }[],
-      q8: questions.q8_dwelling.options  as unknown as { id: string; label: string }[],
-      q9: questions.q9_maturity.options  as unknown as { id: string; label: string }[],
+      q5: questions.q5_routine.options   as unknown as { id: string; label: string; helper?: string }[],
+      q6: questions.q6_sound.options     as unknown as { id: string; label: string; helper?: string }[],
+      q7: questions.q7_tradeoff.options  as unknown as { id: string; label: string; helper?: string }[],
+      q8: questions.q8_priority.options  as unknown as { id: string; label: string; helper?: string }[],
     }
     return map[s] ?? []
   }
 
   function getCurrentValue(s: Screen, a: QuizAnswers): string | undefined {
-    const map: Record<string, string | undefined> = {
-      q1: a.q1_household,
-      q2: a.q2_budget,
-      q3: a.q3_lifestyle,
+    const map: Partial<Record<Screen, string | undefined>> = {
+      q1: a.q1_intent,
+      q2: a.q2_ownership,
+      q3: a.q3_budget,
       q4: a.q4_work,
-      q5: a.q5_commute,
-      q6: a.q6_intent,
-      q8: a.q8_dwelling,
-      q9: a.q9_maturity,
+      q5: a.q5_routine,
+      q6: a.q6_sound,
+      q7: a.q7_tradeoff,
     }
     return map[s]
   }
 
   function selectSingle(s: Screen, id: string) {
     const updates: Partial<QuizAnswers> = {}
-    if (s === 'q1') updates.q1_household = id as QuizAnswers['q1_household']
-    if (s === 'q2') updates.q2_budget    = id as QuizAnswers['q2_budget']
-    if (s === 'q3') updates.q3_lifestyle = id as QuizAnswers['q3_lifestyle']
+    if (s === 'q1') updates.q1_intent    = id as QuizAnswers['q1_intent']
+    if (s === 'q2') {
+      updates.q2_ownership = id as QuizAnswers['q2_ownership']
+      // Reset budget if switching buy ↔ rent
+      updates.q3_budget = undefined
+    }
+    if (s === 'q3') updates.q3_budget    = id as QuizAnswers['q3_budget']
     if (s === 'q4') updates.q4_work      = id as QuizAnswers['q4_work']
-    if (s === 'q5') updates.q5_commute   = id as QuizAnswers['q5_commute']
-    if (s === 'q6') updates.q6_intent    = id as QuizAnswers['q6_intent']
-    if (s === 'q8') updates.q8_dwelling  = id as QuizAnswers['q8_dwelling']
-    if (s === 'q9') updates.q9_maturity  = id as QuizAnswers['q9_maturity']
+    if (s === 'q5') updates.q5_routine   = id as QuizAnswers['q5_routine']
+    if (s === 'q6') updates.q6_sound     = id as QuizAnswers['q6_sound']
+    if (s === 'q7') updates.q7_tradeoff  = id as QuizAnswers['q7_tradeoff']
     setAnswers(prev => ({ ...prev, ...updates }))
     const opts = getAllOptions(s)
     const label = opts.find(o => o.id === id)?.label ?? ''
     setAnn(`Seleccionado: ${label}`)
   }
 
-  function toggleMulti(id: string) {
-    const current = answers.q7_priority ?? []
-    if ((current as string[]).includes(id)) {
-      const next = (current as string[]).filter(v => v !== id) as QuizAnswers['q7_priority']
-      setAnswers(prev => ({ ...prev, q7_priority: next }))
+  // Q8 multi-select: p7_none is mutually exclusive
+  function toggleQ8(id: string) {
+    const current = answers.q8_priority ?? []
+
+    if (id === 'p7_none') {
+      // p7_none selected — deselect everything else
+      const next = (current as string[]).includes('p7_none') ? [] : ['p7_none']
+      setAnswers(prev => ({ ...prev, q8_priority: next as QuizAnswers['q8_priority'] }))
+      setAnn(next.length ? 'Seleccionado: Nada disto em particular.' : 'Removido.')
+      return
+    }
+
+    // Non-p7_none selected — deselect p7_none if present
+    const withoutNone = (current as string[]).filter(v => v !== 'p7_none')
+
+    if (withoutNone.includes(id)) {
+      // Deselect
+      const next = withoutNone.filter(v => v !== id) as QuizAnswers['q8_priority']
+      setAnswers(prev => ({ ...prev, q8_priority: next }))
       setAnn(`Removido. ${next?.length ?? 0} seleccionado(s).`)
-    } else if (current.length < 2) {
-      const next = [...current, id] as QuizAnswers['q7_priority']
-      setAnswers(prev => ({ ...prev, q7_priority: next }))
+    } else if (withoutNone.length < 2) {
+      // Select (max 2 non-none options)
+      const next = [...withoutNone, id] as QuizAnswers['q8_priority']
+      setAnswers(prev => ({ ...prev, q8_priority: next }))
       setAnn(`Adicionado. ${next?.length ?? 0} seleccionado(s).`)
     } else {
       setAnn('Máximo de 2 selecções atingido.')
@@ -641,8 +633,8 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   }
 
   function canAdvance(s: Screen, a: QuizAnswers): boolean {
-    // Q2 (budget) e Q7 (priority) são opcionais — podem avançar sem selecção
-    if (s === 'q2' || s === 'q7') return true
+    // q3 (budget) and q8 (priority) are optional — always can advance
+    if (s === 'q3' || s === 'q8') return true
     const val = getCurrentValue(s, a)
     return !!val
   }
@@ -703,6 +695,19 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
     )
   }
 
+  // ── Ecrã de investidor ────────────────────────────────────────────────────
+
+  if (screen === 'investor') {
+    return shell(
+      <QuizInvestorWaitlist
+        onRestartForLiving={() => {
+          setAnswers(prev => ({ ...prev, q1_intent: undefined }))
+          setScreen('q1')
+        }}
+      />
+    )
+  }
+
   // ── Ecrã de carregamento ──────────────────────────────────────────────────
 
   if (screen === 'loading') {
@@ -725,8 +730,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
 
   function renderQuestion(
     stepNum: number,
-    questionKey: keyof typeof questions,
-    opts: readonly { id: string; label: string }[],
+    opts: { id: string; label: string; helper?: string }[],
     isMulti: boolean,
     selectedSingle: string | undefined,
     selectedMulti: string[],
@@ -734,9 +738,9 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
     onSelectMulti: (id: string) => void,
     nextCb: () => void,
     prevCb: () => void,
+    label: string,
     helpText?: string,
   ) {
-    const q = questions[questionKey]
     const advance = canAdvance(screen, answers)
 
     return shell(
@@ -757,7 +761,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
             letterSpacing: '-0.4px',
           }}
         >
-          {q.label}
+          {label}
         </h2>
 
         {helpText && (
@@ -767,7 +771,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
 
         <div
           role="group"
-          aria-label={`Pergunta ${stepNum} de 9`}
+          aria-label={`Pergunta ${stepNum} de 8`}
           style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '28px' }}
         >
           {opts.map((opt, idx) => {
@@ -775,13 +779,56 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
               ? selectedMulti.includes(opt.id)
               : opt.id === selectedSingle
             return (
-              <QuizOption
+              <button
                 key={opt.id}
-                label={opt.label}
-                selected={isSelected}
-                onSelect={() => isMulti ? onSelectMulti(opt.id) : onSelectSingle(opt.id)}
-                focusRef={idx === 0 ? firstOptionRef : undefined}
-              />
+                ref={idx === 0 ? firstOptionRef : undefined}
+                onClick={() => isMulti ? onSelectMulti(opt.id) : onSelectSingle(opt.id)}
+                aria-pressed={isSelected}
+                // data-option-id enables arrow-key focus movement for Q8
+                data-option-id={opt.id}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'left',
+                  padding: '14px 18px',
+                  background: BONE,
+                  border: isSelected ? `1px solid ${INK}` : `1px solid ${HAIRLINE}`,
+                  borderLeft: isSelected ? `4px solid ${CLAY}` : `4px solid transparent`,
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '15px',
+                  lineHeight: '1.45',
+                  color: INK,
+                  outline: 'none',
+                  transition: 'border-color 120ms ease',
+                }}
+                onMouseEnter={e => {
+                  if (!isSelected) {
+                    e.currentTarget.style.borderColor = CLAY
+                    e.currentTarget.style.borderLeftColor = CLAY
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (!isSelected) {
+                    e.currentTarget.style.borderColor = HAIRLINE
+                    e.currentTarget.style.borderLeftColor = 'transparent'
+                  }
+                }}
+                onFocus={e => {
+                  e.currentTarget.style.outline = `2px solid ${CLAY}`
+                  e.currentTarget.style.outlineOffset = '2px'
+                }}
+                onBlur={e => {
+                  e.currentTarget.style.outline = 'none'
+                }}
+              >
+                <span style={{ display: 'block' }}>{opt.label}</span>
+                {opt.helper && (
+                  <span style={{ display: 'block', fontSize: '12px', color: STONE, marginTop: '3px', fontStyle: 'italic' }}>
+                    {opt.helper}
+                  </span>
+                )}
+              </button>
             )
           })}
         </div>
@@ -801,6 +848,10 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   const nextScreen = SCREEN_ORDER[SCREEN_ORDER.indexOf(screen) + 1]
 
   const goNext = () => {
+    if (screen === 'q1' && answers.q1_intent === 'i4_invest') {
+      setScreen('investor')
+      return
+    }
     if (nextScreen === 'loading') {
       runScoring()
     } else {
@@ -809,114 +860,111 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   }
   const goPrev = () => setScreen(prevScreen)
 
-  // Q1 — Contexto (household)
+  // Q1 — Para quem é a casa?
   if (screen === 'q1') {
     return renderQuestion(
-      1, 'q1_household',
-      questions.q1_household.options as unknown as { id: string; label: string }[],
+      1,
+      questions.q1_intent.options as unknown as { id: string; label: string }[],
       false,
-      answers.q1_household, [],
+      answers.q1_intent, [],
       id => selectSingle('q1', id), () => {},
       goNext, goPrev,
+      questions.q1_intent.label,
     )
   }
 
-  // Q2 — Orçamento (skippable)
+  // Q2 — Comprar ou arrendar?
   if (screen === 'q2') {
     return renderQuestion(
-      2, 'q2_budget',
-      questions.q2_budget.options as unknown as { id: string; label: string }[],
+      2,
+      questions.q2_ownership.options as unknown as { id: string; label: string; helper?: string }[],
       false,
-      answers.q2_budget, [],
+      answers.q2_ownership, [],
       id => selectSingle('q2', id), () => {},
       goNext, goPrev,
-      questions.q2_budget.help,
+      questions.q2_ownership.label,
     )
   }
 
-  // Q3 — Estilo de vida
+  // Q3 — Orçamento (label e opções dependem de Q2)
   if (screen === 'q3') {
+    const isBuy = answers.q2_ownership !== 'o2_rent'
+    const q3Label = isBuy ? questions.q3_budget.labelBuy : questions.q3_budget.labelRent
+    const q3Opts  = (isBuy ? questions.q3_budget.optionsBuy : questions.q3_budget.optionsRent) as unknown as { id: string; label: string }[]
     return renderQuestion(
-      3, 'q3_lifestyle',
-      questions.q3_lifestyle.options as unknown as { id: string; label: string }[],
+      3,
+      q3Opts,
       false,
-      answers.q3_lifestyle, [],
+      answers.q3_budget, [],
       id => selectSingle('q3', id), () => {},
       goNext, goPrev,
+      q3Label,
     )
   }
 
   // Q4 — Modo de trabalho
   if (screen === 'q4') {
     return renderQuestion(
-      4, 'q4_work',
+      4,
       questions.q4_work.options as unknown as { id: string; label: string }[],
       false,
       answers.q4_work, [],
       id => selectSingle('q4', id), () => {},
       goNext, goPrev,
+      questions.q4_work.label,
     )
   }
 
-  // Q5 — Tolerância de percurso
+  // Q5 — Rotina de deslocação
   if (screen === 'q5') {
     return renderQuestion(
-      5, 'q5_commute',
-      questions.q5_commute.options as unknown as { id: string; label: string }[],
+      5,
+      questions.q5_routine.options as unknown as { id: string; label: string; helper?: string }[],
       false,
-      answers.q5_commute, [],
+      answers.q5_routine, [],
       id => selectSingle('q5', id), () => {},
       goNext, goPrev,
+      questions.q5_routine.label,
     )
   }
 
-  // Q6 — Intenção de compra
+  // Q6 — Ambiente sonoro
   if (screen === 'q6') {
     return renderQuestion(
-      6, 'q6_intent',
-      questions.q6_intent.options as unknown as { id: string; label: string }[],
+      6,
+      questions.q6_sound.options as unknown as { id: string; label: string; helper?: string }[],
       false,
-      answers.q6_intent, [],
+      answers.q6_sound, [],
       id => selectSingle('q6', id), () => {},
       goNext, goPrev,
+      questions.q6_sound.label,
     )
   }
 
-  // Q7 — Prioridades (multi-select, skippable)
+  // Q7 — Tradeoff espaço vs. centralidade
   if (screen === 'q7') {
     return renderQuestion(
-      7, 'q7_priority',
-      questions.q7_priority.options as unknown as { id: string; label: string }[],
-      true,
-      undefined,
-      (answers.q7_priority ?? []) as string[],
-      () => {}, id => toggleMulti(id),
+      7,
+      questions.q7_tradeoff.options as unknown as { id: string; label: string; helper?: string }[],
+      false,
+      answers.q7_tradeoff, [],
+      id => selectSingle('q7', id), () => {},
       goNext, goPrev,
-      questions.q7_priority.help,
+      questions.q7_tradeoff.label,
     )
   }
 
-  // Q8 — Tipo de imóvel
+  // Q8 — Prioridades (multi-select, skippable, p7_none mutuamente exclusivo)
   if (screen === 'q8') {
     return renderQuestion(
-      8, 'q8_dwelling',
-      questions.q8_dwelling.options as unknown as { id: string; label: string }[],
-      false,
-      answers.q8_dwelling, [],
-      id => selectSingle('q8', id), () => {},
+      8,
+      questions.q8_priority.options as unknown as { id: string; label: string; helper?: string }[],
+      true,
+      undefined,
+      (answers.q8_priority ?? []) as string[],
+      () => {}, id => toggleQ8(id),
       goNext, goPrev,
-    )
-  }
-
-  // Q9 — Maturidade da zona
-  if (screen === 'q9') {
-    return renderQuestion(
-      9, 'q9_maturity',
-      questions.q9_maturity.options as unknown as { id: string; label: string }[],
-      false,
-      answers.q9_maturity, [],
-      id => selectSingle('q9', id), () => {},
-      goNext, goPrev,
+      questions.q8_priority.label,
     )
   }
 
