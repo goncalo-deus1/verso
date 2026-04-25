@@ -81,9 +81,9 @@ export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
           maxWidth: '480px',
         }}
       >
-        O perfil de compra para viver e o de investimento são diferentes
-        o suficiente para merecerem quizzes diferentes. Estamos a trabalhar
-        no segundo. Deixa o teu email e avisamos-te quando estiver pronto.
+        O perfil de compra de investimento são diferentes o suficiente para
+        merecerem quizzes diferentes. Estamos a trabalhar no segundo. Deixa
+        o teu email e avisamos-te quando estiver pronto.
       </p>
 
       {!submitted ? (
