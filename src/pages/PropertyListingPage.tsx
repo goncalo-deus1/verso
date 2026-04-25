@@ -73,7 +73,7 @@ export default function PropertyListingPage() {
 
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         <Callout>
-          Cada imóvel na Habitta foi avaliado pelo seu mérito real — localização, contexto urbanístico e potencial de valorização.
+          Cada imóvel na habitta foi avaliado pelo seu mérito real — localização, contexto urbanístico e potencial de valorização.
         </Callout>
       </div>
 

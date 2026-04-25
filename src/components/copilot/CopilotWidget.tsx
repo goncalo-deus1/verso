@@ -188,7 +188,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
     setInputDisabled(true)
 
     const thinkingMsgs = {
-      homepage: 'A calcular compatibilidade com as zonas da Habitta...',
+      homepage: 'A calcular compatibilidade com as zonas da habitta...',
       property: 'A avaliar o match com o teu perfil...',
       area: 'A comparar as duas zonas segundo o teu perfil...',
     }
@@ -303,7 +303,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
                   </div>
                   <div>
                     <p className="font-display text-sm font-medium" style={{ color: '#F2EDE4', letterSpacing: '-0.3px' }}>
-                      Habitta Copilot
+                      habitta Copilot
                     </p>
                     <p className="text-xs" style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'IBM Plex Mono' }}>
                       {context === 'homepage' ? 'Descoberta de zonas' : context === 'property' ? 'Análise de imóvel' : 'Comparação de zonas'}
@@ -353,7 +353,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
                       <CopilotRecommendationCard key={rec.id} rec={rec} onCTA={handleCTA} />
                     ))}
                     <p className="text-center text-xs pb-2" style={{ color: 'rgba(30, 31, 24, 0.125)', fontFamily: 'IBM Plex Mono' }}>
-                      Recomendações Habitta — baseadas no teu perfil
+                      Recomendações habitta — baseadas no teu perfil
                     </p>
                   </div>
                 )}

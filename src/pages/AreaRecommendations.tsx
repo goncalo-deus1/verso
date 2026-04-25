@@ -288,7 +288,7 @@ function scoreArea(area: Area, answers: QuizAnswers): { score: number; reasons: 
   }
   if (answers.budget && budgetMap[answers.budget]) {
     const [min, max] = budgetMap[answers.budget]
-    if (area.priceRange.min >= min && area.priceRange.min <= max) { score += 15; reasons.push('Preço médio alinhado com o seu orçamento') }
+    if (area.priceRange.min >= min && area.priceRange.min <= max) { score += 15; reasons.push('Preço médio alinhado com o teu orçamento') }
     else if (area.priceRange.min < min) { score += 10; reasons.push('Preços abaixo do orçamento — margem de negociação') }
   }
 
@@ -319,7 +319,7 @@ function scoreArea(area: Area, answers: QuizAnswers): { score: number; reasons: 
       score += 8; reasons.push(`Valorização forte — +${area.priceChange}% no último ano`)
     }
     if (answers.priorities.includes('beach') && ['Cascais', 'Comporta'].includes(area.name)) {
-      score += 10; reasons.push('Proximidade ao mar — uma das suas prioridades')
+      score += 10; reasons.push('Proximidade ao mar — uma das tuas prioridades')
     }
     if (answers.priorities.includes('price-value') && area.avgPricePerSqm < 4000) {
       score += 8; reasons.push('Excelente custo por m² — alinhado com as prioridades')
@@ -420,15 +420,15 @@ const { open: openQuiz } = useQuiz()
         <div className="max-w-7xl mx-auto px-8 lg:px-12">
           <BlockLabel light>{hasAnswers ? 'O seu resultado' : 'Explorar zonas'}</BlockLabel>
           <h1 className="font-display text-white text-4xl lg:text-5xl mb-4" style={{ letterSpacing: '-1.5px', lineHeight: '1.1' }}>
-            {hasAnswers ? 'As suas zonas recomendadas' : 'Todos os concelhos de Portugal'}
+            {hasAnswers ? 'As suas zonas recomendadas' : 'Todos os concelhos de Lisboa'}
           </h1>
           {hasAnswers ? (
             <p className="max-w-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              Com base no seu perfil, identificámos as zonas que melhor se alinham com o que procura.
+              Com base no teu perfil, identificámos as zonas que melhor se alinham com o que procuras.
             </p>
           ) : (
             <p className="max-w-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              {portugalZones.length} concelhos com dados de mercado, preços por m² e contexto real.
+              18 concelhos com dados de mercado, preços por m² e contexto real.
             </p>
           )}
         </div>
@@ -436,7 +436,7 @@ const { open: openQuiz } = useQuiz()
 
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         <Callout>
-          A zona certa não é um detalhe — é a decisão mais importante de toda a compra. Escolha primeiro onde viver, depois o imóvel.
+          A zona certa não é um detalhe — é a decisão mais importante de toda a compra. Escolhe primeiro onde viver, depois o imóvel.
         </Callout>
       </div>
 
@@ -568,7 +568,7 @@ const { open: openQuiz } = useQuiz()
             <div className="flex items-end justify-between mb-8">
               <div>
                 <SectionNum n="03" />
-                <h2 className="font-display text-2xl" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>Imóveis nas suas zonas</h2>
+                <h2 className="font-display text-2xl" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>Imóveis nas tuas zonas</h2>
               </div>
               <Link to="/imoveis" className="hidden lg:flex items-center gap-2 text-sm font-medium transition-colors duration-150"
                 style={{ color: '#3A3B2E' }}

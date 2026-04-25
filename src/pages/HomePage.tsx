@@ -322,7 +322,7 @@ export default function HomePage() {
           </div>
 
           <FadeInSection>
-            <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: '64px', maxWidth: '880px' }}>
+            <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: '64px', maxWidth: '880px', margin: '0 auto' }}>
               <div>
                 <p style={{ ...eyebrow, color: '#6B7A5A', marginBottom: '20px' }}>{tr('home.s03.doTitle')}</p>
                 <ul style={{ listStyle: 'none' }}>

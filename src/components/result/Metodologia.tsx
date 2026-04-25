@@ -129,14 +129,14 @@ export function Metodologia({ onRestart }: Props) {
                 O algoritmo de recomendação usa distância euclidiana ponderada — cada resposta do questionário ajusta os pesos das variáveis antes do cálculo de afinidade.
               </p>
               <p className="text-[13px] text-verso-midnight-soft leading-[1.7] mt-3">
-                Não há respostas certas. Há perfis — e a Habitta compromete-se a dar-lhes uma resposta territorial honesta.
+                Não há respostas certas. Há perfis — e a habitta compromete-se a dar-lhes uma resposta territorial honesta.
               </p>
             </div>
 
             {/* Versão do modelo */}
             <div className="px-4 py-3 border border-verso-rule-soft">
               <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-verso-midnight-soft">
-                Modelo Habitta · v2.0<br />
+                Modelo habitta · v2.0<br />
                 Dataset AML · PDM 2024<br />
                 Última actualização · Jan 2026
               </p>

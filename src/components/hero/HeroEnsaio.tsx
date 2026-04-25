@@ -107,7 +107,7 @@ export function HeroEnsaio() {
               variants={item}
               className="text-base sm:text-[17px] text-verso-midnight-soft leading-[1.6] max-w-[440px] mb-10"
             >
-              A Habitta não vende imóveis. Cruza o teu perfil com o Plano Diretor
+              A habitta não vende imóveis. Cruza o teu perfil com o Plano Diretor
               Municipal — zonamento, densidade, transporte, ruído, espaço verde —
               e revela as freguesias e concelhos da AML onde faz sentido viver.
             </motion.p>

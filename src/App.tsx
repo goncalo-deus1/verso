@@ -122,7 +122,7 @@ function QuizModal() {
           flexShrink: 0,
         }}>
           <span className="font-display" style={{ fontSize: '16px', color: INK, letterSpacing: '-0.3px' }}>
-            Habitta
+            habitta
           </span>
           <button
             onClick={close}

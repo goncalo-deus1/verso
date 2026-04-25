@@ -13,21 +13,21 @@ const t = {
 
   // ── HomePage hero ────────────────────────────────────────────────────────────
   'home.badge':          { pt: 'Plataforma imobiliária — Portugal', en: 'Real estate platform — Portugal' },
-  'home.hero1':          { pt: 'Encontre a zona',          en: 'Find the right' },
+  'home.hero1':          { pt: 'Encontra a zona',          en: 'Find the right' },
   'home.hero2':          { pt: 'certa.',                   en: 'area.' },
-  'home.tagline':        { pt: 'Antes de escolher o imóvel, escolha o sítio. Preços reais, contexto urbano e as melhores zonas de Portugal — num só lugar.', en: 'Before choosing the property, choose the location. Real prices, urban context and the best areas of Portugal — all in one place.' },
+  'home.tagline':        { pt: 'Antes de escolher o imóvel, escolhe o sítio. Preços reais, contexto urbano e as melhores zonas de Portugal — num só lugar.', en: 'Before choosing the property, choose the location. Real prices, urban context and the best areas of Portugal — all in one place.' },
   'home.cta':            { pt: 'Descobrir a zona certa',  en: 'Discover the right area' },
 
   // ── Section 01 ───────────────────────────────────────────────────────────────
   'home.s01.eyebrow':    { pt: '01 — Como funciona',       en: '01 — How it works' },
   'home.s01.title':      { pt: 'Começamos pelo sítio.\nNão pelo anúncio.', en: 'We start with location.\nNot the listing.' },
   'home.s01.body':       { pt: 'Os outros portais mostram anúncios. Nós ajudamos a perceber onde quer viver — antes de ver um único imóvel.', en: 'Other portals show listings. We help you understand where you want to live — before seeing a single property.' },
-  'home.s01.step1.title':{ pt: 'Defina o seu perfil',     en: 'Define your profile' },
+  'home.s01.step1.title':{ pt: 'Define o teu perfil',     en: 'Define your profile' },
   'home.s01.step1.body': { pt: 'Um quiz de 8 perguntas sobre orçamento, estilo de vida e prioridades. Em 3 minutos percebemos o que realmente importa.', en: 'An 8-question quiz about budget, lifestyle and priorities. In 3 minutes we understand what really matters.' },
   'home.s01.step2.title':{ pt: 'Descubra a zona certa',   en: 'Discover the right area' },
-  'home.s01.step2.body': { pt: 'Recomendamos as zonas que melhor se alinham com o seu perfil — com contexto de preços, vida, transporte e planeamento urbano.', en: 'We recommend the areas that best match your profile — with context on prices, lifestyle, transport and urban planning.' },
-  'home.s01.step3.title':{ pt: 'Encontre o imóvel certo', en: 'Find the right property' },
-  'home.s01.step3.body': { pt: 'Veja imóveis selecionados para o seu perfil, com preços reais, informação urbanística e tudo o que precisa para decidir com confiança.', en: 'See properties selected for your profile, with real prices, urban information and everything you need to decide with confidence.' },
+  'home.s01.step2.body': { pt: 'Recomendamos as zonas que melhor se alinham com o teu perfil — com contexto de preços, vida, transporte e planeamento urbano.', en: 'We recommend the areas that best match your profile — with context on prices, lifestyle, transport and urban planning.' },
+  'home.s01.step3.title':{ pt: 'Encontra o imóvel certo', en: 'Find the right property' },
+  'home.s01.step3.body': { pt: 'Vê imóveis selecionados para o teu perfil, com preços reais, informação urbanística e tudo o que precisas para decidir com confiança.', en: 'See properties selected for your profile, with real prices, urban information and everything you need to decide with confidence.' },
 
   // ── Section 02 ───────────────────────────────────────────────────────────────
   'home.s02.eyebrow':    { pt: '02 — Concelhos AML',      en: '02 — AML Municipalities' },
@@ -48,9 +48,9 @@ const t = {
   'home.stats.s4.sub':   { pt: 'Sem pressão de venda',    en: 'No sales pressure' },
 
   // ── Section 03 — Why Habitta ───────────────────────────────────────────────────
-  'home.s03.eyebrow':    { pt: '03 — Porquê a Habitta',     en: '03 — Why Habitta' },
-  'home.s03.title':      { pt: 'Clareza que não se encontra\nem mais um portal de anúncios.', en: 'Clarity you won\'t find\nin another listings portal.' },
-  'home.s03.body':       { pt: 'Construímos a Habitta para quem quer decidir com informação real — não com promessas de agência.', en: 'We built Habitta for those who want to decide with real information — not agency promises.' },
+  'home.s03.eyebrow':    { pt: '03 — Porquê a habitta',     en: '03 — Why habitta' },
+  'home.s03.title':      { pt: 'Clareza que outros portais\nnão dão.', en: 'Clarity that other portals\ndon\'t give.' },
+  'home.s03.body':       { pt: 'Construímos a habitta para quem quer decidir com informação real — não com promessas de agência.', en: 'We built habitta for those who want to decide with real information — not agency promises.' },
   'home.s03.f1.title':   { pt: 'Zona primeiro',           en: 'Area first' },
   'home.s03.f1.body':    { pt: 'Perceba onde quer viver antes de se comprometer com um imóvel. O sítio certo muda tudo o resto.', en: 'Understand where you want to live before committing to a property. The right location changes everything else.' },
   'home.s03.f2.title':   { pt: 'PDM e urbanismo',         en: 'Planning & urbanism' },
@@ -63,7 +63,7 @@ const t = {
   'home.s03.do1':        { pt: 'Zona antes de imóvel',    en: 'Area before property' },
   'home.s03.do2':        { pt: 'PDM e contexto urbano',   en: 'Planning & urban context' },
   'home.s03.do3':        { pt: 'Custo real de aquisição', en: 'Real acquisition cost' },
-  'home.s03.do4':        { pt: 'Imóveis adaptados ao seu perfil', en: 'Properties tailored to your profile' },
+  'home.s03.do4':        { pt: 'Imóveis adaptados ao teu perfil', en: 'Properties tailored to your profile' },
   'home.s03.do5':        { pt: 'Guias e análises independentes', en: 'Independent guides and analysis' },
   'home.s03.dontTitle':  { pt: 'O que não fazemos',       en: 'What we don\'t do' },
   'home.s03.dont1':      { pt: 'Anúncios sem critério',   en: 'Uncurated listings' },
@@ -79,9 +79,9 @@ const t = {
   'home.s04.readArt':    { pt: 'Ler artigo',              en: 'Read article' },
 
   // ── Closing CTA ──────────────────────────────────────────────────────────────
-  'home.cta2.eyebrow':   { pt: 'Comece agora',            en: 'Start now' },
-  'home.cta2.title':     { pt: 'Escolha o sítio.\nO imóvel vem a seguir.', en: 'Choose the location.\nThe property comes next.' },
-  'home.cta2.body':      { pt: 'Em 3 minutos, sabemos que zonas fazem sentido para si.', en: 'In 3 minutes, we know which areas make sense for you.' },
+  'home.cta2.eyebrow':   { pt: 'Começa agora',            en: 'Start now' },
+  'home.cta2.title':     { pt: 'Escolhe o sítio.\nO imóvel vem a seguir.', en: 'Choose the location.\nThe property comes next.' },
+  'home.cta2.body':      { pt: 'Em 3 minutos, sabemos que zonas fazem sentido para ti.', en: 'In 3 minutes, we know which areas make sense for you.' },
   'home.cta2.btn':       { pt: 'Começar — 3 min', en: 'Start — 3 min' },
 
   // ── Footer quote ─────────────────────────────────────────────────────────────
@@ -91,7 +91,7 @@ const t = {
   // ── Footer ───────────────────────────────────────────────────────────────────
   'footer.available':    { pt: 'Plataforma disponível — Portugal', en: 'Platform available — Portugal' },
   'footer.startQuiz':    { pt: 'Começar o quiz',          en: 'Start the quiz' },
-  'footer.brand':        { pt: 'Encontre a zona certa antes de encontrar o imóvel certo. Uma plataforma editorial para decisões informadas em Portugal.', en: 'Find the right area before finding the right property. An editorial platform for informed decisions in Portugal.' },
+  'footer.brand':        { pt: 'Encontra a zona certa antes de encontrar o imóvel certo. Uma plataforma editorial para decisões informadas em Portugal.', en: 'Find the right area before finding the right property. An editorial platform for informed decisions in Portugal.' },
   'footer.explore':      { pt: 'Explorar',                en: 'Explore' },
   'footer.buyerQuiz':    { pt: 'Quiz de comprador',       en: 'Buyer quiz' },
   'footer.areas':        { pt: 'Zonas',                   en: 'Areas' },
@@ -131,13 +131,13 @@ const t = {
 
   // ── Auth page ────────────────────────────────────────────────────────────────
   'auth.tagline':        { pt: 'Decisões melhores\ncomeçam aqui.', en: 'Better decisions\nstart here.' },
-  'auth.desc':           { pt: 'Crie a sua conta gratuita e aceda a recomendações personalizadas, imóveis guardados e guias editoriais.', en: 'Create your free account and access personalised recommendations, saved properties and editorial guides.' },
+  'auth.desc':           { pt: 'Cria a tua conta gratuita e acede a recomendações personalizadas, imóveis guardados e guias editoriais.', en: 'Create your free account and access personalised recommendations, saved properties and editorial guides.' },
   'auth.tab.login':      { pt: 'Entrar',                  en: 'Sign in' },
   'auth.tab.register':   { pt: 'Criar conta',             en: 'Create account' },
   'auth.login.title':    { pt: 'Bem-vindo de volta',      en: 'Welcome back' },
-  'auth.login.sub':      { pt: 'Aceda aos seus imóveis guardados e recomendações.', en: 'Access your saved properties and recommendations.' },
+  'auth.login.sub':      { pt: 'Acede aos teus imóveis guardados e recomendações.', en: 'Access your saved properties and recommendations.' },
   'auth.register.title': { pt: 'Criar conta gratuita',   en: 'Create free account' },
-  'auth.register.sub':   { pt: 'Junte-se à Habitta e encontre o imóvel certo — de forma informada.', en: 'Join Habitta and find the right property — the informed way.' },
+  'auth.register.sub':   { pt: 'Junte-se à habitta e encontre o imóvel certo — de forma informada.', en: 'Join habitta and find the right property — the informed way.' },
   'auth.name':           { pt: 'Nome',                    en: 'Name' },
   'auth.email':          { pt: 'Email',                   en: 'Email' },
   'auth.password':       { pt: 'Password',                en: 'Password' },

@@ -142,8 +142,8 @@ export function MapaAML({ highlightedConcelho = 'lisboa', mode = 'hero' }: MapaA
         </div>
       </div>
 
-      {/* Legenda inferior */}
-      <div className="absolute bottom-2 right-4 text-right z-10" aria-hidden>
+      {/* Legenda inferior — posicionada abaixo da área SVG */}
+      <div className="absolute right-4 text-right z-10" style={{ bottom: '-30px' }} aria-hidden>
         <p style={{
           fontFamily: '"JetBrains Mono", monospace',
           fontSize: '7px', letterSpacing: '0.25em',

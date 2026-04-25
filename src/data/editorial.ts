@@ -10,7 +10,7 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&q=80',
     readTime: 9,
     date: '2026-04-22',
-    author: 'Equipa Editorial Habitta',
+    author: 'Equipa Editorial habitta',
     content: [
       {
         type: 'lead',
@@ -210,7 +210,7 @@ export const editorials: Editorial[] = [
       {
         type: 'cta',
         heading: 'Ainda estás no "onde?" antes do "como?"',
-        body: 'O quiz da Habitta recomenda a zona certa em três minutos. Depois do "onde?", as contas do banco fazem muito mais sentido.',
+        body: 'O quiz da habitta recomenda a zona certa em três minutos. Depois do "onde?", as contas do banco fazem muito mais sentido.',
         label: 'Fazer o quiz',
         href: '/quiz',
       },
@@ -261,7 +261,7 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200&q=80',
     readTime: 8,
     date: '2026-04-18',
-    author: 'Equipa Editorial Habitta',
+    author: 'Equipa Editorial habitta',
     content: [
       {
         type: 'lead',
@@ -449,16 +449,16 @@ export const editorials: Editorial[] = [
       },
       {
         type: 'paragraph',
-        text: 'Lisboa tem bairros excelentes para perfis completamente diferentes. O erro mais comum que os compradores cometem é seguir tendências — "toda a gente fala em Marvila" — sem perceber se esse bairro se alinha com a sua vida, orçamento e objectivos.',
+        text: 'Lisboa tem bairros excelentes para perfis completamente diferentes. O erro mais comum que os compradores cometem é seguir tendências — "toda a gente fala em Marvila" — sem perceber se esse bairro se alinha com a tua vida, orçamento e objectivos.',
       },
       {
         type: 'paragraph',
-        text: 'Um bairro pode ser o melhor do mundo no geral e o errado para si em particular. A pergunta certa não é "qual o melhor bairro?" — é "qual o bairro certo para o meu perfil?".',
+        text: 'Um bairro pode ser o melhor do mundo no geral e o errado para ti em particular. A pergunta certa não é "qual o melhor bairro?" — é "qual o bairro certo para o meu perfil?".',
       },
       {
         type: 'cta',
-        heading: 'Descubra a sua zona em 3 minutos',
-        body: 'Responda a 8 perguntas sobre orçamento, estilo de vida e prioridades. Recomendamos as zonas de Lisboa (e de Portugal) que melhor se encaixam no seu perfil — com contexto real, sem pressão de vendas.',
+        heading: 'Descubra a tua zona em 3 minutos',
+        body: 'Responde a 8 perguntas sobre orçamento, estilo de vida e prioridades. Recomendamos as zonas de Lisboa (e de Portugal) que melhor se encaixam no teu perfil — com contexto real, sem pressão de vendas.',
         label: 'Fazer o quiz gratuito',
         href: '/quiz',
       },
@@ -473,7 +473,7 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80',
     readTime: 6,
     date: '2025-03-12',
-    author: 'Equipa Editorial Habitta',
+    author: 'Equipa Editorial habitta',
   },
   {
     id: '2',
@@ -484,7 +484,7 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80',
     readTime: 9,
     date: '2025-02-28',
-    author: 'Equipa Editorial Habitta',
+    author: 'Equipa Editorial habitta',
   },
   {
     id: '3',
@@ -495,7 +495,7 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=800&q=80',
     readTime: 7,
     date: '2025-02-14',
-    author: 'Equipa Editorial Habitta',
+    author: 'Equipa Editorial habitta',
   },
   {
     id: '4',
@@ -506,6 +506,6 @@ export const editorials: Editorial[] = [
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
     readTime: 5,
     date: '2025-01-30',
-    author: 'Equipa Editorial Habitta',
+    author: 'Equipa Editorial habitta',
   },
 ]

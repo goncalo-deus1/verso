@@ -82,7 +82,7 @@ export const portugalZones: PortugalZone[] = [
       urbanContext: 'Mercado muito activo. Grande dispersão de preços e perfis.',
       whoFor: 'Todos os perfis dependendo da zona — de turismo internacional em Sintra histórica a trabalhadores em Agualva.',
     },
-    trustElements: ['Sintra histórica e Agualva-Cacém são mundos à parte no mesmo concelho.', 'Confirme distância à linha de comboio — é a principal ligação a Lisboa.'],
+    trustElements: ['Sintra histórica e Agualva-Cacém são mundos à parte no mesmo concelho.', 'Confirma distância à linha de comboio — é a principal ligação a Lisboa.'],
   },
   {
     name: 'Cascais', district: 'Lisboa', region: 'Lisboa e Vale do Tejo', slug: 'cascais',

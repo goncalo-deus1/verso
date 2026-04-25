@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useSearchParams, useLocation } from 'react-router-dom'
 import { ArrowLeft, Eye, EyeOff, Check, Mail } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { Wordmark } from '../components/Wordmark'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -44,7 +45,7 @@ export default function AuthPage() {
   async function handlePasswordSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!form.email || !form.password) { setError('Preencha todos os campos.'); return }
-    if (mode === 'register' && !form.name) { setError('Introduza o seu nome.'); return }
+    if (mode === 'register' && !form.name) { setError('Introduza o teu nome.'); return }
     if (form.password.length < 6) { setError('A password deve ter pelo menos 6 caracteres.'); return }
 
     setLoading(true)
@@ -66,7 +67,7 @@ export default function AuthPage() {
 
   async function handleMagicSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!form.email) { setError('Introduza o seu email.'); return }
+    if (!form.email) { setError('Introduza o teu email.'); return }
 
     setLoading(true)
     setError('')
@@ -91,7 +92,7 @@ export default function AuthPage() {
         <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80" alt=""
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.12 }} />
         <div style={{ position: 'relative' }}>
-          <Link to="/"><span style={{ fontFamily: 'var(--font-display, serif)', fontSize: '24px', color: BONE, letterSpacing: '-0.5px' }}>Habitta</span></Link>
+          <Link to="/"><span style={{ fontSize: '24px', color: BONE }}><Wordmark /></span></Link>
         </div>
         <div style={{ position: 'relative' }}>
           <p style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '3px', color: CLAY, fontFamily: 'IBM Plex Mono', marginBottom: '20px' }}>
@@ -101,7 +102,7 @@ export default function AuthPage() {
             Decisões melhores<br />começam aqui.
           </h2>
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.65, maxWidth: '340px', marginBottom: '40px' }}>
-            Crie a sua conta gratuita e aceda a recomendações personalizadas, imóveis guardados e guias editoriais.
+            Cria a tua conta gratuita e acede a recomendações personalizadas, imóveis guardados e guias editoriais.
           </p>
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {perks.map(p => (
@@ -121,7 +122,7 @@ export default function AuthPage() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '48px 32px', background: BONE }}>
         {/* Mobile logo */}
         <div className="lg:hidden" style={{ marginBottom: '40px' }}>
-          <Link to="/"><span style={{ fontFamily: 'var(--font-display, serif)', fontSize: '24px', color: INK, letterSpacing: '-0.5px' }}>Habitta</span></Link>
+          <Link to="/"><span style={{ fontSize: '24px', color: INK }}><Wordmark /></span></Link>
         </div>
 
         <Link to="/" className="hidden lg:inline-flex" style={{ alignItems: 'center', gap: '8px', fontSize: '14px', color: STONE, textDecoration: 'none', marginBottom: '40px', display: 'inline-flex' }}
@@ -156,8 +157,8 @@ export default function AuthPage() {
               </h1>
               <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.6, marginBottom: '32px' }}>
                 {mode === 'login'
-                  ? 'Aceda aos seus imóveis guardados e recomendações.'
-                  : 'Junte-se à Habitta e encontre o imóvel certo — de forma informada.'}
+                  ? 'Acede aos teus imóveis guardados e recomendações.'
+                  : 'Junte-se à habitta e encontre o imóvel certo — de forma informada.'}
               </p>
 
               {/* Method toggle (only login) */}
@@ -268,7 +269,7 @@ function ConfirmationScreen({ email, isRegister }: { email: string; isRegister: 
         <Mail size={24} color={CLAY} />
       </div>
       <h2 style={{ fontFamily: 'var(--font-display, serif)', fontSize: '24px', color: INK, letterSpacing: '-0.5px', marginBottom: '12px' }}>
-        {isRegister ? 'Confirme o seu email' : 'Verifique o seu email'}
+        {isRegister ? 'Confirma o teu email' : 'Verifique o teu email'}
       </h2>
       <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.65, marginBottom: '8px' }}>
         Enviámos um link para
@@ -278,8 +279,8 @@ function ConfirmationScreen({ email, isRegister }: { email: string; isRegister: 
       </p>
       <p style={{ fontSize: '13px', color: STONE, lineHeight: 1.6 }}>
         {isRegister
-          ? 'Clique no link no email para activar a sua conta. Pode fechar esta janela.'
-          : 'Clique no link no email para entrar na sua conta. O link expira em 1 hora.'}
+          ? 'Clique no link no email para activar a tua conta. Pode fechar esta janela.'
+          : 'Clique no link no email para entrar na tua conta. O link expira em 1 hora.'}
       </p>
     </div>
   )
@@ -287,7 +288,7 @@ function ConfirmationScreen({ email, isRegister }: { email: string; isRegister: 
 
 function translateError(msg: string): string {
   if (msg.includes('Invalid login credentials')) return 'Email ou password incorrectos.'
-  if (msg.includes('Email not confirmed')) return 'Confirme o seu email antes de entrar.'
+  if (msg.includes('Email not confirmed')) return 'Confirma o teu email antes de entrar.'
   if (msg.includes('User already registered')) return 'Já existe uma conta com este email.'
   if (msg.includes('Password should be')) return 'A password deve ter pelo menos 6 caracteres.'
   if (msg.includes('rate limit')) return 'Demasiadas tentativas. Aguarde alguns minutos.'

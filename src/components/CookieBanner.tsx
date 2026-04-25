@@ -36,7 +36,7 @@ const CATEGORIES: Category[] = [
     label: 'Cookies Necessários',
     alwaysOn: true,
     description:
-      'Estes cookies são indispensáveis para o funcionamento do site. Não podem ser desactivados porque são necessários para coisas básicas como navegar entre páginas, guardar as suas preferências e manter a sessão activa.',
+      'Estes cookies são indispensáveis para o funcionamento do site. Não podem ser desactivados porque são necessários para coisas básicas como navegar entre páginas, guardar as tuas preferências e manter a sessão activa.',
   },
   {
     key: 'performance',
@@ -54,7 +54,7 @@ const CATEGORIES: Category[] = [
     key: 'marketing',
     label: 'Cookies de Marketing',
     description:
-      'Utilizados para mostrar anúncios mais relevantes para si e para os seus interesses. Podem também ser usados para limitar o número de vezes que vê um anúncio e medir a eficácia das campanhas.',
+      'Utilizados para mostrar anúncios mais relevantes para ti e para os teus interesses. Podem também ser usados para limitar o número de vezes que vês um anúncio e medir a eficácia das campanhas.',
   },
 ]
 
@@ -175,7 +175,7 @@ export default function CookieBanner() {
           }}>
             <div>
               <span className="font-display" style={{ fontSize: '13px', color: CLAY, letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 700, display: 'block', marginBottom: '2px' }}>
-                Habitta
+                habitta
               </span>
               <h2 className="font-display" style={{ fontSize: '18px', color: INK, fontWeight: 400, margin: 0, letterSpacing: '-0.3px' }}>
                 Centro de Preferências de Privacidade
@@ -320,7 +320,7 @@ export default function CookieBanner() {
       boxShadow: '0 -8px 32px rgba(30, 31, 24,0.3)',
     }}>
       <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, margin: 0, maxWidth: '680px' }}>
-        Ao clicar em "Aceitar todos os cookies", concorda com o armazenamento de cookies no seu dispositivo para melhorar a navegação, analisar a utilização do site e apoiar os nossos esforços de marketing.{' '}
+        Ao clicar em "Aceitar todos os cookies", concordas com o armazenamento de cookies no teu dispositivo para melhorar a navegação, analisar a utilização do site e apoiar os nossos esforços de marketing.{' '}
         <button
           onClick={() => setShowPrefs(true)}
           style={{ background: 'none', border: 'none', cursor: 'pointer', color: CLAY, fontSize: '13px', textDecoration: 'underline', padding: 0 }}
