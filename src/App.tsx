@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense } from 'react'
+import { useEffect, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { X } from 'lucide-react'
 import { AuthProvider } from './context/AuthContext'
@@ -47,6 +47,22 @@ const BONE = '#F2EDE4'
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
+
+function PageTracker() {
+  const { pathname } = useLocation()
+  const isFirst = useRef(true)
+
+  useEffect(() => {
+    if (isFirst.current) { isFirst.current = false; return }
+    if (typeof window.gtag !== 'function') return
+    window.gtag('event', 'page_view', {
+      page_path:  pathname,
+      page_title: document.title,
+    })
+  }, [pathname])
+
   return null
 }
 
@@ -163,6 +179,7 @@ function AppRoutes() {
   return (
     <Suspense fallback={<PageSkeleton />}>
       <ScrollToTop />
+      <PageTracker />
       <Routes>
         {/* /quiz — página completa com layout editorial */}
         <Route path="/quiz" element={<Layout><QuizPage /></Layout>} />

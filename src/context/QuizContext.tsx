@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 import type { QuizResult } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
+import { trackEvent } from '../lib/analytics'
 
 const RESULT_KEY  = 'habitta_quiz_result'
 const ANSWERS_KEY = 'habitta_quiz_answers'
@@ -16,7 +17,7 @@ function loadFromStorage<T>(key: string): T | null {
 
 interface QuizContextValue {
   isOpen:         boolean
-  open:           () => void
+  open:           (source?: string) => void
   close:          () => void
   quizResult:     QuizResult | null
   setQuizResult:  (r: QuizResult | null) => void
@@ -26,7 +27,7 @@ interface QuizContextValue {
 
 const QuizContext = createContext<QuizContextValue>({
   isOpen: false,
-  open: () => {},
+  open: (_source?: string) => {},
   close: () => {},
   quizResult: null,
   setQuizResult: () => {},
@@ -58,7 +59,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   return (
     <QuizContext.Provider value={{
       isOpen,
-      open:  () => setIsOpen(true),
+      open:  (source?: string) => { trackEvent('quiz_opened', { source: source ?? 'unknown' }); setIsOpen(true) },
       close: () => setIsOpen(false),
       quizResult,
       setQuizResult,

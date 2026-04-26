@@ -2,6 +2,7 @@ import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useQuiz } from '../../context/QuizContext'
 import { MapaAML } from './MapaAML'
+import { trackEvent } from '../../lib/analytics'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -115,7 +116,7 @@ export function HeroEnsaio() {
             {/* CTA */}
             <motion.div variants={item}>
               <button
-                onClick={openQuiz}
+                onClick={() => { trackEvent('cta_clicked', { location: 'hero' }); openQuiz('hero') }}
                 className="group inline-flex items-center gap-3.5 bg-verso-midnight text-verso-paper px-7 py-[18px] text-[13px] tracking-[0.14em] uppercase font-medium transition-all duration-300 hover:bg-verso-clay hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#1E1F18] font-mono"
               >
                 Encontrar a zona certa

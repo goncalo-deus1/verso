@@ -60,7 +60,7 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-8">
             <button
-              onClick={openQuiz}
+              onClick={() => openQuiz('header')}
               className="text-sm font-medium transition-colors duration-150"
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#3A3B2E', padding: 0 }}
               onMouseEnter={e => (e.currentTarget.style.color = '#1E1F18')}
@@ -190,7 +190,7 @@ export default function Header() {
           <div style={{ borderTop: '1px solid rgba(30, 31, 24, 0.125)', padding: '20px 24px 24px' }} className="lg:hidden">
             <nav className="flex flex-col gap-5">
               <button
-                onClick={() => { openQuiz(); setOpen(false) }}
+                onClick={() => { openQuiz('header'); setOpen(false) }}
                 className="text-base font-medium text-left"
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#C2553A', padding: 0 }}
               >

@@ -5,6 +5,7 @@ import { editorials } from '../data/editorial'
 import { useQuiz } from '../context/QuizContext'
 import { useLang } from '../context/LanguageContext'
 import { useT } from '../i18n/translations'
+import { trackEvent } from '../lib/analytics'
 import { FadeInSection } from '../components/animations/FadeInSection'
 import { CountUp } from '../components/animations/CountUp'
 import { HeroEnsaio } from '../components/hero/HeroEnsaio'
@@ -39,6 +40,7 @@ function ConcelhoCard({ c, index, northLabel, southLabel, viewLabel }: { c: type
       <Link
         to={`/concelho/${c.slug}`}
         style={{ textDecoration: 'none', display: 'block' }}
+        onClick={() => trackEvent('concelho_clicked', { concelho: c.name })}
       >
         <div
           className="aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden"
@@ -233,7 +235,7 @@ export default function HomePage() {
                 </h2>
               </div>
               <button
-                onClick={openQuiz}
+                onClick={() => { trackEvent('cta_clicked', { location: 'mid' }); openQuiz('mid') }}
                 className="hidden md:flex"
                 style={{ alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 500, color: '#3A3B2E', background: 'none', border: 'none', cursor: 'pointer', padding: 0, transition: 'color 150ms' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#C2553A')}
@@ -252,7 +254,7 @@ export default function HomePage() {
           {/* Mobile CTA — hidden on md+ (desktop button is in the section header) */}
           <div className="flex md:hidden mt-6">
             <button
-              onClick={openQuiz}
+              onClick={() => { trackEvent('cta_clicked', { location: 'mid' }); openQuiz('mid') }}
               className="flex w-full items-center justify-center"
               style={{ gap: '8px', padding: '14px 20px', background: '#1E1F18', color: 'white', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer', borderRadius: '50px' }}
               onMouseEnter={e => (e.currentTarget.style.background = '#C2553A')}
@@ -435,7 +437,7 @@ export default function HomePage() {
               {tr('home.cta2.body')}
             </p>
             <button
-              onClick={openQuiz}
+              onClick={() => { trackEvent('cta_clicked', { location: 'final' }); openQuiz('final') }}
               style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '17px 36px', background: '#C2553A', color: 'white', fontSize: '15px', fontWeight: 600, border: 'none', cursor: 'pointer', borderRadius: '8px', transition: 'opacity 150ms' }}
               onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
               onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
