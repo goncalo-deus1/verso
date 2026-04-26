@@ -45,7 +45,7 @@ export function CountUp({ to, suffix = '', duration = 1400 }: Props) {
         frame = requestAnimationFrame(tick)
         return () => cancelAnimationFrame(frame)
       },
-      { rootMargin: '-80px' },
+      { rootMargin: '0px' },
     )
     observer.observe(el)
     return () => observer.disconnect()
