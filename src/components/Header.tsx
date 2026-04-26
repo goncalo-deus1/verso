@@ -33,7 +33,7 @@ export default function Header() {
   const isActive = (to: string) => pathname.startsWith(to)
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center" style={{ padding: '16px 24px' }}>
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center" style={{ padding: '12px 16px' }}>
       {/* Floating pill */}
       <div
         style={{
@@ -50,7 +50,7 @@ export default function Header() {
           transition: 'box-shadow 250ms ease',
         }}
       >
-        <div className="flex items-center justify-between" style={{ height: '56px', padding: '0 24px' }}>
+        <div className="flex items-center justify-between" style={{ height: '52px', padding: '0 18px' }}>
 
           {/* Logo */}
           <Link to="/" style={{ textDecoration: 'none' }}>
@@ -188,7 +188,7 @@ export default function Header() {
         {/* Mobile menu — drops inside the pill */}
         {open && (
           <div style={{ borderTop: '1px solid rgba(30, 31, 24, 0.125)', padding: '20px 24px 24px' }} className="lg:hidden">
-            <nav className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-5">
               <button
                 onClick={() => { openQuiz(); setOpen(false) }}
                 className="text-base font-medium text-left"
@@ -198,7 +198,7 @@ export default function Header() {
               </button>
               {links.map(link => (
                 <Link key={link.to} to={link.to} onClick={() => setOpen(false)}
-                  className="text-base font-medium"
+                  className="text-base font-medium py-1"
                   style={{ color: isActive(link.to) ? '#C2553A' : '#1E1F18', textDecoration: 'none' }}>
                   {link.label}
                 </Link>

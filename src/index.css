@@ -202,3 +202,21 @@
   .verso-zone-grid > :nth-child(5) { grid-column: 4 / 5; grid-row: 2 / 3; }
   .verso-zone-grid > :nth-child(6) { grid-column: 1 / 5; grid-row: 3 / 4; }
 }
+
+/* ── Habitta padding lateral consistente ── */
+.habitta-px {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media (min-width: 768px) {
+  .habitta-px {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+@media (min-width: 1024px) {
+  .habitta-px {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}

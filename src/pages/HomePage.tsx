@@ -186,14 +186,14 @@ export default function HomePage() {
       <HeroEnsaio />
 
       {/* ━━━ 01 — COMO FUNCIONA ━━━ */}
-      <section style={{ paddingTop: '80px', paddingBottom: '80px', background: '#F2EDE4', borderTop: '1px solid rgba(30, 31, 24, 0.125)' }} className="px-5 sm:px-8 md:px-12">
+      <section style={{ background: '#F2EDE4', borderTop: '1px solid rgba(30, 31, 24, 0.125)' }} className="habitta-px py-14 md:py-20">
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <FadeInSection>
             <p style={{ ...eyebrow, marginBottom: '16px' }}>{tr('home.s01.eyebrow')}</p>
             <h2 className="font-display" style={{ fontSize: 'clamp(32px, 4vw, 52px)', letterSpacing: '-1.5px', lineHeight: '1.1', color: '#1E1F18', marginBottom: '16px', maxWidth: '640px', fontWeight: 400 }}>
               {tr('home.s01.title').split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
             </h2>
-            <p style={{ fontSize: '17px', color: '#3A3B2E', maxWidth: '520px', lineHeight: '1.75', marginBottom: '64px' }}>
+            <p style={{ fontSize: 'clamp(15px, 2.5vw, 17px)', color: '#3A3B2E', maxWidth: '520px', lineHeight: '1.7', marginBottom: '64px' }}>
               {tr('home.s01.body')}
             </p>
           </FadeInSection>
@@ -208,7 +208,7 @@ export default function HomePage() {
                 <div className="verso-card verso-step-card flex-1" style={{ padding: '36px' }}>
                   <span style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '28px', fontWeight: 400, color: '#C2553A', display: 'block', marginBottom: '20px' }}>{card.n}</span>
                   <h3 className="font-display" style={{ fontSize: '22px', marginBottom: '12px', color: '#1E1F18', fontWeight: 400 }}>{card.title}</h3>
-                  <p style={{ color: '#3A3B2E', lineHeight: '1.75', fontSize: '15px' }}>{card.body}</p>
+                  <p style={{ color: '#3A3B2E', lineHeight: '1.7', fontSize: 'clamp(14px, 2vw, 15px)' }}>{card.body}</p>
                 </div>
                 {i < 2 && (
                   <div className="hidden lg:flex items-center justify-center" style={{ padding: '16px 20px' }}>
@@ -222,7 +222,7 @@ export default function HomePage() {
       </section>
 
       {/* ━━━ 02 — ZONAS (placeholder editorial) ━━━ */}
-      <section style={{ paddingBottom: '80px', background: '#F2EDE4' }} className="px-5 sm:px-8 md:px-12">
+      <section style={{ paddingBottom: '80px', background: '#F2EDE4' }} className="habitta-px">
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <FadeInSection>
             <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '40px', flexWrap: 'wrap', gap: '16px' }}>
@@ -265,7 +265,7 @@ export default function HomePage() {
       </section>
 
       {/* ━━━ 03 — MÉTRICAS (fundo Ink) ━━━ */}
-      <section style={{ paddingTop: '64px', paddingBottom: '64px', background: '#1E1F18' }} className="px-5 sm:px-8 md:px-12">
+      <section style={{ background: '#1E1F18' }} className="habitta-px py-12 md:py-16">
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {STATS_CONFIG.map((m, i) => (
@@ -292,14 +292,14 @@ export default function HomePage() {
       </section>
 
       {/* ━━━ 03 — PORQUÊ A Habitta ━━━ */}
-      <section style={{ paddingTop: '80px', paddingBottom: '80px', background: '#F2EDE4', borderTop: '1px solid rgba(30, 31, 24, 0.125)' }} className="px-5 sm:px-8 md:px-12">
+      <section style={{ background: '#F2EDE4', borderTop: '1px solid rgba(30, 31, 24, 0.125)' }} className="habitta-px py-14 md:py-20">
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <FadeInSection>
             <p style={{ ...eyebrow, marginBottom: '16px' }}>{tr('home.s03.eyebrow')}</p>
             <h2 className="font-display" style={{ fontSize: 'clamp(32px, 5vw, 52px)', letterSpacing: '-1.5px', lineHeight: '1.1', color: '#1E1F18', marginBottom: '16px', maxWidth: '680px', fontWeight: 400 }}>
               {tr('home.s03.title').split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
             </h2>
-            <p style={{ fontSize: '17px', color: '#3A3B2E', maxWidth: '520px', lineHeight: '1.75', marginBottom: '64px' }}>
+            <p style={{ fontSize: 'clamp(15px, 2.5vw, 17px)', color: '#3A3B2E', maxWidth: '520px', lineHeight: '1.7', marginBottom: '64px' }}>
               {tr('home.s03.body')}
             </p>
           </FadeInSection>
@@ -315,7 +315,7 @@ export default function HomePage() {
                 <div className="sand-card" style={{ padding: '36px' }}>
                   <span style={{ ...eyebrow, display: 'block', marginBottom: '16px' }}>{item.n}</span>
                   <h3 className="font-display" style={{ fontSize: '22px', color: '#1E1F18', marginBottom: '12px', fontWeight: 400 }}>{item.title}</h3>
-                  <p style={{ fontSize: '15px', color: '#3A3B2E', lineHeight: '1.75' }}>{item.body}</p>
+                  <p style={{ fontSize: 'clamp(14px, 2vw, 15px)', color: '#3A3B2E', lineHeight: '1.7' }}>{item.body}</p>
                 </div>
               </FadeInSection>
             ))}
@@ -349,7 +349,7 @@ export default function HomePage() {
       </section>
 
       {/* ━━━ 04 — EDITORIAL (sem imagens stock) ━━━ */}
-      <section style={{ paddingTop: '80px', paddingBottom: '80px', background: '#F2EDE4', borderTop: '1px solid rgba(30, 31, 24, 0.125)' }} className="px-5 sm:px-8 md:px-12">
+      <section style={{ background: '#F2EDE4', borderTop: '1px solid rgba(30, 31, 24, 0.125)' }} className="habitta-px py-14 md:py-20">
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <FadeInSection>
             <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '48px', flexWrap: 'wrap', gap: '16px' }}>
@@ -431,7 +431,7 @@ export default function HomePage() {
             <h2 className="font-display" style={{ fontSize: 'clamp(32px, 5vw, 56px)', letterSpacing: '-2px', lineHeight: '1.05', color: '#F2EDE4', marginBottom: '20px', fontWeight: 400 }}>
               {tr('home.cta2.title').split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
             </h2>
-            <p style={{ fontSize: '17px', color: 'rgba(255,255,255,0.45)', lineHeight: '1.75', marginBottom: '48px' }}>
+            <p style={{ fontSize: 'clamp(15px, 2.5vw, 17px)', color: 'rgba(255,255,255,0.45)', lineHeight: '1.7', marginBottom: '48px' }}>
               {tr('home.cta2.body')}
             </p>
             <button
