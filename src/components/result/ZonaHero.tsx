@@ -61,7 +61,7 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
       <div className="grid lg:grid-cols-[1.2fr_1fr] min-h-[92vh]">
 
         {/* Coluna esquerda — texto */}
-        <div className="relative flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 py-16 md:py-20 lg:py-24 pt-28 md:pt-32 lg:pt-32 order-2 lg:order-1">
+        <div className="relative flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 py-16 md:py-20 lg:py-24 pt-28 md:pt-32 lg:pt-32 order-1 lg:order-1">
 
           {/* Eyebrow */}
           <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-verso-clay mb-8 flex items-center gap-3">
@@ -242,7 +242,7 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
 
         {/* Coluna direita — mini-mapa AML (blurred when gated) */}
         <div
-          className="relative order-1 lg:order-2 bg-verso-paper-deep border-l border-verso-rule-soft flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[45vh] lg:min-h-[92vh]"
+          className="relative order-2 lg:order-2 bg-verso-paper-deep border-l border-verso-rule-soft flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[45vh] lg:min-h-[92vh]"
           style={isGated ? { filter: 'blur(8px)', pointerEvents: 'none', userSelect: 'none' } : undefined}
           aria-hidden={isGated}
         >
