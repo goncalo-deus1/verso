@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams, useLocation } from 'react-router-do
 import { ArrowLeft, Eye, EyeOff, Check, Mail } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { Wordmark } from '../components/Wordmark'
+import { saveMarketingConsent, MARKETING_CONSENT_TEXT_PT } from '../lib/marketingConsent'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -27,6 +28,7 @@ export default function AuthPage() {
   const [error, setError] = useState('')
   const [magicSent, setMagicSent] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', password: '' })
+  const [marketingConsent, setMarketingConsent] = useState(false)
 
   const redirectParam = params.get('redirect')
   const from = redirectParam ?? (location.state as { from?: { pathname: string } })?.from?.pathname ?? '/'
@@ -54,9 +56,14 @@ export default function AuthPage() {
 
     if (mode === 'register') {
       if (from !== '/') sessionStorage.setItem('auth_redirect', from)
-      const { error } = await signUp(form.email, form.password, form.name)
+      const { error, userId } = await signUp(form.email, form.password, form.name)
       setLoading(false)
       if (error) { sessionStorage.removeItem('auth_redirect'); setError(translateError(error)); return }
+      // Save marketing consent (non-blocking — signup always succeeds regardless)
+      if (userId) {
+        saveMarketingConsent({ userId, consented: marketingConsent, source: 'signup' })
+          .catch(err => console.warn('[marketingConsent] signup save failed:', err))
+      }
       // Show "check your email" message
       setMagicSent(true)
     } else {
@@ -230,9 +237,22 @@ export default function AuthPage() {
                   {error && <ErrorBanner text={error} />}
 
                   {mode === 'register' && (
-                    <p style={{ fontSize: '12px', color: STONE, lineHeight: 1.5 }}>
-                      Ao criar uma conta, aceita os <span style={{ color: CLAY }}>Termos de Serviço</span> e a <span style={{ color: CLAY }}>Política de Privacidade</span>.
-                    </p>
+                    <>
+                      <p style={{ fontSize: '12px', color: STONE, lineHeight: 1.5 }}>
+                        Ao criar uma conta, aceita os <span style={{ color: CLAY }}>Termos de Serviço</span> e a <span style={{ color: CLAY }}>Política de Privacidade</span>.
+                      </p>
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
+                        <input
+                          type="checkbox"
+                          checked={marketingConsent}
+                          onChange={e => setMarketingConsent(e.target.checked)}
+                          style={{ marginTop: '2px', flexShrink: 0, accentColor: CLAY, width: '15px', height: '15px', cursor: 'pointer' }}
+                        />
+                        <span style={{ fontSize: '13px', color: STONE, lineHeight: 1.5, fontFamily: 'Inter, sans-serif' }}>
+                          {MARKETING_CONSENT_TEXT_PT}
+                        </span>
+                      </label>
+                    </>
                   )}
 
                   <button type="submit" disabled={loading}

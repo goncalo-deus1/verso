@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Lock } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { trackEvent } from '../lib/analytics'
+import { saveMarketingConsent, MARKETING_CONSENT_TEXT_PT } from '../lib/marketingConsent'
 import { useQuiz } from '../context/QuizContext'
 import { useLang } from '../context/LanguageContext'
 import { useT } from '../i18n/translations'
@@ -26,6 +27,7 @@ type Screen =
   | 'welcome'
   | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'q6' | 'q7' | 'q8'
   | 'investor'
+  | 'marketing_consent'
   | 'loading'
   | 'result'
 
@@ -506,6 +508,11 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
       setScreen('investor')
       return
     }
+    // Marketing consent screen: only for authenticated users, inserted before loading
+    if (screen === 'q8' && user) {
+      setScreen('marketing_consent')
+      return
+    }
     const idx = SCREEN_ORDER.indexOf(screen)
     const next = SCREEN_ORDER[idx + 1]
     if (next === 'loading') {
@@ -514,7 +521,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
       setScreen(next)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screen, answers])
+  }, [screen, answers, user])
 
   const runScoring = useCallback(() => {
     setScreen('loading')
@@ -707,6 +714,60 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
           setScreen('q1')
         }}
       />
+    )
+  }
+
+  // ── Ecrã de consentimento de marketing ───────────────────────────────────
+
+  if (screen === 'marketing_consent') {
+    function handleMarketingChoice(consented: boolean) {
+      if (user) {
+        // TODO: if user is not logged in at quiz time, save choice to localStorage
+        // and apply on next signup/login.
+        saveMarketingConsent({ userId: user.id, consented, source: 'quiz_end' })
+          .catch(err => console.warn('[marketingConsent] quiz_end save failed:', err))
+      }
+      runScoring()
+    }
+
+    return shell(
+      <div style={{ maxWidth: '480px' }}>
+        <h2
+          className="font-display"
+          style={{ fontSize: '26px', fontWeight: 400, color: INK, lineHeight: 1.2, margin: '0 0 16px', letterSpacing: '-0.4px' }}
+        >
+          Queres receber atualizações sobre as zonas certas para ti?
+        </h2>
+        <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.65, margin: '0 0 32px' }}>
+          {MARKETING_CONSENT_TEXT_PT}
+        </p>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <button
+            onClick={() => handleMarketingChoice(true)}
+            style={{
+              padding: '13px 28px', background: CLAY, color: 'white',
+              border: 'none', borderRadius: '4px', fontSize: '14px',
+              fontWeight: 600, cursor: 'pointer', transition: 'opacity 150ms',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = '0.88' }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = '1' }}
+          >
+            Sim, manda-me
+          </button>
+          <button
+            onClick={() => handleMarketingChoice(false)}
+            style={{
+              padding: '13px 28px', background: 'transparent', color: STONE,
+              border: `1px solid ${HAIRLINE}`, borderRadius: '4px', fontSize: '14px',
+              fontWeight: 500, cursor: 'pointer', transition: 'border-color 150ms',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = STONE }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = HAIRLINE }}
+          >
+            Não, obrigado
+          </button>
+        </div>
+      </div>
     )
   }
 

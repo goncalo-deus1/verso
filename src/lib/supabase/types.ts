@@ -10,6 +10,12 @@ export interface Database {
           name: string | null
           created_at: string
           updated_at: string
+          marketing_consent: boolean
+          marketing_consent_at: string | null
+          marketing_consent_source: string | null
+          marketing_consent_text: string | null
+          marketing_unsubscribed: boolean
+          marketing_unsubscribed_at: string | null
         }
         Insert: {
           id: string
@@ -17,12 +23,24 @@ export interface Database {
           name?: string | null
           created_at?: string
           updated_at?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
+          marketing_consent_source?: string | null
+          marketing_consent_text?: string | null
+          marketing_unsubscribed?: boolean
+          marketing_unsubscribed_at?: string | null
         }
         Update: {
           id?: string
           email?: string
           name?: string | null
           updated_at?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
+          marketing_consent_source?: string | null
+          marketing_consent_text?: string | null
+          marketing_unsubscribed?: boolean
+          marketing_unsubscribed_at?: string | null
         }
         Relationships: []
       }

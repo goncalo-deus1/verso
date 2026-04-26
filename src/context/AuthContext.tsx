@@ -6,7 +6,7 @@ interface AuthContextValue {
   user: User | null
   session: Session | null
   loading: boolean
-  signUp: (email: string, password: string, name?: string) => Promise<{ error: string | null }>
+  signUp: (email: string, password: string, name?: string) => Promise<{ error: string | null; userId?: string }>
   signIn: (email: string, password: string) => Promise<{ error: string | null }>
   signInWithMagicLink: (email: string) => Promise<{ error: string | null }>
   signOut: () => Promise<void>
@@ -40,8 +40,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  async function signUp(email: string, password: string, name?: string): Promise<{ error: string | null }> {
-    const { error } = await supabase.auth.signUp({
+  async function signUp(email: string, password: string, name?: string): Promise<{ error: string | null; userId?: string }> {
+    const { data: signUpData, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -51,19 +51,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
     if (error) return { error: error.message }
 
+    const userId = signUpData.user?.id
+
     // Upsert profile
-    if (name) {
-      const { data } = await supabase.auth.getUser()
-      if (data.user) {
-        await supabase.from('profiles').upsert({
-          id: data.user.id,
-          email,
-          name,
-        })
-      }
+    if (name && userId) {
+      await supabase.from('profiles').upsert({
+        id: userId,
+        email,
+        name,
+      })
     }
 
-    return { error: null }
+    return { error: null, userId }
   }
 
   async function signIn(email: string, password: string): Promise<{ error: string | null }> {
