@@ -75,7 +75,7 @@ export function HeroEnsaio() {
 
           {/* ── COLUNA ESQUERDA — TEXTO ── */}
           <motion.div
-            className="order-2 lg:order-1"
+            className="order-1 lg:order-1"
             variants={container}
             initial={reduce ? false : 'hidden'}
             animate="show"
@@ -131,7 +131,7 @@ export function HeroEnsaio() {
           </motion.div>
 
           {/* ── COLUNA DIREITA — MAPA ── */}
-          <div className="order-1 lg:order-2">
+          <div className="order-2 lg:order-2">
             <MapaAML />
           </div>
 
