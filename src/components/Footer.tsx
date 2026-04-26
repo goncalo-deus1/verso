@@ -17,7 +17,7 @@ export default function Footer() {
             Plataforma disponível — Lisboa e AML
           </p>
           <button
-            onClick={openQuiz}
+            onClick={() => openQuiz()}
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium transition-colors"
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#C2553A', padding: 0 }}
             onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
@@ -48,7 +48,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-3 text-sm">
               <li>
                 <button
-                  onClick={openQuiz}
+                  onClick={() => openQuiz()}
                   className="text-sm transition-colors"
                   style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.35)', padding: 0 }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}

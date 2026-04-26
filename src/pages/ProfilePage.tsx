@@ -106,7 +106,7 @@ export default function ProfilePage() {
                   <p className="text-sm mt-1" style={{ color: '#3A3B2E' }}>Complete o quiz para recomendações de zonas e imóveis personalizadas.</p>
                 </div>
                 <button
-                  onClick={openQuiz}
+                  onClick={() => openQuiz()}
                   className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 text-white text-sm font-semibold transition-opacity hover:opacity-85"
                   style={{ background: '#C2553A', borderRadius: '2px', border: 'none', cursor: 'pointer' }}>
                   Refazer quiz <ArrowRight size={13} />

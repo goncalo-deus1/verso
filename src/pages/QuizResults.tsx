@@ -305,7 +305,7 @@ function NoResultsFallback() {
           Tenta relaxar uma das restrições — especialmente o orçamento ou a tolerância de deslocação.
         </p>
         <button
-          onClick={openQuiz}
+          onClick={() => openQuiz()}
           className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold"
           style={{ background: '#1E1F18', color: '#F2EDE4', borderRadius: '2px', border: 'none', cursor: 'pointer' }}>
           <RotateCcw size={14} /> Refazer o quiz
@@ -403,7 +403,7 @@ export default function QuizResults() {
             <ArrowRight size={15} />
           </Link>
           <button
-            onClick={openQuiz}
+            onClick={() => openQuiz()}
             className="flex items-center justify-center gap-2 px-6 py-4 text-sm font-medium"
             style={{ border: '1px solid rgba(30, 31, 24, 0.125)', color: '#3A3B2E', borderRadius: '2px', background: 'none', cursor: 'pointer' }}>
             <RotateCcw size={14} /> Refazer o quiz

@@ -166,7 +166,7 @@ export default function ZoneDetailPage() {
             Ver imóveis em {zone.name}
           </Link>
           <button
-            onClick={openQuiz}
+            onClick={() => openQuiz()}
             style={{
               display: 'inline-block',
               padding: '15px 24px',

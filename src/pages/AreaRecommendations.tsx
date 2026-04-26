@@ -511,7 +511,7 @@ const { open: openQuiz } = useQuiz()
               </h2>
             </div>
             {!hasAnswers && (
-              <button onClick={openQuiz} className="flex items-center gap-2 text-sm font-medium transition-colors duration-150"
+              <button onClick={() => openQuiz()} className="flex items-center gap-2 text-sm font-medium transition-colors duration-150"
                 style={{ color: '#C2553A', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
                 Obter recomendações <ArrowRight size={14} />
               </button>
