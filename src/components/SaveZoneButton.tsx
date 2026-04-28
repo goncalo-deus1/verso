@@ -31,9 +31,10 @@ export default function SaveZoneButton({ zoneSlug, zoneKind, zoneName, label: cu
       .eq('user_id', user.id)
       .eq('zone_slug', zoneSlug)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) console.error('[SaveZoneButton] select error:', error)
         if (data) { setSaved(true); setSavedId(data.id) }
-        setChecked(true)
+        setChecked(true) // sempre chama, mesmo com erro
       })
   }, [user, zoneSlug])
 
@@ -48,14 +49,17 @@ export default function SaveZoneButton({ zoneSlug, zoneKind, zoneName, label: cu
       if (!error) { setSaved(false); setSavedId(null) }
       else console.error('[SaveZoneButton] delete error:', error)
     } else {
-      const { data, error } = await supabase.from('saved_zones').insert({
+      // Gera UUID client-side — evita depender de SELECT RLS após insert
+      const newId = crypto.randomUUID()
+      const { error } = await supabase.from('saved_zones').insert({
+        id: newId,
         user_id: user.id,
         zone_slug: zoneSlug,
         zone_kind: zoneKind,
         zone_name: zoneName,
-      }).select('id').single()
+      })
       if (error) console.error('[SaveZoneButton] insert error:', error)
-      if (data) { setSaved(true); setSavedId(data.id) }
+      else { setSaved(true); setSavedId(newId) }
     }
     setLoading(false)
   }
