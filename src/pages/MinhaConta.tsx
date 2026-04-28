@@ -4,6 +4,7 @@ import { User, BookmarkCheck, LogOut, Trash2 } from 'lucide-react'
 import { useAuth, displayName } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 import type { Database } from '../lib/supabase/types'
+import DeleteAccountSection from '../components/account/DeleteAccountSection'
 
 type SavedZone = Database['public']['Tables']['saved_zones']['Row']
 
@@ -139,6 +140,12 @@ export default function MinhaConta() {
             )}
           </div>
         )}
+        {/* Zona de perigo */}
+        <div style={{ marginTop: '64px' }}>
+          <hr style={{ border: 'none', borderTop: `1px solid ${HAIRLINE}`, marginBottom: '48px' }} />
+          <DeleteAccountSection />
+        </div>
+
       </div>
     </div>
   )

@@ -189,6 +189,10 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes habitta-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* ── Zone grid asymmetric layout (desktop) ── */
 @media (min-width: 1024px) {
   .verso-zone-grid {
