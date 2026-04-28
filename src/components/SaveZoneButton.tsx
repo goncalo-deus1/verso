@@ -44,16 +44,17 @@ export default function SaveZoneButton({ zoneSlug, zoneKind, zoneName, label: cu
     }
     setLoading(true)
     if (saved && savedId) {
-      await supabase.from('saved_zones').delete().eq('id', savedId)
-      setSaved(false)
-      setSavedId(null)
+      const { error } = await supabase.from('saved_zones').delete().eq('id', savedId)
+      if (!error) { setSaved(false); setSavedId(null) }
+      else console.error('[SaveZoneButton] delete error:', error)
     } else {
-      const { data } = await supabase.from('saved_zones').insert({
+      const { data, error } = await supabase.from('saved_zones').insert({
         user_id: user.id,
         zone_slug: zoneSlug,
         zone_kind: zoneKind,
         zone_name: zoneName,
       }).select('id').single()
+      if (error) console.error('[SaveZoneButton] insert error:', error)
       if (data) { setSaved(true); setSavedId(data.id) }
     }
     setLoading(false)
