@@ -50,12 +50,14 @@ export default function Header() {
           transition: 'box-shadow 250ms ease',
         }}
       >
-        <div className="flex items-center justify-between" style={{ height: '52px', padding: '0 18px' }}>
+        <div className="flex items-center" style={{ height: '52px', padding: '0 18px' }}>
 
           {/* Logo */}
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <Wordmark variant="navbar" />
-          </Link>
+          <div style={{ flex: 1 }}>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Wordmark variant="navbar" />
+            </Link>
+          </div>
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-8">
@@ -95,7 +97,7 @@ export default function Header() {
           </nav>
 
           {/* Desktop right */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2" style={{ flex: 1, justifyContent: 'flex-end' }}>
 
             {/* Language toggle */}
             <button
