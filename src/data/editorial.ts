@@ -457,7 +457,7 @@ export const editorials: Editorial[] = [
       },
       {
         type: 'cta',
-        heading: 'Descubra a tua zona em 3 minutos',
+        heading: 'Descubra a tua zona em 90 segundos',
         body: 'Responde a 8 perguntas sobre orçamento, estilo de vida e prioridades. Recomendamos as zonas de Lisboa (e de Portugal) que melhor se encaixam no teu perfil — com contexto real, sem pressão de vendas.',
         label: 'Fazer o quiz gratuito',
         href: '/quiz',

@@ -23,7 +23,7 @@ const t = {
   'home.s01.title':      { pt: 'Começamos pelo sítio.\nNão pelo anúncio.', en: 'We start with location.\nNot the listing.' },
   'home.s01.body':       { pt: 'Os outros portais mostram anúncios. Nós ajudamos a perceber onde quer viver — antes de ver um único imóvel.', en: 'Other portals show listings. We help you understand where you want to live — before seeing a single property.' },
   'home.s01.step1.title':{ pt: 'Define o teu perfil',     en: 'Define your profile' },
-  'home.s01.step1.body': { pt: 'Um quiz de 8 perguntas sobre orçamento, estilo de vida e prioridades. Em 3 minutos percebemos o que realmente importa.', en: 'An 8-question quiz about budget, lifestyle and priorities. In 3 minutes we understand what really matters.' },
+  'home.s01.step1.body': { pt: 'Um quiz de 8 perguntas sobre orçamento, estilo de vida e prioridades. Em 90 segundos percebemos o que realmente importa.', en: 'An 8-question quiz about budget, lifestyle and priorities. In 90 seconds we understand what really matters.' },
   'home.s01.step2.title':{ pt: 'Descubra a zona certa',   en: 'Discover the right area' },
   'home.s01.step2.body': { pt: 'Recomendamos as zonas que melhor se alinham com o teu perfil — com contexto de preços, vida, transporte e planeamento urbano.', en: 'We recommend the areas that best match your profile — with context on prices, lifestyle, transport and urban planning.' },
   'home.s01.step3.title':{ pt: 'Encontra o imóvel certo', en: 'Find the right property' },
@@ -81,12 +81,12 @@ const t = {
   // ── Closing CTA ──────────────────────────────────────────────────────────────
   'home.cta2.eyebrow':   { pt: 'Começa agora',            en: 'Start now' },
   'home.cta2.title':     { pt: 'Escolhe o sítio.\nO imóvel vem a seguir.', en: 'Choose the location.\nThe property comes next.' },
-  'home.cta2.body':      { pt: 'Em 3 minutos, sabemos que zonas fazem sentido para ti.', en: 'In 3 minutes, we know which areas make sense for you.' },
-  'home.cta2.btn':       { pt: 'Começar — 3 min', en: 'Start — 3 min' },
+  'home.cta2.body':      { pt: 'Em 90 segundos, sabemos que zonas fazem sentido para ti.', en: 'In 90 seconds, we know which areas make sense for you.' },
+  'home.cta2.btn':       { pt: 'Começar — 90 seg', en: 'Start — 90 sec' },
 
   // ── Footer quote ─────────────────────────────────────────────────────────────
   'home.quote':          { pt: 'Não sabes onde começar? Começa pelo sítio.', en: 'Don\'t know where to start? Start with location.' },
-  'home.quizBtn':        { pt: 'Fazer o quiz — 3 min',    en: 'Take the quiz — 3 min' },
+  'home.quizBtn':        { pt: 'Fazer o quiz — 90 seg',    en: 'Take the quiz — 90 sec' },
 
   // ── Footer ───────────────────────────────────────────────────────────────────
   'footer.available':    { pt: 'Plataforma disponível — Portugal', en: 'Platform available — Portugal' },
