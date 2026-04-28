@@ -28,7 +28,7 @@ type Stat = { figure: number; suffix: string; labelKey: 'home.stats.s1.label'|'h
 const STATS_CONFIG: Stat[] = [
   { figure: 18, suffix: '',    labelKey: 'home.stats.s1.label', subKey: 'home.stats.s1.sub', animate: true  },
   { figure: 24, suffix: '',    labelKey: 'home.stats.s2.label', subKey: 'home.stats.s2.sub', animate: true  },
-  { figure: 3,  suffix: 'min', labelKey: 'home.stats.s3.label', subKey: 'home.stats.s3.sub', animate: false },
+  { figure: 90, suffix: 'seg', labelKey: 'home.stats.s3.label', subKey: 'home.stats.s3.sub', animate: false },
   { figure: 0,  suffix: '',    labelKey: 'home.stats.s4.label', subKey: 'home.stats.s4.sub', animate: false },
 ]
 
