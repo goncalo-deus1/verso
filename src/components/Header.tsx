@@ -80,7 +80,7 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            {quizResult && (
+            {user && quizResult && (
               <Link
                 to="/quiz/dossier"
                 className="text-sm font-medium transition-colors duration-150 flex items-center gap-1.5"
@@ -203,7 +203,7 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
-              {quizResult && (
+              {user && quizResult && (
                 <Link to="/quiz/dossier" onClick={() => setOpen(false)}
                   className="text-base font-medium flex items-center gap-2"
                   style={{ color: '#C2553A', textDecoration: 'none' }}>
