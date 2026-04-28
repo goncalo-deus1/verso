@@ -138,22 +138,22 @@ export default function Header() {
                     <div className="absolute right-0 top-full mt-2 w-52 z-20 overflow-hidden"
                       style={{ background: '#1E1F18', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.16)' }}>
                       <div className="px-4 py-3.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                        <p className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>{tr('header.loggedAs')}</p>
+                        <p className="text-xs" style={{ color: 'rgba(255,255,255,0.45)', fontFamily: 'IBM Plex Mono' }}>{tr('header.loggedAs')}</p>
                         <p className="text-sm font-medium truncate mt-0.5" style={{ color: '#F2EDE4' }}>{user.email ?? ''}</p>
                       </div>
                       <div className="p-1.5">
                         <Link to="/minha-conta" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors duration-150"
-                          style={{ color: 'rgba(30, 31, 24, 0.125)', borderRadius: '8px' }}
+                          style={{ color: 'rgba(255,255,255,0.55)', borderRadius: '8px' }}
                           onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
-                          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(30, 31, 24, 0.125)')}>
+                          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}>
                           <User size={14} /> {tr('header.myProfile')}
                         </Link>
                         <button onClick={() => { signOut(); setUserMenuOpen(false) }}
                           className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors duration-150"
-                          style={{ color: 'rgba(30, 31, 24, 0.125)', borderRadius: '8px' }}
+                          style={{ color: 'rgba(255,255,255,0.55)', borderRadius: '8px' }}
                           onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
-                          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(30, 31, 24, 0.125)')}>
+                          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}>
                           <LogOut size={14} /> {tr('header.signOut')}
                         </button>
                       </div>
