@@ -60,7 +60,7 @@ function ConcelhoCard({ c, index, northLabel, southLabel, viewLabel }: { c: type
         >
           {/* Foto */}
           <img
-            src={c.image.replace('w=800', 'w=480')}
+            src={c.image.startsWith('http') ? c.image.replace('w=800', 'w=480') : c.image}
             alt={c.name}
             loading={index < 4 ? 'eager' : 'lazy'}
             decoding="async"
