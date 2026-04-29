@@ -209,7 +209,7 @@ function DossierContent({
                 concelhoSlug={best.concelhoSlug}
                 concelhoName={concelhoName}
                 freguesiaSlug={freguesiaSlug}
-                eyebrowOverride="O que vem aí na tua zona"
+                eyebrowOverride="O que vem aí"
                 titleOverride={`O que se prepara em ${concelhoName}`}
                 subtitleOverride="Investimentos públicos e projetos urbanos que poderão alterar a vida nesta zona ao longo dos próximos anos. Inclui obras em curso e já concluídas."
               />
