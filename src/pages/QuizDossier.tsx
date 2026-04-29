@@ -37,6 +37,7 @@ import { Metodologia }     from '../components/result/Metodologia'
 import { CtaFinal }        from '../components/result/CtaFinal'
 import { QuizConflictModal } from '../components/result/QuizConflictModal'
 import { getUserQuiz, upsertUserQuiz } from '../lib/supabase/userQuiz'
+import { UrbanProjectsSection } from '../components/concelho/UrbanProjectsSection'
 import type { UserQuiz }   from '../lib/supabase/userQuiz'
 import type { QuizResult } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
@@ -194,6 +195,27 @@ function DossierContent({
 
         {/* § 03 — Alternativas */}
         <AlternativasGrid alternatives={alternatives} />
+
+        {/* § 03b — Projetos urbanos previstos */}
+        {(() => {
+          const concelhoName =
+            concelhosAML.find(c => c.slug === best.concelhoSlug)?.name ??
+            best.zone.name
+          const freguesiaSlug =
+            best.zone.kind === 'freguesia' ? best.slug : null
+          return (
+            <section className="habitta-px py-16 md:py-20" style={{ background: 'var(--linho)' }}>
+              <UrbanProjectsSection
+                concelhoSlug={best.concelhoSlug}
+                concelhoName={concelhoName}
+                freguesiaSlug={freguesiaSlug}
+                eyebrowOverride="O que vem aí na tua zona"
+                titleOverride={`O que se prepara em ${concelhoName}`}
+                subtitleOverride="Investimentos públicos e projetos urbanos que poderão alterar a vida nesta zona ao longo dos próximos anos. Inclui obras em curso e já concluídas."
+              />
+            </section>
+          )
+        })()}
 
         {/* § 04 — Metodologia */}
         <Metodologia onRestart={handleRestart} />

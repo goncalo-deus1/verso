@@ -4,6 +4,10 @@ import { CATEGORY_PT, STATUS_PT, STATUS_ACCENT_VAR } from './urbanLabels'
 type Props = {
   concelhoSlug: string
   concelhoName: string
+  freguesiaSlug?: string | null
+  eyebrowOverride?: string
+  titleOverride?: string
+  subtitleOverride?: string
 }
 
 function ProjectCard({ project }: { project: UrbanProject }) {
@@ -128,10 +132,21 @@ function SkeletonCard() {
   )
 }
 
-export function UrbanProjectsSection({ concelhoSlug, concelhoName }: Props) {
-  const { projects, loading } = useUrbanData(concelhoSlug)
+export function UrbanProjectsSection({
+  concelhoSlug,
+  concelhoName,
+  freguesiaSlug,
+  eyebrowOverride,
+  titleOverride,
+  subtitleOverride,
+}: Props) {
+  const { projects, loading } = useUrbanData(concelhoSlug, freguesiaSlug)
 
   if (!loading && projects.length === 0) return null
+
+  const eyebrow   = eyebrowOverride  ?? 'O que vem aí'
+  const title     = titleOverride    ?? `Projetos previstos para ${concelhoName}`
+  const subtitle  = subtitleOverride ?? 'Investimentos públicos aprovados ou em estudo que poderão alterar a vida na zona nos próximos anos.'
 
   return (
     <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
@@ -148,7 +163,7 @@ export function UrbanProjectsSection({ concelhoSlug, concelhoName }: Props) {
             margin: '0 0 16px',
           }}
         >
-          O que vem aí
+          {eyebrow}
         </p>
         <h2
           className="font-display"
@@ -161,7 +176,7 @@ export function UrbanProjectsSection({ concelhoSlug, concelhoName }: Props) {
             margin: 0,
           }}
         >
-          Projetos previstos para {concelhoName}
+          {title}
         </h2>
         <p
           style={{
@@ -174,7 +189,7 @@ export function UrbanProjectsSection({ concelhoSlug, concelhoName }: Props) {
             marginBottom: 0,
           }}
         >
-          Investimentos públicos aprovados ou em estudo que poderão alterar a vida na zona nos próximos anos.
+          {subtitle}
         </p>
       </div>
 

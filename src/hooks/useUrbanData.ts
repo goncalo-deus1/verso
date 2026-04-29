@@ -43,7 +43,10 @@ export type PdmSummary = {
   source_url: string
 }
 
-export function useUrbanData(concelhoSlug: string) {
+export function useUrbanData(
+  concelhoSlug: string,
+  freguesiaSlug?: string | null,
+) {
   const [pdm, setPdm] = useState<PdmSummary | null>(null)
   const [projects, setProjects] = useState<UrbanProject[]>([])
   const [loading, setLoading] = useState(true)
@@ -52,18 +55,26 @@ export function useUrbanData(concelhoSlug: string) {
     let active = true
     async function fetchData() {
       setLoading(true)
+
+      const projectsQuery = supabase
+        .from('urban_projects')
+        .select('*')
+        .neq('status', 'cancelado')
+        .order('expected_end', { ascending: true, nullsFirst: false })
+
+      const filteredQuery = freguesiaSlug
+        ? projectsQuery.or(
+            `concelho_slug.eq.${concelhoSlug},freguesia_slug.eq.${freguesiaSlug}`,
+          )
+        : projectsQuery.eq('concelho_slug', concelhoSlug)
+
       const [pdmRes, projRes] = await Promise.all([
         supabase
           .from('pdm_summary')
           .select('*')
           .eq('concelho_slug', concelhoSlug)
           .maybeSingle(),
-        supabase
-          .from('urban_projects')
-          .select('*')
-          .eq('concelho_slug', concelhoSlug)
-          .neq('status', 'cancelado')
-          .order('expected_end', { ascending: true, nullsFirst: false }),
+        filteredQuery,
       ])
       if (!active) return
       setPdm(pdmRes.data ?? null)
@@ -74,7 +85,7 @@ export function useUrbanData(concelhoSlug: string) {
     return () => {
       active = false
     }
-  }, [concelhoSlug])
+  }, [concelhoSlug, freguesiaSlug])
 
   return { pdm, projects, loading }
 }
