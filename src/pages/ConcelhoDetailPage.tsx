@@ -2,6 +2,8 @@ import { useParams, Link, Navigate } from 'react-router-dom'
 import { concelhos } from '../data/concelhos'
 import { freguesias } from '../data/freguesias'
 import SaveZoneButton from '../components/SaveZoneButton'
+import { PdmSection } from '../components/concelho/PdmSection'
+import { UrbanProjectsSection } from '../components/concelho/UrbanProjectsSection'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -180,6 +182,19 @@ export default function ConcelhoDetailPage() {
           Ver os imóveis em {concelho.name}
         </Link>
       </article>
+
+      {/* PDM */}
+      <section className="habitta-px py-16 md:py-20" style={{ background: SAND }}>
+        <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+          <PdmSection concelhoSlug={slug!} />
+        </div>
+      </section>
+
+      {/* Projetos urbanos */}
+      <section className="habitta-px py-16 md:py-20" style={{ background: BONE }}>
+        <UrbanProjectsSection concelhoSlug={slug!} concelhoName={concelho.name} />
+      </section>
+
     </div>
   )
 }
