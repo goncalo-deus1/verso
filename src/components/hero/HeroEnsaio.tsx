@@ -72,11 +72,11 @@ export function HeroEnsaio() {
       }}
     >
       <div className="relative max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 pt-8 pb-16 sm:pt-12 sm:pb-20 md:pt-16 md:pb-24 lg:pt-20 lg:pb-28">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center w-full">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center lg:items-start w-full">
 
           {/* ── COLUNA ESQUERDA — TEXTO ── */}
           <motion.div
-            className="order-1 lg:order-1 lg:-mt-16"
+            className="order-1 lg:order-1"
             variants={container}
             initial={reduce ? false : 'hidden'}
             animate="show"
