@@ -76,7 +76,7 @@ export function HeroEnsaio() {
 
           {/* ── COLUNA ESQUERDA — TEXTO ── */}
           <motion.div
-            className="order-1 lg:order-1"
+            className="order-1 lg:order-1 lg:-mt-16"
             variants={container}
             initial={reduce ? false : 'hidden'}
             animate="show"
