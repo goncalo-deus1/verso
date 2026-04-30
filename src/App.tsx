@@ -1,6 +1,7 @@
 import { useEffect, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { X } from 'lucide-react'
+import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import { QuizProvider, useQuiz } from './context/QuizContext'
@@ -210,17 +211,19 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <LanguageProvider>
-          <QuizProvider>
-            <PaperGrain />
-            <QuizModal />
-            <CookieBanner />
-            <AppRoutes />
-          </QuizProvider>
-        </LanguageProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <LanguageProvider>
+            <QuizProvider>
+              <PaperGrain />
+              <QuizModal />
+              <CookieBanner />
+              <AppRoutes />
+            </QuizProvider>
+          </LanguageProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   )
 }

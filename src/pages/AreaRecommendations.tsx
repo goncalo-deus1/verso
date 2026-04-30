@@ -6,7 +6,6 @@ import { areas } from '../data/areas'
 import { portugalZones } from '../data/portugal-zones'
 import { properties } from '../data/properties'
 import { concelhosAML } from '../data/concelhosAML'
-import { concelhos } from '../data/concelhos'
 import type { QuizAnswers, Area, PortugalZone } from '../types'
 import PropertyCard from '../components/PropertyCard'
 import { BlockLabel, Callout, SectionNum, Divider } from '../components/Brand'
@@ -27,7 +26,6 @@ const crimeColor: Record<string, string> = {
 
 function ZonePanel({ zone, onClose }: { zone: PortugalZone; onClose: () => void }) {
   const aml      = concelhosAML.find(c => c.slug === zone.slug)
-  const concelho = concelhos.find(c => c.slug === zone.slug)
   const parishes = aml?.parishes ?? []
 
   // Close on Escape
@@ -195,13 +193,13 @@ function ZonePanel({ zone, onClose }: { zone: PortugalZone; onClose: () => void 
           )}
 
           {/* Who fits */}
-          {concelho?.whoFitsHere && (
+          {aml?.whoFitsHere && (
             <div style={{ background: SAND, borderRadius: '4px', padding: '16px' }}>
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', color: MOSS, margin: '0 0 6px' }}>
                 Quem se adapta
               </p>
               <p style={{ fontSize: '13px', color: INK, lineHeight: 1.6, margin: 0 }}>
-                {concelho.whoFitsHere}
+                {aml.whoFitsHere}
               </p>
             </div>
           )}

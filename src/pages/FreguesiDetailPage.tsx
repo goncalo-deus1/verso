@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { freguesias } from '../data/freguesias'
-import { concelhos } from '../data/concelhos'
+import { concelhosAML } from '../data/concelhosAML'
 import SaveZoneButton from '../components/SaveZoneButton'
 
 const INK      = '#1E1F18'
@@ -31,7 +31,7 @@ export default function FreguesiDetailPage() {
     </main>
   )
 
-  const concelho = concelhos.find(c => c.slug === freguesia.concelhoSlug)
+  const concelho = concelhosAML.find(c => c.slug === freguesia.concelhoSlug)
 
   const eyebrow: React.CSSProperties = {
     fontFamily: 'Inter, system-ui, sans-serif',
