@@ -1,5 +1,6 @@
 import { useEffect, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { X } from 'lucide-react'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -40,6 +41,7 @@ const AuthCallback       = lazy(() => import('./pages/AuthCallback'))
 const MinhaConta         = lazy(() => import('./pages/MinhaConta'))
 const QuizDossier        = lazy(() => import('./pages/QuizDossier'))
 const QuizPage           = lazy(() => import('./pages/QuizPage'))
+const SharedResult       = lazy(() => import('./pages/SharedResult'))
 
 const INK  = '#1E1F18'
 const BONE = '#F2EDE4'
@@ -199,6 +201,7 @@ function AppRoutes() {
         <Route path="/zona/:slug" element={<Layout><ZoneDetailPage /></Layout>} />
 
         <Route path="/concelho/:slug" element={<Layout><ConcelhoDetailPage /></Layout>} />
+        <Route path="/resultado/:slug" element={<Layout><SharedResult /></Layout>} />
 
         {/* Protected */}
         <Route path="/minha-conta" element={<Layout><ProtectedRoute><MinhaConta /></ProtectedRoute></Layout>} />
@@ -210,17 +213,19 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <LanguageProvider>
-          <QuizProvider>
-            <PaperGrain />
-            <QuizModal />
-            <CookieBanner />
-            <AppRoutes />
-          </QuizProvider>
-        </LanguageProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <LanguageProvider>
+            <QuizProvider>
+              <PaperGrain />
+              <QuizModal />
+              <CookieBanner />
+              <AppRoutes />
+            </QuizProvider>
+          </LanguageProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   )
 }
