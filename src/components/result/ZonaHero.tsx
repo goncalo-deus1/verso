@@ -259,7 +259,7 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
 
           {/* Mini-mapa */}
           <div className="w-full max-w-[560px]">
-            <MapaAML highlightedConcelho={concelhoSlug} mode="static" />
+            <MapaAML highlightedConcelho={concelhoSlug} mode="hero" />
           </div>
 
           {/* Legenda inferior */}
