@@ -136,11 +136,16 @@ export function loadConcelhoContent(slug: string): ConcelhoContent | null {
 
 // ─── Helpers de parsing ───────────────────────────────────────────────────────
 
-/** Extrai o parágrafo "**Resumo rápido:** ..." do chunk de introdução. */
+/** Extrai o parágrafo "**Resumo rápido:** ..." do chunk de introdução, sem o prefixo. */
 function parseSummary(chunk: string): string {
   // Captura desde **Resumo rápido:** até ao fim do parágrafo (linha vazia ou *Atualizado*)
   const match = chunk.match(/(\*\*Resumo rápido:\*\*[\s\S]*?)(?=\n\n|\*Atualizado|$)/m)
-  return match ? match[1].trim() : ''
+  if (!match) return ''
+  // Remove o prefixo "**Resumo rápido:**" (com ou sem bold) e faz trim
+  return match[1]
+    .replace(/^\*\*Resumo rápido:\*\*\s*/, '')
+    .replace(/^Resumo rápido:\s*/, '')
+    .trim()
 }
 
 /** Extrai a data de "Atualizado a X." do chunk de introdução. */

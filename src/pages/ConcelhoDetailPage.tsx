@@ -1,4 +1,5 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
+import { useQuiz } from '../context/QuizContext'
 import { concelhosAML } from '../data/concelhosAML'
 import { freguesias } from '../data/freguesias'
 import SaveZoneButton from '../components/SaveZoneButton'
@@ -26,6 +27,7 @@ export default function ConcelhoDetailPage() {
   if (!concelho) return <Navigate to="/404" replace />
 
   const coveredFreguesias = freguesias.filter(f => concelho.frecuesiasCovered.includes(f.slug))
+  const { open: openQuiz } = useQuiz()
 
   // Conteúdo editorial do .md — null se o ficheiro não existir para este slug
   const content = loadConcelhoContent(slug!)
@@ -49,18 +51,14 @@ export default function ConcelhoDetailPage() {
       value: `${concelho.populationApprox.toLocaleString('pt-PT')} hab.`,
     },
     {
-      label: 'Percurso mediano à Baixa',
-      value: '— a confirmar',
-    },
-    {
       label: 'Renda T2 estimada',
       value: concelho.budgetFitT2 != null
         ? `${concelho.budgetFitT2.min}–${concelho.budgetFitT2.max} €/mês`
-        : '— a confirmar',
+        : '—',
     },
     {
-      label: 'Tendência (3 anos)',
-      value: { growing: 'Em crescimento', stable: 'Estável', declining: 'Em declínio' }[concelho.populationTrend3y],
+      label: 'Transportes',
+      value: concelho.transport,
     },
   ]
 
@@ -108,7 +106,7 @@ export default function ConcelhoDetailPage() {
 
         {/* Hard facts */}
         <div
-          className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 lg:p-8"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 lg:p-8"
           style={{ background: SAND, borderRadius: '4px' }}
         >
           {facts.map(f => (
@@ -227,22 +225,28 @@ export default function ConcelhoDetailPage() {
           )}
         </section>
 
-        {/* CTA */}
-        <Link
-          to="/areas"
+        {/* CTA — quiz */}
+        <button
+          onClick={() => openQuiz('concelho')}
           style={{
-            display: 'inline-block',
-            padding: '14px 32px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '17px 36px',
             background: CLAY,
             color: 'white',
-            borderRadius: '4px',
             fontSize: '15px',
             fontWeight: 600,
-            textDecoration: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            borderRadius: '8px',
+            transition: 'opacity 150ms',
           }}
+          onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
+          onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
         >
-          Ver os imóveis em {concelho.name}
-        </Link>
+          Descobrir a minha zona ideal
+        </button>
       </article>
 
       {/* ── PDM ───────────────────────────────────────────────────────────── */}
