@@ -1,5 +1,4 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { useQuiz } from '../context/QuizContext'
 import { concelhosAML } from '../data/concelhosAML'
 import { freguesias } from '../data/freguesias'
 import SaveZoneButton from '../components/SaveZoneButton'
@@ -27,7 +26,6 @@ export default function ConcelhoDetailPage() {
   if (!concelho) return <Navigate to="/404" replace />
 
   const coveredFreguesias = freguesias.filter(f => concelho.frecuesiasCovered.includes(f.slug))
-  const { open: openQuiz } = useQuiz()
 
   // Conteúdo editorial do .md — null se o ficheiro não existir para este slug
   const content = loadConcelhoContent(slug!)
@@ -225,28 +223,14 @@ export default function ConcelhoDetailPage() {
           )}
         </section>
 
-        {/* CTA — quiz */}
-        <button
-          onClick={() => openQuiz('concelho')}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '17px 36px',
-            background: CLAY,
-            color: 'white',
-            fontSize: '15px',
-            fontWeight: 600,
-            border: 'none',
-            cursor: 'pointer',
-            borderRadius: '8px',
-            transition: 'opacity 150ms',
-          }}
-          onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
-          onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+        {/* CTA — imóveis */}
+        <Link
+          to={`/areas?concelho=${slug}`}
+          className="inline-block bg-(--telha) hover:bg-(--telha-forte) text-white px-6 py-3 rounded font-medium transition-colors"
+          style={{ textDecoration: 'none' }}
         >
-          Descobrir a minha zona ideal
-        </button>
+          Ver os imóveis em {concelho.name}
+        </Link>
       </article>
 
       {/* ── PDM ───────────────────────────────────────────────────────────── */}
