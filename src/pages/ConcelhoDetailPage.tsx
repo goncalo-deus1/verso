@@ -1,9 +1,11 @@
 import { useParams, Navigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { concelhosAML } from '../data/concelhosAML'
 import SaveZoneButton from '../components/SaveZoneButton'
 import { PdmSection } from '../components/concelho/PdmSection'
 import { UrbanProjectsSection } from '../components/concelho/UrbanProjectsSection'
 import { loadConcelhoContent } from '../lib/concelhoContent'
+import type { ConcelhoContent } from '../lib/concelhoContent'
 import ConcelhoSEO from '../components/concelho/ConcelhoSEO'
 import ConcelhoSummary from '../components/concelho/ConcelhoSummary'
 import ConcelhoEditorial from '../components/concelho/ConcelhoEditorial'
@@ -22,13 +24,20 @@ export default function ConcelhoDetailPage() {
   const { slug } = useParams<{ slug: string }>()
   const concelho = concelhosAML.find(c => c.slug === slug)
 
-  if (!concelho) return <Navigate to="/404" replace />
+  // undefined = a carregar; null = sem ficheiro .md para este slug
+  const [content, setContent] = useState<ConcelhoContent | null | undefined>(undefined)
 
-  // Conteúdo editorial do .md — null se o ficheiro não existir para este slug
-  const content = loadConcelhoContent(slug!)
-  if (!content && import.meta.env.DEV) {
-    console.warn(`[ConcelhoDetailPage] Sem ficheiro .md para slug="${slug}"`)
-  }
+  useEffect(() => {
+    setContent(undefined)
+    loadConcelhoContent(slug!).then(c => {
+      if (import.meta.env.DEV && c === null) {
+        console.warn(`[ConcelhoDetailPage] Sem ficheiro .md para slug="${slug}"`)
+      }
+      setContent(c)
+    })
+  }, [slug])
+
+  if (!concelho) return <Navigate to="/404" replace />
 
   const eyebrow: React.CSSProperties = {
     fontFamily: 'Inter, system-ui, sans-serif',

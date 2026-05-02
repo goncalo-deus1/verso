@@ -69,8 +69,12 @@ function ZonePanel({ zone, onClose }: { zone: PortugalZone; onClose: () => void 
         {aml?.image && (
           <div style={{ position: 'relative', height: '200px', flexShrink: 0, overflow: 'hidden' }}>
             <img
-              src={aml.image.replace('w=800', 'w=600')}
+              src={aml.image.startsWith('http') ? aml.image.replace('w=800', 'w=600') : aml.image}
               alt={zone.name}
+              width={800}
+              height={200}
+              loading="lazy"
+              decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             <div style={{

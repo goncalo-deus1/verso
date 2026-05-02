@@ -150,6 +150,9 @@ export default function ArticleDetailPage() {
       {/* Hero */}
       <div style={{ position: 'relative', height: 'clamp(320px, 45vw, 520px)', overflow: 'hidden' }}>
         <img src={article.image} alt={article.title}
+          width={1200} height={520}
+          fetchPriority="high"
+          decoding="async"
           style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(30, 31, 24,0.88) 0%, rgba(30, 31, 24,0.3) 55%, transparent 100%)' }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 'clamp(24px, 4vw, 56px)' }}>
@@ -200,6 +203,9 @@ export default function ArticleDetailPage() {
                   style={{ textDecoration: 'none', overflow: 'hidden', display: 'block' }}>
                   <div style={{ height: '160px', overflow: 'hidden' }}>
                     <img src={a.image} alt={a.title}
+                      width={800} height={160}
+                      loading="lazy"
+                      decoding="async"
                       style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 500ms' }}
                       className="group-hover:scale-[1.05]" />
                   </div>

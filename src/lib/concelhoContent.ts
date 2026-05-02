@@ -35,11 +35,11 @@ export type ConcelhoContent = {
   jsonLd: string           // JSON pronto para injetar no <head>
 }
 
-// ─── Glob (Vite embebe os ficheiros no bundle em build time) ─────────────────
+// ─── Glob (lazy: cada .md torna-se um chunk separado carregado sob demanda) ──
 
 const mdFiles = import.meta.glob<string>(
   '/src/content/concelhos/*.md',
-  { query: '?raw', import: 'default', eager: true }
+  { query: '?raw', import: 'default' }
 )
 
 // ─── Parser de frontmatter (browser-safe, sem gray-matter) ───────────────────
@@ -90,14 +90,16 @@ function parseFrontmatterAndBody(raw: string): {
 /**
  * Carrega e parseia o conteúdo editorial de um concelho pelo seu slug.
  * Devolve null se o ficheiro não existir — a página não deve partir nesse caso.
+ * Async: cada .md é um chunk separado carregado sob demanda.
  */
-export function loadConcelhoContent(slug: string): ConcelhoContent | null {
+export async function loadConcelhoContent(slug: string): Promise<ConcelhoContent | null> {
   const entry = Object.entries(mdFiles).find(([path]) =>
     path.endsWith(`-${slug}.md`)
   )
   if (!entry) return null
 
-  const [, raw] = entry
+  const [, loader] = entry
+  const raw = await loader()
   const { fm, body } = parseFrontmatterAndBody(raw)
 
   const frontmatter: ConcelhoFrontmatter = {
