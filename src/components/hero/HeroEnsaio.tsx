@@ -1,4 +1,5 @@
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
+// Note: motion is still used for motion.div, motion.h1, etc. — only motion.span was removed
 import { useEffect, useState } from 'react'
 import { useQuiz } from '../../context/QuizContext'
 import { MapaAML } from './MapaAML'
@@ -7,8 +8,7 @@ import { trackEvent } from '../../lib/analytics'
 const ease = [0.22, 1, 0.36, 1] as const
 
 const TYPEWRITER_TEXT = 'casa certa'
-const CHAR_DELAY = 0.06   // seconds between characters
-const START_DELAY = 1.1   // seconds after page load before typing starts
+const CHAR_DELAY = 55   // ms between characters
 
 function TypewriterText({ reduce }: { reduce: boolean | null }) {
   const [displayed, setDisplayed] = useState(reduce ? TYPEWRITER_TEXT : '')
@@ -17,31 +17,32 @@ function TypewriterText({ reduce }: { reduce: boolean | null }) {
   useEffect(() => {
     if (reduce) return
     let i = 0
-    const timeout = setTimeout(() => {
-      const interval = setInterval(() => {
-        i++
-        setDisplayed(TYPEWRITER_TEXT.slice(0, i))
-        if (i >= TYPEWRITER_TEXT.length) {
-          clearInterval(interval)
-          setDone(true)
-        }
-      }, CHAR_DELAY * 1000)
-      return () => clearInterval(interval)
-    }, START_DELAY * 1000)
-    return () => clearTimeout(timeout)
+    const interval = setInterval(() => {
+      i++
+      setDisplayed(TYPEWRITER_TEXT.slice(0, i))
+      if (i >= TYPEWRITER_TEXT.length) {
+        clearInterval(interval)
+        setDone(true)
+      }
+    }, CHAR_DELAY)
+    return () => clearInterval(interval)
   }, [reduce])
 
   return (
     <>
       {displayed}
       {!done && (
-        <motion.span
+        <span
           aria-hidden
-          style={{ display: 'inline-block', width: '0.05em', marginLeft: '0.03em', background: 'currentColor', verticalAlign: 'baseline', height: '0.85em', borderRadius: '1px' }}
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.55, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
+          style={{
+            display: 'inline-block', width: '0.05em', marginLeft: '0.03em',
+            background: 'currentColor', verticalAlign: 'baseline',
+            height: '0.85em', borderRadius: '1px',
+            animation: 'cursor-blink 1.1s step-end infinite',
+          }}
         />
       )}
+      <style>{`@keyframes cursor-blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
     </>
   )
 }
@@ -78,7 +79,7 @@ export function HeroEnsaio() {
           <motion.div
             className="order-1 lg:order-1"
             variants={container}
-            initial={reduce ? false : 'hidden'}
+            initial={false}
             animate="show"
           >
             {/* Eyebrow */}

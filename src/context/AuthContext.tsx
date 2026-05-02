@@ -1,6 +1,15 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import type { Session, User } from '@supabase/supabase-js'
-import { supabase } from '../lib/supabase'
+import type { Session, User, SupabaseClient } from '@supabase/supabase-js'
+
+// Lazy-loaded singleton — defers the 187 KB Supabase bundle until after first render
+let _sb: SupabaseClient | null = null
+async function getSupabase() {
+  if (!_sb) {
+    const { supabase } = await import('../lib/supabase')
+    _sb = supabase
+  }
+  return _sb
+}
 
 interface AuthContextValue {
   user: User | null
@@ -23,25 +32,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-      setLoading(false)
+    let cleanup: (() => void) | undefined
+
+    getSupabase().then(sb => {
+      // Get initial session
+      sb.auth.getSession().then(({ data: { session } }) => {
+        setSession(session)
+        setUser(session?.user ?? null)
+        setLoading(false)
+      })
+
+      // Listen for auth changes
+      const { data: { subscription } } = sb.auth.onAuthStateChange((_event, session) => {
+        setSession(session)
+        setUser(session?.user ?? null)
+        setLoading(false)
+      })
+      cleanup = () => subscription.unsubscribe()
     })
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
-
-    return () => subscription.unsubscribe()
+    return () => cleanup?.()
   }, [])
 
   async function signUp(email: string, password: string, name?: string): Promise<{ error: string | null; userId?: string }> {
-    const { data: signUpData, error } = await supabase.auth.signUp({
+    const sb = await getSupabase()
+    const { data: signUpData, error } = await sb.auth.signUp({
       email,
       password,
       options: {
@@ -53,26 +68,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const userId = signUpData.user?.id
 
-    // Upsert profile
     if (name && userId) {
-      await supabase.from('profiles').upsert({
-        id: userId,
-        email,
-        name,
-      })
+      await sb.from('profiles').upsert({ id: userId, email, name })
     }
 
     return { error: null, userId }
   }
 
   async function signIn(email: string, password: string): Promise<{ error: string | null }> {
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const sb = await getSupabase()
+    const { error } = await sb.auth.signInWithPassword({ email, password })
     if (error) return { error: error.message }
     return { error: null }
   }
 
   async function signInWithMagicLink(email: string): Promise<{ error: string | null }> {
-    const { error } = await supabase.auth.signInWithOtp({
+    const sb = await getSupabase()
+    const { error } = await sb.auth.signInWithOtp({
       email,
       options: {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
@@ -84,7 +96,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function signOut() {
-    await supabase.auth.signOut()
+    const sb = await getSupabase()
+    await sb.auth.signOut()
   }
 
   // Legacy shims — kept so existing components don't break during migration
