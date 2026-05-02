@@ -2,6 +2,233 @@ import type { Editorial } from '../types'
 
 export const editorials: Editorial[] = [
   {
+    id: '7',
+    title: 'Documentos necessários para comprar casa em Portugal',
+    slug: 'documentos-necessarios-para-comprar-casa-portugal',
+    category: 'Guia do Comprador',
+    excerpt: 'Descobre quais são os documentos necessários para comprar casa em Portugal, com ou sem crédito habitação. Guia simples com checklist, FAQ e documentos do comprador e do imóvel.',
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80',
+    readTime: 7,
+    date: '2026-05-02',
+    author: 'Equipa Editorial habitta',
+    content: [
+      {
+        type: 'lead',
+        text: 'Comprar casa exige mais do que encontrar o imóvel certo. Antes da escritura, é importante reunir os documentos necessários para comprar casa em Portugal, tanto os teus como os do imóvel, para evitar atrasos, falhas na aprovação do crédito ou problemas legais na transação.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Neste guia explicamos, de forma simples, que documentos precisas, para que servem e em que momento costumam ser pedidos.',
+      },
+      { type: 'heading', level: 2, text: 'Que documentos são necessários para comprar casa?' },
+      {
+        type: 'paragraph',
+        text: 'De forma resumida, os documentos necessários para comprar casa em Portugal incluem normalmente:',
+      },
+      {
+        type: 'list',
+        items: [
+          'Documento de identificação',
+          'Número de contribuinte (NIF)',
+          'Comprovativos de rendimentos',
+          'Declaração de IRS e nota de liquidação',
+          'Extratos bancários',
+          'Mapa de responsabilidades de crédito',
+          'Caderneta predial',
+          'Certidão permanente predial',
+          'Licença de utilização',
+          'Certificado energético',
+        ],
+      },
+      {
+        type: 'paragraph',
+        text: 'Se a compra for feita com crédito habitação, o banco pode pedir documentação adicional para avaliar risco, rendimentos e capacidade de endividamento.',
+      },
+      { type: 'heading', level: 2, text: 'Documentos pessoais do comprador' },
+      { type: 'heading', level: 3, text: 'Documento de identificação' },
+      {
+        type: 'paragraph',
+        text: 'O Cartão de Cidadão, passaporte ou título de residência serve para identificar formalmente o comprador em todas as fases da operação.',
+      },
+      { type: 'heading', level: 3, text: 'Número de Identificação Fiscal' },
+      {
+        type: 'paragraph',
+        text: 'O NIF é necessário para praticamente todos os atos ligados à compra, incluindo proposta, contrato-promessa, crédito e escritura.',
+      },
+      { type: 'heading', level: 3, text: 'Comprovativo de morada' },
+      {
+        type: 'paragraph',
+        text: 'Pode ser pedido por bancos, intermediários de crédito ou notário para validar residência e dados do comprador.',
+      },
+      { type: 'heading', level: 3, text: 'Recibos de vencimento ou prova de rendimentos' },
+      {
+        type: 'paragraph',
+        text: 'Os recibos de vencimento ajudam a demonstrar rendimentos regulares. No caso de independentes, podem ser substituídos por recibos verdes, faturas ou outros comprovativos adequados.',
+      },
+      { type: 'heading', level: 3, text: 'Declaração de IRS e nota de liquidação' },
+      {
+        type: 'paragraph',
+        text: 'Estes documentos são normalmente usados para avaliar estabilidade financeira e rendimentos anuais do comprador.',
+      },
+      { type: 'heading', level: 3, text: 'Extratos bancários' },
+      {
+        type: 'paragraph',
+        text: 'Os bancos costumam pedir extratos recentes para analisar movimentos, capacidade de poupança e consistência financeira.',
+      },
+      { type: 'heading', level: 3, text: 'Mapa de responsabilidades de crédito' },
+      {
+        type: 'paragraph',
+        text: 'O mapa de responsabilidades do Banco de Portugal mostra os créditos em curso, valores em dívida e eventual incumprimento, sendo frequentemente pedido na análise de crédito habitação.',
+      },
+      { type: 'heading', level: 2, text: 'Documentos do imóvel que deves confirmar' },
+      { type: 'heading', level: 3, text: 'Caderneta predial' },
+      {
+        type: 'paragraph',
+        text: 'A caderneta predial é um documento fiscal emitido pela Autoridade Tributária com informação matricial do imóvel, incluindo localização, áreas e valor patrimonial tributário.',
+      },
+      { type: 'heading', level: 3, text: 'Certidão permanente predial' },
+      {
+        type: 'paragraph',
+        text: 'A certidão permanente predial apresenta os registos em vigor sobre o imóvel e os pedidos pendentes, permitindo confirmar titularidade e encargos como hipotecas, penhoras ou usufrutos. É um documento que pode ter de ser apresentado quando se compra ou vende um imóvel.',
+      },
+      { type: 'heading', level: 3, text: 'Licença de utilização' },
+      {
+        type: 'paragraph',
+        text: 'A licença de utilização comprova que o imóvel está autorizado para o fim a que se destina, como habitação. É um documento importante para verificar a conformidade legal do imóvel.',
+      },
+      { type: 'heading', level: 3, text: 'Ficha técnica da habitação' },
+      {
+        type: 'paragraph',
+        text: 'Em alguns imóveis, especialmente os mais recentes, este documento reúne informação técnica relevante sobre a construção e os materiais usados.',
+      },
+      { type: 'heading', level: 3, text: 'Certificado energético' },
+      {
+        type: 'paragraph',
+        text: 'O certificado energético é obrigatório quando o imóvel é colocado no mercado para venda ou arrendamento e deve estar válido. A classe energética deve constar da publicidade e o documento deve acompanhar a transação.',
+      },
+      { type: 'heading', level: 2, text: 'Documentos adicionais para crédito habitação' },
+      {
+        type: 'paragraph',
+        text: 'Se precisares de crédito habitação, o banco vai pedir uma análise mais completa da tua situação financeira. Os documentos mais comuns incluem:',
+      },
+      {
+        type: 'list',
+        items: [
+          'Documento de identificação',
+          'NIF',
+          'Comprovativos de rendimentos',
+          'IRS e nota de liquidação',
+          'Extratos bancários',
+          'Mapa de responsabilidades de crédito',
+          'Comprovativo de vínculo laboral',
+          'Documentos do imóvel',
+        ],
+      },
+      {
+        type: 'paragraph',
+        text: 'O objetivo é perceber a tua taxa de esforço, estabilidade financeira e capacidade para suportar o empréstimo ao longo do tempo.',
+      },
+      { type: 'heading', level: 2, text: 'Documentos para trabalhadores independentes' },
+      {
+        type: 'paragraph',
+        text: 'Se fores trabalhador independente, é normal que o banco peça documentação adicional para validar rendimentos. Normalmente entram aqui:',
+      },
+      {
+        type: 'list',
+        items: [
+          'Declaração de IRS',
+          'Nota de liquidação',
+          'Recibos verdes ou faturas',
+          'Extratos bancários',
+          'Comprovativo de atividade aberta',
+        ],
+      },
+      {
+        type: 'paragraph',
+        text: 'Nestes casos, o banco tende a olhar com mais atenção para regularidade de rendimentos e histórico financeiro.',
+      },
+      { type: 'heading', level: 2, text: 'Documentos para compradores estrangeiros' },
+      {
+        type: 'paragraph',
+        text: 'Os compradores estrangeiros podem precisar de documentos adicionais, como:',
+      },
+      {
+        type: 'list',
+        items: [
+          'Passaporte',
+          'NIF português',
+          'Comprovativo de morada no país de residência',
+          'Prova de rendimentos',
+          'Documentos bancários e fiscais do país de origem',
+        ],
+      },
+      {
+        type: 'paragraph',
+        text: 'Dependendo da instituição financeira, pode ser necessário apresentar traduções ou documentação complementar.',
+      },
+      { type: 'heading', level: 2, text: 'Checklist: documentos para comprar casa' },
+      {
+        type: 'paragraph',
+        text: 'Antes de avançar, confirma se tens esta checklist pronta:',
+      },
+      {
+        type: 'list',
+        items: [
+          'Documento de identificação',
+          'NIF',
+          'Comprovativo de morada',
+          'Recibos de vencimento ou prova de rendimentos',
+          'Declaração de IRS',
+          'Nota de liquidação',
+          'Extratos bancários',
+          'Mapa de responsabilidades de crédito',
+          'Caderneta predial',
+          'Certidão permanente predial',
+          'Licença de utilização',
+          'Certificado energético',
+        ],
+      },
+      {
+        type: 'callout',
+        text: 'Ter estes documentos organizados ajuda a acelerar o processo e evita bloqueios perto da escritura.',
+      },
+      { type: 'heading', level: 2, text: 'Perguntas frequentes' },
+      { type: 'heading', level: 3, text: 'Quais são os documentos obrigatórios para comprar casa em Portugal?' },
+      {
+        type: 'paragraph',
+        text: 'Em geral, precisas de documentos de identificação, comprovativos financeiros e documentos legais do imóvel, como caderneta predial, certidão permanente predial e certificado energético.',
+      },
+      { type: 'heading', level: 3, text: 'O banco pede sempre mapa de responsabilidades?' },
+      {
+        type: 'paragraph',
+        text: 'Na maioria dos pedidos de crédito habitação, sim. O mapa de responsabilidades ajuda o banco a conhecer todos os créditos ativos e a avaliar risco.',
+      },
+      { type: 'heading', level: 3, text: 'A certidão permanente predial é mesmo necessária?' },
+      {
+        type: 'paragraph',
+        text: 'É um dos documentos mais importantes, porque mostra os registos em vigor do imóvel, incluindo titularidade e eventuais encargos.',
+      },
+      { type: 'heading', level: 3, text: 'O certificado energético é obrigatório?' },
+      {
+        type: 'paragraph',
+        text: 'Sim. O certificado energético é obrigatório quando o imóvel é colocado à venda e deve estar válido.',
+      },
+      { type: 'heading', level: 3, text: 'Qual é a diferença entre caderneta predial e certidão permanente?' },
+      {
+        type: 'paragraph',
+        text: 'A caderneta predial é um documento fiscal com informação matricial do imóvel, enquanto a certidão permanente predial prova a situação jurídica e os registos existentes sobre o imóvel.',
+      },
+      { type: 'divider' },
+      {
+        type: 'cta',
+        heading: 'Ainda a decidir onde comprar?',
+        body: 'Antes de reunir documentos, tens de saber a zona certa. O quiz da habitta recomenda a zona ideal em três minutos — com base no teu orçamento, estilo de vida e prioridades.',
+        label: 'Fazer o quiz',
+        href: '/quiz',
+      },
+    ],
+  },
+  {
     id: '6',
     title: 'Financiamento a 100% para jovens: tens direito, mas devias usar?',
     slug: 'financiamento-100-jovens-comprar-casa',
