@@ -4,7 +4,7 @@
  * Secção escura final com CTAs + "Refazer o quiz" para utilizadores autenticados.
  */
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import SaveZoneButton from '../SaveZoneButton'
 
 type Props = {
@@ -37,9 +37,8 @@ export function CtaFinal({ nome, slug, zoneKind, showRefazer = false }: Props) {
 
         <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
           {/* Primary — ver imóveis na zona */}
-          {/* TODO: route /zona/[slug]/imoveis needs to be built */}
-          <a
-            href={`/zona/${slug}/imoveis`}
+          <Link
+            to="/em-breve"
             style={{
               display: 'inline-flex', alignItems: 'center',
               padding: '9px 22px', fontSize: '13px', fontWeight: 500,
@@ -51,7 +50,7 @@ export function CtaFinal({ nome, slug, zoneKind, showRefazer = false }: Props) {
             onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#B24A30'; el.style.borderColor = '#B24A30' }}
           >
             Ver imóveis nesta zona
-          </a>
+          </Link>
 
           {/* Secondary — guardar análise */}
           <SaveZoneButton zoneSlug={slug} zoneKind={zoneKind} zoneName={nome} label="Guardar" darkBg />

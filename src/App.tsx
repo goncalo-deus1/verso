@@ -41,6 +41,7 @@ const AuthCallback       = lazy(() => import('./pages/AuthCallback'))
 const MinhaConta         = lazy(() => import('./pages/MinhaConta'))
 const QuizDossier        = lazy(() => import('./pages/QuizDossier'))
 const QuizPage           = lazy(() => import('./pages/QuizPage'))
+const EmBreve            = lazy(() => import('./pages/EmBreve'))
 
 const INK  = '#1E1F18'
 const BONE = '#F2EDE4'
@@ -200,6 +201,8 @@ function AppRoutes() {
         <Route path="/zona/:slug" element={<Layout><ZoneDetailPage /></Layout>} />
 
         <Route path="/concelho/:slug" element={<Layout><ConcelhoDetailPage /></Layout>} />
+
+        <Route path="/em-breve" element={<Layout><EmBreve /></Layout>} />
 
         {/* Protected */}
         <Route path="/minha-conta" element={<Layout><ProtectedRoute><MinhaConta /></ProtectedRoute></Layout>} />

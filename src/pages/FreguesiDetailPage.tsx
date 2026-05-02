@@ -161,7 +161,7 @@ export default function FreguesiDetailPage() {
         {/* CTA */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
           <Link
-            to="/areas"
+            to="/em-breve"
             style={{
               display: 'inline-block',
               padding: '14px 32px',
