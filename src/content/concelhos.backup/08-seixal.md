@@ -47,24 +47,23 @@ Famílias jovens procuram o Seixal pelos preços mais acessíveis e pela combina
 
 O Seixal tem três opções principais para Lisboa:
 
-**Terceira Travessia do Tejo** — `Anunciado`
-Nova ligação Lisboa-Chelas ao Barreiro com componentes rodoviária e ferroviária, anunciada em 2024. O impacto direto no Seixal é menor do que para Almada e Barreiro.
+**Barco (Seixal-Cais do Sodré).** Cerca de 25 minutos de travessia, frequência de 30 minutos.
 
-Barco (Seixal-Cais do Sodré): cerca de 25 minutos de travessia, frequência de 30 minutos.
+**Metro Sul do Tejo + Fertagus.** O Metro Sul do Tejo passa por Corroios, com correspondência ao Fertagus para Lisboa (Pragal-Roma-Areeiro-Sete Rios-Entrecampos).
 
-Metro Sul do Tejo + Fertagus: o Metro Sul do Tejo passa por Corroios, com correspondência ao Fertagus para Lisboa (Pragal-Roma-Areeiro-Sete Rios-Entrecampos).
+**Carro pela Ponte 25 de Abril ou Ponte Vasco da Gama.** A Ponte 25 de Abril dá acesso à zona ocidental e centro de Lisboa. A Ponte Vasco da Gama dá acesso ao Parque das Nações.
 
-Carro pela Ponte 25 de Abril ou Ponte Vasco da Gama: a Ponte 25 de Abril dá acesso à zona ocidental e centro de Lisboa. A Ponte Vasco da Gama dá acesso ao Parque das Nações.
+A futura Terceira Travessia do Tejo (TTT), anunciada em 2024, vai ligar Lisboa-Chelas a Barreiro com componente rodoviária e ferroviária. O impacto direto no Seixal é menor do que para Almada e Barreiro, mas pode aliviar pressão geral.
 
 ## Projetos urbanos previstos no concelho
 
-O Decreto-Lei de setembro de 2025 transferiu a tutela dos antigos projetos do Arco Ribeirinho Sul (que abrange Almada, Barreiro e Seixal) para a nova entidade Parque Cidades do Tejo, S.A. Há terrenos a desenvolver na zona ribeirinha do Seixal.
+**Arco Ribeirinho Sul / Parque Cidades do Tejo.** O Decreto-Lei de setembro de 2025 transferiu a tutela dos antigos projetos do Arco Ribeirinho Sul (que abrange Almada, Barreiro e Seixal) para a nova entidade Parque Cidades do Tejo, S.A. Há terrenos a desenvolver na zona ribeirinha do Seixal.
 
-Não há números oficiais públicos disponíveis sobre famílias em lista de espera para o Seixal (o município não respondeu ao levantamento da Lusa em julho de 2025), mas há projetos PRR em execução.
+**Habitação pública.** Não há números oficiais públicos disponíveis sobre famílias em lista de espera para o Seixal (o município não respondeu ao levantamento da Lusa em julho de 2025), mas há projetos PRR em execução.
 
-Há vários novos empreendimentos em comercialização, sobretudo em Corroios, Aldeia de Paio Pires e Fernão Ferro.
+**Empreendimentos privados em curso.** Há vários novos empreendimentos em comercialização, sobretudo em Corroios, Aldeia de Paio Pires e Fernão Ferro.
 
-A requalificação da Baía do Seixal continua, com investimentos em espaço público.
+**Frente ribeirinha do Seixal.** A requalificação da Baía do Seixal continua, com investimentos em espaço público.
 
 ## Escolas, saúde e comércio
 

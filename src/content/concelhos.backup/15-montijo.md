@@ -43,24 +43,23 @@ A presença internacional é baixa, mas tem vindo a crescer com a proximidade do
 
 O Montijo tem boas opções:
 
-Ferry (Montijo-Cais do Sodré): cerca de 25 minutos de travessia, frequência adequada em hora de ponta. É a ligação mais usada para Lisboa centro.
+**Ferry (Montijo-Cais do Sodré).** Cerca de 25 minutos de travessia, frequência adequada em hora de ponta. É a ligação mais usada para Lisboa centro.
 
-Carro pela Ponte Vasco da Gama: acesso ao Parque das Nações em 10 a 15 minutos. É das ligações mais rápidas da margem sul ao Lisboa Oriente.
+**Carro pela Ponte Vasco da Gama.** Acesso ao Parque das Nações em 10 a 15 minutos. É das ligações mais rápidas da margem sul ao Lisboa Oriente.
 
-Carro pela Ponte 25 de Abril: para a zona ocidental e centro de Lisboa, cerca de 30 a 40 minutos.
+**Carro pela Ponte 25 de Abril.** Para a zona ocidental e centro de Lisboa, cerca de 30 a 40 minutos.
 
 A Terceira Travessia do Tejo, anunciada em 2024, vai ligar Lisboa-Chelas ao Barreiro com componente ferroviária, mas o impacto direto no Montijo é menor do que para Almada e Barreiro.
 
 ## Projetos urbanos previstos no concelho
 
-**Aeroporto Luís de Camões** — `Anunciado`
-Novo aeroporto entre Alcochete e o Montijo (Canha), com conclusão prevista para 2034-2037 e investimento de cerca de 9 mil milhões de euros. Parte do território do Montijo está abrangida pelas medidas preventivas do raio de 15 km, que limitam operações urbanísticas em algumas zonas.
+**Aeroporto Luís de Camões.** O novo aeroporto, anunciado em maio de 2024 pelo Governo, será construído entre Alcochete e o Montijo (Canha). A conclusão está prevista para 2034 a 2037, com investimento de cerca de 9 mil milhões de euros. O concelho do Montijo está abrangido pelas medidas preventivas do raio de 15 km, que limitam a construção em parte do território.
 
-O Montijo tem 176 famílias em lista de espera. Está em preparação um concurso para atribuição de 15 frações, mais a construção de 91 novas habitações e a requalificação de 100 já existentes, com conclusão prevista para 2026.
+**Habitação pública.** O Montijo tem 176 famílias em lista de espera. Está em preparação um concurso para atribuição de 15 frações, mais a construção de 91 novas habitações e a requalificação de 100 já existentes, com conclusão prevista para 2026.
 
-Há entrada moderada de empreendimentos privados em Montijo-Vila e Afonsoeiro.
+**Empreendimentos privados.** Há entrada moderada de empreendimentos privados em Montijo-Vila e Afonsoeiro.
 
-Continua a requalificação da frente ribeirinha junto ao cais do ferry.
+**Frente ribeirinha do Tejo.** Continua a requalificação da frente ribeirinha junto ao cais do ferry.
 
 ## Escolas, saúde e comércio
 

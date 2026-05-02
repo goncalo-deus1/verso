@@ -49,24 +49,23 @@ Nos últimos anos, Setúbal tem atraído classe criativa de Lisboa, expatriados 
 
 Setúbal tem três opções principais para Lisboa:
 
-**Terceira Travessia do Tejo** — `Pós-2030`
-A componente ferroviária da nova travessia deverá melhorar significativamente o tempo de ligação Setúbal-Lisboa quando estiver concluída.
+**Comboio Fertagus.** Liga Setúbal a Lisboa (Roma-Areeiro, Sete Rios, Entrecampos). De Setúbal a Roma-Areeiro são cerca de 55 minutos. A frequência é de 30 minutos em hora de ponta.
 
-O comboio Fertagus liga Setúbal a Lisboa (Roma-Areeiro, Sete Rios, Entrecampos). De Setúbal a Roma-Areeiro são cerca de 55 minutos. A frequência é de 30 minutos em hora de ponta.
+**Carro pela A2 e Ponte Vasco da Gama ou Ponte 25 de Abril.** A A2 é a ligação mais rápida (cerca de 45 minutos a Lisboa fora de hora de ponta). Em hora de ponta, pode demorar 1h15.
 
-De carro pela A2 e Ponte Vasco da Gama ou Ponte 25 de Abril, a A2 é a ligação mais rápida (cerca de 45 minutos a Lisboa fora de hora de ponta). Em hora de ponta, pode demorar 1h15.
+**Autocarro TST.** Vários autocarros expresso ligam Setúbal a Lisboa, sobretudo ao Sul/Sueste e ao Pragal (com correspondência ao metro e Fertagus).
 
-Vários autocarros expresso TST ligam Setúbal a Lisboa, sobretudo ao Sul/Sueste e ao Pragal (com correspondência ao metro e Fertagus).
+A futura Terceira Travessia do Tejo, com componente ferroviária, deverá melhorar significativamente o tempo de ligação Setúbal-Lisboa quando estiver concluída (depois de 2030).
 
 ## Projetos urbanos previstos no concelho
 
-Setúbal tem 1.963 famílias em lista de espera, o terceiro maior número da AML depois de Lisboa e Sintra. Há projetos PRR em execução.
+**Habitação pública.** Setúbal tem 1.963 famílias em lista de espera, o terceiro maior número da AML depois de Lisboa e Sintra. Há projetos PRR em execução.
 
-Continua a requalificação da frente ribeirinha de Setúbal, incluindo a Doca dos Pescadores e o cais turístico.
+**Frente ribeirinha do Sado.** Continua a requalificação da frente ribeirinha de Setúbal, incluindo a Doca dos Pescadores e o cais turístico.
 
-Há entrada de novos empreendimentos privados em comercialização, sobretudo na zona oriental da cidade e em Azeitão.
+**Empreendimentos privados.** Há entrada de novos empreendimentos privados em comercialização, sobretudo na zona oriental da cidade e em Azeitão.
 
-Continua o investimento em equipamentos de turismo de natureza (avistamento de golfinhos, percursos pedestres na Arrábida).
+**Estuário do Sado e turismo de natureza.** Continua o investimento em equipamentos de turismo de natureza (avistamento de golfinhos, percursos pedestres na Arrábida).
 
 ## Escolas, saúde e comércio
 

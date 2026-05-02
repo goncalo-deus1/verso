@@ -49,18 +49,17 @@ A Amadora tem a melhor cobertura de transportes públicos da AML em proporção 
 
 Da Amadora ao Marquês de Pombal são 15 a 20 minutos por metro. Da Amadora ao Rossio são 12 minutos por comboio. É possivelmente a melhor relação tempo-Lisboa-preço de toda a AML.
 
-**LIOS Ocidental** — `Em estudo`
-Linha de metro ligeiro entre Oeiras e Alcântara que passa próximo da fronteira sul da Amadora, podendo criar opções complementares de transporte.
-
 De carro, a A37 (Radial de Sintra), a IC19 e a 2ª Circular dão acesso a Lisboa, com trânsito intenso em hora de ponta.
 
 ## Projetos urbanos previstos no concelho
 
-A Amadora tem aprovados vários projetos de construção e reabilitação via PRR. A Câmara aprovou em julho de 2025 a aquisição de 22 lotes para reforço do parque municipal.
+**Habitação pública via PRR.** A Amadora tem aprovados vários projetos de construção e reabilitação. A Câmara aprovou em julho de 2025 a aquisição de 22 lotes para reforço do parque municipal.
 
-A Câmara reconhece 711 famílias a residir em núcleos precários a aguardar realojamento.
+**Realojamento de núcleos precários.** A Câmara reconhece 711 famílias a residir em núcleos precários a aguardar realojamento.
 
-Há vários novos empreendimentos em comercialização, sobretudo em Mina de Água e Alfragide. T2 a partir de 280 mil euros nas zonas mais acessíveis.
+**Empreendimentos privados.** Há vários novos empreendimentos em comercialização, sobretudo em Mina de Água e Alfragide. T2 a partir de 280 mil euros nas zonas mais acessíveis.
+
+**LIOS Ocidental.** A futura linha de metro ligeiro Oeiras-Alcântara passa próximo da fronteira sul da Amadora, podendo criar opções complementares de transporte.
 
 ## Escolas, saúde e comércio
 

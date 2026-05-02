@@ -45,27 +45,25 @@ A presença internacional é baixa, mas pode crescer significativamente nos pró
 
 Alcochete tem uma vantagem clara: está a 10 minutos do Parque das Nações pela Ponte Vasco da Gama.
 
-De carro pela Ponte Vasco da Gama, o acesso a Lisboa Oriente é de 10 a 15 minutos fora de hora de ponta. Para o centro de Lisboa, 25 a 35 minutos.
+**Carro pela Ponte Vasco da Gama.** Acesso a Lisboa Oriente em 10 a 15 minutos fora de hora de ponta. Para o centro de Lisboa, 25 a 35 minutos.
 
-Os autocarros TST asseguram ligações regulares a Lisboa (Sete Rios, Cais do Sodré).
+**Autocarros TST.** Ligações regulares a Lisboa (Sete Rios, Cais do Sodré).
 
-Sem comboio nem barco direto: a ligação fluvial mais próxima é o ferry do Montijo. A ligação ferroviária mais próxima é o Pinhal Novo (Palmela).
+**Sem comboio nem barco direto.** A ligação fluvial mais próxima é o ferry do Montijo. A ligação ferroviária mais próxima é o Pinhal Novo (Palmela).
 
 A Terceira Travessia do Tejo, anunciada em 2024 com o aeroporto, vai ligar Lisboa-Chelas ao Barreiro. O impacto indireto em Alcochete é positivo, sobretudo se houver melhorias nas acessibilidades complementares.
 
 ## Projetos urbanos previstos no concelho
 
-**Aeroporto Luís de Camões** — `Anunciado`
-A ser construído no Campo de Tiro de Alcochete, com área de cerca de 2.500 hectares e capacidade para 45 milhões de passageiros. Conclusão prevista para 2034-2037, com investimento de cerca de 9 mil milhões de euros. O atual aeroporto Humberto Delgado em Lisboa será encerrado.
+**Aeroporto Luís de Camões.** O projeto mais estruturante e transformador. Vai ser construído no Campo de Tiro de Alcochete, com área de cerca de 2.500 hectares. Conclusão prevista para 2034 a 2037, com capacidade para 45 milhões de passageiros e investimento de cerca de 9 mil milhões de euros. O atual aeroporto Humberto Delgado em Lisboa será encerrado.
 
-**Parque Cidades do Tejo (terrenos remanescentes)** — `Anunciado`
-Os terrenos do Campo de Tiro não ocupados pelo aeroporto ficam sob tutela da Parque Cidades do Tejo, S.A. (Decreto-Lei de setembro de 2025), a desenvolver com habitação e equipamentos.
+**Medidas preventivas no raio de 15 km.** Em vigor desde fevereiro de 2026, com 71 mil hectares abrangidos. Todas as operações urbanísticas novas em parte do território estão sujeitas a verificação prévia da ANAC.
 
-As medidas preventivas no raio de 15 km estão em vigor desde fevereiro de 2026, com 71 mil hectares abrangidos. Todas as operações urbanísticas novas em parte do território estão sujeitas a verificação prévia da ANAC.
+**Parque Cidades do Tejo.** Os terrenos remanescentes do Campo de Tiro de Alcochete (não ocupados pelo aeroporto) estão sob tutela da Parque Cidades do Tejo, S.A. (DL setembro 2025). Vão ser desenvolvidos com habitação e equipamentos.
 
-Alcochete tem 462 famílias em lista de espera, número alto considerando a dimensão do concelho.
+**Habitação pública.** Alcochete tem 462 famílias em lista de espera, número alto considerando a dimensão do concelho.
 
-O Freeport Outlet, em São Francisco, mantém-se como um dos maiores destinos comerciais da margem sul.
+**Freeport.** O Freeport Outlet, em São Francisco, mantém-se como um dos maiores destinos comerciais da margem sul.
 
 ## Escolas, saúde e comércio
 

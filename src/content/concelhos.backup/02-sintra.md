@@ -45,20 +45,19 @@ A pressão demográfica concentra-se nas freguesias com estação de comboio. Ca
 
 A linha de comboio Lisboa-Sintra é o eixo estruturante. Da estação de Sintra ao Rossio são cerca de 40 minutos. Da estação de Cacém ao Rossio são 25 a 30 minutos. Da Portela de Sintra são 35 minutos. A frequência é de 10 a 20 minutos em horas de ponta, mas a linha sofre frequentemente com sobrelotação.
 
-**Estação de Mira-Sintra** — `Em curso`
-Requalificação integrada nas obras de modernização da linha de Sintra, com melhorias de conforto e capacidade dos comboios.
-
 De carro, a IC19 é a ligação rápida mas tem trânsito intenso entre as 8h e as 9h30 e entre as 18h e as 19h30. A A37 (Radial de Sintra) liga ao IC19 e à A5 e está em melhor estado.
 
 A futura LIOS Ocidental (Linha Intermodal Sustentável) está em estudo e deverá ligar Oeiras a Alcântara, criando um eixo de transporte que poderá beneficiar ligações alternativas a partir de Sintra a longo prazo.
 
 ## Projetos urbanos previstos no concelho
 
-Sintra tem cerca de 4.000 famílias em lista de espera por habitação municipal, o segundo maior número da AML depois de Lisboa. A Câmara está a executar projetos do PRR para reabilitar e construir nova oferta.
+**Habitação pública.** Sintra tem cerca de 4.000 famílias em lista de espera por habitação municipal, o segundo maior número da AML depois de Lisboa. A Câmara está a executar projetos do PRR para reabilitar e construir nova oferta.
 
-Há várias dezenas de novos empreendimentos privados em construção ou comercialização, sobretudo em Massamá, Queluz, Belas e Algueirão. Os preços T2 a estrear começam nos 280 mil euros e podem chegar aos 400 mil em zonas premium.
+**Empreendimentos privados em curso.** Há várias dezenas de novos empreendimentos privados em construção ou comercialização, sobretudo em Massamá, Queluz, Belas e Algueirão. Os preços T2 a estrear começam nos 280 mil euros e podem chegar aos 400 mil em zonas premium.
 
-A revisão do PDM em curso prevê novas zonas de expansão urbana junto às estações de comboio, antecipando a pressão habitacional dos próximos anos.
+**Plano Diretor Municipal.** A revisão do PDM em curso prevê novas zonas de expansão urbana junto às estações de comboio, antecipando a pressão habitacional dos próximos anos.
+
+**Estação ferroviária de Mira-Sintra requalificada.** Obras na linha de Sintra estão a melhorar conforto e capacidade dos comboios.
 
 ## Escolas, saúde e comércio
 

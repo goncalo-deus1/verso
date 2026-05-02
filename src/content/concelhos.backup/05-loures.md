@@ -47,27 +47,25 @@ A Câmara tem programas ativos de regeneração urbana e habitação acessível,
 
 ## Transportes e ligação ao centro de Lisboa
 
-A grande mudança em Loures é a Linha Violeta do Metro.
-
-**Linha Violeta do Metro** — `Em curso`
-11,5 km de metro ligeiro de superfície entre Odivelas e Loures, com 17 estações (9 em Loures), a servir Loures-Vila, Santo António dos Cavaleiros e Frielas. Adjudicada por 527 milhões de euros via PRR; inauguração prevista para 2026, mas com atrasos confirmados e investigação europeia ao subcontratante CRRC.
-
-**LIOS Oriental** — `Em estudo`
-Vai ligar Santa Apolónia a Sacavém, criando outro eixo de transporte rápido na margem norte do Tejo. Pode reforçar a atratividade de Sacavém e Bobadela.
+A grande mudança em Loures é a Linha Violeta do Metro. Vai ligar Odivelas a Loures em metro ligeiro de superfície, com 11,5 km e 17 estações (9 em Loures). Vai servir Loures-Vila, Santo António dos Cavaleiros e Frielas. A obra foi adjudicada por 527 milhões de euros via PRR e a inauguração estava prevista para 2026, mas confirmou-se atraso. As novas datas são incertas, com investigação europeia em curso ao subcontratante chinês CRRC.
 
 A Linha Vermelha do Metro tem terminal em Moscavide e Aeroporto, ambos em Loures, dando acesso direto ao concelho. A Linha Amarela termina em Odivelas, vizinha de Loures.
+
+A futura LIOS Oriental vai ligar Santa Apolónia a Sacavém, criando outro eixo de transporte rápido. Está em fase de estudo.
 
 De carro, a A8 e a A1 são as ligações principais. O acesso a Lisboa é bom em hora não pico (15 minutos a Lisboa Oriente), mas o trânsito na A1 e na 2ª Circular é difícil em hora de ponta.
 
 ## Projetos urbanos previstos no concelho
 
-A Linha Violeta vai mudar substancialmente o valor imobiliário em Santo António dos Cavaleiros, Loures-Vila e Frielas.
+**Linha Violeta do Metro.** O projeto mais estruturante. Vai mudar substancialmente o valor imobiliário em Santo António dos Cavaleiros, Loures-Vila e Frielas.
 
-Loures tem cerca de 1.000 famílias em lista de espera. Há vários projetos em curso, incluindo um concurso recente para aquisição de habitações com conclusão até março de 2026.
+**LIOS Oriental.** Vai ligar Santa Apolónia a Sacavém. Em estudo. Pode reforçar a atratividade de Sacavém e Bobadela.
 
-O Plano Metropolitano de Apoio às Comunidades Desfavorecidas, financiado por 121,5 milhões de euros do PRR, tem operações específicas em Camarate.
+**Habitação pública.** Loures tem cerca de 1.000 famílias em lista de espera. Há vários projetos em curso, incluindo um concurso recente para aquisição de habitações com conclusão até março de 2026.
 
-Há mais de uma dezena de empreendimentos privados em comercialização, com forte concentração em Santo António dos Cavaleiros, Sacavém e Santa Iria de Azoia.
+**Camarate, Vialonga e regeneração comunitária.** O Plano Metropolitano de Apoio às Comunidades Desfavorecidas, financiado por 121,5 milhões de euros do PRR, tem operações específicas em Camarate.
+
+**Empreendimentos privados.** Há mais de uma dezena de empreendimentos privados em comercialização, com forte concentração em Santo António dos Cavaleiros, Sacavém e Santa Iria de Azoia.
 
 ## Escolas, saúde e comércio
 

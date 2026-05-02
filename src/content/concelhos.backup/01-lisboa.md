@@ -53,14 +53,11 @@ Estando dentro do concelho, "centro" significa Baixa, Avenida da Liberdade ou Ma
 
 A rede de metro tem quatro linhas (Azul, Amarela, Verde, Vermelha) e está a ser expandida. Os projetos a acompanhar:
 
-**Linha Circular do Metro** — `Q1 2027`
-Liga Rato a Cais do Sodré, criando as novas estações de Estrela e Santos. Inauguração prevista para o primeiro trimestre de 2027 segundo a presidente do Metropolitano de Lisboa.
+A Linha Circular vai ligar Rato a Cais do Sodré e cria as novas estações de Estrela e Santos. A inauguração está prevista para o primeiro trimestre de 2027, segundo a presidente do Metropolitano de Lisboa.
 
-**Linha Vermelha (extensão)** — `Pós-2030`
-Prolonga de São Sebastião a Alcântara, com quatro novas estações: Amoreiras, Campo de Ourique, Infante Santo e Alcântara. Obra adjudicada à Mota-Engil e Spie Batignolles por 321,9 milhões de euros; operação plena não deverá acontecer antes de 2030.
+A Linha Vermelha vai prolongar-se de São Sebastião até Alcântara, com 4 novas estações (Amoreiras, Campo de Ourique, Infante Santo, Alcântara). A obra foi adjudicada à Mota-Engil e Spie Batignolles por 321,9 milhões de euros, mas a consignação tem sofrido atrasos sucessivos. A operação plena não deverá acontecer antes de 2030.
 
-**LIOS** — `Em estudo`
-A Linha Intermodal Sustentável vai ligar Lisboa a Oeiras a ocidente e Santa Apolónia a Sacavém a oriente. Em fase de estudo, sem data confirmada.
+A Linha Intermodal Sustentável (LIOS) vai ligar Lisboa a Oeiras a ocidente e Santa Apolónia a Sacavém a oriente. Está em fase de estudo.
 
 Para deslocações regionais, a estação do Oriente, Santa Apolónia, Cais do Sodré, Rossio e Sete Rios concentram a oferta de comboios suburbanos para Sintra, Cascais, Setúbal e Azambuja, além das ligações de longo curso e do TGV em projeto para Madrid.
 
@@ -68,15 +65,13 @@ Para deslocações regionais, a estação do Oriente, Santa Apolónia, Cais do S
 
 Quatro projetos com impacto direto no mercado imobiliário e na qualidade de vida do concelho:
 
-**Terrenos do Aeroporto Humberto Delgado** — `Pós-2034`
-Com 477 hectares, é a maior reserva fundiária da cidade. A Parque Cidades do Tejo, S.A. vai desenvolver estes terrenos quando o aeroporto fechar (previsivelmente entre 2034 e 2037), com propostas em estudo para habitação acessível, espaço verde e nova centralidade urbana.
+**Reaproveitamento dos terrenos do Aeroporto Humberto Delgado.** Com 477 hectares, é a maior reserva fundiária da cidade. O Decreto-Lei de setembro de 2025 criou a Parque Cidades do Tejo, S.A., entidade pública que vai desenvolver estes terrenos quando o aeroporto fechar (previsivelmente entre 2034 e 2037). Há propostas em estudo para habitação acessível, espaço verde e nova centralidade urbana.
 
-**Hub digital do Beato** — `Em curso`
-O Beato Innovation District tem atraído tecnológicas internacionais e está a impulsionar a procura habitacional na zona oriental da cidade.
+**Habitação pública via PRR.** Lisboa tem cerca de 15.700 famílias em lista de espera para habitação municipal. A Câmara está a executar projetos do Plano de Recuperação e Resiliência para reabilitar e construir nova oferta nos próximos dois a três anos.
 
-Lisboa tem cerca de 15.700 famílias em lista de espera para habitação municipal. A Câmara está a executar projetos do Plano de Recuperação e Resiliência para reabilitar e construir nova oferta nos próximos dois a três anos.
+**Plano Diretor Municipal em revisão.** A revisão do PDM em curso prevê maior densificação habitacional em zonas de transformação urbana como Marvila, Beato, Braço de Prata e Vale de Chelas.
 
-A revisão do PDM em curso prevê maior densificação habitacional em zonas de transformação urbana como Marvila, Beato, Braço de Prata e Vale de Chelas.
+**Hub digital do Beato.** O Beato Innovation District tem atraído tecnológicas internacionais e está a impulsionar a procura habitacional na zona oriental.
 
 ## Escolas, saúde e comércio
 

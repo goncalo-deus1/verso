@@ -45,26 +45,25 @@ A presença internacional é baixa.
 
 A Moita não tem comboio próprio nem metro, mas tem opções razoáveis:
 
-Fertagus pelo Pinhal Novo: a estação mais próxima é o Pinhal Novo (Palmela), com ligação direta a Lisboa (Roma-Areeiro). De carro até ao Pinhal Novo são 15 a 20 minutos. Total Moita-Lisboa por esta via: cerca de 1h.
+**Fertagus pelo Pinhal Novo.** A estação mais próxima é o Pinhal Novo (Palmela), com ligação direta a Lisboa (Roma-Areeiro). De carro até ao Pinhal Novo são 15 a 20 minutos. Total Moita-Lisboa por esta via: cerca de 1h.
 
-Ferry pelo Montijo: o cais do Montijo (vizinho) tem barcos para Lisboa (Cais do Sodré).
+**Ferry pelo Montijo.** O cais do Montijo (vizinho) tem barcos para Lisboa (Cais do Sodré).
 
-Carro pela Ponte Vasco da Gama: acesso ao Parque das Nações em 15 a 20 minutos fora de hora de ponta.
+**Carro pela Ponte Vasco da Gama.** Acesso ao Parque das Nações em 15 a 20 minutos fora de hora de ponta.
 
-Carro pela Ponte 25 de Abril: acesso ao centro e zona ocidental de Lisboa em 25 a 35 minutos.
+**Carro pela Ponte 25 de Abril.** Acesso ao centro e zona ocidental de Lisboa em 25 a 35 minutos.
 
-**Terceira Travessia do Tejo** — `Anunciado`
-Nova ligação Lisboa-Chelas ao Barreiro (vizinho da Moita) com componentes rodoviária e ferroviária. O impacto indireto na Moita pode ser significativo a longo prazo.
+A Terceira Travessia do Tejo, anunciada em 2024, vai ligar Lisboa-Chelas ao Barreiro (vizinho da Moita) com componente rodoviária e ferroviária. O impacto indireto na Moita pode ser significativo.
 
 ## Projetos urbanos previstos no concelho
 
-A Moita tem 428 famílias em lista de espera. Há projetos PRR em execução.
+**Habitação pública.** A Moita tem 428 famílias em lista de espera. Há projetos PRR em execução.
 
-Continua a requalificação da frente ribeirinha em Moita-Vila e Alhos Vedros.
+**Frente ribeirinha.** Continua a requalificação da frente ribeirinha em Moita-Vila e Alhos Vedros.
 
-Há entrada moderada de empreendimentos privados, sobretudo em Moita-Vila e Alhos Vedros.
+**Empreendimentos privados.** Há entrada moderada de empreendimentos privados, sobretudo em Moita-Vila e Alhos Vedros.
 
-Está em curso a revisão do PDM com novas orientações para uso do solo.
+**Plano Diretor Municipal.** Está em curso a revisão do PDM com novas orientações para uso do solo.
 
 ## Escolas, saúde e comércio
 

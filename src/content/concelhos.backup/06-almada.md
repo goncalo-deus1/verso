@@ -49,25 +49,23 @@ A presença de comunidade brasileira e africana é significativa, sobretudo em A
 
 Almada tem três opções principais de transporte para Lisboa:
 
-**Terceira Travessia do Tejo** — `Anunciado`
-Nova ligação Lisboa-Chelas ao Barreiro com componentes rodoviária e ferroviária, anunciada em 2024. O impacto direto em Almada é menor do que para o Barreiro, mas vai aliviar pressão sobre a Ponte 25 de Abril.
+**Barco (Cacilhas-Cais do Sodré).** É a ligação mais rápida ao centro de Lisboa. Cerca de 8 a 10 minutos de travessia, frequência de 10 minutos em hora de ponta.
 
-Barco (Cacilhas-Cais do Sodré): é a ligação mais rápida ao centro de Lisboa. Cerca de 8 a 10 minutos de travessia, frequência de 10 minutos em hora de ponta.
+**Metro Sul do Tejo + comboio.** O Metro Sul do Tejo liga várias zonas de Almada e Seixal. A estação do Pragal tem correspondência com o comboio Fertagus para Lisboa (Roma-Areeiro, Sete Rios, Entrecampos).
 
-Metro Sul do Tejo + comboio: o Metro Sul do Tejo liga várias zonas de Almada e Seixal. A estação do Pragal tem correspondência com o comboio Fertagus para Lisboa (Roma-Areeiro, Sete Rios, Entrecampos).
+**Carro pela Ponte 25 de Abril.** É a opção mais flexível, mas a mais sujeita a congestionamento em hora de ponta. Em hora calma, são 10 a 15 minutos para chegar à zona ocidental de Lisboa.
 
-Carro pela Ponte 25 de Abril: é a opção mais flexível, mas a mais sujeita a congestionamento em hora de ponta. Em hora calma, são 10 a 15 minutos para chegar à zona ocidental de Lisboa.
+A Terceira Travessia do Tejo (TTT), anunciada em 2024 com construção do novo aeroporto, vai ligar Lisboa-Chelas a Barreiro, com componente rodoviária e ferroviária. O impacto direto em Almada é menor, mas vai aliviar pressão sobre a Ponte 25 de Abril e a Ponte Vasco da Gama.
 
 ## Projetos urbanos previstos no concelho
 
-**Ocean Campus (Margueira)** — `Anunciado`
-Transformação dos antigos estaleiros Lisnave em Cacilhas num polo de habitação, ciência marítima e espaços públicos. A tutela foi transferida para a Parque Cidades do Tejo, S.A. pelo Decreto-Lei de setembro de 2025.
+**Ocean Campus.** Antigo projeto da Lisnave (Margueira, Cacilhas) que prevê a transformação de antigos estaleiros num polo de habitação, ciência marítima e espaços públicos. O Decreto-Lei de setembro de 2025 transferiu a tutela para a Parque Cidades do Tejo, S.A. Promete ser uma das maiores transformações urbanas da AML.
 
-O Arco Ribeirinho Sul, conjunto de projetos de regeneração urbana entre Almada, Barreiro e Seixal, ganhou nova vida com a criação da Parque Cidades do Tejo.
+**Arco Ribeirinho Sul.** Conjunto de projetos de regeneração urbana entre Almada, Barreiro e Seixal, que ganhou nova vida com a criação da Parque Cidades do Tejo.
 
-Almada tem 280 famílias em lista de espera por habitação municipal. A Câmara reconhece pressão habitacional significativa.
+**Habitação pública.** Almada tem 280 famílias em lista de espera por habitação municipal. A Câmara reconhece pressão habitacional significativa.
 
-Continua a requalificação da frente ribeirinha entre Cacilhas e Cova da Piedade, com investimentos em espaço público.
+**Frente ribeirinha de Cacilhas.** Continua a requalificação da frente ribeirinha entre Cacilhas e Cova da Piedade, com investimentos em espaço público.
 
 ## Escolas, saúde e comércio
 

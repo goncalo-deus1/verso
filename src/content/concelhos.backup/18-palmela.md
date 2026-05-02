@@ -45,28 +45,27 @@ A presença internacional é baixa, mas tem crescido em zonas rurais (compradore
 
 Palmela tem boas opções para Lisboa:
 
-O comboio Fertagus pelo Pinhal Novo é a opção principal. O Pinhal Novo é a estação principal, com ligação direta a Lisboa (Roma-Areeiro). De Pinhal Novo a Roma-Areeiro são cerca de 45 minutos. A frequência é boa em hora de ponta.
+**Comboio Fertagus pelo Pinhal Novo.** O Pinhal Novo é a estação principal, com ligação direta a Lisboa (Roma-Areeiro). De Pinhal Novo a Roma-Areeiro são cerca de 45 minutos. A frequência é boa em hora de ponta.
 
-O comboio Fertagus pelo Coina é a estação alternativa, mais a oeste do concelho.
+**Comboio Fertagus pelo Coina.** A estação de Coina é alternativa, mais a oeste do concelho.
 
-De carro pela A2 e Ponte 25 de Abril, de Pinhal Novo a Lisboa centro são cerca de 40 a 50 minutos fora de hora de ponta.
+**Carro pela A2 e Ponte 25 de Abril.** De Pinhal Novo a Lisboa centro são cerca de 40 a 50 minutos fora de hora de ponta.
 
-De carro pela A12 e Ponte Vasco da Gama, para o Parque das Nações, cerca de 25 a 30 minutos.
+**Carro pela A12 e Ponte Vasco da Gama.** Para o Parque das Nações, cerca de 25 a 30 minutos.
 
 A futura Terceira Travessia do Tejo, anunciada em 2024, vai ligar Lisboa-Chelas ao Barreiro com componente ferroviária, podendo melhorar futuras ligações.
 
 ## Projetos urbanos previstos no concelho
 
-**Aeroporto Luís de Camões — medidas preventivas** — `Anunciado`
-Parte do território de Palmela está incluído no raio de 15 km de medidas preventivas associadas ao novo aeroporto. As operações urbanísticas em algumas zonas ficam sujeitas a verificação prévia da ANAC.
+**Aeroporto Luís de Camões.** Parte do território de Palmela está incluído no raio de 15 km de medidas preventivas associadas ao novo aeroporto. As operações urbanísticas em algumas zonas estão sujeitas a verificação prévia.
 
-Palmela tem 101 famílias em lista de espera, das mais baixas da AML. A Câmara já atribuiu 49 habitações ao abrigo da Estratégia Local de Habitação. Está em curso um concurso para a construção de mais 21 habitações.
+**Habitação pública.** Palmela tem 101 famílias em lista de espera, das mais baixas da AML. A Câmara já atribuiu 49 habitações ao abrigo da Estratégia Local de Habitação. Está em curso um concurso para a construção de mais 21 habitações.
 
-Há entrada moderada de empreendimentos privados, sobretudo em Pinhal Novo.
+**Empreendimentos privados.** Há entrada moderada de empreendimentos privados, sobretudo em Pinhal Novo.
 
-Continua a expansão do polo industrial automóvel em Quinta do Anjo, com investimentos da Volkswagen e da rede de fornecedores.
+**Polo industrial da Autoeuropa.** Continua a expansão do polo industrial automóvel em Quinta do Anjo, com investimentos da Volkswagen e da rede de fornecedores.
 
-Continua a valorização do enoturismo na zona da Arrábida e Marateca, com adegas como Bacalhôa, José Maria da Fonseca e Casa Ermelinda Freitas.
+**Rota de Vinhos da Península de Setúbal.** Continua a valorização do enoturismo na zona da Arrábida e Marateca, com adegas como Bacalhôa, José Maria da Fonseca e Casa Ermelinda Freitas.
 
 ## Escolas, saúde e comércio
 

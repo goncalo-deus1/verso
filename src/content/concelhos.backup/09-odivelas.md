@@ -47,22 +47,21 @@ A Câmara reconhece 1.220 famílias em lista de espera por habitação municipal
 
 Odivelas está bem servida:
 
-**Linha Violeta do Metro** — `Em curso`
-Metro ligeiro de superfície entre Odivelas e Loures, com 8 estações em Odivelas (Póvoa de Santo Adrião, Olival de Basto, Ramada e Caneças). Inauguração prevista para 2026, com atrasos confirmados; novas datas ainda não confirmadas.
+**Metro Linha Amarela.** Estação terminal em Odivelas, estações em Senhor Roubado e Ameixoeira. De Odivelas ao Marquês de Pombal são 20 minutos.
 
-A Linha Amarela tem estação terminal em Odivelas, com estações em Senhor Roubado e Ameixoeira. De Odivelas ao Marquês de Pombal são 20 minutos.
+**Futura Linha Violeta.** O metro ligeiro de superfície entre Odivelas e Loures vai ter 8 estações em Odivelas, servindo Póvoa de Santo Adrião e Olival de Basto, Ramada e Caneças. Inauguração prevista para 2026, mas com atrasos confirmados em 2026. As novas datas ainda não estão confirmadas.
 
-De carro, a 2ª Circular, A8 e CRIL dão acesso a Lisboa, com trânsito intenso em hora de ponta.
+**Carro.** A 2ª Circular, A8 e CRIL dão acesso a Lisboa, com trânsito intenso em hora de ponta.
 
 A futura Linha Circular do Metro de Lisboa, com inauguração prevista para o 1.º trimestre de 2027, vai obrigar os utilizadores de Odivelas (Linha Amarela) a fazer transbordo no Campo Grande para chegar a estações como Telheiras, Lumiar e Cidade Universitária.
 
 ## Projetos urbanos previstos no concelho
 
-A Linha Violeta vai criar 8 novas estações em Odivelas, melhorando significativamente a cobertura de transporte público nas freguesias do norte do concelho.
+**Linha Violeta.** O projeto mais estruturante. Vai criar 8 novas estações em Odivelas, melhorando significativamente a cobertura de transporte público nas freguesias do norte do concelho.
 
-A Câmara está a executar a reabilitação de 52 fogos (26 prontos em outubro de 2025, restantes em junho de 2026) e a construção de 6 empreendimentos novos. Quatro destes deverão estar concluídos em junho de 2026 e os restantes dois em dezembro de 2027.
+**Habitação pública.** A Câmara está a executar a reabilitação de 52 fogos (26 prontos em outubro de 2025, restantes em junho de 2026) e a construção de 6 empreendimentos novos. Quatro destes deverão estar concluídos em junho de 2026 e os restantes dois em dezembro de 2027.
 
-Há mais de uma dezena de empreendimentos em comercialização, sobretudo em Odivelas-Vila e Ramada.
+**Empreendimentos privados.** Há mais de uma dezena de empreendimentos em comercialização, sobretudo em Odivelas-Vila e Ramada.
 
 ## Escolas, saúde e comércio
 

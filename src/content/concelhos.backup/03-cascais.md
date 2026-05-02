@@ -51,18 +51,17 @@ A linha de comboio Cascais-Cais do Sodré é o eixo principal. Da estação de C
 
 De carro, a A5 (Lisboa-Cascais) é a ligação rápida mas tem trânsito intenso entre as 8h e as 9h30 e entre as 18h e as 19h30. A Marginal (estrada N6) é mais cénica mas igualmente congestionada.
 
-**LIOS Ocidental** — `Em estudo`
-Metro ligeiro de superfície entre Oeiras e Alcântara. Quando concluído, poderá beneficiar indiretamente as ligações de Cascais à zona ocidental de Lisboa.
+A futura LIOS Ocidental vai criar uma linha de metro ligeiro entre Oeiras e Alcântara, que poderá beneficiar indiretamente as ligações de Cascais à zona ocidental de Lisboa.
 
 ## Projetos urbanos previstos no concelho
 
-Cascais tem 1.371 famílias em lista de espera por habitação municipal. A Câmara mantém um programa próprio de renda apoiada e está a executar projetos PRR.
+**Habitação acessível.** Cascais tem 1.371 famílias em lista de espera por habitação municipal. A Câmara mantém um programa próprio de renda apoiada e está a executar projetos PRR.
 
-A autarquia tem identificado solo para nova oferta habitacional, sobretudo em Alcabideche e São Domingos de Rana, com o objetivo de reter classe média no concelho.
+**Plano Estratégico de Habitação.** A autarquia tem identificado solo para nova oferta habitacional, sobretudo em Alcabideche e São Domingos de Rana, com o objetivo de reter classe média no concelho.
 
-A revitalização da frente ribeirinha continua, com investimentos em equipamentos públicos e desportivos.
+**Marina de Cascais e frente ribeirinha.** A revitalização da frente ribeirinha continua, com investimentos em equipamentos públicos e desportivos.
 
-Continuam expansões e melhorias do Hospital de Cascais, considerado um dos melhores hospitais públicos do país em parceria público-privada.
+**Hospital Cascais (público-privado).** Continuam expansões e melhorias do hospital, considerado um dos melhores hospitais públicos do país em parceria público-privada.
 
 ## Escolas, saúde e comércio
 

@@ -49,18 +49,17 @@ A linha de comboio Cascais-Cais do Sodré atravessa Oeiras com várias paragens 
 
 De carro, a A5 e a Marginal são as duas opções. A A5 é mais rápida fora de horas de ponta, a Marginal é mais cénica. Ambas têm congestionamento previsível em hora de ponta.
 
-**LIOS Ocidental** — `Em estudo`
-Metro ligeiro de superfície entre Oeiras e Alcântara, com correspondência à Linha Vermelha do Metro. Em fase de estudo, sem data de operação confirmada.
-
-Os parques empresariais (TagusPark, Lagoas Park) têm transportes próprios e coletivos para colaboradores.
+A futura LIOS Ocidental vai ligar Oeiras a Alcântara em metro ligeiro de superfície, com correspondência à Linha Vermelha do Metro (Alcântara). Está em fase de estudo. Os parques empresariais (TagusPark, Lagoas Park) têm transportes próprios e coletivos para colaboradores.
 
 ## Projetos urbanos previstos no concelho
 
-Continuam a entrar novos edifícios de escritórios na zona dos parques empresariais da Quinta da Fonte e eixos adjacentes, atraindo procura habitacional.
+**LIOS Ocidental.** Linha Intermodal Sustentável que vai ligar Oeiras a Alcântara, criando um eixo de transporte rápido. Em estudo, sem data de operação confirmada.
 
-Oeiras tem 1.467 famílias em lista de espera. A Câmara tem investido em habitação a custos controlados, com vários projetos em curso, incluindo aquisição de fogos privados para integrar no parque público.
+**Quinta da Fonte e novos eixos empresariais.** Continuam a entrar novos edifícios de escritórios na zona dos parques empresariais, atraindo procura habitacional.
 
-Continua a requalificação da zona ribeirinha entre Algés e Pedrouços, em parceria com Lisboa.
+**Habitação acessível.** Oeiras tem 1.467 famílias em lista de espera. A Câmara tem investido em habitação a custos controlados, com vários projetos em curso, incluindo aquisição de fogos privados para integrar no parque público.
+
+**Frente ribeirinha de Algés.** Continua a requalificação da zona ribeirinha entre Algés e Pedrouços, em parceria com Lisboa.
 
 ## Escolas, saúde e comércio
 

@@ -47,22 +47,21 @@ A presença de comunidade brasileira tem aumentado no interior do concelho.
 
 Mafra não tem comboio. As ligações para Lisboa fazem-se sobretudo:
 
-De carro pela A8, que é a opção principal. Da Mafra-Vila a Lisboa centro são cerca de 35 a 50 minutos fora de hora de ponta. Em hora de ponta, a A8 e a CRIL podem ficar congestionadas.
+**Carro pela A8.** É a opção principal. Da Mafra-Vila a Lisboa centro são cerca de 35 a 50 minutos fora de hora de ponta. Em hora de ponta, a A8 e a CRIL podem ficar congestionadas.
 
-Os autocarros Mafrense ligam Mafra, Malveira e Venda do Pinheiro a Lisboa (Campo Grande). O tempo é de 50 a 75 minutos.
+**Autocarros Mafrense.** Vários autocarros ligam Mafra, Malveira e Venda do Pinheiro a Lisboa (Campo Grande). O tempo é de 50 a 75 minutos.
 
 A inexistência de comboio é a principal limitação do concelho. Não há projetos públicos previstos para alterar esta realidade.
 
 ## Projetos urbanos previstos no concelho
 
-**Póvoa da Galega** — `Em curso`
-Operação local no quadro do Plano Metropolitano de Apoio às Comunidades Desfavorecidas, financiado pelo PRR.
+**Habitação pública.** A Câmara definiu a implementação de 390 soluções habitacionais e tem um programa que apoia a renda de 130 famílias. Há cerca de 425 famílias em lista de espera.
 
-A Câmara definiu a implementação de 390 soluções habitacionais e tem um programa que apoia a renda de 130 famílias. Há cerca de 425 famílias em lista de espera.
+**Empreendimentos privados.** Há mais de 25 empreendimentos privados em comercialização no concelho, sobretudo em Mafra-Vila, Malveira e Ericeira. T2 em construção a partir de 280 mil euros nas zonas mais acessíveis.
 
-Há mais de 25 empreendimentos privados em comercialização no concelho, sobretudo em Mafra-Vila, Malveira e Ericeira. T2 em construção a partir de 280 mil euros nas zonas mais acessíveis.
+**Reabilitação histórica.** Continua a valorização do património histórico (Palácio Nacional de Mafra, Tapada de Mafra) com efeitos turísticos.
 
-Continua a valorização do património histórico (Palácio Nacional de Mafra, Tapada de Mafra) com efeitos turísticos.
+**Plano Metropolitano de Apoio às Comunidades.** Há operação local em Póvoa da Galega no quadro do PRR.
 
 ## Escolas, saúde e comércio
 

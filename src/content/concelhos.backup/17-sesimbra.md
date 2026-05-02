@@ -45,26 +45,23 @@ A presença internacional tem crescido nas zonas litorais e na Aldeia do Meco.
 
 Sesimbra não tem comboio próprio nem metro. As ligações para Lisboa fazem-se sobretudo:
 
-**Extensão Fertagus à Quinta do Conde** — `Em estudo`
-Projeto discutido para estender a linha Fertagus à Quinta do Conde. Sem calendarização concreta.
+**Carro pela A2 e Ponte 25 de Abril.** Da Quinta do Conde a Lisboa centro são cerca de 35 a 50 minutos fora de hora de ponta. De Sesimbra-Vila são 50 a 60 minutos.
 
-De carro pela A2 e Ponte 25 de Abril, da Quinta do Conde a Lisboa centro são cerca de 35 a 50 minutos fora de hora de ponta. De Sesimbra-Vila são 50 a 60 minutos.
+**Autocarros TST.** Vários autocarros ligam Sesimbra e Quinta do Conde a Lisboa (Sete Rios) e Almada (Pragal, com correspondência ao metro e Fertagus).
 
-Os autocarros TST ligam Sesimbra e Quinta do Conde a Lisboa (Sete Rios) e Almada (Pragal, com correspondência ao metro e Fertagus).
+**Combinação Coina (Fertagus) + carro.** Para quem trabalha em Lisboa centro, alguns moradores deixam o carro no Coina (Palmela, vizinho) e seguem de Fertagus.
 
-Combinação Coina (Fertagus) + carro: para quem trabalha em Lisboa centro, alguns moradores deixam o carro no Coina (Palmela, vizinho) e seguem de Fertagus.
-
-A inexistência de comboio é a principal limitação.
+A inexistência de comboio é a principal limitação. Há projetos discutidos de extensão da Fertagus à Quinta do Conde e de uma linha leve, mas sem calendarização concreta.
 
 ## Projetos urbanos previstos no concelho
 
-Sesimbra tem 430 famílias em lista de espera. Três candidaturas ao PRR foram aprovadas, permitindo a reabilitação de 60 fogos municipais e a aquisição de 88 habitações.
+**Habitação pública.** Sesimbra tem 430 famílias em lista de espera. Três candidaturas ao PRR foram aprovadas, permitindo a reabilitação de 60 fogos municipais e a aquisição de 88 habitações.
 
-Há entrada moderada de empreendimentos privados, sobretudo em Quinta do Conde e zonas próximas a Sesimbra-Vila.
+**Empreendimentos privados.** Há entrada moderada de empreendimentos privados, sobretudo em Quinta do Conde e zonas próximas a Sesimbra-Vila.
 
-Continua a requalificação da frente ribeirinha e do cais de Sesimbra-Vila.
+**Frente ribeirinha de Sesimbra-Vila.** Continua a requalificação da frente ribeirinha e do cais.
 
-A gestão da Arrábida (partilhada com Setúbal e Palmela) limita a expansão urbana em parte do território, preservando o caráter natural do concelho.
+**Parque Natural da Arrábida.** A gestão da Arrábida (partilhada com Setúbal e Palmela) limita a expansão urbana em parte do território, preservando o caráter natural do concelho.
 
 ## Escolas, saúde e comércio
 

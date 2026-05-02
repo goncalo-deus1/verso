@@ -47,23 +47,23 @@ Nos últimos anos, jovens criativos e profissionais de Lisboa têm-se mudado par
 
 O Barreiro tem três opções principais:
 
-**Terceira Travessia do Tejo** — `Anunciado`
-Nova ponte Lisboa-Chelas ao Barreiro com componentes rodoviária e ferroviária. O Barreiro é o principal beneficiário desta ligação na margem sul. Sem data de início de construção confirmada.
+**Barco (Barreiro-Terreiro do Paço).** Cerca de 25 minutos de travessia, frequência de 30 minutos em hora de ponta. É a ligação mais usada pelos residentes do Barreiro que trabalham em Lisboa.
 
-Barco (Barreiro-Terreiro do Paço): cerca de 25 minutos de travessia, frequência de 30 minutos em hora de ponta. É a ligação mais usada pelos residentes do Barreiro que trabalham em Lisboa.
+**Comboio.** A linha Fertagus passa pelo Coina (estação na fronteira do Barreiro com Palmela). De Coina ao Pragal são cerca de 15 minutos. De Coina à Roma-Areeiro são cerca de 30 minutos.
 
-Comboio Fertagus pelo Coina (estação na fronteira do Barreiro com Palmela). De Coina ao Pragal são cerca de 15 minutos. De Coina à Roma-Areeiro são cerca de 30 minutos.
+**Carro pela Ponte 25 de Abril.** Acesso a Lisboa em 15 a 20 minutos fora de hora de ponta. Em hora de ponta, o tempo aumenta significativamente.
 
-Carro pela Ponte 25 de Abril: acesso a Lisboa em 15 a 20 minutos fora de hora de ponta. Em hora de ponta, o tempo aumenta significativamente.
+A Terceira Travessia do Tejo, anunciada em 2024, vai criar uma ligação direta Lisboa (Chelas) - Barreiro com componente rodoviária e ferroviária. O concelho é o principal beneficiário deste projeto a longo prazo.
 
 ## Projetos urbanos previstos no concelho
 
-**Quimiparque / Arco Ribeirinho Sul** — `Anunciado`
-Os antigos terrenos industriais da CUF (Quimiparque) são uma das maiores reservas fundiárias da AML. Integram o Arco Ribeirinho Sul, agora sob tutela da Parque Cidades do Tejo, S.A. pelo Decreto-Lei de setembro de 2025.
+**Terceira Travessia do Tejo (TTT).** A nova ponte vai ligar Chelas (Lisboa) ao Barreiro. Ainda sem data confirmada de início de construção, mas o projeto avança com o aeroporto de Alcochete (anunciado em 2024).
 
-O Barreiro tem 812 famílias em lista de espera. A Câmara está a executar projetos PRR.
+**Arco Ribeirinho Sul / Parque Cidades do Tejo.** O Barreiro integra o Arco Ribeirinho Sul, agora sob tutela da Parque Cidades do Tejo, S.A. (DL setembro 2025). Os antigos terrenos da CUF (Quimiparque) são uma das maiores reservas fundiárias da AML.
 
-Continua a requalificação da frente ribeirinha, com investimentos em espaço público e equipamentos culturais.
+**Habitação pública.** O Barreiro tem 812 famílias em lista de espera. A Câmara está a executar projetos PRR.
+
+**Frente ribeirinha do Barreiro.** Continua a requalificação da frente ribeirinha, com investimentos em espaço público e equipamentos culturais.
 
 ## Escolas, saúde e comércio
 

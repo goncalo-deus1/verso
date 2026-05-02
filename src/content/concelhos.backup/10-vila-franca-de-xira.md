@@ -51,16 +51,13 @@ De carro, a A1 (Auto-estrada do Norte) e a A10 são as ligações principais. O 
 
 ## Projetos urbanos previstos no concelho
 
-**Quinta da Flamenga (Vialonga)** — `Em curso`
-Construção de 34 fogos via PRR, com investimento total de 8,3 milhões de euros e conclusão prevista para março de 2026.
+**Habitação pública via PRR.** O município tem vários projetos aprovados. Destaca-se a construção de 34 fogos na Quinta da Flamenga (Vialonga), com investimento total de 8,3 milhões de euros e conclusão prevista para março de 2026. Há outros projetos de aquisição e reabilitação em Castanheira do Ribatejo, Cachoeiras, Póvoa de Santa Iria, Forte da Casa, Sobralinho e Alverca.
 
-Há outros projetos de aquisição e reabilitação em Castanheira do Ribatejo, Cachoeiras, Póvoa de Santa Iria, Forte da Casa, Sobralinho e Alverca.
+**Empreendimentos privados.** Há vários novos empreendimentos em comercialização, sobretudo em Alverca, Póvoa de Santa Iria e Forte da Casa.
 
-Há vários novos empreendimentos em comercialização, sobretudo em Alverca, Póvoa de Santa Iria e Forte da Casa.
+**Frente ribeirinha.** A requalificação da frente ribeirinha em Vila Franca de Xira-Vila e Alhandra continua, com investimento em espaço público.
 
-A requalificação da frente ribeirinha em Vila Franca de Xira-Vila e Alhandra continua, com investimento em espaço público.
-
-A presença histórica da Embraer e da OGMA mantém Alverca como polo aeronáutico relevante, atraindo emprego qualificado.
+**Aeronáutica em Alverca.** A presença histórica da Embraer e da OGMA mantém Alverca como polo aeronáutico relevante, atraindo emprego qualificado.
 
 ## Escolas, saúde e comércio
 
