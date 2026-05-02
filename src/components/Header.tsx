@@ -28,6 +28,7 @@ export default function Header() {
   const links = [
     { to: '/areas', label: tr('header.areas') },
     { to: '/editorial', label: tr('header.guides') },
+    { to: '/proprietario', label: 'Proprietário' },
   ]
 
   const isActive = (to: string) => pathname.startsWith(to)
