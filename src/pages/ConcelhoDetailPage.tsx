@@ -1,6 +1,5 @@
-import { useParams, Link, Navigate } from 'react-router-dom'
+import { useParams, Navigate } from 'react-router-dom'
 import { concelhosAML } from '../data/concelhosAML'
-import { freguesias } from '../data/freguesias'
 import SaveZoneButton from '../components/SaveZoneButton'
 import { PdmSection } from '../components/concelho/PdmSection'
 import { UrbanProjectsSection } from '../components/concelho/UrbanProjectsSection'
@@ -24,8 +23,6 @@ export default function ConcelhoDetailPage() {
   const concelho = concelhosAML.find(c => c.slug === slug)
 
   if (!concelho) return <Navigate to="/404" replace />
-
-  const coveredFreguesias = freguesias.filter(f => concelho.frecuesiasCovered.includes(f.slug))
 
   // Conteúdo editorial do .md — null se o ficheiro não existir para este slug
   const content = loadConcelhoContent(slug!)
@@ -182,55 +179,6 @@ export default function ConcelhoDetailPage() {
           </div>
         </div>
 
-        {/* Freguesias cobertas */}
-        <section style={{ marginBottom: '48px' }}>
-          <h2
-            className="font-display"
-            style={{ fontSize: '26px', fontWeight: 400, color: INK, marginBottom: '8px' }}
-          >
-            Freguesias cobertas
-          </h2>
-
-          {coveredFreguesias.length > 0 ? (
-            <>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '20px' }}>
-                {coveredFreguesias.map(f => (
-                  <Link
-                    key={f.slug}
-                    to={`/freguesia/${f.slug}`}
-                    style={{
-                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                      padding: '16px 20px',
-                      background: SAND, borderRadius: '4px',
-                      textDecoration: 'none',
-                      color: INK,
-                      fontSize: '16px',
-                    }}
-                  >
-                    <span className="font-display" style={{ fontWeight: 400 }}>{f.name}</span>
-                    <span style={{ color: CLAY, fontSize: '14px' }}>→</span>
-                  </Link>
-                ))}
-              </div>
-              <p style={{ fontSize: '14px', color: STONE, marginTop: '20px', lineHeight: 1.5 }}>
-                Ainda só cobrimos {coveredFreguesias.length} {coveredFreguesias.length === 1 ? 'freguesia' : 'freguesias'} deste concelho. Estamos a caminhar pelas outras.
-              </p>
-            </>
-          ) : (
-            <p style={{ fontSize: '16px', color: STONE, lineHeight: 1.5, marginTop: '16px' }}>
-              Ainda não temos cobertura editorial de nenhuma freguesia de {concelho.name}. Estamos a caminhar por elas.
-            </p>
-          )}
-        </section>
-
-        {/* CTA — imóveis */}
-        <Link
-          to={`/areas?concelho=${slug}`}
-          className="inline-block bg-(--telha) hover:bg-(--telha-forte) text-white px-6 py-3 rounded font-medium transition-colors"
-          style={{ textDecoration: 'none' }}
-        >
-          Ver os imóveis em {concelho.name}
-        </Link>
       </article>
 
       {/* ── PDM ───────────────────────────────────────────────────────────── */}

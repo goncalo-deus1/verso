@@ -1,12 +1,25 @@
+import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import type { ConcelhoSection } from '../../lib/concelhoContent'
+import { EditorialCard } from './EditorialCard'
 
 type Props = {
   sections: ConcelhoSection[]
 }
 
-// Componentes de markdown estilizados — evita @tailwindcss/typography
+// ─── Helpers de detecção ─────────────────────────────────────────────────────
+
+function isReactElement(node: unknown): node is React.ReactElement {
+  return React.isValidElement(node)
+}
+
+/** Aceita em-dash, en-dash ou hífen rodeados de espaços */
+const isSeparator = (s: unknown): s is string =>
+  typeof s === 'string' && /^\s+[—–-]\s+$/.test(s)
+
+// ─── Componentes de markdown estilizados — evita @tailwindcss/typography ─────
+
 const mdComponents: React.ComponentProps<typeof ReactMarkdown>['components'] = {
   h2: ({ children }) => (
     <h2
@@ -36,18 +49,40 @@ const mdComponents: React.ComponentProps<typeof ReactMarkdown>['components'] = {
       {children}
     </h3>
   ),
-  p: ({ children }) => (
-    <p
-      style={{
-        fontSize: '17px',
-        color: 'var(--azeitona)',
-        lineHeight: 1.75,
-        margin: '0 0 20px',
-      }}
-    >
-      {children}
-    </p>
-  ),
+  p: ({ children }) => {
+    const ch = React.Children.toArray(children)
+
+    // Detetar padrão de card: [strong (custom), " — ", code, descrição]
+    // Nota: ch[0].type é a função do custom strong renderer, não a string 'strong'
+    if (
+      ch.length === 4 &&
+      isReactElement(ch[0]) &&
+      isSeparator(ch[1]) &&
+      isReactElement(ch[2]) && ch[2].type === 'code' &&
+      typeof ch[3] === 'string' && ch[3].length > 0
+    ) {
+      return (
+        <EditorialCard
+          title={(ch[0] as React.ReactElement<{ children: React.ReactNode }>).props.children}
+          badge={String((ch[2] as React.ReactElement<{ children: React.ReactNode }>).props.children)}
+          description={(ch[3] as string).trim()}
+        />
+      )
+    }
+
+    return (
+      <p
+        style={{
+          fontSize: '17px',
+          color: 'var(--azeitona)',
+          lineHeight: 1.75,
+          margin: '0 0 20px',
+        }}
+      >
+        {children}
+      </p>
+    )
+  },
   strong: ({ children }) => (
     <strong style={{ fontWeight: 600, color: 'var(--azeitona)' }}>
       {children}
