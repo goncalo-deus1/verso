@@ -38,6 +38,7 @@ import { CtaFinal }        from '../components/result/CtaFinal'
 import { QuizConflictModal } from '../components/result/QuizConflictModal'
 import { getUserQuiz, upsertUserQuiz } from '../lib/supabase/userQuiz'
 import { UrbanProjectsSection } from '../components/concelho/UrbanProjectsSection'
+import FeedbackModal, { hasFeedbackDone } from '../components/FeedbackModal'
 import type { UserQuiz }   from '../lib/supabase/userQuiz'
 import type { QuizResult } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
@@ -241,8 +242,15 @@ export default function QuizDossier() {
 
   const [savedQuiz,      setSavedQuiz]      = useState<UserQuiz | null>(null)
   const [supabaseLoading, setSupabaseLoading] = useState(false)
-  // 'none' = no conflict; 'waiting' = modal is open
   const [conflictState,  setConflictState]  = useState<'none' | 'waiting'>('none')
+  const [feedbackOpen,   setFeedbackOpen]   = useState(false)
+
+  // Show feedback popup after 4 s if never submitted
+  useEffect(() => {
+    if (hasFeedbackDone()) return
+    const t = setTimeout(() => setFeedbackOpen(true), 4000)
+    return () => clearTimeout(t)
+  }, [])
 
   // ─── Supabase: fetch + sync / migrate (Steps 6 + 8) ─────────────────────────
   useEffect(() => {
@@ -319,6 +327,11 @@ export default function QuizDossier() {
           onSecondary={handleKeepSaved}
         />
       )}
+      <FeedbackModal
+        open={feedbackOpen}
+        onClose={() => setFeedbackOpen(false)}
+        source="quiz"
+      />
       <DossierContent
         result={effectiveResult}
         isAnonymous={isAnonymous}
