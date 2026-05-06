@@ -29,6 +29,7 @@ export default function Header() {
     { to: '/areas', label: tr('header.areas') },
     { to: '/editorial', label: tr('header.guides') },
     { to: '/proprietario', label: 'Proprietário' },
+    { to: '/sobre', label: 'Sobre nós' },
   ]
 
   const isActive = (to: string) => pathname.startsWith(to)
