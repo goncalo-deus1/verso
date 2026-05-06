@@ -78,6 +78,13 @@ export default function Footer() {
                   Área do proprietário
                 </Link>
               </li>
+              <li>
+                <Link to="/sobre" className="transition-colors" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}>
+                  Sobre nós
+                </Link>
+              </li>
             </ul>
           </div>
 
