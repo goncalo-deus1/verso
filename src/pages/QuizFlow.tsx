@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Lock } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { trackEvent } from '../lib/analytics'
+import { trackQuizCompleted } from '../lib/pixel'
 import { saveMarketingConsent, MARKETING_CONSENT_TEXT_PT } from '../lib/marketingConsent'
 import { useQuiz } from '../context/QuizContext'
 import { useLang } from '../context/LanguageContext'
@@ -530,6 +531,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
       setResult(res)
       setQuizResult(res)
       trackEvent('quiz_completed', { result_zone: res.best.zone.name })
+      trackQuizCompleted({ quiz_version: 'v1' })
       // Auto-save best zone to profile if user is logged in
       if (user) {
         const best = res.best
