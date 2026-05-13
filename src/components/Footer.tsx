@@ -65,10 +65,10 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/editorial" className="transition-colors" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}
+                <Link to="/blog" className="transition-colors" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}>
-                  Guias editoriais
+                  Blog
                 </Link>
               </li>
               <li>

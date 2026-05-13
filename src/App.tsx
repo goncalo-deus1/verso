@@ -32,6 +32,8 @@ const QuizFlow           = lazy(() => import('./pages/QuizFlow'))
 const AreaRecommendations = lazy(() => import('./pages/AreaRecommendations'))
 const EditorialPage      = lazy(() => import('./pages/EditorialPage'))
 const ArticleDetailPage  = lazy(() => import('./pages/ArticleDetailPage'))
+const BlogIndex          = lazy(() => import('./pages/blog/BlogIndex'))
+const BlogPost           = lazy(() => import('./pages/blog/BlogPost'))
 const AuthPage           = lazy(() => import('./pages/AuthPage'))
 const ProfilePage        = lazy(() => import('./pages/ProfilePage'))
 const QuizResults        = lazy(() => import('./pages/QuizResults'))
@@ -196,6 +198,11 @@ function AppRoutes() {
         <Route path="/" element={<Layout><HomePage /></Layout>} />
         <Route path="/areas" element={<Layout><AreaRecommendations /></Layout>} />
         <Route path="/areas/:slug" element={<Layout><AreaRecommendations /></Layout>} />
+        {/* Blog — rotas principais */}
+        <Route path="/blog" element={<Layout><BlogIndex /></Layout>} />
+        <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
+
+        {/* Editorial legacy — mantido para não quebrar links existentes */}
         <Route path="/editorial" element={<Layout><EditorialPage /></Layout>} />
         <Route path="/editorial/:slug" element={<Layout><ArticleDetailPage /></Layout>} />
         <Route path="/quiz/resultados" element={<Layout><QuizResults /></Layout>} />
