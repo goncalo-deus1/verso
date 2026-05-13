@@ -4,6 +4,7 @@ import { ArrowLeft, Eye, EyeOff, Check, Mail } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { Wordmark } from '../components/Wordmark'
 import { saveMarketingConsent, MARKETING_CONSENT_TEXT_PT } from '../lib/marketingConsent'
+import { trackCompleteRegistration } from '../lib/pixel'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -65,6 +66,7 @@ export default function AuthPage() {
           .catch(err => console.warn('[marketingConsent] signup save failed:', err))
       }
       // Show "check your email" message
+      trackCompleteRegistration()
       setMagicSent(true)
     } else {
       const { error } = await signIn(form.email, form.password)

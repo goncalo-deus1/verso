@@ -1,254 +1,17 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { useLocation, useParams, Link } from 'react-router-dom'
-import { MapPin, TrendingUp, ArrowRight, Search, X, Users, ShieldCheck, Building2 } from 'lucide-react'
+import { MapPin, TrendingUp, ArrowRight, Search } from 'lucide-react'
 import { useQuiz } from '../context/QuizContext'
 import { areas } from '../data/areas'
 import { portugalZones } from '../data/portugal-zones'
 import { properties } from '../data/properties'
 import { concelhosAML } from '../data/concelhosAML'
-import { concelhos } from '../data/concelhos'
 import type { QuizAnswers, Area, PortugalZone } from '../types'
 import PropertyCard from '../components/PropertyCard'
 import { BlockLabel, Callout, SectionNum, Divider } from '../components/Brand'
 
-const INK      = '#1E1F18'
-const BONE     = '#F2EDE4'
-const CLAY     = '#C2553A'
-const MOSS     = '#6B7A5A'
-const SAND     = '#E8E0D0'
-const STONE    = '#3A3B2E'
-const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 
-const crimeColor: Record<string, string> = {
-  'baixo': MOSS,
-  'médio': '#8B7028',
-  'elevado': CLAY,
-}
 
-function ZonePanel({ zone, onClose }: { zone: PortugalZone; onClose: () => void }) {
-  const aml      = concelhosAML.find(c => c.slug === zone.slug)
-  const concelho = concelhos.find(c => c.slug === zone.slug)
-  const parishes = aml?.parishes ?? []
-
-  // Close on Escape
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
-  }, [onClose])
-
-  // Lock body scroll
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
-  }, [])
-
-  return (
-    <>
-      {/* Backdrop */}
-      <div
-        onClick={onClose}
-        style={{
-          position: 'fixed', inset: 0, zIndex: 400,
-          background: 'rgba(30, 31, 24,0.5)',
-          backdropFilter: 'blur(2px)',
-        }}
-      />
-
-      {/* Panel */}
-      <div style={{
-        position: 'fixed', top: 0, right: 0, bottom: 0,
-        width: 'min(520px, 100vw)',
-        background: BONE,
-        zIndex: 401,
-        display: 'flex',
-        flexDirection: 'column',
-        boxShadow: '-16px 0 48px rgba(30, 31, 24,0.18)',
-        overflowY: 'auto',
-      }}>
-
-        {/* Photo */}
-        {aml?.image && (
-          <div style={{ position: 'relative', height: '200px', flexShrink: 0, overflow: 'hidden' }}>
-            <img
-              src={aml.image.replace('w=800', 'w=600')}
-              alt={zone.name}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: 'linear-gradient(to top, rgba(30, 31, 24,0.7) 0%, transparent 60%)',
-            }} />
-            <button
-              onClick={onClose}
-              aria-label="Fechar"
-              style={{
-                position: 'absolute', top: '16px', right: '16px',
-                background: 'rgba(30, 31, 24,0.5)', border: 'none',
-                borderRadius: '50%', width: '36px', height: '36px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', color: '#fff',
-              }}
-            >
-              <X size={16} />
-            </button>
-            <div style={{ position: 'absolute', bottom: '16px', left: '20px' }}>
-              <p style={{
-                fontFamily: 'Inter, sans-serif', fontSize: '10px', fontWeight: 700,
-                textTransform: 'uppercase', letterSpacing: '2px',
-                color: CLAY, margin: '0 0 4px',
-              }}>
-                {aml?.margem === 'norte' ? 'Margem Norte' : aml?.margem === 'sul' ? 'Margem Sul' : zone.district}
-              </p>
-              <h2 className="font-display" style={{ fontSize: '28px', color: BONE, margin: 0, letterSpacing: '-0.5px', fontWeight: 400 }}>
-                {zone.name}
-              </h2>
-            </div>
-          </div>
-        )}
-
-        {/* No image fallback header */}
-        {!aml?.image && (
-          <div style={{ padding: '20px 24px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', color: CLAY, margin: '0 0 4px' }}>
-                {zone.district}
-              </p>
-              <h2 className="font-display" style={{ fontSize: '28px', color: INK, margin: 0, letterSpacing: '-0.5px', fontWeight: 400 }}>
-                {zone.name}
-              </h2>
-            </div>
-            <button onClick={onClose} aria-label="Fechar" style={{ background: 'none', border: 'none', cursor: 'pointer', color: STONE, padding: '4px' }}>
-              <X size={18} />
-            </button>
-          </div>
-        )}
-
-        {/* Content */}
-        <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '24px' }}>
-
-          {/* oneLine */}
-          {aml?.oneLine && (
-            <p style={{ fontSize: '15px', fontStyle: 'italic', color: MOSS, lineHeight: 1.6, margin: 0 }}>
-              {aml.oneLine}
-            </p>
-          )}
-
-          {/* Stats grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
-            {/* Population */}
-            <div style={{ background: SAND, borderRadius: '4px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <Users size={14} style={{ color: CLAY }} />
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, margin: 0 }}>
-                População
-              </p>
-              <p style={{ fontSize: '14px', fontWeight: 600, color: INK, margin: 0 }}>
-                {aml ? `${(aml.populationApprox / 1000).toFixed(0)}k` : '—'}
-              </p>
-            </div>
-
-            {/* Crime */}
-            <div style={{ background: SAND, borderRadius: '4px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <ShieldCheck size={14} style={{ color: CLAY }} />
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, margin: 0 }}>
-                Criminalidade
-              </p>
-              <p style={{ fontSize: '14px', fontWeight: 600, color: aml ? crimeColor[aml.crimeLevel] : INK, margin: 0, textTransform: 'capitalize' }}>
-                {aml?.crimeLevel ?? '—'}
-              </p>
-            </div>
-
-            {/* T2 rent */}
-            <div style={{ background: SAND, borderRadius: '4px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <Building2 size={14} style={{ color: CLAY }} />
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, margin: 0 }}>
-                T2 / mês
-              </p>
-              <p style={{ fontSize: '13px', fontWeight: 600, color: INK, margin: 0 }}>
-                {aml?.budgetFitT2 ? `${aml.budgetFitT2.min.toLocaleString('pt-PT')}–${aml.budgetFitT2.max.toLocaleString('pt-PT')}€` : '—'}
-              </p>
-            </div>
-          </div>
-
-          {/* Resumo */}
-          {aml?.shortDescription && (
-            <div>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', color: CLAY, margin: '0 0 8px' }}>
-                Resumo
-              </p>
-              <p style={{ fontSize: '14px', color: INK, lineHeight: 1.7, margin: 0 }}>
-                {aml.shortDescription}
-              </p>
-            </div>
-          )}
-
-          {/* Planeamento urbano */}
-          {(aml?.urbanPlanning || zone.data.urbanContext) && (
-            <div style={{ borderLeft: `3px solid ${CLAY}`, paddingLeft: '16px' }}>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', color: CLAY, margin: '0 0 8px' }}>
-                Planeamento urbano
-              </p>
-              <p style={{ fontSize: '14px', color: INK, lineHeight: 1.7, margin: 0 }}>
-                {aml?.urbanPlanning || zone.data.urbanContext}
-              </p>
-            </div>
-          )}
-
-          {/* Who fits */}
-          {concelho?.whoFitsHere && (
-            <div style={{ background: SAND, borderRadius: '4px', padding: '16px' }}>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', color: MOSS, margin: '0 0 6px' }}>
-                Quem se adapta
-              </p>
-              <p style={{ fontSize: '13px', color: INK, lineHeight: 1.6, margin: 0 }}>
-                {concelho.whoFitsHere}
-              </p>
-            </div>
-          )}
-
-          {/* Freguesias */}
-          {parishes.length > 0 && (
-            <div>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', color: CLAY, margin: '0 0 10px' }}>
-                Freguesias ({parishes.length})
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {parishes.map(name => (
-                  <span
-                    key={name}
-                    style={{
-                      fontSize: '12px', color: INK,
-                      background: SAND, border: `1px solid ${HAIRLINE}`,
-                      borderRadius: '2px', padding: '4px 10px',
-                    }}
-                  >
-                    {name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* CTA */}
-          <Link
-            to={`/concelho/${zone.slug}`}
-            onClick={onClose}
-            style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-              padding: '14px 24px',
-              background: INK, color: BONE,
-              borderRadius: '4px', textDecoration: 'none',
-              fontSize: '14px', fontWeight: 600,
-              marginTop: 'auto',
-            }}
-          >
-            Ver análise completa de {zone.name} <ArrowRight size={14} />
-          </Link>
-        </div>
-      </div>
-    </>
-  )
-}
 
 function formatPrice(price: number): string {
   if (price >= 1000000) return `${(price / 1000000).toFixed(1)}M€`
@@ -329,15 +92,15 @@ function scoreArea(area: Area, answers: QuizAnswers): { score: number; reasons: 
   return { score: Math.min(score, 99), reasons: reasons.slice(0, 3) }
 }
 
-function ZoneCard({ zone, onSelect }: { zone: PortugalZone; onSelect: () => void }) {
+function ZoneCard({ zone }: { zone: PortugalZone }) {
   const tier   = tierColor[zone.data.marketTier] ?? tierColor.moderado
   const amlImg = concelhosAML.find(c => c.slug === zone.slug)?.image
 
   return (
-    <button
-      onClick={onSelect}
+    <Link
+      to={`/concelho/${zone.slug}`}
       className="group flex gap-4 bg-white overflow-hidden p-4 transition-all duration-200 hover:-translate-y-0.5 w-full text-left"
-      style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px', cursor: 'pointer', background: 'white' }}>
+      style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px', textDecoration: 'none', display: 'flex' }}>
       <div className="w-20 h-20 overflow-hidden flex-shrink-0" style={{ borderRadius: '2px' }}>
         <img
           src={amlImg ? amlImg.replace('w=800', 'w=160') : zoneImage(zone.slug)}
@@ -356,7 +119,7 @@ function ZoneCard({ zone, onSelect }: { zone: PortugalZone; onSelect: () => void
             {tierLabel[zone.data.marketTier]}
           </span>
         </div>
-        <h3 className="font-display text-base transition-colors duration-150 group-hover:text-[#C2553A]" style={{ color: '#1E1F18', letterSpacing: '-0.3px' }}>
+        <h3 className="font-display text-base transition-colors duration-150 group-hover:text-[#C2553A]" style={{ color: '#1E1F18', letterSpacing: '-0.3px', margin: 0 }}>
           {zone.name}
         </h3>
         <div className="flex flex-wrap gap-1 mt-1.5 mb-2">
@@ -370,10 +133,10 @@ function ZoneCard({ zone, onSelect }: { zone: PortugalZone; onSelect: () => void
           <div className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
             {formatSqm(zone.data.pricePerSqm.min)}€ — {formatSqm(zone.data.pricePerSqm.max)}€/m²
           </div>
-          <span style={{ fontSize: '11px', color: '#C2553A', fontWeight: 500 }}>Ver resumo →</span>
+          <span style={{ fontSize: '11px', color: '#C2553A', fontWeight: 500 }}>Ver análise →</span>
         </div>
       </div>
-    </button>
+    </Link>
   )
 }
 
@@ -388,7 +151,6 @@ const { open: openQuiz } = useQuiz()
 
   const [search, setSearch] = useState('')
   const [district, setDistrict] = useState(ALL_DISTRICTS)
-  const [selectedZone, setSelectedZone] = useState<PortugalZone | null>(null)
 
   const scoredAreas = areas.map((area) => {
     const { score, reasons } = scoreArea(area, answers)
@@ -550,7 +312,7 @@ const { open: openQuiz } = useQuiz()
           {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
             {filtered.map(zone => (
-              <ZoneCard key={zone.slug} zone={zone} onSelect={() => setSelectedZone(zone)} />
+              <ZoneCard key={zone.slug} zone={zone} />
             ))}
           </div>
 
@@ -585,9 +347,6 @@ const { open: openQuiz } = useQuiz()
       </div>
 
 
-      {selectedZone && (
-        <ZonePanel zone={selectedZone} onClose={() => setSelectedZone(null)} />
-      )}
     </div>
   )
 }

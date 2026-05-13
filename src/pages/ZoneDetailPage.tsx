@@ -149,7 +149,7 @@ export default function ZoneDetailPage() {
         {/* CTA */}
         <div style={{ paddingTop: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <Link
-            to="/areas"
+            to="/em-breve"
             style={{
               display: 'inline-block',
               padding: '15px 32px',

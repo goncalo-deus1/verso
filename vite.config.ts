@@ -1,9 +1,27 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import mdx from '@mdx-js/rollup'
+import remarkGfm from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    {
+      enforce: 'pre',
+      ...mdx({
+        providerImportSource: '@mdx-js/react',
+        remarkPlugins: [
+          remarkGfm,
+          remarkFrontmatter,
+          remarkMdxFrontmatter,
+        ],
+      }),
+    },
+    react(),
+    tailwindcss(),
+  ],
   build: {
     // Raise the warning threshold — 500 KB is a reasonable ceiling for a SPA
     chunkSizeWarningLimit: 500,
@@ -34,6 +52,10 @@ export default defineConfig({
 
           // ── Icons — small but worth isolating for long-term caching ────────
           if (id.includes('/node_modules/lucide-react/')) return 'vendor-ui'
+
+          // ── MDX runtime + blog content ────────────────────────────────────
+          if (id.includes('/node_modules/@mdx-js/')) return 'vendor-mdx'
+          if (id.includes('/src/content/posts/')) return 'blog-content'
         },
       },
     },

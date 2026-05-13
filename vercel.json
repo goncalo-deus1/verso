@@ -1,3 +1,12 @@
 {
+  "redirects": [
+    { "source": "/editorial", "destination": "/blog", "permanent": true },
+    { "source": "/editorial/:slug", "destination": "/blog/:slug", "permanent": true },
+    { "source": "/blog/bairros-lisboa-valorizar-2025", "destination": "/blog", "permanent": true },
+    { "source": "/blog/guia-comprar-casa-portugal-primeira-vez", "destination": "/blog", "permanent": true },
+    { "source": "/blog/porto-vs-lisboa-onde-investir-2025", "destination": "/blog", "permanent": true },
+    { "source": "/blog/o-que-e-pdm", "destination": "/blog", "permanent": true },
+    { "source": "/blog/o-que-e-pdm-porque-importa", "destination": "/blog", "permanent": true }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

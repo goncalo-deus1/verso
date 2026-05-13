@@ -1,6 +1,7 @@
 import { useEffect, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { X } from 'lucide-react'
+import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import { QuizProvider, useQuiz } from './context/QuizContext'
@@ -31,6 +32,8 @@ const QuizFlow           = lazy(() => import('./pages/QuizFlow'))
 const AreaRecommendations = lazy(() => import('./pages/AreaRecommendations'))
 const EditorialPage      = lazy(() => import('./pages/EditorialPage'))
 const ArticleDetailPage  = lazy(() => import('./pages/ArticleDetailPage'))
+const BlogIndex          = lazy(() => import('./pages/blog/BlogIndex'))
+const BlogPost           = lazy(() => import('./pages/blog/BlogPost'))
 const AuthPage           = lazy(() => import('./pages/AuthPage'))
 const ProfilePage        = lazy(() => import('./pages/ProfilePage'))
 const QuizResults        = lazy(() => import('./pages/QuizResults'))
@@ -40,6 +43,9 @@ const AuthCallback       = lazy(() => import('./pages/AuthCallback'))
 const MinhaConta         = lazy(() => import('./pages/MinhaConta'))
 const QuizDossier        = lazy(() => import('./pages/QuizDossier'))
 const QuizPage           = lazy(() => import('./pages/QuizPage'))
+const EmBreve            = lazy(() => import('./pages/EmBreve'))
+const ProprietarioEmBreve = lazy(() => import('./pages/ProprietarioEmBreve'))
+const SobrePage          = lazy(() => import('./pages/SobrePage'))
 
 const INK  = '#1E1F18'
 const BONE = '#F2EDE4'
@@ -192,6 +198,11 @@ function AppRoutes() {
         <Route path="/" element={<Layout><HomePage /></Layout>} />
         <Route path="/areas" element={<Layout><AreaRecommendations /></Layout>} />
         <Route path="/areas/:slug" element={<Layout><AreaRecommendations /></Layout>} />
+        {/* Blog — rotas principais */}
+        <Route path="/blog" element={<Layout><BlogIndex /></Layout>} />
+        <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
+
+        {/* Editorial legacy — mantido para não quebrar links existentes */}
         <Route path="/editorial" element={<Layout><EditorialPage /></Layout>} />
         <Route path="/editorial/:slug" element={<Layout><ArticleDetailPage /></Layout>} />
         <Route path="/quiz/resultados" element={<Layout><QuizResults /></Layout>} />
@@ -199,6 +210,10 @@ function AppRoutes() {
         <Route path="/zona/:slug" element={<Layout><ZoneDetailPage /></Layout>} />
 
         <Route path="/concelho/:slug" element={<Layout><ConcelhoDetailPage /></Layout>} />
+
+        <Route path="/em-breve" element={<Layout><EmBreve /></Layout>} />
+        <Route path="/proprietario" element={<Layout><ProprietarioEmBreve /></Layout>} />
+        <Route path="/sobre" element={<Layout><SobrePage /></Layout>} />
 
         {/* Protected */}
         <Route path="/minha-conta" element={<Layout><ProtectedRoute><MinhaConta /></ProtectedRoute></Layout>} />
@@ -210,17 +225,19 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <LanguageProvider>
-          <QuizProvider>
-            <PaperGrain />
-            <QuizModal />
-            <CookieBanner />
-            <AppRoutes />
-          </QuizProvider>
-        </LanguageProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <LanguageProvider>
+            <QuizProvider>
+              <PaperGrain />
+              <QuizModal />
+              <CookieBanner />
+              <AppRoutes />
+            </QuizProvider>
+          </LanguageProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   )
 }

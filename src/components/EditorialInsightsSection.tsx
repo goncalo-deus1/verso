@@ -39,6 +39,9 @@ export default function EditorialInsightsSection({ articles, title = 'Guias e pe
           {featured && (
             <article className="lg:col-span-7 group relative overflow-hidden cursor-pointer" style={{ minHeight: '420px' }}>
               <img src={featured.image} alt={featured.title}
+                width={1200} height={420}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,11,0.85) 0%, rgba(10,10,11,0.3) 50%, transparent 100%)' }} />
               <div className="relative h-full flex flex-col justify-end p-8" style={{ minHeight: '420px' }}>
@@ -68,6 +71,9 @@ export default function EditorialInsightsSection({ articles, title = 'Guias e pe
                 style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
                 <div className="w-28 flex-shrink-0 overflow-hidden">
                   <img src={article.image} alt={article.title}
+                    width={112} height={110}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
                     style={{ minHeight: '110px' }} />
                 </div>

@@ -65,10 +65,24 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/editorial" className="transition-colors" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}
+                <Link to="/blog" className="transition-colors" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}>
-                  Guias editoriais
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/proprietario" className="transition-colors" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}>
+                  Área do proprietário
+                </Link>
+              </li>
+              <li>
+                <Link to="/sobre" className="transition-colors" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}>
+                  Sobre nós
                 </Link>
               </li>
             </ul>
@@ -119,15 +133,32 @@ export default function Footer() {
           <p className="text-[10px] sm:text-[11px] leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.18)', fontFamily: 'IBM Plex Mono' }}>
             © {new Date().getFullYear()} Habitta — Informação de carácter orientador, não substitui aconselhamento jurídico.
           </p>
-          <div className="flex gap-4 sm:gap-6 text-[10px] sm:text-[11px]" style={{ fontFamily: 'IBM Plex Mono' }}>
-            {['Privacidade', 'Termos', 'Contacto'].map(l => (
-              <span key={l} className="cursor-pointer transition-colors"
-                style={{ color: 'rgba(255,255,255,0.18)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#C2553A')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.18)')}>
-                {l}
-              </span>
-            ))}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <a
+              href="https://www.instagram.com/usehabittapt/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Seguir a habitta no Instagram"
+              style={{ color: 'rgba(255,255,255,0.18)', transition: 'color 150ms', display: 'flex' }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#C2553A')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.18)')}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <div className="flex gap-4 sm:gap-6 text-[10px] sm:text-[11px]" style={{ fontFamily: 'IBM Plex Mono' }}>
+              {['Privacidade', 'Termos', 'Contacto'].map(l => (
+                <span key={l} className="cursor-pointer transition-colors"
+                  style={{ color: 'rgba(255,255,255,0.18)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#C2553A')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.18)')}>
+                  {l}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>

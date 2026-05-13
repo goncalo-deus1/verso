@@ -20,7 +20,7 @@
  */
 
 import { useState, useMemo, useCallback, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 import { useAuth } from '../context/AuthContext'
 import { concelhosAML } from '../data/concelhosAML'
@@ -38,6 +38,9 @@ import { CtaFinal }        from '../components/result/CtaFinal'
 import { QuizConflictModal } from '../components/result/QuizConflictModal'
 import { getUserQuiz, upsertUserQuiz } from '../lib/supabase/userQuiz'
 import { UrbanProjectsSection } from '../components/concelho/UrbanProjectsSection'
+import FeedbackModal, { hasFeedbackDone } from '../components/FeedbackModal'
+import { getPostsByLocale } from '../lib/blog'
+import { BlogPostCard }    from '../components/blog/BlogPostCard'
 import type { UserQuiz }   from '../lib/supabase/userQuiz'
 import type { QuizResult } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
@@ -229,6 +232,64 @@ function DossierContent({
           showRefazer={!isAnonymous}
         />
       </GatedBlur>
+
+      {/* § 06 — Para ler a seguir (sempre visível) */}
+      {(() => {
+        const recentPosts = getPostsByLocale('pt').slice(0, 2)
+        if (recentPosts.length === 0) return null
+        return (
+          <section
+            style={{
+              background: 'var(--verso-bone, #F2EDE4)',
+              padding: '72px 24px 80px',
+            }}
+          >
+            <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+              <p
+                style={{
+                  fontFamily: '"JetBrains Mono", monospace',
+                  fontSize: '10px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '2.5px',
+                  color: '#C2553A',
+                  marginBottom: '20px',
+                  textAlign: 'center',
+                }}
+              >
+                — PARA LER A SEGUIR —
+              </p>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: '20px',
+                  marginBottom: '32px',
+                }}
+              >
+                {recentPosts.map(post => (
+                  <BlogPostCard key={post.meta.slug} post={post} />
+                ))}
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <Link
+                  to="/blog"
+                  style={{
+                    fontFamily: '"JetBrains Mono", monospace',
+                    fontSize: '11px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1.5px',
+                    color: '#1E1F18',
+                    textDecoration: 'none',
+                    opacity: 0.5,
+                  }}
+                >
+                  Ver todos os artigos →
+                </Link>
+              </div>
+            </div>
+          </section>
+        )
+      })()}
     </div>
   )
 }
@@ -241,8 +302,15 @@ export default function QuizDossier() {
 
   const [savedQuiz,      setSavedQuiz]      = useState<UserQuiz | null>(null)
   const [supabaseLoading, setSupabaseLoading] = useState(false)
-  // 'none' = no conflict; 'waiting' = modal is open
   const [conflictState,  setConflictState]  = useState<'none' | 'waiting'>('none')
+  const [feedbackOpen,   setFeedbackOpen]   = useState(false)
+
+  // Show feedback popup after 4 s if never submitted
+  useEffect(() => {
+    if (hasFeedbackDone()) return
+    const t = setTimeout(() => setFeedbackOpen(true), 4000)
+    return () => clearTimeout(t)
+  }, [])
 
   // ─── Supabase: fetch + sync / migrate (Steps 6 + 8) ─────────────────────────
   useEffect(() => {
@@ -319,6 +387,11 @@ export default function QuizDossier() {
           onSecondary={handleKeepSaved}
         />
       )}
+      <FeedbackModal
+        open={feedbackOpen}
+        onClose={() => setFeedbackOpen(false)}
+        source="quiz"
+      />
       <DossierContent
         result={effectiveResult}
         isAnonymous={isAnonymous}
