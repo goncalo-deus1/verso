@@ -3,7 +3,6 @@ import { categoryLabel, type BlogPost } from '../../lib/blog'
 
 const INK  = '#1E1F18'
 const CLAY = '#C2553A'
-const BONE = '#F2EDE4'
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('pt-PT', {
