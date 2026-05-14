@@ -74,9 +74,6 @@ function WelcomeCard({ onStart }: { onStart: () => void }) {
       <div className="bg-verso-paper border border-verso-rule-soft p-10 sm:p-14 relative shadow-[0_20px_40px_-20px_rgba(30, 31, 24,0.10)]">
         <div className="absolute top-0 left-0 right-0 h-[3px] bg-verso-clay" />
 
-        <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-verso-clay mb-6">
-          Ensaio Cartográfico N.º 01 · AML 2026
-        </p>
 
         <h2 className="font-display font-normal text-4xl sm:text-5xl leading-[1.05] tracking-[-0.025em] text-verso-midnight mb-6">
           Onde vais viver decide<br />
