@@ -188,6 +188,31 @@ function PropertyCard({ p }: { p: PropertyRow }) {
   )
 }
 
+// ─── Advertise CTA ───────────────────────────────────────────────────────────
+
+function AdvertiseCTA() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px', padding: '28px 32px', background: INK, borderRadius: '8px', flexWrap: 'wrap' }}>
+      <div>
+        <p style={{ fontSize: '16px', fontWeight: 700, color: 'white', margin: '0 0 4px', letterSpacing: '-0.3px' }}>
+          Tens um imóvel para anunciar?
+        </p>
+        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', margin: 0 }}>
+          Publica o teu anúncio gratuitamente e chega a compradores qualificados.
+        </p>
+      </div>
+      <Link
+        to="/adicionar-imovel"
+        style={{ padding: '10px 22px', background: CLAY, color: 'white', borderRadius: '50px', fontSize: '13px', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap', transition: 'opacity 150ms', flexShrink: 0 }}
+        onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+        onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+      >
+        Anunciar imóvel
+      </Link>
+    </div>
+  )
+}
+
 // ─── Filter select ────────────────────────────────────────────────────────────
 
 function FilterSelect({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: { label: string; value: string }[] }) {
@@ -346,15 +371,19 @@ export default function PropertyListingPage() {
         ) : filtered.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {filtered.map(p => <PropertyCard key={p.id} p={p} />)}
+            <AdvertiseCTA />
           </div>
         ) : (
-          <div style={{ textAlign: 'center', padding: '80px 0' }}>
-            <p style={{ fontSize: '18px', fontWeight: 700, color: INK, marginBottom: '8px' }}>Sem resultados</p>
-            <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>Tenta ajustar os filtros.</p>
-            <button onClick={() => { setBudget(''); setBedrooms(''); setPropertyType(''); setSearch('') }}
-              style={{ padding: '10px 24px', background: INK, color: 'white', borderRadius: '50px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
-              Limpar filtros
-            </button>
+          <div>
+            <div style={{ textAlign: 'center', padding: '60px 0 48px' }}>
+              <p style={{ fontSize: '18px', fontWeight: 700, color: INK, marginBottom: '8px' }}>Sem resultados</p>
+              <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>Tenta ajustar os filtros.</p>
+              <button onClick={() => { setBudget(''); setBedrooms(''); setPropertyType(''); setSearch('') }}
+                style={{ padding: '10px 24px', background: INK, color: 'white', borderRadius: '50px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                Limpar filtros
+              </button>
+            </div>
+            <AdvertiseCTA />
           </div>
         )}
       </div>
