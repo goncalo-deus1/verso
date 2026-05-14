@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ImagePlus, X, GripVertical } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { createProperty } from '../lib/supabase/properties'
 import type { PropertyInsert } from '../lib/supabase/properties'
+import { supabase } from '../lib/supabase'
 import { zones } from '../data/zones'
 
 const INK      = '#1E1F18'
@@ -160,12 +162,132 @@ const INITIAL: FormState = {
   has_storage: false, is_featured: false,
 }
 
+// ─── Image uploader ───────────────────────────────────────────────────────────
+
+type UploadedImage = { url: string; path: string }
+
+function ImageUploader({
+  images,
+  onChange,
+  userId,
+}: {
+  images: UploadedImage[]
+  onChange: (imgs: UploadedImage[]) => void
+  userId: string
+}) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const [dragOver, setDragOver] = useState(false)
+
+  async function uploadFiles(files: FileList | null) {
+    if (!files || files.length === 0) return
+    if (images.length + files.length > 10) {
+      setUploadError('Máximo de 10 fotografias.')
+      return
+    }
+    setUploading(true)
+    setUploadError(null)
+    const results: UploadedImage[] = []
+
+    for (const file of Array.from(files)) {
+      if (!file.type.startsWith('image/')) continue
+      if (file.size > 10 * 1024 * 1024) { setUploadError(`"${file.name}" excede 10 MB.`); continue }
+
+      const ext  = file.name.split('.').pop()
+      const path = `${userId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+
+      const { error } = await supabase.storage.from('property-images').upload(path, file, { upsert: false })
+      if (error) { setUploadError(`Erro ao carregar "${file.name}".`); continue }
+
+      const { data } = supabase.storage.from('property-images').getPublicUrl(path)
+      results.push({ url: data.publicUrl, path })
+    }
+
+    onChange([...images, ...results])
+    setUploading(false)
+  }
+
+  function removeImage(path: string) {
+    onChange(images.filter(img => img.path !== path))
+    supabase.storage.from('property-images').remove([path])
+  }
+
+  return (
+    <div>
+      {/* Drop zone */}
+      <div
+        onClick={() => inputRef.current?.click()}
+        onDragOver={e => { e.preventDefault(); setDragOver(true) }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={e => { e.preventDefault(); setDragOver(false); uploadFiles(e.dataTransfer.files) }}
+        style={{
+          border: `2px dashed ${dragOver ? CLAY : HAIRLINE}`,
+          borderRadius: '8px',
+          padding: '32px',
+          textAlign: 'center',
+          cursor: 'pointer',
+          background: dragOver ? 'rgba(194,85,58,0.04)' : 'white',
+          transition: 'all 150ms',
+        }}
+      >
+        <ImagePlus size={28} color={dragOver ? CLAY : STONE} style={{ margin: '0 auto 10px', opacity: dragOver ? 1 : 0.4 }} />
+        <p style={{ fontSize: '14px', fontWeight: 500, color: INK, margin: '0 0 4px' }}>
+          {uploading ? 'A carregar…' : 'Clica ou arrasta fotografias'}
+        </p>
+        <p style={{ fontSize: '12px', color: STONE, opacity: 0.6, margin: 0 }}>
+          JPG, PNG, WEBP · máx. 10 MB por foto · até 10 fotos
+        </p>
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          style={{ display: 'none' }}
+          onChange={e => uploadFiles(e.target.files)}
+        />
+      </div>
+
+      {uploadError && (
+        <p style={{ fontSize: '12px', color: CLAY, marginTop: '6px' }}>{uploadError}</p>
+      )}
+
+      {/* Previews */}
+      {images.length > 0 && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '10px', marginTop: '16px' }}>
+          {images.map((img, i) => (
+            <div key={img.path} style={{ position: 'relative', borderRadius: '6px', overflow: 'hidden', aspectRatio: '4/3', border: `1px solid ${HAIRLINE}` }}>
+              {i === 0 && (
+                <span style={{ position: 'absolute', top: '6px', left: '6px', fontSize: '10px', fontWeight: 700, background: CLAY, color: 'white', padding: '2px 6px', borderRadius: '4px', zIndex: 1 }}>
+                  Capa
+                </span>
+              )}
+              <img src={img.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <button
+                type="button"
+                onClick={() => removeImage(img.path)}
+                style={{ position: 'absolute', top: '4px', right: '4px', width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(30,31,24,0.7)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}
+              >
+                <X size={12} color="white" />
+              </button>
+              <div style={{ position: 'absolute', bottom: '4px', right: '4px', opacity: 0.5 }}>
+                <GripVertical size={12} color="white" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function AddPropertyPage() {
   const { user } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState<FormState>(INITIAL)
+  const [images, setImages] = useState<UploadedImage[]>([])
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -216,7 +338,7 @@ export default function AddPropertyPage() {
         description:     form.description.trim() || null,
         highlights:      form.highlights.split('\n').map(s => s.trim()).filter(Boolean),
         tags:            form.tags.split(',').map(s => s.trim()).filter(Boolean),
-        images:          [],
+        images:          images.map(img => img.url),
         has_elevator:    form.has_elevator,
         has_garden:      form.has_garden,
         has_pool:        form.has_pool,
@@ -417,6 +539,17 @@ export default function AddPropertyPage() {
               <Toggle checked={form.has_storage} onChange={toggle('has_storage')} label="Arrecadação" />
               <Toggle checked={form.is_featured} onChange={toggle('is_featured')} label="Destaque" />
             </div>
+          </section>
+
+          {/* ── Fotografias ── */}
+          <section>
+            <SectionTitle>Fotografias</SectionTitle>
+            <ImageUploader
+              images={images}
+              onChange={setImages}
+              userId={user?.id ?? ''}
+            />
+            <Hint>A primeira fotografia é usada como capa. Máximo 10 fotos.</Hint>
           </section>
 
           {/* ── Conteúdo ── */}
