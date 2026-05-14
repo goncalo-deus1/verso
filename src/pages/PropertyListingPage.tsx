@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { X, ChevronDown } from 'lucide-react'
 import { getActiveProperties } from '../lib/supabase/properties'
 import type { PropertyRow } from '../lib/supabase/properties'
@@ -32,7 +33,9 @@ function PropertyCard({ p }: { p: PropertyRow }) {
   const cover = p.images?.[0] ?? null
 
   return (
-    <div style={{ background: 'white', border: `1px solid ${HAIRLINE}`, borderRadius: '10px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+    <Link to={`/imoveis/${p.id}`} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', background: 'white', border: `1px solid ${HAIRLINE}`, borderRadius: '10px', overflow: 'hidden', transition: 'box-shadow 200ms' }}
+      onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.10)')}
+      onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}>
       {/* Image */}
       <div style={{ aspectRatio: '4/3', background: '#E8E0D0', position: 'relative', overflow: 'hidden' }}>
         {cover ? (
