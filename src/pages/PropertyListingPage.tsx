@@ -76,7 +76,7 @@ function PropertyCard({ p }: { p: PropertyRow }) {
           {p.price_per_sqm && <span style={{ fontSize: '12px', fontWeight: 400, color: STONE, marginLeft: '6px' }}>{p.price_per_sqm.toLocaleString('pt-PT')} €/m²</span>}
         </p>
       </div>
-    </div>
+    </Link>
   )
 }
 
