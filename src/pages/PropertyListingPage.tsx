@@ -56,11 +56,11 @@ function PropertyCard({ p }: { p: PropertyRow }) {
 
       {/* Image */}
       <div
-        style={{ flexShrink: 0, width: '300px', minHeight: '200px', background: '#E8E0D0', position: 'relative', overflow: 'hidden' }}
+        style={{ flexShrink: 0, width: '280px', height: '210px', background: '#E8E0D0', position: 'relative', overflow: 'hidden' }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <Link to={`/imoveis/${p.id}`} style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none' }}>
+        <Link to={`/imoveis/${p.id}`} style={{ display: 'block', width: '100%', height: '210px', textDecoration: 'none' }}>
           {images.length > 0 ? (
             <img
               key={idx}
