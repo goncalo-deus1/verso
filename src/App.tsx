@@ -43,6 +43,7 @@ const AuthCallback       = lazy(() => import('./pages/AuthCallback'))
 const MinhaConta         = lazy(() => import('./pages/MinhaConta'))
 const QuizDossier        = lazy(() => import('./pages/QuizDossier'))
 const QuizPage           = lazy(() => import('./pages/QuizPage'))
+const PropertyListingPage = lazy(() => import('./pages/PropertyListingPage'))
 const EmBreve            = lazy(() => import('./pages/EmBreve'))
 const ProprietarioEmBreve = lazy(() => import('./pages/ProprietarioEmBreve'))
 const SobrePage          = lazy(() => import('./pages/SobrePage'))
@@ -212,6 +213,7 @@ function AppRoutes() {
 
         <Route path="/concelho/:slug" element={<Layout><ConcelhoDetailPage /></Layout>} />
 
+        <Route path="/imoveis" element={<Layout><PropertyListingPage /></Layout>} />
         <Route path="/em-breve" element={<Layout><EmBreve /></Layout>} />
         <Route path="/proprietario" element={<Layout><ProprietarioEmBreve /></Layout>} />
         <Route path="/sobre" element={<Layout><SobrePage /></Layout>} />

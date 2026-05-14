@@ -28,7 +28,7 @@ export default function Header() {
   const links = [
     { to: '/areas', label: tr('header.areas') },
     { to: '/blog', label: tr('header.guides') },
-    { to: '/proprietario', label: 'Proprietário' },
+    { to: '/imoveis', label: 'Imóveis' },
     { to: '/sobre', label: 'Sobre nós' },
   ]
 
