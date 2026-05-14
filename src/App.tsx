@@ -46,6 +46,7 @@ const QuizPage           = lazy(() => import('./pages/QuizPage'))
 const EmBreve            = lazy(() => import('./pages/EmBreve'))
 const ProprietarioEmBreve = lazy(() => import('./pages/ProprietarioEmBreve'))
 const SobrePage          = lazy(() => import('./pages/SobrePage'))
+const AddPropertyPage    = lazy(() => import('./pages/AddPropertyPage'))
 
 const INK  = '#1E1F18'
 const BONE = '#F2EDE4'
@@ -218,6 +219,7 @@ function AppRoutes() {
         {/* Protected */}
         <Route path="/minha-conta" element={<Layout><ProtectedRoute><MinhaConta /></ProtectedRoute></Layout>} />
         <Route path="/perfil" element={<Layout><ProfilePage /></Layout>} />
+        <Route path="/adicionar-imovel" element={<Layout><ProtectedRoute><AddPropertyPage /></ProtectedRoute></Layout>} />
       </Routes>
     </Suspense>
   )

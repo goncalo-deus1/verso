@@ -131,6 +131,130 @@ export interface Database {
         }
         Relationships: []
       }
+      properties: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          owner_id: string
+          title: string
+          slug: string | null
+          status: 'draft' | 'active' | 'reserved' | 'sold'
+          location: string
+          municipality: string
+          zone_slug: string | null
+          price: number
+          price_per_sqm: number | null
+          property_type: 'apartamento' | 'moradia' | 'terreno' | 'comercial' | 'garagem'
+          typology: 'T0' | 'T1' | 'T2' | 'T3' | 'T4' | 'T5+' | null
+          sqm: number | null
+          bedrooms: number
+          bathrooms: number
+          parking_spots: number
+          floor: number | null
+          total_floors: number | null
+          year_built: number | null
+          condition: 'novo' | 'usado' | 'para_recuperar' | 'em_construcao' | null
+          energy_rating: 'A+' | 'A' | 'B' | 'B-' | 'C' | 'D' | 'E' | 'F' | 'Isento' | null
+          has_elevator: boolean
+          has_garden: boolean
+          has_pool: boolean
+          has_terrace: boolean
+          has_storage: boolean
+          orientation: 'norte' | 'sul' | 'este' | 'oeste' | 'nascente' | 'poente' | 'multiple' | null
+          condominium_fee: number | null
+          description: string | null
+          highlights: string[]
+          tags: string[]
+          images: string[]
+          is_featured: boolean
+          latitude: number | null
+          longitude: number | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          owner_id: string
+          title: string
+          slug?: string | null
+          status?: 'draft' | 'active' | 'reserved' | 'sold'
+          location: string
+          municipality: string
+          zone_slug?: string | null
+          price: number
+          price_per_sqm?: number | null
+          property_type: 'apartamento' | 'moradia' | 'terreno' | 'comercial' | 'garagem'
+          typology?: 'T0' | 'T1' | 'T2' | 'T3' | 'T4' | 'T5+' | null
+          sqm?: number | null
+          bedrooms?: number
+          bathrooms?: number
+          parking_spots?: number
+          floor?: number | null
+          total_floors?: number | null
+          year_built?: number | null
+          condition?: 'novo' | 'usado' | 'para_recuperar' | 'em_construcao' | null
+          energy_rating?: 'A+' | 'A' | 'B' | 'B-' | 'C' | 'D' | 'E' | 'F' | 'Isento' | null
+          has_elevator?: boolean
+          has_garden?: boolean
+          has_pool?: boolean
+          has_terrace?: boolean
+          has_storage?: boolean
+          orientation?: 'norte' | 'sul' | 'este' | 'oeste' | 'nascente' | 'poente' | 'multiple' | null
+          condominium_fee?: number | null
+          description?: string | null
+          highlights?: string[]
+          tags?: string[]
+          images?: string[]
+          is_featured?: boolean
+          latitude?: number | null
+          longitude?: number | null
+        }
+        Update: {
+          updated_at?: string
+          title?: string
+          slug?: string | null
+          status?: 'draft' | 'active' | 'reserved' | 'sold'
+          location?: string
+          municipality?: string
+          zone_slug?: string | null
+          price?: number
+          price_per_sqm?: number | null
+          property_type?: 'apartamento' | 'moradia' | 'terreno' | 'comercial' | 'garagem'
+          typology?: 'T0' | 'T1' | 'T2' | 'T3' | 'T4' | 'T5+' | null
+          sqm?: number | null
+          bedrooms?: number
+          bathrooms?: number
+          parking_spots?: number
+          floor?: number | null
+          total_floors?: number | null
+          year_built?: number | null
+          condition?: 'novo' | 'usado' | 'para_recuperar' | 'em_construcao' | null
+          energy_rating?: 'A+' | 'A' | 'B' | 'B-' | 'C' | 'D' | 'E' | 'F' | 'Isento' | null
+          has_elevator?: boolean
+          has_garden?: boolean
+          has_pool?: boolean
+          has_terrace?: boolean
+          has_storage?: boolean
+          orientation?: 'norte' | 'sul' | 'este' | 'oeste' | 'nascente' | 'poente' | 'multiple' | null
+          condominium_fee?: number | null
+          description?: string | null
+          highlights?: string[]
+          tags?: string[]
+          images?: string[]
+          is_featured?: boolean
+          latitude?: number | null
+          longitude?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'properties_owner_id_fkey'
+            columns: ['owner_id']
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          }
+        ]
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
