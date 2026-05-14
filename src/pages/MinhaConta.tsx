@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { User, BookmarkCheck, LogOut, Trash2 } from 'lucide-react'
+import { User, BookmarkCheck, LogOut, Trash2, Home, Plus, Pencil } from 'lucide-react'
 import { useAuth, displayName } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 import type { Database } from '../lib/supabase/types'
 import DeleteAccountSection from '../components/account/DeleteAccountSection'
+import { getMyProperties, deleteProperty, updateProperty } from '../lib/supabase/properties'
+import type { PropertyRow } from '../lib/supabase/properties'
 
 type SavedZone = Database['public']['Tables']['saved_zones']['Row']
 
@@ -15,12 +17,28 @@ const STONE    = '#3A3B2E'
 const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 const SAND     = '#E8E0D0'
 
+const STATUS_LABEL: Record<PropertyRow['status'], string> = {
+  draft:    'Rascunho',
+  active:   'Ativo',
+  reserved: 'Reservado',
+  sold:     'Vendido',
+}
+
+const STATUS_COLOR: Record<PropertyRow['status'], string> = {
+  draft:    '#888',
+  active:   '#2d8a4e',
+  reserved: '#b07d2a',
+  sold:     CLAY,
+}
+
 export default function MinhaConta() {
   const { user, signOut } = useAuth()
   const name = displayName(user)
   const [savedZones, setSavedZones] = useState<SavedZone[]>([])
   const [loadingZones, setLoadingZones] = useState(true)
-  const [tab, setTab] = useState<'overview' | 'zones'>('overview')
+  const [properties, setProperties] = useState<PropertyRow[]>([])
+  const [loadingProps, setLoadingProps] = useState(true)
+  const [tab, setTab] = useState<'overview' | 'zones' | 'anuncios'>('overview')
 
   useEffect(() => {
     if (!user) return
@@ -33,11 +51,26 @@ export default function MinhaConta() {
         setSavedZones(data ?? [])
         setLoadingZones(false)
       })
+    getMyProperties(user.id).then(data => {
+      setProperties(data)
+      setLoadingProps(false)
+    })
   }, [user])
 
   async function removeZone(id: string) {
     await supabase.from('saved_zones').delete().eq('id', id)
     setSavedZones(prev => prev.filter(z => z.id !== id))
+  }
+
+  async function removeProperty(id: string) {
+    await deleteProperty(id)
+    setProperties(prev => prev.filter(p => p.id !== id))
+  }
+
+  async function togglePublish(p: PropertyRow) {
+    const next = p.status === 'active' ? 'draft' : 'active'
+    await updateProperty(p.id, { status: next })
+    setProperties(prev => prev.map(x => x.id === p.id ? { ...x, status: next } : x))
   }
 
   function zoneHref(z: SavedZone) {
@@ -69,7 +102,7 @@ export default function MinhaConta() {
 
         {/* Tab bar */}
         <div style={{ display: 'flex', gap: '4px', marginBottom: '32px', borderBottom: `1px solid ${HAIRLINE}` }}>
-          {([['overview', User, 'Conta'], ['zones', BookmarkCheck, 'Zonas guardadas']] as const).map(([t, Icon, label]) => (
+          {([['overview', User, 'Conta'], ['zones', BookmarkCheck, 'Zonas guardadas'], ['anuncios', Home, 'Os meus anúncios']] as const).map(([t, Icon, label]) => (
             <button key={t} onClick={() => setTab(t)}
               style={{
                 display: 'flex', alignItems: 'center', gap: '7px',
@@ -102,6 +135,24 @@ export default function MinhaConta() {
                   Ver todas →
                 </button>
               )}
+            </SectionCard>
+
+            <SectionCard title="Os meus anúncios">
+              <p style={{ fontSize: '14px', color: STONE }}>
+                {loadingProps ? 'A carregar…' : `${properties.length} anúncio${properties.length !== 1 ? 's' : ''} — ${properties.filter(p => p.status === 'active').length} ativo${properties.filter(p => p.status === 'active').length !== 1 ? 's' : ''}`}
+              </p>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '12px', flexWrap: 'wrap' }}>
+                {properties.length > 0 && (
+                  <button onClick={() => setTab('anuncios')}
+                    style={{ fontSize: '13px', color: CLAY, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontWeight: 500 }}>
+                    Ver todos →
+                  </button>
+                )}
+                <Link to="/adicionar-imovel"
+                  style={{ fontSize: '13px', color: STONE, fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <Plus size={12} /> Adicionar imóvel
+                </Link>
+              </div>
             </SectionCard>
           </div>
         )}
@@ -140,6 +191,78 @@ export default function MinhaConta() {
             )}
           </div>
         )}
+        {tab === 'anuncios' && (
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+              <Link to="/adicionar-imovel"
+                style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: CLAY, color: 'white', borderRadius: '50px', fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}>
+                <Plus size={13} /> Novo anúncio
+              </Link>
+            </div>
+
+            {loadingProps ? (
+              <p style={{ fontSize: '14px', color: STONE }}>A carregar…</p>
+            ) : properties.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '60px 0' }}>
+                <Home size={32} color={HAIRLINE} style={{ margin: '0 auto 16px' }} />
+                <p style={{ fontSize: '15px', fontWeight: 600, color: INK, marginBottom: '8px' }}>Nenhum anúncio ainda</p>
+                <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>Adiciona o teu primeiro imóvel.</p>
+                <Link to="/adicionar-imovel"
+                  style={{ display: 'inline-block', padding: '10px 24px', background: INK, color: BONE, borderRadius: '50px', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
+                  Adicionar imóvel
+                </Link>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {properties.map(p => (
+                  <div key={p.id} style={{ background: 'white', border: `1px solid ${HAIRLINE}`, borderRadius: '8px', padding: '18px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                          <p style={{ fontSize: '15px', fontWeight: 600, color: INK, margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.title}</p>
+                          <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '20px', background: `${STATUS_COLOR[p.status]}18`, color: STATUS_COLOR[p.status], whiteSpace: 'nowrap' }}>
+                            {STATUS_LABEL[p.status]}
+                          </span>
+                        </div>
+                        <p style={{ fontSize: '12px', color: STONE, fontFamily: 'IBM Plex Mono', margin: 0 }}>
+                          {p.property_type}{p.typology ? ` · ${p.typology}` : ''} · {p.municipality}
+                          {p.price ? ` · ${p.price.toLocaleString('pt-PT')} €` : ''}
+                          {p.sqm ? ` · ${p.sqm} m²` : ''}
+                        </p>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
+                        <button
+                          onClick={() => togglePublish(p)}
+                          title={p.status === 'active' ? 'Despublicar' : 'Publicar'}
+                          style={{ padding: '6px 12px', fontSize: '12px', fontWeight: 500, border: `1px solid ${HAIRLINE}`, background: 'white', color: STONE, borderRadius: '50px', cursor: 'pointer', transition: 'all 150ms', whiteSpace: 'nowrap' }}
+                          onMouseEnter={e => { e.currentTarget.style.borderColor = CLAY; e.currentTarget.style.color = CLAY }}
+                          onMouseLeave={e => { e.currentTarget.style.borderColor = HAIRLINE; e.currentTarget.style.color = STONE }}>
+                          {p.status === 'active' ? 'Despublicar' : 'Publicar'}
+                        </button>
+                        <Link to={`/adicionar-imovel?edit=${p.id}`}
+                          title="Editar"
+                          style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${HAIRLINE}`, background: 'white', color: STONE, borderRadius: '6px', textDecoration: 'none', transition: 'color 150ms' }}
+                          onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
+                          onMouseLeave={e => (e.currentTarget.style.color = STONE)}>
+                          <Pencil size={14} />
+                        </Link>
+                        <button
+                          onClick={() => removeProperty(p.id)}
+                          title="Eliminar"
+                          style={{ padding: '6px', background: 'none', border: `1px solid ${HAIRLINE}`, cursor: 'pointer', color: STONE, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'color 150ms' }}
+                          onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
+                          onMouseLeave={e => (e.currentTarget.style.color = STONE)}>
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Zona de perigo */}
         <div style={{ marginTop: '64px' }}>
           <hr style={{ border: 'none', borderTop: `1px solid ${HAIRLINE}`, marginBottom: '48px' }} />
