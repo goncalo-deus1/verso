@@ -1,25 +1,28 @@
 import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { X, ChevronDown } from 'lucide-react'
+import { X, ChevronDown, Bed, Bath, Maximize2, MapPin, Heart } from 'lucide-react'
 import { getActiveProperties } from '../lib/supabase/properties'
 import type { PropertyRow } from '../lib/supabase/properties'
-import { BlockLabel, Callout, Divider } from '../components/Brand'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
+const CLAY     = '#C2553A'
 const STONE    = '#3A3B2E'
 const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 
+const fmt = (n: number) =>
+  new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n)
+
 const budgetOptions = [
-  { label: 'Todos os preços', value: '' },
-  { label: 'Até 300k€', value: 'under-300k' },
-  { label: '300k€ — 600k€', value: '300k-600k' },
-  { label: '600k€ — 1M€', value: '600k-1m' },
-  { label: 'Acima de 1M€', value: 'over-1m' },
+  { label: 'Qualquer preço', value: '' },
+  { label: 'Até 300 000 €', value: 'under-300k' },
+  { label: '300 000 € — 600 000 €', value: '300k-600k' },
+  { label: '600 000 € — 1 000 000 €', value: '600k-1m' },
+  { label: 'Acima de 1 000 000 €', value: 'over-1m' },
 ]
 
 const sortOptions = [
-  { label: 'Mais recente', value: 'newest' },
+  { label: 'Mais recentes', value: 'newest' },
   { label: 'Preço crescente', value: 'price-asc' },
   { label: 'Preço decrescente', value: 'price-desc' },
 ]
@@ -29,62 +32,145 @@ const TYPE_LABEL: Record<string, string> = {
   terreno: 'Terreno', comercial: 'Comercial', garagem: 'Garagem',
 }
 
+// ─── Horizontal property card ─────────────────────────────────────────────────
+
 function PropertyCard({ p }: { p: PropertyRow }) {
-  const cover = p.images?.[0] ?? null
+  const cover  = p.images?.[0] ?? null
+  const [saved, setSaved] = useState(false)
 
   return (
-    <Link to={`/imoveis/${p.id}`} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', background: 'white', border: `1px solid ${HAIRLINE}`, borderRadius: '10px', overflow: 'hidden', transition: 'box-shadow 200ms' }}
-      onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.10)')}
+    <div style={{ background: 'white', border: `1px solid ${HAIRLINE}`, borderRadius: '8px', overflow: 'hidden', display: 'flex', transition: 'box-shadow 200ms' }}
+      onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.09)')}
       onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}>
+
       {/* Image */}
-      <div style={{ aspectRatio: '4/3', background: '#E8E0D0', position: 'relative', overflow: 'hidden' }}>
+      <Link to={`/imoveis/${p.id}`} style={{ flexShrink: 0, width: '300px', minHeight: '200px', background: '#E8E0D0', position: 'relative', overflow: 'hidden', display: 'block', textDecoration: 'none' }}>
         {cover ? (
-          <img src={cover} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img src={cover} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 400ms' }}
+            onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')}
+            onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')} />
         ) : (
           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontSize: '12px', color: STONE, opacity: 0.4 }}>Sem foto</span>
+            <span style={{ fontSize: '12px', color: STONE, opacity: 0.35 }}>Sem foto</span>
           </div>
         )}
         {p.typology && (
-          <span style={{ position: 'absolute', top: '10px', left: '10px', fontSize: '11px', fontWeight: 700, background: INK, color: 'white', padding: '3px 8px', borderRadius: '4px' }}>
+          <span style={{ position: 'absolute', top: '10px', left: '10px', fontSize: '11px', fontWeight: 700, background: INK, color: 'white', padding: '3px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>
             {p.typology}
           </span>
         )}
         {p.images && p.images.length > 1 && (
-          <span style={{ position: 'absolute', bottom: '10px', right: '10px', fontSize: '11px', background: 'rgba(0,0,0,0.55)', color: 'white', padding: '2px 7px', borderRadius: '4px' }}>
-            +{p.images.length - 1} fotos
+          <span style={{ position: 'absolute', bottom: '10px', right: '10px', fontSize: '11px', background: 'rgba(0,0,0,0.55)', color: 'white', padding: '2px 8px', borderRadius: '4px' }}>
+            {p.images.length} fotos
           </span>
         )}
-      </div>
+      </Link>
 
-      {/* Info */}
-      <div style={{ padding: '16px 18px 18px', flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <p style={{ fontSize: '15px', fontWeight: 700, color: INK, margin: 0, lineHeight: 1.3 }}>{p.title}</p>
-        <p style={{ fontSize: '12px', color: STONE, margin: 0, fontFamily: 'IBM Plex Mono' }}>
-          {TYPE_LABEL[p.property_type] ?? p.property_type}
-          {p.sqm ? ` · ${p.sqm} m²` : ''}
-          {p.bedrooms ? ` · ${p.bedrooms} qt` : ''}
-          {p.municipality ? ` · ${p.municipality}` : ''}
-        </p>
-        {p.description && (
-          <p style={{ fontSize: '13px', color: STONE, margin: 0, lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-            {p.description}
-          </p>
-        )}
-        <p style={{ fontSize: '18px', fontWeight: 700, color: INK, margin: '4px 0 0', letterSpacing: '-0.4px' }}>
-          {p.price.toLocaleString('pt-PT')} €
-          {p.price_per_sqm && <span style={{ fontSize: '12px', fontWeight: 400, color: STONE, marginLeft: '6px' }}>{p.price_per_sqm.toLocaleString('pt-PT')} €/m²</span>}
-        </p>
+      {/* Content */}
+      <div style={{ flex: 1, padding: '20px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minWidth: 0 }}>
+        <div>
+          {/* Location + save */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <MapPin size={12} color={STONE} style={{ flexShrink: 0 }} />
+              <span style={{ fontSize: '12px', color: STONE, fontFamily: 'IBM Plex Mono' }}>{p.location}{p.municipality ? `, ${p.municipality}` : ''}</span>
+            </div>
+            <button
+              onClick={() => setSaved(s => !s)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px', flexShrink: 0 }}>
+              <Heart size={16} style={{ color: saved ? CLAY : HAIRLINE, fill: saved ? CLAY : 'none', transition: 'all 150ms' }} />
+            </button>
+          </div>
+
+          {/* Title */}
+          <Link to={`/imoveis/${p.id}`} style={{ textDecoration: 'none' }}>
+            <h2 style={{ fontSize: '17px', fontWeight: 700, color: INK, margin: '0 0 10px', lineHeight: 1.3, letterSpacing: '-0.3px' }}
+              onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
+              onMouseLeave={e => (e.currentTarget.style.color = INK)}>
+              {p.title}
+            </h2>
+          </Link>
+
+          {/* Stats row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px', flexWrap: 'wrap' }}>
+            {p.typology && (
+              <span style={{ fontSize: '12px', fontWeight: 600, color: STONE, background: BONE, padding: '2px 8px', borderRadius: '4px', border: `1px solid ${HAIRLINE}` }}>
+                {p.typology}
+              </span>
+            )}
+            <span style={{ fontSize: '12px', color: STONE }}>{TYPE_LABEL[p.property_type] ?? p.property_type}</span>
+            {p.bedrooms > 0 && (
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: STONE }}>
+                <Bed size={13} /> {p.bedrooms} {p.bedrooms === 1 ? 'quarto' : 'quartos'}
+              </span>
+            )}
+            {p.bathrooms > 0 && (
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: STONE }}>
+                <Bath size={13} /> {p.bathrooms} WC
+              </span>
+            )}
+            {p.sqm && (
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: STONE }}>
+                <Maximize2 size={13} /> {p.sqm} m²
+              </span>
+            )}
+          </div>
+
+          {/* Description */}
+          {p.description && (
+            <p style={{ fontSize: '13px', color: STONE, lineHeight: 1.6, margin: 0,
+              display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              {p.description}
+            </p>
+          )}
+        </div>
+
+        {/* Bottom row: price + CTA */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: '16px', flexWrap: 'wrap', gap: '12px' }}>
+          <div>
+            <p style={{ fontSize: '22px', fontWeight: 700, color: INK, margin: 0, letterSpacing: '-0.5px' }}>
+              {fmt(p.price)}
+            </p>
+            {p.price_per_sqm && (
+              <p style={{ fontSize: '12px', color: STONE, margin: '2px 0 0', fontFamily: 'IBM Plex Mono' }}>
+                {p.price_per_sqm.toLocaleString('pt-PT')} €/m²
+              </p>
+            )}
+          </div>
+          <Link to={`/imoveis/${p.id}`}
+            style={{ padding: '9px 20px', background: CLAY, color: 'white', borderRadius: '50px', fontSize: '13px', fontWeight: 600, textDecoration: 'none', transition: 'opacity 150ms', whiteSpace: 'nowrap' }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
+            Ver imóvel
+          </Link>
+        </div>
       </div>
-    </Link>
+    </div>
   )
 }
+
+// ─── Filter select ────────────────────────────────────────────────────────────
+
+function FilterSelect({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: { label: string; value: string }[] }) {
+  return (
+    <div style={{ position: 'relative' }}>
+      <select value={value} onChange={e => onChange(e.target.value)}
+        style={{ appearance: 'none', padding: '9px 32px 9px 14px', fontSize: '13px', border: `1px solid ${value ? CLAY : HAIRLINE}`, background: value ? 'rgba(194,85,58,0.05)' : 'white', color: value ? CLAY : STONE, borderRadius: '50px', cursor: 'pointer', outline: 'none', fontWeight: value ? 600 : 400 }}>
+        {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+      <ChevronDown size={12} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: value ? CLAY : STONE }} />
+    </div>
+  )
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function PropertyListingPage() {
   const [allProperties, setAllProperties] = useState<PropertyRow[]>([])
   const [loading, setLoading] = useState(true)
   const [budget, setBudget] = useState('')
   const [bedrooms, setBedrooms] = useState('')
+  const [propertyType, setPropertyType] = useState('')
   const [sort, setSort] = useState('newest')
   const [search, setSearch] = useState('')
 
@@ -117,124 +203,117 @@ export default function PropertyListingPage() {
       const n = parseInt(bedrooms)
       result = result.filter(p => n === 4 ? p.bedrooms >= 4 : p.bedrooms === n)
     }
+    if (propertyType) {
+      result = result.filter(p => p.property_type === propertyType)
+    }
     result.sort((a, b) => {
       if (sort === 'price-asc') return a.price - b.price
       if (sort === 'price-desc') return b.price - a.price
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     })
     return result
-  }, [allProperties, budget, bedrooms, sort, search])
+  }, [allProperties, budget, bedrooms, propertyType, sort, search])
 
-  const hasFilters = budget || bedrooms || search
+  const hasFilters = budget || bedrooms || propertyType || search
+
+  const typeOptions = [
+    { label: 'Tipo de imóvel', value: '' },
+    { label: 'Apartamento', value: 'apartamento' },
+    { label: 'Moradia', value: 'moradia' },
+    { label: 'Terreno', value: 'terreno' },
+    { label: 'Comercial', value: 'comercial' },
+  ]
+
+  const bedroomOptions = [
+    { label: 'Quartos', value: '' },
+    { label: 'T0', value: '0' },
+    { label: 'T1', value: '1' },
+    { label: 'T2', value: '2' },
+    { label: 'T3', value: '3' },
+    { label: 'T4+', value: '4' },
+  ]
 
   return (
-    <div className="min-h-screen" style={{ background: BONE }}>
-      {/* Header */}
-      <section style={{ background: INK }} className="pt-32 pb-14 lg:pt-40 lg:pb-16">
-        <div className="max-w-7xl mx-auto px-8 lg:px-12">
-          <BlockLabel light>Imóveis</BlockLabel>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
-            <h1 className="font-display text-white text-4xl lg:text-5xl" style={{ letterSpacing: '-1.5px', lineHeight: '1.1' }}>
-              Selecção curada
-            </h1>
-            <p className="max-w-sm text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
-              Só publicamos o que valeria a pena visitar.
-            </p>
-          </div>
-        </div>
-      </section>
+    <div style={{ minHeight: '100vh', background: BONE }}>
 
-      <div className="max-w-7xl mx-auto px-8 lg:px-12">
-        <Callout>
-          Cada imóvel na habitta foi avaliado pelo seu mérito real — localização, contexto urbanístico e potencial de valorização.
-        </Callout>
+      {/* Page header */}
+      <div style={{ background: INK, paddingTop: '100px', paddingBottom: '40px' }}>
+        <div style={{ maxWidth: '960px', margin: '0 auto', padding: '0 24px' }}>
+          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: CLAY, fontFamily: 'IBM Plex Mono', marginBottom: '8px' }}>
+            habitta
+          </p>
+          <h1 style={{ fontSize: '36px', fontWeight: 700, color: 'white', letterSpacing: '-1px', margin: 0, lineHeight: 1.1 }}>
+            Imóveis
+          </h1>
+          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', marginTop: '8px' }}>
+            Selecção curada — só publicamos o que valeria a pena visitar.
+          </p>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 lg:px-12 pb-20">
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3 mb-8 items-center">
-          <div className="relative flex-1 min-w-64">
+      {/* Sticky filter bar */}
+      <div style={{ background: 'white', borderBottom: `1px solid ${HAIRLINE}`, position: 'sticky', top: '64px', zIndex: 40 }}>
+        <div style={{ maxWidth: '960px', margin: '0 auto', padding: '12px 24px', display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+
+          {/* Search */}
+          <div style={{ position: 'relative', flex: 1, minWidth: '200px' }}>
             <input
               type="text"
-              placeholder="Pesquisar zona, cidade..."
+              placeholder="Zona, cidade, morada…"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full px-4 py-2.5 text-sm outline-none"
-              style={{ border: `1px solid ${HAIRLINE}`, background: 'white', color: INK, borderRadius: '4px' }}
+              style={{ width: '100%', padding: '9px 36px 9px 14px', fontSize: '13px', border: `1px solid ${HAIRLINE}`, borderRadius: '50px', outline: 'none', color: INK, boxSizing: 'border-box' }}
+              onFocus={e => (e.currentTarget.style.borderColor = CLAY)}
+              onBlur={e => (e.currentTarget.style.borderColor = HAIRLINE)}
             />
             {search && (
-              <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2">
-                <X size={13} style={{ color: STONE }} />
+              <button onClick={() => setSearch('')} style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                <X size={13} color={STONE} />
               </button>
             )}
           </div>
 
-          {[
-            { value: budget, set: setBudget, options: budgetOptions },
-          ].map(({ value, set, options }, i) => (
-            <div key={i} className="relative">
-              <select value={value} onChange={e => set(e.target.value)}
-                className="appearance-none pl-4 pr-8 py-2.5 text-sm outline-none cursor-pointer"
-                style={{ border: `1px solid ${HAIRLINE}`, background: value ? BONE : 'white', color: INK, borderRadius: '4px' }}>
-                {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
-              <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: STONE }} />
-            </div>
-          ))}
+          <FilterSelect value={propertyType} onChange={setPropertyType} options={typeOptions} />
+          <FilterSelect value={bedrooms} onChange={setBedrooms} options={bedroomOptions} />
+          <FilterSelect value={budget} onChange={setBudget} options={budgetOptions} />
 
-          <div className="relative">
-            <select value={bedrooms} onChange={e => setBedrooms(e.target.value)}
-              className="appearance-none pl-4 pr-8 py-2.5 text-sm outline-none cursor-pointer"
-              style={{ border: `1px solid ${HAIRLINE}`, background: bedrooms ? BONE : 'white', color: INK, borderRadius: '4px' }}>
-              <option value="">Todos os quartos</option>
-              {[1,2,3].map(n => <option key={n} value={n}>{n} quartos</option>)}
-              <option value="4">4+ quartos</option>
-            </select>
-            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: STONE }} />
-          </div>
+          {/* Divider */}
+          <div style={{ width: '1px', height: '20px', background: HAIRLINE }} />
 
-          <div className="relative">
-            <select value={sort} onChange={e => setSort(e.target.value)}
-              className="appearance-none pl-4 pr-8 py-2.5 text-sm outline-none cursor-pointer"
-              style={{ border: `1px solid ${HAIRLINE}`, background: 'white', color: INK, borderRadius: '4px' }}>
-              {sortOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
-            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: STONE }} />
-          </div>
+          {/* Sort */}
+          <FilterSelect value={sort} onChange={setSort} options={sortOptions} />
 
           {hasFilters && (
-            <button onClick={() => { setBudget(''); setBedrooms(''); setSearch('') }}
-              className="flex items-center gap-1.5 text-sm font-medium"
-              style={{ color: STONE }}>
-              <X size={13} /> Limpar
+            <button onClick={() => { setBudget(''); setBedrooms(''); setPropertyType(''); setSearch('') }}
+              style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: CLAY, background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
+              <X size={12} /> Limpar
             </button>
           )}
         </div>
+      </div>
 
-        {/* Count */}
-        <p className="text-xs mb-8" style={{ color: STONE, fontFamily: 'IBM Plex Mono' }}>
-          {loading ? 'A carregar…' : `${filtered.length} ${filtered.length === 1 ? 'imóvel' : 'imóveis'}`}
+      {/* Results */}
+      <div style={{ maxWidth: '960px', margin: '0 auto', padding: '32px 24px 80px' }}>
+        <p style={{ fontSize: '12px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '20px' }}>
+          {loading ? 'A carregar…' : `${filtered.length} ${filtered.length === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}`}
         </p>
 
-        {/* Grid */}
         {loading ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
-            {[1,2,3].map(i => (
-              <div key={i} style={{ background: 'white', border: `1px solid ${HAIRLINE}`, borderRadius: '10px', aspectRatio: '3/4', opacity: 0.4 }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[1, 2, 3].map(i => (
+              <div key={i} style={{ height: '200px', background: 'white', border: `1px solid ${HAIRLINE}`, borderRadius: '8px', opacity: 0.5 }} />
             ))}
           </div>
         ) : filtered.length > 0 ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {filtered.map(p => <PropertyCard key={p.id} p={p} />)}
           </div>
         ) : (
-          <div className="py-20">
-            <Divider />
-            <h2 className="font-display text-2xl mb-3" style={{ color: INK }}>Sem resultados</h2>
-            <p className="text-sm mb-6" style={{ color: STONE }}>Tente ajustar os filtros.</p>
-            <button onClick={() => { setBudget(''); setBedrooms(''); setSearch('') }}
-              className="px-6 py-3 text-white text-sm font-medium"
-              style={{ background: INK, borderRadius: '50px' }}>
+          <div style={{ textAlign: 'center', padding: '80px 0' }}>
+            <p style={{ fontSize: '18px', fontWeight: 700, color: INK, marginBottom: '8px' }}>Sem resultados</p>
+            <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>Tenta ajustar os filtros.</p>
+            <button onClick={() => { setBudget(''); setBedrooms(''); setPropertyType(''); setSearch('') }}
+              style={{ padding: '10px 24px', background: INK, color: 'white', borderRadius: '50px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
               Limpar filtros
             </button>
           </div>
