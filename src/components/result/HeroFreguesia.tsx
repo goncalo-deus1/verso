@@ -107,17 +107,6 @@ export function HeroFreguesia({ best, freguesia, isLoggedIn, onAuth, lowScoreWar
 
           {/* ── LEFT: TEXTO ── */}
           <div>
-            {/* Eyebrow */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
-              <span style={{ display: 'block', width: '32px', height: '1px', background: CLAY }} aria-hidden />
-              <p style={{
-                fontFamily: 'IBM Plex Mono, monospace',
-                fontSize: '9px', letterSpacing: '0.24em', textTransform: 'uppercase',
-                color: CLAY, margin: 0,
-              }}>
-                Ensaio Cartográfico N.º&nbsp;01 · AML&nbsp;2026
-              </p>
-            </div>
 
             {/* Score badge */}
             <p style={{

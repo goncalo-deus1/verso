@@ -82,13 +82,6 @@ export function HeroEnsaio() {
             initial={false}
             animate="show"
           >
-            {/* Eyebrow */}
-            <motion.div variants={item} className="flex items-center gap-3 mb-8 sm:mb-10">
-              <span className="block w-10 h-px bg-verso-clay" aria-hidden />
-              <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-verso-midnight-soft">
-                Ensaio Cartográfico N.º&nbsp;01 · AML&nbsp;2026
-              </p>
-            </motion.div>
 
             {/* Título */}
             <motion.h1
