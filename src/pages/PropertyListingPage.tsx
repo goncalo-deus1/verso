@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { X, ChevronDown, Bed, Bath, Maximize2, MapPin, Heart } from 'lucide-react'
+import { X, ChevronDown, ChevronLeft, ChevronRight, Bed, Bath, Maximize2, MapPin, Heart } from 'lucide-react'
 import { getActiveProperties } from '../lib/supabase/properties'
 import type { PropertyRow } from '../lib/supabase/properties'
 
@@ -35,8 +35,19 @@ const TYPE_LABEL: Record<string, string> = {
 // ─── Horizontal property card ─────────────────────────────────────────────────
 
 function PropertyCard({ p }: { p: PropertyRow }) {
-  const cover  = p.images?.[0] ?? null
+  const images = p.images ?? []
+  const [idx, setIdx] = useState(0)
+  const [hovered, setHovered] = useState(false)
   const [saved, setSaved] = useState(false)
+
+  function prev(e: React.MouseEvent) {
+    e.preventDefault()
+    setIdx(i => (i - 1 + images.length) % images.length)
+  }
+  function next(e: React.MouseEvent) {
+    e.preventDefault()
+    setIdx(i => (i + 1) % images.length)
+  }
 
   return (
     <div style={{ background: 'white', border: `1px solid ${HAIRLINE}`, borderRadius: '8px', overflow: 'hidden', display: 'flex', transition: 'box-shadow 200ms' }}
@@ -44,27 +55,55 @@ function PropertyCard({ p }: { p: PropertyRow }) {
       onMouseLeave={e => (e.currentTarget.style.boxShadow = 'none')}>
 
       {/* Image */}
-      <Link to={`/imoveis/${p.id}`} style={{ flexShrink: 0, width: '300px', minHeight: '200px', background: '#E8E0D0', position: 'relative', overflow: 'hidden', display: 'block', textDecoration: 'none' }}>
-        {cover ? (
-          <img src={cover} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 400ms' }}
-            onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.04)')}
-            onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')} />
-        ) : (
-          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontSize: '12px', color: STONE, opacity: 0.35 }}>Sem foto</span>
+      <div
+        style={{ flexShrink: 0, width: '300px', minHeight: '200px', background: '#E8E0D0', position: 'relative', overflow: 'hidden' }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <Link to={`/imoveis/${p.id}`} style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none' }}>
+          {images.length > 0 ? (
+            <img
+              key={idx}
+              src={images[idx]}
+              alt={p.title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'opacity 200ms' }}
+            />
+          ) : (
+            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: '12px', color: STONE, opacity: 0.35 }}>Sem foto</span>
+            </div>
+          )}
+        </Link>
+
+        {/* Arrows — only when multiple photos and hovered */}
+        {images.length > 1 && hovered && (
+          <>
+            <button onClick={prev}
+              style={{ position: 'absolute', left: '8px', top: '50%', transform: 'translateY(-50%)', width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(255,255,255,0.9)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2, boxShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
+              <ChevronLeft size={15} color={INK} />
+            </button>
+            <button onClick={next}
+              style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(255,255,255,0.9)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2, boxShadow: '0 1px 4px rgba(0,0,0,0.2)' }}>
+              <ChevronRight size={15} color={INK} />
+            </button>
+          </>
+        )}
+
+        {/* Dot indicators */}
+        {images.length > 1 && (
+          <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '4px', zIndex: 2 }}>
+            {images.map((_, i) => (
+              <div key={i} style={{ width: i === idx ? '16px' : '6px', height: '6px', borderRadius: '3px', background: i === idx ? 'white' : 'rgba(255,255,255,0.5)', transition: 'all 200ms' }} />
+            ))}
           </div>
         )}
+
         {p.typology && (
-          <span style={{ position: 'absolute', top: '10px', left: '10px', fontSize: '11px', fontWeight: 700, background: INK, color: 'white', padding: '3px 8px', borderRadius: '4px', letterSpacing: '0.5px' }}>
+          <span style={{ position: 'absolute', top: '10px', left: '10px', fontSize: '11px', fontWeight: 700, background: INK, color: 'white', padding: '3px 8px', borderRadius: '4px', letterSpacing: '0.5px', zIndex: 2 }}>
             {p.typology}
           </span>
         )}
-        {p.images && p.images.length > 1 && (
-          <span style={{ position: 'absolute', bottom: '10px', right: '10px', fontSize: '11px', background: 'rgba(0,0,0,0.55)', color: 'white', padding: '2px 8px', borderRadius: '4px' }}>
-            {p.images.length} fotos
-          </span>
-        )}
-      </Link>
+      </div>
 
       {/* Content */}
       <div style={{ flex: 1, padding: '20px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minWidth: 0 }}>
