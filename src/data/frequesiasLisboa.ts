@@ -6,10 +6,12 @@ import type { ZoneProfile } from './attributes'
 export type Freguesia = {
   slug: string
   name: string
-  concelho: 'Lisboa'
+  concelho: string
   profile: ZoneProfile
   oneLine: string
   shortDescription: string
+  honestDescription?: string
+  referenceStreets?: Array<{ name: string; note: string }>
   signalProperty: string
   budgetFitT2: { min: number; max: number } | null
 }

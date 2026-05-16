@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "postbuild": "node scripts/generate-sitemap.mjs && node scripts/generate-static-shells.mjs",
+    "build:ssr": "vite build --config vite.ssr.config.ts",
+    "postbuild": "npm run build:ssr && node scripts/generate-sitemap.mjs && node scripts/generate-static-shells.mjs",
     "test": "vitest run",
     "lint": "eslint .",
     "preview": "vite preview"
