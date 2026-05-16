@@ -2,6 +2,7 @@ import { useEffect, useRef, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { X } from 'lucide-react'
 import { HelmetProvider } from 'react-helmet-async'
+import { Analytics } from '@vercel/analytics/react'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import { QuizProvider, useQuiz } from './context/QuizContext'
@@ -272,6 +273,7 @@ export default function App() {
               <PaperGrain />
               <QuizModal />
               <CookieBanner />
+              <Analytics />
               <AppRoutes />
             </QuizProvider>
           </LanguageProvider>
