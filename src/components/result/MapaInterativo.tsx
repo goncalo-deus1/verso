@@ -153,10 +153,11 @@ export function MapaInterativo({ prefs, onPrefsChange, quizBestConcelhoSlug, qui
                 aria-label="Mapa de afinidade dos concelhos da AML"
               >
                 {Object.entries(PATHS).map(([slug, { d, lx, ly, name }]) => {
-                  const rank  = rankIndex[slug] ?? 17
-                  const fill  = fillColor(rank)
-                  const isTop = rank < 3
-                  const isLis = slug === 'lisboa'
+                  const rank       = rankIndex[slug] ?? 17
+                  const isQuizBest = slug === quizBestConcelhoSlug
+                  const fill       = isQuizBest ? '#C2553A' : fillColor(rank)
+                  const isTop      = rank < 3 || isQuizBest
+                  const isLis      = slug === 'lisboa'
                   return (
                     <g
                       key={slug}
@@ -254,7 +255,7 @@ export function MapaInterativo({ prefs, onPrefsChange, quizBestConcelhoSlug, qui
               {/* Legenda */}
               <div className="mt-4 flex flex-wrap gap-5 font-mono text-[9px] tracking-[0.1em] uppercase text-verso-midnight-soft">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 inline-block" style={{ background: '#C2553A' }} /> Top 3
+                  <span className="w-2.5 h-2.5 inline-block" style={{ background: '#C2553A' }} /> Resultado &amp; Top 3
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 inline-block" style={{ background: '#94A383' }} /> Perfil semelhante (4–8)

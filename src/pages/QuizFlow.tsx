@@ -5,6 +5,7 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { flushSync } from 'react-dom'
 import { Link, useNavigate } from 'react-router-dom'
 import { Lock } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
@@ -528,8 +529,12 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
     setScreen('loading')
     setTimeout(() => {
       const res = scoreAnswers(answers)
-      setResult(res)
-      setQuizResult(res)
+      // flushSync ensures quizResult is committed to context before navigate fires,
+      // preventing QuizDossier from mounting with stale (null) context state.
+      flushSync(() => {
+        setResult(res)
+        setQuizResult(res)
+      })
       trackEvent('quiz_completed', { result_zone: res.best.zone.name })
       trackQuizCompleted({ quiz_version: 'v1' })
       // Auto-save best zone to profile if user is logged in

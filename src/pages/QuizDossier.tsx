@@ -24,6 +24,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 import { useAuth } from '../context/AuthContext'
 import { concelhosAML } from '../data/concelhosAML'
+import { getZoneConcelhoId } from '../data/zones'
 import {
   MapaInterativo,
   computeRanking,
@@ -123,9 +124,12 @@ function DossierContent({
     setPrefs(prev => ({ ...prev, [key]: val }))
   }, [])
 
+  // Always derive fresh — never trust best.concelhoSlug (can be stale from old Supabase results)
+  const bestConcelhoSlug = getZoneConcelhoId(best.zone)
+
   const sliderRanking = useMemo(() => computeRanking(prefs), [prefs])
   const sliderTop     = sliderRanking[0]
-  const isQuizTop     = sliderTop?.slug === best.concelhoSlug
+  const isQuizTop     = sliderTop?.slug === bestConcelhoSlug
 
   const displayData = useMemo(() => {
     if (isQuizTop) {
@@ -134,7 +138,7 @@ function DossierContent({
         score:              best.score,
         leituraCurta:       best.justification,
         slug:               best.slug,
-        concelhoSlug:       best.concelhoSlug,
+        concelhoSlug:       bestConcelhoSlug,
         zoneKind:           (best.zone.kind ?? 'concelho') as 'freguesia' | 'concelho',
         vector:             best.vector,
         tradeoff:           best.tradeoff,
@@ -147,13 +151,13 @@ function DossierContent({
       score:              sliderTop?.score ?? best.score,
       leituraCurta:       concelho?.oneLine ?? best.justification,
       slug:               sliderTop?.slug ?? best.slug,
-      concelhoSlug:       sliderTop?.slug ?? best.concelhoSlug,
+      concelhoSlug:       sliderTop?.slug ?? bestConcelhoSlug,
       zoneKind:           'concelho' as const,
       vector:             concelho?.profile ?? best.vector,
       tradeoff:           undefined,
       tradeoffConfidence: 'none' as const,
     }
-  }, [isQuizTop, sliderTop, best])
+  }, [isQuizTop, sliderTop, best, bestConcelhoSlug])
 
   function handleRestart() {
     setQuizResult(null)
@@ -191,7 +195,7 @@ function DossierContent({
         <MapaInterativo
           prefs={prefs}
           onPrefsChange={handlePrefChange}
-          quizBestConcelhoSlug={best.concelhoSlug}
+          quizBestConcelhoSlug={displayData.concelhoSlug}
           quizBestScore={best.score}
           zonaNome={displayData.nome}
         />
@@ -201,15 +205,17 @@ function DossierContent({
 
         {/* § 03b — Projetos urbanos previstos */}
         {(() => {
+          // Derive concelhoSlug fresh from the zone object — ignores stale stored value
+          const concelhoSlug = getZoneConcelhoId(best.zone)
           const concelhoName =
-            concelhosAML.find(c => c.slug === best.concelhoSlug)?.name ??
+            concelhosAML.find(c => c.slug === concelhoSlug)?.name ??
             best.zone.name
           const freguesiaSlug =
             best.zone.kind === 'freguesia' ? best.slug : null
           return (
             <section className="habitta-px py-16 md:py-20" style={{ background: 'var(--linho)' }}>
               <UrbanProjectsSection
-                concelhoSlug={best.concelhoSlug}
+                concelhoSlug={concelhoSlug}
                 concelhoName={concelhoName}
                 freguesiaSlug={freguesiaSlug}
                 eyebrowOverride="O que vem aí"
