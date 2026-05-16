@@ -1,10 +1,10 @@
 ---
 title: "Viver em Odivelas: guia completo do concelho (2026)"
-slug: concelho/odivelas
+slug: aml/odivelas
 meta_description: "Tudo sobre viver em Odivelas: renda T2, projeção a 3 anos, futura Linha Violeta, transportes, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/odivelas
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/odivelas
 ---
 
 # Viver em Odivelas: o que precisa de saber antes de escolher esta zona
@@ -66,7 +66,7 @@ Há mais de uma dezena de empreendimentos em comercialização, sobretudo em Odi
 
 ## Escolas, saúde e comércio
 
-Em ensino, há boa cobertura de escolas públicas básicas e secundárias. O Colégio Vasco da Gama (em Odivelas-Vila) e algumas escolas privadas complementam a oferta. O ensino superior está em Lisboa.
+Em ensino, a oferta de ensino básico e secundário público é a coluna vertebral — alguns colégios privados complementam, mas Odivelas não é destino de escolas internacionais. Quem quer ensino superior atravessa para Lisboa: a Cidade Universitária fica a 10 minutos de carro de Odivelas-Vila.
 
 Em saúde, o Hospital Beatriz Ângelo (em Loures) é a referência pública mais próxima. A oferta privada inclui clínicas de menor dimensão.
 

@@ -1,10 +1,10 @@
 ---
 title: "Viver em Palmela: guia completo do concelho (2026)"
-slug: concelho/palmela
+slug: aml/palmela
 meta_description: "Tudo sobre viver em Palmela: renda T2, projeção a 3 anos, Autoeuropa, Fertagus, Castelo de Palmela e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/palmela
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/palmela
 ---
 
 # Viver em Palmela: o que precisa de saber antes de escolher esta zona

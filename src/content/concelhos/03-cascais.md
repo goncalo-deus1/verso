@@ -1,10 +1,10 @@
 ---
 title: "Viver em Cascais: guia completo do concelho (2026)"
-slug: concelho/cascais
+slug: aml/cascais
 meta_description: "Tudo sobre viver em Cascais: renda T2, projeção a 3 anos, escolas internacionais, transportes, perfil de morador e projetos urbanos previstos."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/cascais
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/cascais
 ---
 
 # Viver em Cascais: o que precisa de saber antes de escolher esta zona
@@ -66,9 +66,9 @@ Continuam expansões e melhorias do Hospital de Cascais, considerado um dos melh
 
 ## Escolas, saúde e comércio
 
-Cascais tem a maior concentração de escolas internacionais de Portugal. Carlucci American International School, St. Julian's School, St. Dominic's, Salesianos, Externato Frei Luís de Sousa, Externato Nossa Senhora do Rosário e o Tasis Portugal são algumas das principais. As escolas públicas têm reputação acima da média nacional, especialmente as de Carcavelos, Estoril e Cascais-Vila.
+Cascais tem a maior concentração de escolas internacionais de Portugal. St. Julian's School (Carcavelos), St. Dominic's International School (São Domingos de Rana), Salesianos do Estoril, Colégio Marista de Carcavelos (Parede) e Externato Nossa Senhora do Rosário são algumas das principais. As escolas públicas têm reputação acima da média nacional, especialmente as de Carcavelos, Estoril e Cascais-Vila.
 
-Em saúde, o Hospital de Cascais (gestão público-privada via Lusíadas) é a referência. O Hospital da Luz Oeiras e o CUF Cascais complementam a oferta privada.
+Em saúde, o Hospital de Cascais (gestão público-privada via Ribera Salud, concessão iniciada em 2023, substituiu Lusíadas) é a referência. O Hospital da Luz Oeiras e o CUF Cascais complementam a oferta privada.
 
 Em comércio, o CascaiShopping é o maior centro da zona ocidental. O centro de Cascais e o Estoril têm comércio tradicional ainda vivo. Carcavelos tem o Mercado de Carcavelos como ponto de referência local.
 

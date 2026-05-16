@@ -1,10 +1,10 @@
 ---
 title: "Viver em Vila Franca de Xira: guia completo do concelho (2026)"
-slug: concelho/vila-franca-de-xira
+slug: aml/vila-franca-de-xira
 meta_description: "Tudo sobre viver em Vila Franca de Xira: renda T2, projeção a 3 anos, comboios para Lisboa, projetos urbanos, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/vila-franca-de-xira
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/vila-franca-de-xira
 ---
 
 # Viver em Vila Franca de Xira: o que precisa de saber antes de escolher esta zona
@@ -37,7 +37,7 @@ Vila Franca de Xira tinha 137.659 residentes nos Censos 2021, mais 0,6% do que e
 
 ## Quem mora em Vila Franca de Xira? Perfil de morador
 
-Vila Franca de Xira tem perfil de classe média trabalhadora. Famílias estabelecidas há gerações, comunidades imigrantes em Vialonga e Forte da Casa, profissionais industriais e logísticos da indústria automóvel (Fábrica da Citroën em Mangualde já fechou, mas a OPEL em Azambuja ainda tem peso) e da Embraer em Alverca convivem na zona.
+Vila Franca de Xira tem perfil de classe média trabalhadora. Famílias estabelecidas há gerações, comunidades imigrantes em Vialonga e Forte da Casa, e profissionais industriais e logísticos da Embraer em Alverca convivem na zona.
 
 A presença internacional é menor do que noutros concelhos da AML.
 

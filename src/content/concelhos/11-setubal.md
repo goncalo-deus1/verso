@@ -1,10 +1,10 @@
 ---
 title: "Viver em Setúbal: guia completo do concelho (2026)"
-slug: concelho/setubal
+slug: aml/setubal
 meta_description: "Tudo sobre viver em Setúbal: renda T2, projeção a 3 anos, transportes para Lisboa, projetos urbanos, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/setubal
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/setubal
 ---
 
 # Viver em Setúbal: o que precisa de saber antes de escolher esta zona

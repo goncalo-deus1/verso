@@ -1,10 +1,10 @@
 ---
 title: "Viver em Loures: guia completo do concelho (2026)"
-slug: concelho/loures
+slug: aml/loures
 meta_description: "Tudo sobre viver em Loures: renda T2, projeção a 3 anos, projetos urbanos como a Linha Violeta, transportes, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/loures
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/loures
 ---
 
 # Viver em Loures: o que precisa de saber antes de escolher esta zona
@@ -55,7 +55,7 @@ A grande mudança em Loures é a Linha Violeta do Metro.
 **LIOS Oriental** — `Em estudo`
 Vai ligar Santa Apolónia a Sacavém, criando outro eixo de transporte rápido na margem norte do Tejo. Pode reforçar a atratividade de Sacavém e Bobadela.
 
-A Linha Vermelha do Metro tem terminal em Moscavide e Aeroporto, ambos em Loures, dando acesso direto ao concelho. A Linha Amarela termina em Odivelas, vizinha de Loures.
+A Linha Vermelha do Metro termina em Moscavide, dentro do concelho. A paragem seguinte é o Aeroporto Humberto Delgado (já em Lisboa-Olivais), o que dá a Loures acesso directo a duas estações estruturantes — uma sua, uma na fronteira. A Linha Amarela termina em Odivelas, vizinha de Loures.
 
 De carro, a A8 e a A1 são as ligações principais. O acesso a Lisboa é bom em hora não pico (15 minutos a Lisboa Oriente), mas o trânsito na A1 e na 2ª Circular é difícil em hora de ponta.
 
@@ -71,7 +71,7 @@ Há mais de uma dezena de empreendimentos privados em comercialização, com for
 
 ## Escolas, saúde e comércio
 
-Em ensino, há boa cobertura de escolas públicas, dois polos do Instituto Politécnico de Lisboa (em Sacavém) e colégios privados em Loures-Vila. As universidades estão em Lisboa.
+Em ensino, há boa cobertura de escolas públicas e colégios privados em Loures-Vila. As universidades estão em Lisboa.
 
 Em saúde, o Hospital Beatriz Ângelo (em Loures-Vila) é a referência pública. O Hospital da Luz Lisboa Oriente (em Sacavém) e a CUF Descobertas (em Lisboa, junto a Moscavide) servem a zona em regime privado.
 

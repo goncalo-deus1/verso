@@ -1,10 +1,10 @@
 ---
 title: "Viver na Amadora: guia completo do concelho (2026)"
-slug: concelho/amadora
+slug: aml/amadora
 meta_description: "Tudo sobre viver na Amadora: renda T2, projeção a 3 anos, transportes, escolas, saúde, comércio e perfil de morador no concelho mais denso da AML."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/amadora
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/amadora
 ---
 
 # Viver na Amadora: o que precisa de saber antes de escolher esta zona

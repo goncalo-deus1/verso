@@ -1,10 +1,10 @@
 ---
 title: "Viver em Lisboa: guia completo do concelho (2026)"
-slug: concelho/lisboa
+slug: aml/lisboa
 meta_description: "Tudo sobre viver no concelho de Lisboa: população, renda mediana de um T2, projeção a 3 anos, projetos urbanos previstos, transportes e perfil de quem mora cá."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/lisboa
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/lisboa
 ---
 
 # Viver em Lisboa: o que precisa de saber antes de escolher esta zona
@@ -80,7 +80,7 @@ A revisão do PDM em curso prevê maior densificação habitacional em zonas de 
 
 ## Escolas, saúde e comércio
 
-Lisboa concentra grande parte da oferta pública e privada de equipamentos do país. Em ensino, há cerca de 50 escolas públicas básicas e secundárias, três pólos universitários estruturantes (Universidade de Lisboa, Universidade Nova, ISCTE) e dezenas de colégios privados internacionais (Carlucci American International School, St Julian's, Lycée Français Charles Lepierre, Saint Dominic's). Em saúde, o concelho tem os hospitais universitários de Santa Maria, São José, Curry Cabral e Estefânia, e três grandes redes privadas (Lusíadas, CUF, Luz). Em comércio, há de tudo: hipermercados em quase todas as freguesias, mercados municipais (Campo de Ourique, Arroios, Ribeira), centros comerciais grandes (Colombo, Vasco da Gama, Amoreiras) e ruas de comércio tradicional ainda vivas em Alvalade, Lapa e Bairro Alto.
+Lisboa concentra grande parte da oferta pública e privada de equipamentos do país. Em ensino, há cerca de 50 escolas públicas básicas e secundárias, três pólos universitários estruturantes (Universidade de Lisboa, Universidade Nova, ISCTE) e colégios privados internacionais — Lycée Français Charles Lepierre (Campolide), Colégio Luso-Suíço (Estrela), Escola Alemã de Lisboa (Telheiras) e United Lisbon International School (Parque das Nações). Em saúde, o concelho tem os hospitais universitários de Santa Maria, São José, Curry Cabral e Estefânia, e três grandes redes privadas (Lusíadas, CUF, Luz). Em comércio, há de tudo: hipermercados em quase todas as freguesias, mercados municipais (Campo de Ourique, Arroios, Ribeira), centros comerciais grandes (Colombo, Vasco da Gama, Amoreiras) e ruas de comércio tradicional ainda vivas em Alvalade, Lapa e Bairro Alto.
 
 ---
 

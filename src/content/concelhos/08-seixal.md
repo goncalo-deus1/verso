@@ -1,10 +1,10 @@
 ---
 title: "Viver no Seixal: guia completo do concelho (2026)"
-slug: concelho/seixal
+slug: aml/seixal
 meta_description: "Tudo sobre viver no Seixal: renda T2, projeção a 3 anos, transportes para Lisboa, projetos urbanos, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/seixal
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/seixal
 ---
 
 # Viver no Seixal: o que precisa de saber antes de escolher esta zona

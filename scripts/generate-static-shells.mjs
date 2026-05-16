@@ -23,9 +23,9 @@
  *   /blog/:slug          → dist/blog/:slug/index.html  (non-draft only)
  */
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'fs'
 import { join, dirname }                                        from 'path'
-import { fileURLToPath }                                        from 'url'
+import { fileURLToPath, pathToFileURL }                         from 'url'
 import matter                                                   from 'gray-matter'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -201,7 +201,13 @@ const META_SECTION_RE = /[ \t]*<!-- Canonical -->[\s\S]*?(?=[ \t]*<title>)/
 // Matches the <title> element (appears exactly once in <head>)
 const TITLE_RE = /<title>[^<]*<\/title>/
 
-function applyShell(baseHtml, metaBlock, title, jsonLd) {
+// Matches the empty <div id="root"></div> in dist/index.html.
+// The prerender injects body HTML inside that div. React's createRoot will
+// replace these children when JS mounts on the client (no hydration mismatch
+// because we're not calling hydrateRoot).
+const ROOT_DIV_RE = /<div id="root"><\/div>/
+
+function applyShell(baseHtml, metaBlock, title, jsonLd, bodyHtml) {
   if (!META_SECTION_RE.test(baseHtml)) {
     throw new Error(
       'generate-static-shells: could not locate <!-- Canonical --> block in dist/index.html. ' +
@@ -220,6 +226,12 @@ function applyShell(baseHtml, metaBlock, title, jsonLd) {
     // dist/index.html uses 2-space indent for </head>
     html = html.replace('  </head>', `${jsonLd}  </head>`)
   }
+  if (bodyHtml) {
+    if (!ROOT_DIV_RE.test(html)) {
+      throw new Error('generate-static-shells: could not locate <div id="root"></div> for body injection.')
+    }
+    html = html.replace(ROOT_DIV_RE, `<div id="root">${bodyHtml}</div>`)
+  }
   return html
 }
 
@@ -233,9 +245,219 @@ function writeShell(relPath, content) {
   console.log(`[shells] → dist/${relPath}/index.html`)
 }
 
-// ─── Main ─────────────────────────────────────────────────────────────────────
+// ─── Freguesia shells (manifest-driven) ──────────────────────────────────────
+//
+// Any freguesia with real data lives in src/data/freguesias/<concelho>/<slug>.ts.
+// A freguesia is prerendered ONLY when it appears in src/data/prerenderManifest.ts.
+// Pages whose data still contains {{DADO_EM_FALTA}} tokens must stay out of the
+// manifest so crawlers never see incomplete numbers.
 
-function main() {
+function freguesiaMetaBlock(props, ogImageUrl) {
+  const url   = `${BASE_URL}/aml/${props.concelho.slug}/${props.freguesia.slug}`
+  const title = `Viver em ${props.freguesia.name}, ${props.concelho.name} — 2026 | Habitta`
+  const desc  = props.meta.description
+  const image = ogImageUrl ? `${BASE_URL}${ogImageUrl}` : ''
+
+  return `    <!-- Canonical -->
+    <link rel="canonical" href="${url}">
+
+    <!-- Primary meta -->
+    <meta name="description" content="${esc(desc)}">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="${url}">
+    <meta property="og:title" content="${esc(title)}">
+    <meta property="og:description" content="${esc(desc)}">
+${image ? `    <meta property="og:image" content="${image}">\n    <meta property="og:image:width" content="1200">\n    <meta property="og:image:height" content="630">\n` : ''}    <meta property="og:locale" content="pt_PT">
+    <meta property="og:site_name" content="habitta">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="${url}">
+    <meta name="twitter:title" content="${esc(title)}">
+    <meta name="twitter:description" content="${esc(desc)}">
+${image ? `    <meta name="twitter:image" content="${image}">\n` : ''}
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="pt-pt" href="${url}">
+
+`
+}
+
+async function renderFreguesiaShells(baseHtml, ssr) {
+  const { renderFreguesiaBySlug, prerenderManifest } = ssr
+  const { buildFreguesiaOgImage } = await import(
+    pathToFileURL(join(ROOT, 'scripts', 'build-og-image.mjs')).href
+  )
+
+  const freguesiaEntries = (prerenderManifest ?? []).filter(e => e.type === 'freguesia')
+  let count = 0
+
+  for (const entry of freguesiaEntries) {
+    // Path shape: /aml/<concelho>/<freguesia>
+    const parts = entry.path.split('/').filter(Boolean)
+    if (parts.length !== 3 || parts[0] !== 'aml') {
+      console.warn(`[shells] manifest path "${entry.path}" is not a freguesia URL — skipping.`)
+      continue
+    }
+    const [, concelhoSlug, freguesiaSlug] = parts
+    const result = renderFreguesiaBySlug(concelhoSlug, freguesiaSlug)
+    if (!result) {
+      console.warn(`[shells] manifest entry "${entry.path}" has no matching data file — skipping.`)
+      continue
+    }
+
+    // Guard: never write a shell that still contains tokens.
+    if (result.html.includes('{{DADO_EM_FALTA}}')) {
+      console.error(
+        `[shells] REFUSING to write ${entry.path} — rendered HTML still contains ` +
+        `{{DADO_EM_FALTA}}. Fill the data file or remove from prerenderManifest.ts.`
+      )
+      continue
+    }
+
+    const ogRelPath = `/og/aml/${concelhoSlug}/${freguesiaSlug}.png`
+    await buildFreguesiaOgImage({
+      freguesia: result.props.freguesia.name,
+      concelho:  result.props.concelho.name,
+      outPath:   join(DIST, ogRelPath.replace(/^\//, '')),
+    })
+
+    const html = applyShell(
+      baseHtml,
+      freguesiaMetaBlock(result.props, ogRelPath),
+      `Viver em ${result.props.freguesia.name}, ${result.props.concelho.name} — 2026 | Habitta`,
+      null,
+      result.html,
+    )
+    writeShell(`aml/${concelhoSlug}/${freguesiaSlug}`, html)
+    count++
+  }
+  return count
+}
+
+// ─── Generic meta block for concelho-hub + pillar ────────────────────────────
+
+function genericMetaBlock({ url, title, description, ogType }) {
+  return `    <!-- Canonical -->
+    <link rel="canonical" href="${url}">
+
+    <!-- Primary meta -->
+    <meta name="description" content="${esc(description)}">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="${ogType}">
+    <meta property="og:url" content="${url}">
+    <meta property="og:title" content="${esc(title)}">
+    <meta property="og:description" content="${esc(description)}">
+    <meta property="og:locale" content="pt_PT">
+    <meta property="og:site_name" content="habitta">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="${url}">
+    <meta name="twitter:title" content="${esc(title)}">
+    <meta name="twitter:description" content="${esc(description)}">
+
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="pt-pt" href="${url}">
+
+`
+}
+
+async function renderConcelhoHubShells(baseHtml, ssr) {
+  const { renderConcelhoHubBySlug, prerenderManifest } = ssr
+  const entries = (prerenderManifest ?? []).filter(e => e.type === 'concelho-hub')
+  let count = 0
+  for (const entry of entries) {
+    const parts = entry.path.split('/').filter(Boolean)
+    if (parts.length !== 2 || parts[0] !== 'aml') {
+      console.warn(`[shells] manifest path "${entry.path}" is not a /aml/<concelho> URL — skipping.`)
+      continue
+    }
+    const concelhoSlug = parts[1]
+    const result = renderConcelhoHubBySlug(concelhoSlug)
+    if (!result) {
+      console.warn(`[shells] manifest entry "${entry.path}" has no concelho-hub data — skipping.`)
+      continue
+    }
+    if (result.html.includes('{{DADO_EM_FALTA}}')) {
+      console.error(`[shells] REFUSING to write ${entry.path} — contains {{DADO_EM_FALTA}}.`)
+      continue
+    }
+    // The concelho hub data carries name via the MD frontmatter title.
+    const titlePrefix = result.data.md.frontmatter.title || `O concelho de ${concelhoSlug}`
+    const title = `${titlePrefix} | habitta`
+    const description = result.data.md.frontmatter.meta_description
+    const html = applyShell(
+      baseHtml,
+      genericMetaBlock({
+        url:         `${BASE_URL}${entry.path}`,
+        title,
+        description,
+        ogType:      'article',
+      }),
+      title,
+      null,
+      result.html,
+    )
+    writeShell(`aml/${concelhoSlug}`, html)
+    count++
+  }
+  return count
+}
+
+async function renderPillarShells(baseHtml, ssr) {
+  const { renderPillarBySlug, prerenderManifest } = ssr
+  const entries = (prerenderManifest ?? []).filter(e => e.type === 'pillar')
+  let count = 0
+  for (const entry of entries) {
+    const parts = entry.path.split('/').filter(Boolean)
+    if (parts.length !== 2 || parts[0] !== 'guias') {
+      console.warn(`[shells] manifest path "${entry.path}" is not a /guias/<slug> URL — skipping.`)
+      continue
+    }
+    const slug = parts[1]
+    const result = renderPillarBySlug(slug)
+    if (!result) {
+      console.warn(`[shells] manifest entry "${entry.path}" has no pillar data — skipping.`)
+      continue
+    }
+    if (result.html.includes('{{DADO_EM_FALTA}}')) {
+      console.error(`[shells] REFUSING to write ${entry.path} — contains {{DADO_EM_FALTA}}.`)
+      continue
+    }
+    const title = `${result.props.title} | habitta`
+    const html = applyShell(
+      baseHtml,
+      genericMetaBlock({
+        url:         `${BASE_URL}${entry.path}`,
+        title,
+        description: result.props.meta.description,
+        ogType:      'article',
+      }),
+      title,
+      null,
+      result.html,
+    )
+    writeShell(`guias/${slug}`, html)
+    count++
+  }
+  return count
+}
+
+async function loadSsrBundle() {
+  const ssrPath = join(ROOT, 'dist-ssr', 'render.mjs')
+  if (!existsSync(ssrPath)) {
+    console.warn('[shells] dist-ssr/render.mjs not found — manifest-driven prerender skipped.')
+    return null
+  }
+  return import(pathToFileURL(ssrPath).href)
+}
+
+async function main() {
   const baseHtml = readFileSync(join(DIST, 'index.html'), 'utf-8')
   const posts    = readPosts()
 
@@ -259,7 +481,15 @@ function main() {
     writeShell(`blog/${post.slug}`, html)
   }
 
-  console.log(`[shells] Done — ${1 + posts.length} shells written`)
+  // Manifest-driven prerender across all editorial page types
+  const ssr = await loadSsrBundle()
+  const freguesiaCount = ssr ? await renderFreguesiaShells(baseHtml, ssr) : 0
+  const concelhoCount  = ssr ? await renderConcelhoHubShells(baseHtml, ssr) : 0
+  const pillarCount    = ssr ? await renderPillarShells(baseHtml, ssr) : 0
+
+  const total = 1 + posts.length + freguesiaCount + concelhoCount + pillarCount
+  console.log(`[shells] Done — ${total} shells written ` +
+              `(blog index + ${posts.length} posts + ${freguesiaCount} freguesias + ${concelhoCount} concelhos + ${pillarCount} pillars)`)
 }
 
 main()

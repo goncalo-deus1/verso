@@ -1,10 +1,10 @@
 ---
 title: "Viver em Alcochete: guia completo do concelho (2026)"
-slug: concelho/alcochete
+slug: aml/alcochete
 meta_description: "Tudo sobre viver em Alcochete: renda T2, projeção a 3 anos, novo aeroporto Luís de Camões, transportes, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/alcochete
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/alcochete
 ---
 
 # Viver em Alcochete: o que precisa de saber antes de escolher esta zona

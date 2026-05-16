@@ -1,10 +1,10 @@
 ---
 title: "Viver na Moita: guia completo do concelho (2026)"
-slug: concelho/moita
+slug: aml/moita
 meta_description: "Tudo sobre viver na Moita: renda T2, projeção a 3 anos, transportes Fertagus, projetos urbanos, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/moita
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/moita
 ---
 
 # Viver na Moita: o que precisa de saber antes de escolher esta zona

@@ -1,10 +1,10 @@
 ---
 title: "Viver em Oeiras: guia completo do concelho (2026)"
-slug: concelho/oeiras
+slug: aml/oeiras
 meta_description: "Tudo sobre viver em Oeiras: renda T2, projeção a 3 anos, escolas, transportes, escritórios, perfil de morador e projetos urbanos previstos."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/oeiras
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/oeiras
 ---
 
 # Viver em Oeiras: o que precisa de saber antes de escolher esta zona
@@ -64,7 +64,7 @@ Continua a requalificação da zona ribeirinha entre Algés e Pedrouços, em par
 
 ## Escolas, saúde e comércio
 
-Oeiras tem boa oferta escolar pública e privada. Externato Marista, Salesianos do Estoril (Linda-a-Velha), Colégio São João de Brito (Linda-a-Pastora), Park International School (Linda-a-Velha) e o IST TagusPark (campus secundário do Instituto Superior Técnico) são referências.
+Oeiras tem boa oferta escolar pública e privada. Dentro do concelho, o Externato Padre António Vieira (Linda-a-Velha), o Colégio da Torre (Paço de Arcos) e os agrupamentos públicos de Carnaxide e Paço de Arcos ancoram a rede para famílias com filhos em idade escolar. O IST TagusPark, em Porto Salvo, é o campus secundário do Instituto Superior Técnico e a única presença universitária dentro do concelho. Para ensino internacional de referência, a maioria das famílias de Oeiras desloca-se para Carcavelos (St Julian's, no concelho vizinho de Cascais) ou para Linhó (Carlucci American School, em Sintra).
 
 Em saúde, o Hospital da Luz Oeiras e o Hospital CUF Tejo (zona limítrofe em Lisboa) servem o concelho. O Hospital de São Francisco Xavier (Lisboa) é a referência pública.
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { X } from 'lucide-react'
 import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './context/AuthContext'
@@ -38,7 +38,6 @@ const AuthPage           = lazy(() => import('./pages/AuthPage'))
 const ProfilePage        = lazy(() => import('./pages/ProfilePage'))
 const QuizResults        = lazy(() => import('./pages/QuizResults'))
 const ZoneDetailPage     = lazy(() => import('./pages/ZoneDetailPage'))
-const ConcelhoDetailPage = lazy(() => import('./pages/ConcelhoDetailPage'))
 const AuthCallback       = lazy(() => import('./pages/AuthCallback'))
 const MinhaConta         = lazy(() => import('./pages/MinhaConta'))
 const QuizDossier        = lazy(() => import('./pages/QuizDossier'))
@@ -49,6 +48,10 @@ const EmBreve            = lazy(() => import('./pages/EmBreve'))
 const ProprietarioEmBreve = lazy(() => import('./pages/ProprietarioEmBreve'))
 const SobrePage          = lazy(() => import('./pages/SobrePage'))
 const AddPropertyPage    = lazy(() => import('./pages/AddPropertyPage'))
+const FreguesiaRoute     = lazy(() => import('./pages/aml/FreguesiaRoute'))
+const ConcelhoRoute      = lazy(() => import('./pages/aml/ConcelhoRoute'))
+const PillarRoute        = lazy(() => import('./pages/guias/PillarRoute'))
+const NotFound           = lazy(() => import('./pages/NotFound'))
 
 const INK  = '#1E1F18'
 const BONE = '#F2EDE4'
@@ -73,6 +76,16 @@ function PageTracker() {
   }, [pathname])
 
   return null
+}
+
+/**
+ * Mirrors the vercel.json 301 redirect `/concelho/:slug → /aml/:slug`.
+ * Vercel intercepts before the SPA in production, so this only runs in dev
+ * or for client-side navigations to a legacy path.
+ */
+function ConcelhoLegacyRedirect() {
+  const { slug } = useParams<{ slug: string }>()
+  return <Navigate to={`/aml/${slug ?? ''}`} replace />
 }
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -212,7 +225,22 @@ function AppRoutes() {
         <Route path="/quiz/dossier" element={<Layout><QuizDossier /></Layout>} />
         <Route path="/zona/:slug" element={<Layout><ZoneDetailPage /></Layout>} />
 
-        <Route path="/concelho/:slug" element={<Layout><ConcelhoDetailPage /></Layout>} />
+        {/* Legacy /concelho/:slug → /aml/:slug. Vercel handles this with a
+            301 in production; this route only fires in dev / on SPA-side
+            navigation to the old path. */}
+        <Route path="/concelho/:slug" element={<ConcelhoLegacyRedirect />} />
+
+        {/* /aml/:concelho/:freguesia — editorial freguesia pages.
+            Prerendered HTML is served by Vercel from dist/aml/.../index.html
+            for entries in src/data/prerenderManifest.ts. This SPA route
+            handles dev preview and post-mount client navigation. */}
+        <Route path="/aml/:concelho/:freguesia" element={<Layout><FreguesiaRoute /></Layout>} />
+
+        {/* /aml/:concelho — concelho hub */}
+        <Route path="/aml/:concelho" element={<Layout><ConcelhoRoute /></Layout>} />
+
+        {/* /guias/:slug — pillar guides */}
+        <Route path="/guias/:slug" element={<Layout><PillarRoute /></Layout>} />
 
         <Route path="/imoveis" element={<Layout><PropertyListingPage /></Layout>} />
         <Route path="/imoveis/:id" element={<Layout><PropertyDetailPage /></Layout>} />
@@ -224,6 +252,11 @@ function AppRoutes() {
         <Route path="/minha-conta" element={<Layout><ProtectedRoute><MinhaConta /></ProtectedRoute></Layout>} />
         <Route path="/perfil" element={<Layout><ProfilePage /></Layout>} />
         <Route path="/adicionar-imovel" element={<Layout><ProtectedRoute><AddPropertyPage /></ProtectedRoute></Layout>} />
+
+        {/* Catch-all 404 — runs only for URLs the SPA doesn't recognise.
+            In production, vercel.json redirects known legacy paths (e.g.
+            /concelho/:slug → /aml/:slug) before the SPA ever sees them. */}
+        <Route path="*" element={<Layout><NotFound /></Layout>} />
       </Routes>
     </Suspense>
   )

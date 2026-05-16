@@ -1,10 +1,10 @@
 ---
 title: "Viver em Sintra: guia completo do concelho (2026)"
-slug: concelho/sintra
+slug: aml/sintra
 meta_description: "Tudo sobre viver no concelho de Sintra: população, renda T2, projeção a 3 anos, projetos urbanos, transportes e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/sintra
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/sintra
 ---
 
 # Viver em Sintra: o que precisa de saber antes de escolher esta zona
@@ -66,7 +66,7 @@ Em ensino, Sintra tem boa cobertura de escolas públicas básicas e secundárias
 
 Em saúde, o Hospital Professor Doutor Fernando Fonseca (Amadora-Sintra) é a referência pública e serve também a Amadora. A oferta privada inclui o Hospital CUF Sintra e clínicas de menor dimensão.
 
-Em comércio, o concelho tem o CascaiShopping (na fronteira com Cascais), o Atrium Saldanha (em Queluz), o Forum Sintra e dezenas de hipermercados. As ruas comerciais tradicionais estão concentradas em Sintra-Vila, Mem Martins e Queluz.
+Em comércio, o concelho tem o CascaiShopping (na fronteira com Cascais), o Forum Sintra e dezenas de hipermercados. As ruas comerciais tradicionais estão concentradas em Sintra-Vila, Mem Martins e Queluz.
 
 ---
 

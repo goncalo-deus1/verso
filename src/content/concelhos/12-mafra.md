@@ -1,10 +1,10 @@
 ---
 title: "Viver em Mafra: guia completo do concelho (2026)"
-slug: concelho/mafra
+slug: aml/mafra
 meta_description: "Tudo sobre viver em Mafra: renda T2, projeção a 3 anos, transportes para Lisboa, projetos urbanos, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/mafra
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/mafra
 ---
 
 # Viver em Mafra: o que precisa de saber antes de escolher esta zona

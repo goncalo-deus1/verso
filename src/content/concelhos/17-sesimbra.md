@@ -1,10 +1,10 @@
 ---
 title: "Viver em Sesimbra: guia completo do concelho (2026)"
-slug: concelho/sesimbra
+slug: aml/sesimbra
 meta_description: "Tudo sobre viver em Sesimbra: renda T2, projeção a 3 anos, Parque Natural da Arrábida, transportes, escolas e perfil de morador."
 language: pt-PT
-last_updated: 2026-04-30
-canonical: https://www.usehabitta.com/concelho/sesimbra
+last_updated: 2026-05-15
+canonical: https://www.usehabitta.com/aml/sesimbra
 ---
 
 # Viver em Sesimbra: o que precisa de saber antes de escolher esta zona
