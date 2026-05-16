@@ -47,8 +47,45 @@
   --font-sans:     'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ── Habitta brand tokens — CSS variables ── */
+/* ── Habitta brand tokens — CSS variables ──
+ *
+ * Two-tier system:
+ *   1. Brand-book canonical names (--clay/--bone/--charcoal + spacing + container)
+ *      are the source of truth for new editorial pages (freguesia, pillar,
+ *      comparison). Their values come straight from the brand book.
+ *   2. The Portuguese palette names (--linho, --azeitona, --telha, …) remain
+ *      for legacy components. New components must use the brand-book names.
+ *
+ * Note: --charcoal (#2C2C2A) is intentionally different from --azeitona
+ * (#1E1F18). The brand book specifies charcoal for editorial body text.
+ * Never use pure white or pure black.
+ */
 :root {
+  /* ── Brand-book canonical (use these in new components) ── */
+  --clay:     #C2553A;
+  --bone:     #F2EDE4;
+  --charcoal: #2C2C2A;
+
+  /* Spacing scale (px). Use as var(--space-3) etc. */
+  --space-1:  8px;
+  --space-2:  16px;
+  --space-3:  24px;
+  --space-4:  32px;
+  --space-5:  48px;
+  --space-6:  64px;
+  --space-7:  96px;
+  --space-8:  128px;
+
+  /* Editorial layout */
+  --container-editorial: 1100px;
+  --leading-body:        1.55;
+
+  /* Typography stacks */
+  --font-display-stack: 'Fraunces', 'Fraunces-fallback', Georgia, serif;
+  --font-body-stack:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono-stack:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* ── Legacy palette (do not use in new editorial pages) ── */
   --linho:          #F2EDE4;
   --linho-claro:    #F8F4EC;
   --azeitona:       #1E1F18;
@@ -61,18 +98,40 @@
   --papel:          #E8E0D0;
   --traco:          rgba(30, 31, 24, 0.125);
 
-  /* Serif/display variable for wordmark */
-  --serif: 'Fraunces', 'Fraunces-fallback', Georgia, serif;
+  --serif: var(--font-display-stack);
 
   /* Legacy aliases — keep for any remaining inline references */
   --ink:      var(--azeitona);
-  --bone:     var(--linho);
-  --clay:     var(--telha);
   --moss:     var(--salva);
   --sand:     var(--papel);
   --sky:      var(--salva-claro);
   --stone:    var(--azeitona-medio);
   --hairline: var(--traco);
+}
+
+/* ── Editorial primitives ───────────────────────────────────────────
+ * Used by habitta/* components. Body line-height is 1.55 here (vs the
+ * legacy 1.6 on <body>) per brand spec.
+ */
+.habitta-editorial {
+  background: var(--bone);
+  color: var(--charcoal);
+  font-family: var(--font-body-stack);
+  line-height: var(--leading-body);
+}
+.habitta-container {
+  max-width: var(--container-editorial);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+@media (min-width: 768px) {
+  .habitta-container { padding-inline: var(--space-5); }
+}
+
+/* Coral italic emphasis: <em> inside editorial body. */
+.habitta-editorial em {
+  font-style: italic;
+  color: var(--clay);
 }
 
 

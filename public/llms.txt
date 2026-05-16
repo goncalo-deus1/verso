@@ -1,0 +1,20 @@
+# habitta
+
+> Editorial real estate discovery for the Lisbon Metropolitan Area.
+> Pick the zone before the house. Data-driven, sourced, opinionated.
+
+## Core
+- [Início](https://www.usehabitta.com/): The 2-minute zone quiz.
+- [Sobre](https://www.usehabitta.com/sobre): Methodology behind habitta's recommendations.
+
+## Guias
+<!-- Populated as pillar pages ship under /guias/:slug -->
+
+## AML
+<!-- AML thesis hub and per-concelho hubs ship under /aml and /aml/:concelho -->
+
+## Freguesias
+<!-- Populated as freguesia pages ship under /aml/:concelho/:freguesia -->
+
+## Comparações
+<!-- Populated as comparison pages ship under /comparar/:a-vs-b -->

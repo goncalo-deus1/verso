@@ -11,6 +11,10 @@ export default defineConfig({
     {
       enforce: 'pre',
       ...mdx({
+        // Restrict to .mdx so `.md` files (concelho prose) flow through
+        // Vite's `?raw` loader and stay as raw text. Editorial concelho
+        // MDs are parsed with our own sync parser at module load time.
+        include: ['**/*.mdx'],
         providerImportSource: '@mdx-js/react',
         remarkPlugins: [
           remarkGfm,
