@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { useLang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 import { supabase } from '../../lib/supabase'
 
 interface ContactSellerButtonProps {
@@ -13,6 +15,8 @@ const CLAY = '#C2553A'
 
 export default function ContactSellerButton({ propertyId, ownerId, className }: ContactSellerButtonProps) {
   const { user, loading: authLoading } = useAuth()
+  const { lang } = useLang()
+  const tr = useT(lang)
   const navigate = useNavigate()
   const location = useLocation()
   const [busy, setBusy] = useState(false)
@@ -47,10 +51,10 @@ export default function ContactSellerButton({ propertyId, ownerId, className }: 
       if (rpcErr || !data) {
         console.error('[ContactSellerButton] rpc error:', rpcErr?.code, rpcErr?.message)
         const msg =
-          rpcErr?.code === '42501'  ? 'Precisas de iniciar sessão.' :
-          rpcErr?.code === 'P0002'  ? 'Este imóvel já não está disponível.' :
-          rpcErr?.code === '22023'  ? 'Não podes contactar o teu próprio anúncio.' :
-          'Não foi possível abrir a conversa. Tenta de novo.'
+          rpcErr?.code === '42501'  ? tr('chat.error.signIn') :
+          rpcErr?.code === 'P0002'  ? tr('chat.error.notFound') :
+          rpcErr?.code === '22023'  ? tr('chat.ownListing') :
+          tr('chat.error.generic')
         setError(msg)
         setBusy(false)
         return
@@ -59,7 +63,7 @@ export default function ContactSellerButton({ propertyId, ownerId, className }: 
       navigate(`/inbox/${data}`)
     } catch (err) {
       console.error('[ContactSellerButton] unexpected error:', err)
-      setError('Não foi possível abrir a conversa. Tenta de novo.')
+      setError(tr('chat.error.generic'))
       setBusy(false)
     }
   }
@@ -67,7 +71,7 @@ export default function ContactSellerButton({ propertyId, ownerId, className }: 
   if (isOwnListing) {
     return (
       <p className="text-sm text-center" style={{ color: '#3A3B2E' }}>
-        Não podes contactar o teu próprio anúncio.
+        {tr('chat.ownListing')}
       </p>
     )
   }
@@ -84,7 +88,7 @@ export default function ContactSellerButton({ propertyId, ownerId, className }: 
         }
         style={{ background: '#2C2C2A', color: '#F2EDE4' }}
       >
-        {busy ? 'A abrir conversa…' : 'Contactar anunciante'}
+        {busy ? tr('chat.opening') : tr('chat.contactSeller')}
       </button>
       {error && (
         <p className="text-xs text-center" style={{ color: CLAY }}>{error}</p>

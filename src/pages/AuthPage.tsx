@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Link, useNavigate, useSearchParams, useLocation } from 'react-router-dom'
 import { ArrowLeft, Eye, EyeOff, Check, Mail } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../context/LanguageContext'
+import { useT, type TKey } from '../i18n/translations'
 import { Wordmark } from '../components/Wordmark'
-import { saveMarketingConsent, MARKETING_CONSENT_TEXT_PT } from '../lib/marketingConsent'
+import { saveMarketingConsent } from '../lib/marketingConsent'
 import { trackCompleteRegistration } from '../lib/pixel'
 
 const INK      = '#1E1F18'
@@ -20,6 +22,19 @@ export default function AuthPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const { signIn, signUp, signInWithMagicLink } = useAuth()
+  const { lang } = useLang()
+  const tr = useT(lang)
+
+  // translateError consome strings retornadas pelo Supabase Auth (sempre EN).
+  // Mapeia para chaves de tradução; fallback é o próprio msg do servidor.
+  function translateError(msg: string): string {
+    if (msg.includes('Invalid login credentials')) return tr('auth.err.invalidCreds')
+    if (msg.includes('Email not confirmed'))       return tr('auth.err.notConfirmed')
+    if (msg.includes('User already registered'))   return tr('auth.err.exists')
+    if (msg.includes('Password should be'))        return tr('auth.err.passwordLen')
+    if (msg.includes('rate limit'))                return tr('auth.err.rateLimit')
+    return msg
+  }
 
   const defaultMode: Mode = params.get('mode') === 'register' ? 'register' : 'login'
   const [mode, setMode] = useState<Mode>(defaultMode)
@@ -48,9 +63,9 @@ export default function AuthPage() {
 
   async function handlePasswordSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!form.email || !form.password) { setError('Preencha todos os campos.'); return }
-    if (mode === 'register' && !form.name) { setError('Introduza o teu nome.'); return }
-    if (form.password.length < 6) { setError('A password deve ter pelo menos 6 caracteres.'); return }
+    if (!form.email || !form.password) { setError(tr('auth.err.fillAll')); return }
+    if (mode === 'register' && !form.name) { setError(tr('auth.err.enterName')); return }
+    if (form.password.length < 6) { setError(tr('auth.err.passwordLen')); return }
 
     setLoading(true)
     setError('')
@@ -78,7 +93,7 @@ export default function AuthPage() {
 
   async function handleMagicSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!form.email) { setError('Introduza o teu email.'); return }
+    if (!form.email) { setError(tr('auth.err.enterEmail')); return }
 
     setLoading(true)
     setError('')
@@ -95,7 +110,12 @@ export default function AuthPage() {
     boxSizing: 'border-box',
   }
 
-  const perks = ['Imóveis guardados', 'Perfil de comprador', 'Alertas personalizados', 'Histórico do quiz']
+  const perks = [
+    tr('auth.perk.savedProps'),
+    tr('auth.perk.buyerProfile'),
+    tr('auth.perk.alerts'),
+    tr('auth.perk.quizHistory'),
+  ]
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex' }}>
@@ -108,13 +128,15 @@ export default function AuthPage() {
         </div>
         <div style={{ position: 'relative' }}>
           <p style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '3px', color: CLAY, fontFamily: 'IBM Plex Mono', marginBottom: '20px' }}>
-            A sua conta
+            {tr('auth.left.eyebrow')}
           </p>
           <h2 style={{ fontFamily: 'var(--font-display, serif)', color: 'white', fontSize: '36px', letterSpacing: '-1px', lineHeight: '1.15', marginBottom: '16px' }}>
-            Decisões melhores<br />começam aqui.
+            {tr('auth.left.title').split('\n').map((line, i, arr) => (
+              <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+            ))}
           </h2>
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.65, maxWidth: '340px', marginBottom: '40px' }}>
-            Cria a tua conta gratuita e acede a recomendações personalizadas, imóveis guardados e guias editoriais.
+            {tr('auth.left.body')}
           </p>
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {perks.map(p => (
@@ -140,12 +162,12 @@ export default function AuthPage() {
         <Link to="/" className="hidden lg:inline-flex" style={{ alignItems: 'center', gap: '8px', fontSize: '14px', color: STONE, textDecoration: 'none', marginBottom: '40px', display: 'inline-flex' }}
           onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
           onMouseLeave={e => (e.currentTarget.style.color = STONE)}>
-          <ArrowLeft size={13} /> Voltar ao início
+          <ArrowLeft size={13} /> {tr('auth.backHome')}
         </Link>
 
         <div style={{ maxWidth: '380px', width: '100%', margin: '0 auto' }}>
           {magicSent ? (
-            <ConfirmationScreen email={form.email} isRegister={mode === 'register'} />
+            <ConfirmationScreen email={form.email} isRegister={mode === 'register'} tr={tr} />
           ) : (
             <>
               {/* Mode toggle */}
@@ -159,18 +181,16 @@ export default function AuthPage() {
                       color: mode === m ? INK : STONE,
                       boxShadow: mode === m ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
                     }}>
-                    {m === 'login' ? 'Entrar' : 'Criar conta'}
+                    {m === 'login' ? tr('auth.tab.login') : tr('auth.tab.register')}
                   </button>
                 ))}
               </div>
 
               <h1 style={{ fontFamily: 'var(--font-display, serif)', fontSize: '28px', color: INK, letterSpacing: '-0.8px', marginBottom: '8px' }}>
-                {mode === 'login' ? 'Bem-vindo de volta' : 'Criar conta gratuita'}
+                {mode === 'login' ? tr('auth.welcome') : tr('auth.createTitle')}
               </h1>
               <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.6, marginBottom: '32px' }}>
-                {mode === 'login'
-                  ? 'Acede aos teus imóveis guardados e recomendações.'
-                  : 'Junte-se à habitta e encontre o imóvel certo — de forma informada.'}
+                {mode === 'login' ? tr('auth.loginBlurb') : tr('auth.registerBlurb')}
               </p>
 
               {/* Method toggle (only login) */}
@@ -185,7 +205,7 @@ export default function AuthPage() {
                         color: method === m ? BONE : STONE,
                         borderRadius: '6px', cursor: 'pointer', transition: 'all 150ms',
                       }}>
-                      {m === 'password' ? 'Password' : 'Magic link'}
+                      {m === 'password' ? tr('auth.method.password') : tr('auth.method.magic')}
                     </button>
                   ))}
                 </div>
@@ -194,40 +214,40 @@ export default function AuthPage() {
               {method === 'magic' && mode === 'login' ? (
                 <form onSubmit={handleMagicSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>Email</label>
-                    <input name="email" type="email" placeholder="o.seu@email.com" value={form.email} onChange={onChange} style={inputStyle} autoFocus />
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>{tr('auth.field.email')}</label>
+                    <input name="email" type="email" placeholder={tr('auth.field.emailPh')} value={form.email} onChange={onChange} style={inputStyle} autoFocus />
                   </div>
                   {error && <ErrorBanner text={error} />}
                   <button type="submit" disabled={loading}
                     style={{ width: '100%', padding: '14px', background: loading ? HAIRLINE : INK, color: loading ? STONE : BONE, border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                     <Mail size={15} />
-                    {loading ? 'A enviar…' : 'Enviar magic link'}
+                    {loading ? tr('auth.sending') : tr('auth.sendMagic')}
                   </button>
                 </form>
               ) : (
                 <form onSubmit={handlePasswordSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   {mode === 'register' && (
                     <div>
-                      <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>Nome</label>
-                      <input name="name" type="text" placeholder="O seu nome" value={form.name} onChange={onChange} style={inputStyle} autoFocus />
+                      <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>{tr('auth.field.name')}</label>
+                      <input name="name" type="text" placeholder={tr('auth.field.namePh')} value={form.name} onChange={onChange} style={inputStyle} autoFocus />
                     </div>
                   )}
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>Email</label>
-                    <input name="email" type="email" placeholder="o.seu@email.com" value={form.email} onChange={onChange} style={inputStyle} />
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '6px' }}>{tr('auth.field.email')}</label>
+                    <input name="email" type="email" placeholder={tr('auth.field.emailPh')} value={form.email} onChange={onChange} style={inputStyle} />
                   </div>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                      <label style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono' }}>Password</label>
+                      <label style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', color: STONE, fontFamily: 'IBM Plex Mono' }}>{tr('auth.field.password')}</label>
                       {mode === 'login' && (
                         <button type="button" onClick={() => { setMethod('magic'); setError('') }}
                           style={{ fontSize: '12px', fontWeight: 500, color: CLAY, background: 'none', border: 'none', cursor: 'pointer' }}>
-                          Esqueceu?
+                          {tr('auth.forgot')}
                         </button>
                       )}
                     </div>
                     <div style={{ position: 'relative' }}>
-                      <input name="password" type={showPwd ? 'text' : 'password'} placeholder="Mínimo 6 caracteres"
+                      <input name="password" type={showPwd ? 'text' : 'password'} placeholder={tr('auth.field.passwordPh')}
                         value={form.password} onChange={onChange} style={{ ...inputStyle, paddingRight: '44px' }} />
                       <button type="button" onClick={() => setShowPwd(!showPwd)}
                         style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: STONE }}>
@@ -241,7 +261,7 @@ export default function AuthPage() {
                   {mode === 'register' && (
                     <>
                       <p style={{ fontSize: '12px', color: STONE, lineHeight: 1.5 }}>
-                        Ao criar uma conta, aceita os <span style={{ color: CLAY }}>Termos de Serviço</span> e a <span style={{ color: CLAY }}>Política de Privacidade</span>.
+                        {tr('auth.terms.before')} <span style={{ color: CLAY }}>{tr('auth.terms.tos')}</span> {tr('auth.terms.middle')} <span style={{ color: CLAY }}>{tr('auth.terms.privacy')}</span>{tr('auth.terms.suffix')}
                       </p>
                       <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
                         <input
@@ -251,7 +271,7 @@ export default function AuthPage() {
                           style={{ marginTop: '2px', flexShrink: 0, accentColor: CLAY, width: '15px', height: '15px', cursor: 'pointer' }}
                         />
                         <span style={{ fontSize: '13px', color: STONE, lineHeight: 1.5, fontFamily: 'Inter, sans-serif' }}>
-                          {MARKETING_CONSENT_TEXT_PT}
+                          {tr('auth.marketing')}
                         </span>
                       </label>
                     </>
@@ -259,16 +279,16 @@ export default function AuthPage() {
 
                   <button type="submit" disabled={loading}
                     style={{ width: '100%', padding: '14px', background: loading ? HAIRLINE : INK, color: loading ? STONE : BONE, border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', marginTop: '4px' }}>
-                    {loading ? 'A processar…' : mode === 'login' ? 'Entrar na conta' : 'Criar conta gratuita'}
+                    {loading ? tr('auth.processing') : mode === 'login' ? tr('auth.loginCta') : tr('auth.registerCta')}
                   </button>
                 </form>
               )}
 
               <p style={{ textAlign: 'center', fontSize: '13px', color: STONE, marginTop: '24px' }}>
-                {mode === 'login' ? 'Ainda não tem conta? ' : 'Já tem conta? '}
+                {mode === 'login' ? tr('auth.noAccount') + ' ' : tr('auth.hasAccount') + ' '}
                 <button type="button" onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}
                   style={{ fontWeight: 600, color: CLAY, background: 'none', border: 'none', cursor: 'pointer' }}>
-                  {mode === 'login' ? 'Criar conta gratuita' : 'Entrar'}
+                  {mode === 'login' ? tr('auth.signUpLink') : tr('auth.signInLink')}
                 </button>
               </p>
             </>
@@ -287,35 +307,30 @@ function ErrorBanner({ text }: { text: string }) {
   )
 }
 
-function ConfirmationScreen({ email, isRegister }: { email: string; isRegister: boolean }) {
+function ConfirmationScreen({
+  email, isRegister, tr,
+}: {
+  email: string
+  isRegister: boolean
+  tr: (key: TKey) => string
+}) {
   return (
     <div style={{ textAlign: 'center', padding: '40px 0' }}>
       <div style={{ width: '52px', height: '52px', background: '#FEF3EE', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
         <Mail size={24} color={CLAY} />
       </div>
       <h2 style={{ fontFamily: 'var(--font-display, serif)', fontSize: '24px', color: INK, letterSpacing: '-0.5px', marginBottom: '12px' }}>
-        {isRegister ? 'Confirma o teu email' : 'Verifique o teu email'}
+        {isRegister ? tr('auth.confirm.titleReg') : tr('auth.confirm.titleLogin')}
       </h2>
       <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.65, marginBottom: '8px' }}>
-        Enviámos um link para
+        {tr('auth.confirm.sentTo')}
       </p>
       <p style={{ fontSize: '14px', fontWeight: 600, color: INK, marginBottom: '24px', fontFamily: 'IBM Plex Mono' }}>
         {email}
       </p>
       <p style={{ fontSize: '13px', color: STONE, lineHeight: 1.6 }}>
-        {isRegister
-          ? 'Clique no link no email para activar a tua conta. Pode fechar esta janela.'
-          : 'Clique no link no email para entrar na tua conta. O link expira em 1 hora.'}
+        {isRegister ? tr('auth.confirm.bodyReg') : tr('auth.confirm.bodyLogin')}
       </p>
     </div>
   )
-}
-
-function translateError(msg: string): string {
-  if (msg.includes('Invalid login credentials')) return 'Email ou password incorrectos.'
-  if (msg.includes('Email not confirmed')) return 'Confirma o teu email antes de entrar.'
-  if (msg.includes('User already registered')) return 'Já existe uma conta com este email.'
-  if (msg.includes('Password should be')) return 'A password deve ter pelo menos 6 caracteres.'
-  if (msg.includes('rate limit')) return 'Demasiadas tentativas. Aguarde alguns minutos.'
-  return msg
 }

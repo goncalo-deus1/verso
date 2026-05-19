@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang, type Lang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 import { supabase } from '../lib/supabase'
 import type { Database } from '../lib/supabase/types'
 
@@ -17,16 +19,19 @@ interface ConversationWithProperty extends ConversationRow {
   property: { id: string; title: string; municipality: string } | null
 }
 
-function fmtTime(iso: string): string {
+function fmtTime(iso: string, lang: Lang): string {
+  const locale = lang === 'pt' ? 'pt-PT' : 'en-GB'
   const d = new Date(iso)
-  const time = new Intl.DateTimeFormat('pt-PT', { hour: '2-digit', minute: '2-digit' }).format(d)
-  const date = new Intl.DateTimeFormat('pt-PT', { day: '2-digit', month: '2-digit' }).format(d)
+  const time = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }).format(d)
+  const date = new Intl.DateTimeFormat(locale, { day: '2-digit', month: '2-digit' }).format(d)
   return `${time} ${date}`
 }
 
 export default function ConversationThread() {
   const { id } = useParams<{ id: string }>()
   const { user, loading: authLoading } = useAuth()
+  const { lang } = useLang()
+  const tr = useT(lang)
 
   const [conversation, setConversation] = useState<ConversationWithProperty | null>(null)
   const [messages, setMessages] = useState<MessageRow[]>([])
@@ -78,7 +83,7 @@ export default function ConversationThread() {
 
       if (convErr || !conv) {
         console.error('[ConversationThread] load conversation error:', convErr?.message)
-        setError('Conversa não encontrada ou sem acesso.')
+        setError(tr('thread.notFound'))
         setLoading(false)
         return
       }
@@ -110,7 +115,7 @@ export default function ConversationThread() {
 
       if (msgErr) {
         console.error('[ConversationThread] load messages error:', msgErr.message)
-        setError('Não foi possível carregar as mensagens.')
+        setError(tr('thread.errorLoadMsgs'))
         setLoading(false)
         return
       }
@@ -187,7 +192,7 @@ export default function ConversationThread() {
     const body = draft.trim()
     if (!body) return
     if (body.length > 2000) {
-      setError('A mensagem é demasiado longa (máx. 2000 caracteres).')
+      setError(tr('thread.tooLong'))
       return
     }
 
@@ -206,7 +211,7 @@ export default function ConversationThread() {
 
     if (insErr || !inserted) {
       console.error('[ConversationThread] send error:', insErr?.message)
-      setError('Não foi possível enviar a mensagem.')
+      setError(tr('thread.errorSend'))
       setSending(false)
       return
     }
@@ -241,7 +246,7 @@ export default function ConversationThread() {
     return (
       <div className="max-w-2xl mx-auto px-6 py-20" style={{ background: BONE }}>
         <p className="text-sm" style={{ color: STONE }}>
-          Precisas de estar autenticado para ver as mensagens.
+          {tr('inbox.authRequired')}
         </p>
       </div>
     )
@@ -251,7 +256,7 @@ export default function ConversationThread() {
     return (
       <div className="max-w-2xl mx-auto px-6 py-20" style={{ background: BONE }}>
         <Link to="/inbox" className="text-sm" style={{ color: STONE }}>
-          ← Mensagens
+          {tr('thread.back')}
         </Link>
         <p className="mt-6 text-sm" style={{ color: CLAY }}>{error}</p>
       </div>
@@ -269,10 +274,10 @@ export default function ConversationThread() {
           onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
           onMouseLeave={e => (e.currentTarget.style.color = STONE)}
         >
-          ← Mensagens
+          {tr('thread.back')}
         </Link>
         <h1 className="font-display text-2xl" style={{ color: INK, letterSpacing: '-0.3px' }}>
-          {conversation?.property?.title ?? 'Imóvel'}
+          {conversation?.property?.title ?? tr('inbox.propertyFallback')}
         </h1>
         {conversation?.property?.municipality && (
           <p className="text-sm mt-1" style={{ color: STONE }}>
@@ -295,7 +300,7 @@ export default function ConversationThread() {
       >
         {messages.length === 0 ? (
           <p className="text-sm text-center py-8" style={{ color: STONE }}>
-            Ainda não há mensagens. Escreve a primeira.
+            {tr('thread.empty')}
           </p>
         ) : (
           messages.map(m => {
@@ -323,7 +328,7 @@ export default function ConversationThread() {
                       fontFamily: 'IBM Plex Mono',
                     }}
                   >
-                    {fmtTime(m.created_at)}
+                    {fmtTime(m.created_at, lang)}
                   </p>
                 </div>
               </div>
@@ -344,7 +349,7 @@ export default function ConversationThread() {
           value={draft}
           onChange={e => setDraft(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Escreve uma mensagem…"
+          placeholder={tr('thread.placeholder')}
           rows={2}
           maxLength={2000}
           disabled={sending}
@@ -363,7 +368,7 @@ export default function ConversationThread() {
           className="px-5 py-3 text-sm font-medium rounded-lg transition-opacity hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
           style={{ background: '#2C2C2A', color: BONE }}
         >
-          {sending ? 'A enviar…' : 'Enviar'}
+          {sending ? tr('thread.sending') : tr('thread.send')}
         </button>
       </div>
     </div>

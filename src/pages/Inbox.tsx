@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 import { supabase } from '../lib/supabase'
 
 const INK      = '#1E1F18'
@@ -21,22 +23,33 @@ interface ConversationListItem {
   lastMessage: { body: string; sender_id: string } | null
 }
 
-function timeAgo(iso: string): string {
+// timeAgo é parametrizado pelas strings traduzidas porque o "min", "h", "d"
+// não muda mas o prefixo/sufixo ("há X min" vs "X min ago") inverte-se em EN.
+type TimeAgoStrings = { now: string; minutes: string; hours: string; days: string }
+function timeAgo(iso: string, lang: 'pt' | 'en', s: TimeAgoStrings): string {
   const d = new Date(iso)
   const now = Date.now()
   const diff = Math.max(0, now - d.getTime())
   const mins = Math.floor(diff / 60000)
-  if (mins < 1)   return 'agora'
-  if (mins < 60)  return `há ${mins} min`
+  if (mins < 1)   return s.now
+  if (mins < 60)  return s.minutes.replace('{n}', String(mins))
   const hours = Math.floor(mins / 60)
-  if (hours < 24) return `há ${hours}h`
+  if (hours < 24) return s.hours.replace('{n}', String(hours))
   const days = Math.floor(hours / 24)
-  if (days < 7)   return `há ${days}d`
-  return new Intl.DateTimeFormat('pt-PT', { day: '2-digit', month: '2-digit' }).format(d)
+  if (days < 7)   return s.days.replace('{n}', String(days))
+  return new Intl.DateTimeFormat(lang === 'pt' ? 'pt-PT' : 'en-GB', { day: '2-digit', month: '2-digit' }).format(d)
 }
 
 export default function Inbox() {
   const { user, loading: authLoading } = useAuth()
+  const { lang } = useLang()
+  const tr = useT(lang)
+  const timeStrings: TimeAgoStrings = {
+    now: tr('inbox.time.now'),
+    minutes: tr('inbox.time.minutes'),
+    hours: tr('inbox.time.hours'),
+    days: tr('inbox.time.days'),
+  }
   const [items, setItems] = useState<ConversationListItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -68,7 +81,7 @@ export default function Inbox() {
 
       if (err) {
         console.error('[Inbox] load error:', err.message)
-        setError('Não foi possível carregar as conversas.')
+        setError(tr('inbox.errorLoad'))
         setLoading(false)
         return
       }
@@ -124,16 +137,16 @@ export default function Inbox() {
   if (!user) {
     return (
       <div className="max-w-2xl mx-auto px-6 py-20" style={{ background: BONE }}>
-        <h1 className="font-display text-3xl mb-3" style={{ color: INK, letterSpacing: '-0.5px' }}>Mensagens</h1>
+        <h1 className="font-display text-3xl mb-3" style={{ color: INK, letterSpacing: '-0.5px' }}>{tr('inbox.heading')}</h1>
         <p className="text-sm" style={{ color: STONE }}>
-          Precisas de estar autenticado para ver as mensagens.
+          {tr('inbox.authRequired')}
         </p>
         <Link
           to="/entrar?redirect=%2Finbox"
           className="inline-block mt-5 px-5 py-2.5 text-sm font-medium rounded-lg"
           style={{ background: '#2C2C2A', color: BONE }}
         >
-          Entrar
+          {tr('auth.tab.login')}
         </Link>
       </div>
     )
@@ -142,7 +155,7 @@ export default function Inbox() {
   return (
     <div className="max-w-2xl mx-auto px-6 py-12" style={{ background: BONE }}>
       <h1 className="font-display text-3xl mb-6" style={{ color: INK, letterSpacing: '-0.5px' }}>
-        Mensagens
+        {tr('inbox.heading')}
       </h1>
 
       {error && (
@@ -151,7 +164,7 @@ export default function Inbox() {
 
       {items.length === 0 ? (
         <p className="text-sm" style={{ color: STONE }}>
-          Ainda não tens conversas. Quando contactares um anunciante, a conversa aparece aqui.
+          {tr('inbox.empty')}
         </p>
       ) : (
         <ul className="space-y-2">
@@ -165,8 +178,8 @@ export default function Inbox() {
               (!myReadAt || new Date(item.last_message_at).getTime() > new Date(myReadAt).getTime())
 
             const preview = item.lastMessage
-              ? (lastIsMine ? 'Tu: ' : '') + item.lastMessage.body
-              : 'Sem mensagens'
+              ? (lastIsMine ? tr('inbox.youPrefix') + ' ' : '') + item.lastMessage.body
+              : tr('inbox.noMessages')
 
             return (
               <li key={item.id}>
@@ -180,7 +193,7 @@ export default function Inbox() {
                       <div className="flex items-center gap-2 mb-1">
                         {unread && (
                           <span
-                            aria-label="Não lida"
+                            aria-label={tr('inbox.unreadLabel')}
                             style={{ width: 8, height: 8, borderRadius: '50%', background: CLAY, display: 'inline-block', flexShrink: 0 }}
                           />
                         )}
@@ -188,7 +201,7 @@ export default function Inbox() {
                           className="font-medium text-sm truncate"
                           style={{ color: INK }}
                         >
-                          {item.property?.title ?? 'Imóvel'}
+                          {item.property?.title ?? tr('inbox.propertyFallback')}
                           {item.property?.municipality ? (
                             <span style={{ color: STONE, fontWeight: 400 }}> · {item.property.municipality}</span>
                           ) : null}
@@ -202,7 +215,7 @@ export default function Inbox() {
                       </p>
                     </div>
                     <span className="text-xs flex-shrink-0" style={{ color: STONE, fontFamily: 'IBM Plex Mono' }}>
-                      {timeAgo(item.last_message_at)}
+                      {timeAgo(item.last_message_at, lang, timeStrings)}
                     </span>
                   </div>
                 </Link>

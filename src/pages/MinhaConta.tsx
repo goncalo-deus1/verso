@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { User, BookmarkCheck, LogOut, Trash2, Home, Plus, Pencil } from 'lucide-react'
 import { useAuth, displayName } from '../context/AuthContext'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 import { supabase } from '../lib/supabase'
 import type { Database } from '../lib/supabase/types'
 import DeleteAccountSection from '../components/account/DeleteAccountSection'
@@ -17,13 +19,6 @@ const STONE    = '#3A3B2E'
 const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 const SAND     = '#E8E0D0'
 
-const STATUS_LABEL: Record<PropertyRow['status'], string> = {
-  draft:    'Rascunho',
-  active:   'Ativo',
-  reserved: 'Reservado',
-  sold:     'Vendido',
-}
-
 const STATUS_COLOR: Record<PropertyRow['status'], string> = {
   draft:    '#888',
   active:   '#2d8a4e',
@@ -33,7 +28,16 @@ const STATUS_COLOR: Record<PropertyRow['status'], string> = {
 
 export default function MinhaConta() {
   const { user, signOut } = useAuth()
+  const { lang } = useLang()
+  const tr = useT(lang)
   const name = displayName(user)
+
+  const statusLabel: Record<PropertyRow['status'], string> = {
+    draft:    tr('account.status.draft'),
+    active:   tr('account.status.active'),
+    reserved: tr('account.status.reserved'),
+    sold:     tr('account.status.sold'),
+  }
   const [savedZones, setSavedZones] = useState<SavedZone[]>([])
   const [loadingZones, setLoadingZones] = useState(true)
   const [properties, setProperties] = useState<PropertyRow[]>([])
@@ -96,13 +100,17 @@ export default function MinhaConta() {
             style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 16px', border: `1px solid ${HAIRLINE}`, background: 'white', color: STONE, borderRadius: '50px', fontSize: '13px', cursor: 'pointer', transition: 'all 150ms' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = CLAY; e.currentTarget.style.color = CLAY }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = HAIRLINE; e.currentTarget.style.color = STONE }}>
-            <LogOut size={13} /> Sair
+            <LogOut size={13} /> {tr('account.signOut')}
           </button>
         </div>
 
         {/* Tab bar */}
         <div style={{ display: 'flex', gap: '4px', marginBottom: '32px', borderBottom: `1px solid ${HAIRLINE}` }}>
-          {([['overview', User, 'Conta'], ['zones', BookmarkCheck, 'Zonas guardadas'], ['anuncios', Home, 'Os meus anúncios']] as const).map(([t, Icon, label]) => (
+          {([
+            ['overview', User, tr('account.tab.overview')],
+            ['zones', BookmarkCheck, tr('account.tab.zones')],
+            ['anuncios', Home, tr('account.tab.properties')],
+          ] as const).map(([t, Icon, label]) => (
             <button key={t} onClick={() => setTab(t)}
               style={{
                 display: 'flex', alignItems: 'center', gap: '7px',
@@ -119,38 +127,49 @@ export default function MinhaConta() {
 
         {tab === 'overview' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <SectionCard title="Informação da conta">
-              <Row label="Nome" value={name || '—'} />
-              <Row label="Email" value={user?.email ?? '—'} />
-              <Row label="Membro desde" value={user?.created_at ? new Date(user.created_at).toLocaleDateString('pt-PT', { year: 'numeric', month: 'long' }) : '—'} />
+            <SectionCard title={tr('account.section.info')}>
+              <Row label={tr('account.field.name')} value={name || '—'} />
+              <Row label={tr('account.field.email')} value={user?.email ?? '—'} />
+              <Row label={tr('account.field.memberSince')} value={user?.created_at ? new Date(user.created_at).toLocaleDateString(lang === 'pt' ? 'pt-PT' : 'en-GB', { year: 'numeric', month: 'long' }) : '—'} />
             </SectionCard>
 
-            <SectionCard title="Zonas guardadas">
+            <SectionCard title={tr('account.tab.zones')}>
               <p style={{ fontSize: '14px', color: STONE }}>
-                {loadingZones ? 'A carregar…' : `${savedZones.length} zona${savedZones.length !== 1 ? 's' : ''} guardada${savedZones.length !== 1 ? 's' : ''}`}
+                {loadingZones
+                  ? tr('account.loading')
+                  : (savedZones.length === 1 ? tr('account.zones.savedSingular') : tr('account.zones.savedPlural')).replace('{n}', String(savedZones.length))}
               </p>
               {savedZones.length > 0 && (
                 <button onClick={() => setTab('zones')}
                   style={{ marginTop: '8px', fontSize: '13px', color: CLAY, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontWeight: 500 }}>
-                  Ver todas →
+                  {tr('account.viewAll')}
                 </button>
               )}
             </SectionCard>
 
-            <SectionCard title="Os meus anúncios">
+            <SectionCard title={tr('account.section.listings')}>
               <p style={{ fontSize: '14px', color: STONE }}>
-                {loadingProps ? 'A carregar…' : `${properties.length} anúncio${properties.length !== 1 ? 's' : ''} — ${properties.filter(p => p.status === 'active').length} ativo${properties.filter(p => p.status === 'active').length !== 1 ? 's' : ''}`}
+                {loadingProps
+                  ? tr('account.loading')
+                  : (() => {
+                      const total = properties.length
+                      const active = properties.filter(p => p.status === 'active').length
+                      const totalLbl = total === 1 ? tr('account.listings.adSingular') : tr('account.listings.adPlural')
+                      const activeLbl = active === 1 ? tr('account.listings.activeSingular') : tr('account.listings.activePlural')
+                      return `${total} ${totalLbl} — ${active} ${activeLbl}`
+                    })()
+                }
               </p>
               <div style={{ display: 'flex', gap: '12px', marginTop: '12px', flexWrap: 'wrap' }}>
                 {properties.length > 0 && (
                   <button onClick={() => setTab('anuncios')}
                     style={{ fontSize: '13px', color: CLAY, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontWeight: 500 }}>
-                    Ver todos →
+                    {tr('account.viewAll')}
                   </button>
                 )}
                 <Link to="/adicionar-imovel"
                   style={{ fontSize: '13px', color: STONE, fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <Plus size={12} /> Adicionar imóvel
+                  <Plus size={12} /> {tr('account.addProperty')}
                 </Link>
               </div>
             </SectionCard>
@@ -160,14 +179,14 @@ export default function MinhaConta() {
         {tab === 'zones' && (
           <div>
             {loadingZones ? (
-              <p style={{ fontSize: '14px', color: STONE }}>A carregar…</p>
+              <p style={{ fontSize: '14px', color: STONE }}>{tr('account.loading')}</p>
             ) : savedZones.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '60px 0' }}>
                 <BookmarkCheck size={32} color={HAIRLINE} style={{ margin: '0 auto 16px' }} />
-                <p style={{ fontSize: '15px', fontWeight: 600, color: INK, marginBottom: '8px' }}>Nenhuma zona guardada</p>
-                <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>Explore as zonas e guarde as que mais lhe interessam.</p>
+                <p style={{ fontSize: '15px', fontWeight: 600, color: INK, marginBottom: '8px' }}>{tr('account.noZones.title')}</p>
+                <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>{tr('account.noZones.body')}</p>
                 <Link to="/areas" style={{ display: 'inline-block', padding: '10px 24px', background: INK, color: BONE, borderRadius: '50px', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
-                  Explorar zonas
+                  {tr('account.exploreAreas')}
                 </Link>
               </div>
             ) : (
@@ -179,7 +198,7 @@ export default function MinhaConta() {
                       <p style={{ fontSize: '12px', color: STONE, fontFamily: 'IBM Plex Mono', marginTop: '2px' }}>{z.zone_kind}</p>
                     </Link>
                     <button onClick={() => removeZone(z.id)}
-                      title="Remover"
+                      title={tr('account.action.remove')}
                       style={{ padding: '6px', background: 'none', border: 'none', cursor: 'pointer', color: HAIRLINE, borderRadius: '6px', transition: 'color 150ms' }}
                       onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
                       onMouseLeave={e => (e.currentTarget.style.color = HAIRLINE)}>
@@ -196,20 +215,20 @@ export default function MinhaConta() {
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
               <Link to="/adicionar-imovel"
                 style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: CLAY, color: 'white', borderRadius: '50px', fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}>
-                <Plus size={13} /> Novo anúncio
+                <Plus size={13} /> {tr('account.newListing')}
               </Link>
             </div>
 
             {loadingProps ? (
-              <p style={{ fontSize: '14px', color: STONE }}>A carregar…</p>
+              <p style={{ fontSize: '14px', color: STONE }}>{tr('account.loading')}</p>
             ) : properties.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '60px 0' }}>
                 <Home size={32} color={HAIRLINE} style={{ margin: '0 auto 16px' }} />
-                <p style={{ fontSize: '15px', fontWeight: 600, color: INK, marginBottom: '8px' }}>Nenhum anúncio ainda</p>
-                <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>Adiciona o teu primeiro imóvel.</p>
+                <p style={{ fontSize: '15px', fontWeight: 600, color: INK, marginBottom: '8px' }}>{tr('account.noListings.title')}</p>
+                <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>{tr('account.noListings.body')}</p>
                 <Link to="/adicionar-imovel"
                   style={{ display: 'inline-block', padding: '10px 24px', background: INK, color: BONE, borderRadius: '50px', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
-                  Adicionar imóvel
+                  {tr('account.addProperty')}
                 </Link>
               </div>
             ) : (
@@ -221,26 +240,26 @@ export default function MinhaConta() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
                           <p style={{ fontSize: '15px', fontWeight: 600, color: INK, margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.title}</p>
                           <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '20px', background: `${STATUS_COLOR[p.status]}18`, color: STATUS_COLOR[p.status], whiteSpace: 'nowrap' }}>
-                            {STATUS_LABEL[p.status]}
+                            {statusLabel[p.status]}
                           </span>
                         </div>
                         <p style={{ fontSize: '12px', color: STONE, fontFamily: 'IBM Plex Mono', margin: 0 }}>
                           {p.property_type}{p.typology ? ` · ${p.typology}` : ''} · {p.municipality}
-                          {p.price ? ` · ${p.price.toLocaleString('pt-PT')} €` : ''}
+                          {p.price ? ` · ${p.price.toLocaleString(lang === 'pt' ? 'pt-PT' : 'en-GB')} €` : ''}
                           {p.sqm ? ` · ${p.sqm} m²` : ''}
                         </p>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
                         <button
                           onClick={() => togglePublish(p)}
-                          title={p.status === 'active' ? 'Despublicar' : 'Publicar'}
+                          title={p.status === 'active' ? tr('account.action.unpublish') : tr('account.action.publish')}
                           style={{ padding: '6px 12px', fontSize: '12px', fontWeight: 500, border: `1px solid ${HAIRLINE}`, background: 'white', color: STONE, borderRadius: '50px', cursor: 'pointer', transition: 'all 150ms', whiteSpace: 'nowrap' }}
                           onMouseEnter={e => { e.currentTarget.style.borderColor = CLAY; e.currentTarget.style.color = CLAY }}
                           onMouseLeave={e => { e.currentTarget.style.borderColor = HAIRLINE; e.currentTarget.style.color = STONE }}>
-                          {p.status === 'active' ? 'Despublicar' : 'Publicar'}
+                          {p.status === 'active' ? tr('account.action.unpublish') : tr('account.action.publish')}
                         </button>
                         <Link to={`/adicionar-imovel?edit=${p.id}`}
-                          title="Editar"
+                          title={tr('account.action.edit')}
                           style={{ padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${HAIRLINE}`, background: 'white', color: STONE, borderRadius: '6px', textDecoration: 'none', transition: 'color 150ms' }}
                           onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
                           onMouseLeave={e => (e.currentTarget.style.color = STONE)}>
@@ -248,7 +267,7 @@ export default function MinhaConta() {
                         </Link>
                         <button
                           onClick={() => removeProperty(p.id)}
-                          title="Eliminar"
+                          title={tr('account.action.delete')}
                           style={{ padding: '6px', background: 'none', border: `1px solid ${HAIRLINE}`, cursor: 'pointer', color: STONE, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'color 150ms' }}
                           onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
                           onMouseLeave={e => (e.currentTarget.style.color = STONE)}>
