@@ -5,6 +5,7 @@ import { useAuth, displayName } from '../context/AuthContext'
 import { useQuiz } from '../context/QuizContext'
 import { useLang } from '../context/LanguageContext'
 import { useT } from '../i18n/translations'
+import { useUnreadCount } from '../hooks/useUnreadCount'
 import { Wordmark } from './Wordmark'
 
 export default function Header() {
@@ -14,6 +15,7 @@ export default function Header() {
   const { pathname } = useLocation()
   const { user, signOut } = useAuth()
   const name = displayName(user)
+  const unread = useUnreadCount()
   const { open: openQuiz, quizResult } = useQuiz()
   const { lang, toggle } = useLang()
   const tr = useT(lang)
@@ -123,10 +125,22 @@ export default function Header() {
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="flex items-center gap-2 px-3 py-1.5 transition-colors duration-150"
                   style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '50px', background: 'white' }}
+                  aria-label={unread > 0 ? `Menu do utilizador, ${unread} ${unread === 1 ? 'mensagem nova' : 'mensagens novas'}` : 'Menu do utilizador'}
                 >
-                  <div className="w-5 h-5 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0"
+                  <div className="relative w-5 h-5 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0"
                     style={{ background: '#C2553A', borderRadius: '50%' }}>
                     {name.charAt(0).toUpperCase()}
+                    {unread > 0 && (
+                      <span
+                        aria-hidden
+                        style={{
+                          position: 'absolute', top: -2, right: -2,
+                          width: 8, height: 8, borderRadius: '50%',
+                          background: '#C2553A',
+                          border: '1.5px solid #F8F7F4',
+                        }}
+                      />
+                    )}
                   </div>
                   <span className="text-sm font-medium max-w-[100px] truncate" style={{ color: '#1E1F18' }}>
                     {name}
@@ -146,10 +160,24 @@ export default function Header() {
                       <div className="p-1.5">
                         <Link to="/inbox" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors duration-150"
-                          style={{ color: 'rgba(255,255,255,0.55)', borderRadius: '8px' }}
+                          style={{ color: unread > 0 ? '#F2EDE4' : 'rgba(255,255,255,0.55)', borderRadius: '8px' }}
                           onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
-                          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}>
-                          <MessageSquare size={14} /> Mensagens
+                          onMouseLeave={e => (e.currentTarget.style.color = unread > 0 ? '#F2EDE4' : 'rgba(255,255,255,0.55)')}>
+                          <MessageSquare size={14} />
+                          <span style={{ flex: 1 }}>Mensagens</span>
+                          {unread > 0 && (
+                            <span
+                              style={{
+                                minWidth: 18, height: 18, padding: '0 5px',
+                                background: '#C2553A', color: '#F2EDE4',
+                                borderRadius: 9, fontSize: 11, fontWeight: 600,
+                                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                                fontFamily: 'IBM Plex Mono',
+                              }}
+                            >
+                              {unread > 99 ? '99+' : unread}
+                            </span>
+                          )}
                         </Link>
                         <Link to="/minha-conta" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors duration-150"
@@ -249,8 +277,22 @@ export default function Header() {
                     </div>
                   </div>
                   <Link to="/inbox" onClick={() => setOpen(false)}
-                    className="flex items-center gap-2 text-sm font-medium" style={{ color: '#3A3B2E', textDecoration: 'none' }}>
-                    <MessageSquare size={14} /> Mensagens
+                    className="flex items-center gap-2 text-sm font-medium" style={{ color: unread > 0 ? '#1E1F18' : '#3A3B2E', textDecoration: 'none' }}>
+                    <MessageSquare size={14} />
+                    <span>Mensagens</span>
+                    {unread > 0 && (
+                      <span
+                        style={{
+                          minWidth: 18, height: 18, padding: '0 5px',
+                          background: '#C2553A', color: '#F2EDE4',
+                          borderRadius: 9, fontSize: 11, fontWeight: 600,
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          fontFamily: 'IBM Plex Mono',
+                        }}
+                      >
+                        {unread > 99 ? '99+' : unread}
+                      </span>
+                    )}
                   </Link>
                   <button onClick={() => { signOut(); setOpen(false) }}
                     className="flex items-center gap-2 text-sm font-medium" style={{ color: '#3A3B2E' }}>
