@@ -2,6 +2,8 @@ import { useState, useMemo } from 'react'
 import { useLocation, useParams, Link } from 'react-router-dom'
 import { MapPin, TrendingUp, ArrowRight, Search } from 'lucide-react'
 import { useQuiz } from '../context/QuizContext'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 import { areas } from '../data/areas'
 import { portugalZones } from '../data/portugal-zones'
 import { properties } from '../data/properties'
@@ -23,13 +25,6 @@ function formatSqm(val: number): string {
   return `${val}`
 }
 
-const tierLabel: Record<string, string> = {
-  premium: 'Premium',
-  activo: 'Activo',
-  moderado: 'Moderado',
-  escasso: 'Escasso',
-}
-
 const tierColor: Record<string, { bg: string; text: string }> = {
   premium: { bg: '#C2553A', text: '#fff' },
   activo: { bg: '#6B7A5A', text: '#fff' },
@@ -41,7 +36,12 @@ function zoneImage(slug: string): string {
   return `https://picsum.photos/seed/${slug}/320/240`
 }
 
-function scoreArea(area: Area, answers: QuizAnswers): { score: number; reasons: string[] } {
+// `tr` é injectado pelo componente pai para que as razões respeitem o idioma activo.
+function scoreArea(
+  area: Area,
+  answers: QuizAnswers,
+  tr: (key: 'area.reason.budgetAligned' | 'area.reason.belowBudget' | 'area.reason.lifestyleMatch' | 'area.reason.family' | 'area.reason.urbanLife' | 'area.reason.transit' | 'area.reason.appreciation' | 'area.reason.beach' | 'area.reason.valueForMoney') => string
+): { score: number; reasons: string[] } {
   let score = 60
   const reasons: string[] = []
 
@@ -51,8 +51,8 @@ function scoreArea(area: Area, answers: QuizAnswers): { score: number; reasons: 
   }
   if (answers.budget && budgetMap[answers.budget]) {
     const [min, max] = budgetMap[answers.budget]
-    if (area.priceRange.min >= min && area.priceRange.min <= max) { score += 15; reasons.push('Preço médio alinhado com o teu orçamento') }
-    else if (area.priceRange.min < min) { score += 10; reasons.push('Preços abaixo do orçamento — margem de negociação') }
+    if (area.priceRange.min >= min && area.priceRange.min <= max) { score += 15; reasons.push(tr('area.reason.budgetAligned')) }
+    else if (area.priceRange.min < min) { score += 10; reasons.push(tr('area.reason.belowBudget')) }
   }
 
   const lifestyleMap: Record<string, string[]> = {
@@ -63,29 +63,29 @@ function scoreArea(area: Area, answers: QuizAnswers): { score: number; reasons: 
     emerging: ['Marvila', 'Bonfim'],
   }
   if (answers.lifestyle && lifestyleMap[answers.lifestyle]?.includes(area.name)) {
-    score += 12; reasons.push('Zona alinhada com o estilo de vida descrito')
+    score += 12; reasons.push(tr('area.reason.lifestyleMatch'))
   }
 
   if (['family-young', 'family-teens'].includes(answers.familyStatus ?? '')) {
-    if (['Cascais', 'Braga Norte'].includes(area.name)) { score += 10; reasons.push('Excelente para famílias — escolas e espaços verdes') }
+    if (['Cascais', 'Braga Norte'].includes(area.name)) { score += 10; reasons.push(tr('area.reason.family')) }
   }
   if (['single', 'couple'].includes(answers.familyStatus ?? '')) {
-    if (['Bonfim', 'Marvila', 'Príncipe Real'].includes(area.name)) { score += 8; reasons.push('Ideal para o perfil — vida urbana activa') }
+    if (['Bonfim', 'Marvila', 'Príncipe Real'].includes(area.name)) { score += 8; reasons.push(tr('area.reason.urbanLife')) }
   }
 
   if (answers.commute === 'essential' && ['Príncipe Real', 'Bonfim', 'Marvila'].includes(area.name)) {
-    score += 8; reasons.push('Boa rede de metro e transportes públicos')
+    score += 8; reasons.push(tr('area.reason.transit'))
   }
 
   if (answers.priorities) {
     if (answers.priorities.includes('capital-gain') && area.priceChange > 10) {
-      score += 8; reasons.push(`Valorização forte — +${area.priceChange}% no último ano`)
+      score += 8; reasons.push(tr('area.reason.appreciation').replace('{n}', String(area.priceChange)))
     }
     if (answers.priorities.includes('beach') && ['Cascais', 'Comporta'].includes(area.name)) {
-      score += 10; reasons.push('Proximidade ao mar — uma das tuas prioridades')
+      score += 10; reasons.push(tr('area.reason.beach'))
     }
     if (answers.priorities.includes('price-value') && area.avgPricePerSqm < 4000) {
-      score += 8; reasons.push('Excelente custo por m² — alinhado com as prioridades')
+      score += 8; reasons.push(tr('area.reason.valueForMoney'))
     }
   }
 
@@ -93,8 +93,19 @@ function scoreArea(area: Area, answers: QuizAnswers): { score: number; reasons: 
 }
 
 function ZoneCard({ zone }: { zone: PortugalZone }) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   const tier   = tierColor[zone.data.marketTier] ?? tierColor.moderado
   const amlImg = concelhosAML.find(c => c.slug === zone.slug)?.image
+
+  const tierLabelKey = (
+    {
+      premium:  'area.tier.premium',
+      activo:   'area.tier.activo',
+      moderado: 'area.tier.moderado',
+      escasso:  'area.tier.escasso',
+    } as const
+  )[zone.data.marketTier as 'premium' | 'activo' | 'moderado' | 'escasso'] ?? 'area.tier.moderado'
 
   return (
     <Link
@@ -116,7 +127,7 @@ function ZoneCard({ zone }: { zone: PortugalZone }) {
             {zone.district}
           </p>
           <span className="text-xs font-semibold px-2 py-0.5 flex-shrink-0" style={{ background: tier.bg, color: tier.text, fontFamily: 'IBM Plex Mono', fontSize: '10px', borderRadius: '2px' }}>
-            {tierLabel[zone.data.marketTier]}
+            {tr(tierLabelKey)}
           </span>
         </div>
         <h3 className="font-display text-base transition-colors duration-150 group-hover:text-[#C2553A]" style={{ color: '#1E1F18', letterSpacing: '-0.3px', margin: 0 }}>
@@ -133,27 +144,29 @@ function ZoneCard({ zone }: { zone: PortugalZone }) {
           <div className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
             {formatSqm(zone.data.pricePerSqm.min)}€ — {formatSqm(zone.data.pricePerSqm.max)}€/m²
           </div>
-          <span style={{ fontSize: '11px', color: '#C2553A', fontWeight: 500 }}>Ver análise →</span>
+          <span style={{ fontSize: '11px', color: '#C2553A', fontWeight: 500 }}>{tr('area.viewAnalysis')}</span>
         </div>
       </div>
     </Link>
   )
 }
 
-const ALL_DISTRICTS = 'Todos'
-
 export default function AreaRecommendations() {
   const location = useLocation()
   useParams<{ slug?: string }>()
   const answers = (location.state?.answers || {}) as QuizAnswers
   const hasAnswers = Object.keys(answers).length > 0
-const { open: openQuiz } = useQuiz()
+  const { open: openQuiz } = useQuiz()
+  const { lang } = useLang()
+  const tr = useT(lang)
+
+  const ALL_DISTRICTS = tr('area.allDistricts')
 
   const [search, setSearch] = useState('')
   const [district, setDistrict] = useState(ALL_DISTRICTS)
 
   const scoredAreas = areas.map((area) => {
-    const { score, reasons } = scoreArea(area, answers)
+    const { score, reasons } = scoreArea(area, answers, tr)
     return { ...area, matchScore: score, matchReasons: reasons }
   }).sort((a, b) => (b.matchScore ?? 0) - (a.matchScore ?? 0))
 
@@ -180,25 +193,19 @@ const { open: openQuiz } = useQuiz()
       {/* Hero */}
       <section style={{ background: '#1E1F18' }} className="pt-32 pb-16 lg:pt-40 lg:pb-20">
         <div className="max-w-7xl mx-auto px-8 lg:px-12">
-          <BlockLabel light>{hasAnswers ? 'O seu resultado' : 'Explorar zonas'}</BlockLabel>
+          <BlockLabel light>{hasAnswers ? tr('area.eyebrowResult') : tr('area.eyebrowExplore')}</BlockLabel>
           <h1 className="font-display text-white text-4xl lg:text-5xl mb-4" style={{ letterSpacing: '-1.5px', lineHeight: '1.1' }}>
-            {hasAnswers ? 'As suas zonas recomendadas' : 'Todos os concelhos de Lisboa'}
+            {hasAnswers ? tr('area.titleResult') : tr('area.titleAll')}
           </h1>
-          {hasAnswers ? (
-            <p className="max-w-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              Com base no teu perfil, identificámos as zonas que melhor se alinham com o que procuras.
-            </p>
-          ) : (
-            <p className="max-w-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              18 concelhos com dados de mercado, preços por m² e contexto real.
-            </p>
-          )}
+          <p className="max-w-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            {hasAnswers ? tr('area.subResult') : tr('area.subAll')}
+          </p>
         </div>
       </section>
 
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         <Callout>
-          A zona certa não é um detalhe — é a decisão mais importante de toda a compra. Escolhe primeiro onde viver, depois o imóvel.
+          {tr('area.callout')}
         </Callout>
       </div>
 
@@ -208,7 +215,7 @@ const { open: openQuiz } = useQuiz()
           <div className="mb-16">
             <SectionNum n="01" />
             <h2 className="font-display text-2xl mb-8" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>
-              Top {topAreas.length} correspondências
+              {tr('area.topMatches').replace('{n}', String(topAreas.length))}
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               {topAreas.map((area, index) => (
@@ -218,7 +225,7 @@ const { open: openQuiz } = useQuiz()
                   {index === 0 && (
                     <div className="absolute top-4 left-4 z-10 px-2.5 py-1 text-white text-xs font-semibold uppercase"
                       style={{ background: '#C2553A', letterSpacing: '1px', fontSize: '10px' }}>
-                      Melhor match
+                      {tr('area.bestMatch')}
                     </div>
                   )}
                   <div className="relative aspect-[16/9] overflow-hidden">
@@ -249,7 +256,7 @@ const { open: openQuiz } = useQuiz()
                     </ul>
                     <div style={{ borderTop: '1px solid rgba(30, 31, 24, 0.125)' }} className="pt-4 flex items-center justify-between">
                       <div>
-                        <p className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>A partir de</p>
+                        <p className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>{tr('area.from')}</p>
                         <p className="font-display font-medium" style={{ color: '#1E1F18' }}>{formatPrice(area.priceRange.min)}</p>
                       </div>
                       <div className="flex items-center gap-1 text-sm font-semibold" style={{ color: '#6B7A5A' }}>
@@ -269,13 +276,13 @@ const { open: openQuiz } = useQuiz()
             <div>
               {hasAnswers && <SectionNum n="02" />}
               <h2 className="font-display text-2xl" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>
-                Explorar todos os concelhos
+                {tr('area.exploreAll')}
               </h2>
             </div>
             {!hasAnswers && (
               <button onClick={() => openQuiz()} className="flex items-center gap-2 text-sm font-medium transition-colors duration-150"
                 style={{ color: '#C2553A', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-                Obter recomendações <ArrowRight size={14} />
+                {tr('area.getRecommendations')} <ArrowRight size={14} />
               </button>
             )}
           </div>
@@ -286,7 +293,7 @@ const { open: openQuiz } = useQuiz()
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#3A3B2E' }} />
               <input
                 type="text"
-                placeholder="Pesquisar concelho, distrito ou estilo de vida…"
+                placeholder={tr('area.searchPlaceholder')}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 className="w-full pl-9 pr-4 py-2.5 text-sm outline-none"
@@ -306,7 +313,7 @@ const { open: openQuiz } = useQuiz()
 
           {/* Count */}
           <p className="text-xs mb-4" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
-            {filtered.length} concelho{filtered.length !== 1 ? 's' : ''}
+            {(filtered.length === 1 ? tr('area.countSingular') : tr('area.countPlural')).replace('{n}', String(filtered.length))}
           </p>
 
           {/* Grid */}
@@ -318,7 +325,7 @@ const { open: openQuiz } = useQuiz()
 
           {filtered.length === 0 && (
             <div className="py-16 text-center">
-              <p className="text-sm" style={{ color: '#3A3B2E' }}>Nenhum resultado para "{search}".</p>
+              <p className="text-sm" style={{ color: '#3A3B2E' }}>{tr('area.noResults').replace('{q}', search)}</p>
             </div>
           )}
         </div>
@@ -330,13 +337,13 @@ const { open: openQuiz } = useQuiz()
             <div className="flex items-end justify-between mb-8">
               <div>
                 <SectionNum n="03" />
-                <h2 className="font-display text-2xl" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>Imóveis nas tuas zonas</h2>
+                <h2 className="font-display text-2xl" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>{tr('area.propsInZones')}</h2>
               </div>
               <Link to="/imoveis" className="hidden lg:flex items-center gap-2 text-sm font-medium transition-colors duration-150"
                 style={{ color: '#3A3B2E' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#C2553A')}
                 onMouseLeave={e => (e.currentTarget.style.color = '#3A3B2E')}>
-                Ver todos <ArrowRight size={14} />
+                {tr('area.viewAll')} <ArrowRight size={14} />
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

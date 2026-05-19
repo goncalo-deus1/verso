@@ -9,6 +9,8 @@ import { getPropertyById } from '../lib/supabase/properties'
 import type { PropertyRow } from '../lib/supabase/properties'
 import { SectionNum, Callout, Divider, BlockLabel } from '../components/Brand'
 import ContactSellerButton from '../components/property/ContactSellerButton'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -16,19 +18,35 @@ const CLAY     = '#C2553A'
 const STONE    = '#3A3B2E'
 const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 
-const fmt  = (n: number) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n)
-const fmtN = (n: number) => new Intl.NumberFormat('pt-PT').format(n)
-
-const CONDITION_LABEL: Record<string, string> = {
-  novo: 'Novo', usado: 'Usado', para_recuperar: 'Para recuperar', em_construcao: 'Em construção',
-}
-const TYPE_LABEL: Record<string, string> = {
-  apartamento: 'Apartamento', moradia: 'Moradia',
-  terreno: 'Terreno', comercial: 'Comercial', garagem: 'Garagem',
-}
-
 export default function PropertyDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const { lang } = useLang()
+  const tr = useT(lang)
+  const locale = lang === 'pt' ? 'pt-PT' : 'en-GB'
+  const fmt  = (n: number) => new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n)
+  const fmtN = (n: number) => new Intl.NumberFormat(locale).format(n)
+
+  const conditionLabel = (c: string | null): string | null => {
+    if (!c) return null
+    switch (c) {
+      case 'novo':            return tr('pd.cond.novo')
+      case 'usado':           return tr('pd.cond.usado')
+      case 'para_recuperar':  return tr('pd.cond.para_recuperar')
+      case 'em_construcao':   return tr('pd.cond.em_construcao')
+      default:                return c
+    }
+  }
+  const typeLabel = (t: string): string => {
+    switch (t) {
+      case 'apartamento': return tr('props.type.apartamento')
+      case 'moradia':     return tr('props.type.moradia')
+      case 'terreno':     return tr('props.type.terreno')
+      case 'comercial':   return tr('props.type.comercial')
+      case 'garagem':     return tr('props.type.garagem')
+      default:            return t
+    }
+  }
+
   const [property, setProperty] = useState<PropertyRow | null>(null)
   const [loading, setLoading] = useState(true)
   const [galleryOpen, setGalleryOpen] = useState(false)
@@ -53,8 +71,8 @@ export default function PropertyDetailPage() {
   if (!property) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: BONE }}>
       <div style={{ textAlign: 'center' }}>
-        <h1 className="font-display text-3xl mb-4" style={{ color: INK }}>Imóvel não encontrado</h1>
-        <Link to="/imoveis" style={{ color: CLAY }}>Voltar aos imóveis</Link>
+        <h1 className="font-display text-3xl mb-4" style={{ color: INK }}>{tr('pd.notFound')}</h1>
+        <Link to="/imoveis" style={{ color: CLAY }}>{tr('pd.backToList')}</Link>
       </div>
     </div>
   )
@@ -109,7 +127,7 @@ export default function PropertyDetailPage() {
           style={{ color: STONE }}
           onMouseEnter={e => (e.currentTarget.style.color = CLAY)}
           onMouseLeave={e => (e.currentTarget.style.color = STONE)}>
-          <ArrowLeft size={13} /> Todos os imóveis
+          <ArrowLeft size={13} /> {tr('pd.breadcrumb')}
         </Link>
       </div>
 
@@ -128,7 +146,7 @@ export default function PropertyDetailPage() {
                 <img src={img} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
                 {i === 3 && images.length > 5 && (
                   <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(10,10,11,0.55)' }}>
-                    <span className="text-white font-medium text-sm">+{images.length - 5} fotos</span>
+                    <span className="text-white font-medium text-sm">{tr('pd.morePhotos').replace('{n}', String(images.length - 5))}</span>
                   </div>
                 )}
               </div>
@@ -136,7 +154,7 @@ export default function PropertyDetailPage() {
           </div>
         ) : (
           <div style={{ height: '320px', background: '#E8E0D0', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontSize: '14px', color: STONE, opacity: 0.4 }}>Sem fotografias</span>
+            <span style={{ fontSize: '14px', color: STONE, opacity: 0.4 }}>{tr('pd.noPhotos')}</span>
           </div>
         )}
       </div>
@@ -165,7 +183,7 @@ export default function PropertyDetailPage() {
                 {property.title}
               </h1>
               <p style={{ fontSize: '13px', color: STONE, fontFamily: 'IBM Plex Mono' }}>
-                {TYPE_LABEL[property.property_type] ?? property.property_type}
+                {typeLabel(property.property_type)}
                 {property.typology ? ` · ${property.typology}` : ''}
                 {property.municipality ? ` · ${property.municipality}` : ''}
               </p>
@@ -174,10 +192,10 @@ export default function PropertyDetailPage() {
             {/* Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { icon: <Bed size={16} />, label: 'Quartos', value: property.bedrooms || '—' },
-                { icon: <Bath size={16} />, label: 'WC', value: property.bathrooms || '—' },
-                { icon: <Maximize2 size={16} />, label: 'Área', value: property.sqm ? `${property.sqm} m²` : '—' },
-                { icon: <Car size={16} />, label: 'Parking', value: property.parking_spots > 0 ? property.parking_spots : '—' },
+                { icon: <Bed size={16} />, label: tr('pd.stat.rooms'), value: property.bedrooms || '—' },
+                { icon: <Bath size={16} />, label: tr('pd.stat.bath'), value: property.bathrooms || '—' },
+                { icon: <Maximize2 size={16} />, label: tr('pd.stat.area'), value: property.sqm ? `${property.sqm} m²` : '—' },
+                { icon: <Car size={16} />, label: tr('pd.stat.parking'), value: property.parking_spots > 0 ? property.parking_spots : '—' },
               ].map(stat => (
                 <div key={stat.label} className="flex flex-col items-center text-center p-4 bg-white"
                   style={{ border: `1px solid ${HAIRLINE}`, borderRadius: '6px' }}>
@@ -192,7 +210,7 @@ export default function PropertyDetailPage() {
             {property.description && (
               <div>
                 <SectionNum n="01" />
-                <h2 className="font-display text-xl mb-4" style={{ color: INK, letterSpacing: '-0.3px' }}>Sobre este imóvel</h2>
+                <h2 className="font-display text-xl mb-4" style={{ color: INK, letterSpacing: '-0.3px' }}>{tr('pd.s.about')}</h2>
                 <p className="leading-relaxed" style={{ color: STONE }}>{property.description}</p>
               </div>
             )}
@@ -201,7 +219,7 @@ export default function PropertyDetailPage() {
             {property.highlights && property.highlights.length > 0 && (
               <div>
                 <SectionNum n="02" />
-                <h2 className="font-display text-xl mb-4" style={{ color: INK, letterSpacing: '-0.3px' }}>Destaques</h2>
+                <h2 className="font-display text-xl mb-4" style={{ color: INK, letterSpacing: '-0.3px' }}>{tr('pd.s.highlights')}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {property.highlights.map((h, i) => (
                     <div key={i} className="flex items-start gap-3">
@@ -216,17 +234,17 @@ export default function PropertyDetailPage() {
             {/* Details table */}
             <div>
               <SectionNum n="03" />
-              <h2 className="font-display text-xl mb-4" style={{ color: INK, letterSpacing: '-0.3px' }}>Detalhes</h2>
+              <h2 className="font-display text-xl mb-4" style={{ color: INK, letterSpacing: '-0.3px' }}>{tr('pd.s.details')}</h2>
               <div style={{ border: `1px solid ${HAIRLINE}`, borderRadius: '6px' }} className="overflow-hidden bg-white">
                 {([
-                  ['Tipologia', property.typology],
-                  ['Área útil', property.sqm ? `${property.sqm} m²` : null],
-                  ['Ano de construção', property.year_built],
-                  ['Estado', property.condition ? CONDITION_LABEL[property.condition] : null],
-                  ['Cert. energético', property.energy_rating],
-                  ['Preço/m²', property.price_per_sqm ? `${fmtN(property.price_per_sqm)} €/m²` : null],
-                  ['Orientação', property.orientation],
-                  ['Condomínio', property.condominium_fee ? `${fmtN(property.condominium_fee)} €/mês` : null],
+                  [tr('pd.detail.typology'),    property.typology],
+                  [tr('pd.detail.area'),        property.sqm ? `${property.sqm} m²` : null],
+                  [tr('pd.detail.year'),        property.year_built],
+                  [tr('pd.detail.condition'),   conditionLabel(property.condition)],
+                  [tr('pd.detail.energy'),      property.energy_rating],
+                  [tr('pd.detail.pricePerSqm'), property.price_per_sqm ? `${fmtN(property.price_per_sqm)} €/m²` : null],
+                  [tr('pd.detail.orientation'), property.orientation],
+                  [tr('pd.detail.condominium'), property.condominium_fee ? `${fmtN(property.condominium_fee)} ${tr('pd.detail.perMonth')}` : null],
                 ] as [string, string | number | null][]).filter(([, v]) => v != null).map(([label, value], idx, arr) => (
                   <div key={String(label)} className="flex items-center justify-between px-5 py-4"
                     style={idx < arr.length - 1 ? { borderBottom: '1px solid #F0EDE8' } : {}}>
@@ -241,14 +259,14 @@ export default function PropertyDetailPage() {
             {(property.has_elevator || property.has_garden || property.has_pool || property.has_terrace || property.has_storage) && (
               <div>
                 <SectionNum n="04" />
-                <h2 className="font-display text-xl mb-4" style={{ color: INK, letterSpacing: '-0.3px' }}>Extras</h2>
+                <h2 className="font-display text-xl mb-4" style={{ color: INK, letterSpacing: '-0.3px' }}>{tr('pd.s.extras')}</h2>
                 <div className="flex flex-wrap gap-2">
                   {[
-                    [property.has_elevator, 'Elevador'],
-                    [property.has_garden, 'Jardim'],
-                    [property.has_pool, 'Piscina'],
-                    [property.has_terrace, 'Terraço'],
-                    [property.has_storage, 'Arrecadação'],
+                    [property.has_elevator, tr('pd.extra.elevator')],
+                    [property.has_garden,   tr('pd.extra.garden')],
+                    [property.has_pool,     tr('pd.extra.pool')],
+                    [property.has_terrace,  tr('pd.extra.terrace')],
+                    [property.has_storage,  tr('pd.extra.storage')],
                   ].filter(([v]) => v).map(([, label]) => (
                     <span key={String(label)} style={{ fontSize: '12px', fontWeight: 600, padding: '4px 10px', background: BONE, border: `1px solid ${HAIRLINE}`, borderRadius: '4px', color: STONE }}>
                       {String(label)}
@@ -261,14 +279,14 @@ export default function PropertyDetailPage() {
             {/* Acquisition costs */}
             <div>
               <SectionNum n="05" />
-              <h2 className="font-display text-xl mb-2" style={{ color: INK, letterSpacing: '-0.3px' }}>Custos de aquisição</h2>
-              <p className="text-sm mb-4" style={{ color: STONE }}>Estimativa. Consulte sempre um advogado.</p>
+              <h2 className="font-display text-xl mb-2" style={{ color: INK, letterSpacing: '-0.3px' }}>{tr('pd.s.costs')}</h2>
+              <p className="text-sm mb-4" style={{ color: STONE }}>{tr('pd.costs.disclaimer')}</p>
               <div style={{ border: `1px solid ${HAIRLINE}`, borderRadius: '6px' }} className="overflow-hidden bg-white">
                 {([
-                  ['IMT', costs.imt, '~6%'],
-                  ['Imposto de Selo', costs.stamp, '0.8%'],
-                  ['Notário', costs.notary, 'estimado'],
-                  ['Registo', costs.registry, 'estimado'],
+                  [tr('pd.costs.imt'),      costs.imt,      tr('pd.costs.imtNote')],
+                  [tr('pd.costs.stamp'),    costs.stamp,    '0.8%'],
+                  [tr('pd.costs.notary'),   costs.notary,   tr('pd.costs.notaryNote')],
+                  [tr('pd.costs.registry'), costs.registry, tr('pd.costs.notaryNote')],
                 ] as [string, number, string][]).map(([label, value, note]) => (
                   <div key={label} className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid #F0EDE8' }}>
                     <div className="flex items-center gap-2">
@@ -279,7 +297,7 @@ export default function PropertyDetailPage() {
                   </div>
                 ))}
                 <div className="flex items-center justify-between px-5 py-4" style={{ background: BONE, borderTop: `2px solid ${INK}` }}>
-                  <span className="text-sm font-semibold" style={{ color: INK }}>Total custos adicionais</span>
+                  <span className="text-sm font-semibold" style={{ color: INK }}>{tr('pd.costs.total')}</span>
                   <span className="font-display font-medium" style={{ color: INK }}>{fmt(totalCosts)}</span>
                 </div>
               </div>
@@ -306,7 +324,7 @@ export default function PropertyDetailPage() {
                   <button onClick={() => setContactOpen(true)}
                     className="w-full py-3.5 text-white font-semibold text-sm transition-opacity hover:opacity-85"
                     style={{ background: CLAY, borderRadius: '8px' }}>
-                    Agendar visita
+                    {tr('pd.sidebar.bookVisit')}
                   </button>
                   <ContactSellerButton
                     propertyId={property.id}
@@ -314,7 +332,7 @@ export default function PropertyDetailPage() {
                     className="w-full py-3.5 rounded-lg font-medium text-sm transition-opacity hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
                   />
                 </div>
-                <p className="text-xs text-center mt-4" style={{ color: STONE }}>Sem compromisso. Respondemos em 24h.</p>
+                <p className="text-xs text-center mt-4" style={{ color: STONE }}>{tr('pd.sidebar.noCommit')}</p>
               </div>
 
               {/* Building info */}
@@ -322,18 +340,18 @@ export default function PropertyDetailPage() {
                 <div className="p-5 bg-white" style={{ border: `1px solid ${HAIRLINE}`, borderRadius: '8px' }}>
                   <div className="flex items-center gap-2 mb-3">
                     <Calendar size={13} style={{ color: STONE }} />
-                    <span className="text-xs font-semibold uppercase" style={{ color: STONE, letterSpacing: '2px', fontFamily: 'IBM Plex Mono', fontSize: '10px' }}>Edifício</span>
+                    <span className="text-xs font-semibold uppercase" style={{ color: STONE, letterSpacing: '2px', fontFamily: 'IBM Plex Mono', fontSize: '10px' }}>{tr('pd.sidebar.buildingEyebrow')}</span>
                   </div>
                   {property.year_built && (
                     <p className="text-sm" style={{ color: STONE }}>
-                      Construído em <strong style={{ color: INK }}>{property.year_built}</strong>
-                      {property.condition ? ` · ${CONDITION_LABEL[property.condition] ?? property.condition}` : ''}
+                      {tr('pd.sidebar.builtIn')} <strong style={{ color: INK }}>{property.year_built}</strong>
+                      {property.condition ? ` · ${conditionLabel(property.condition) ?? property.condition}` : ''}
                     </p>
                   )}
                   {property.energy_rating && (
                     <div className="flex items-center gap-2 mt-2">
                       <Zap size={12} style={{ color: STONE }} />
-                      <span className="text-sm" style={{ color: STONE }}>Cert. energético <strong style={{ color: INK }}>{property.energy_rating}</strong></span>
+                      <span className="text-sm" style={{ color: STONE }}>{tr('pd.sidebar.energyRating')} <strong style={{ color: INK }}>{property.energy_rating}</strong></span>
                     </div>
                   )}
                 </div>
@@ -345,11 +363,11 @@ export default function PropertyDetailPage() {
         {/* Divider */}
         <div className="mt-20 pb-12">
           <Divider />
-          <BlockLabel>Mais imóveis</BlockLabel>
+          <BlockLabel>{tr('pd.related.title')}</BlockLabel>
           <Link to="/imoveis"
             className="inline-flex items-center gap-2 text-sm font-medium mt-2"
             style={{ color: CLAY, textDecoration: 'none' }}>
-            Ver todos os imóveis →
+            {tr('pd.related.viewAll')}
           </Link>
         </div>
       </div>
@@ -362,7 +380,7 @@ export default function PropertyDetailPage() {
           <div className="w-full max-w-lg bg-white p-8" style={{ borderRadius: '8px' }} onClick={e => e.stopPropagation()}>
             <div className="flex items-start justify-between mb-6">
               <div>
-                <h3 className="font-display text-2xl" style={{ color: INK }}>Agendar visita</h3>
+                <h3 className="font-display text-2xl" style={{ color: INK }}>{tr('pd.modal.title')}</h3>
                 <p className="text-sm mt-1" style={{ color: STONE }}>{property.title}</p>
               </div>
               <button onClick={() => setContactOpen(false)}
@@ -372,20 +390,20 @@ export default function PropertyDetailPage() {
               </button>
             </div>
             <div className="space-y-3">
-              {['O seu nome', 'Telefone', 'Email'].map(ph => (
+              {[tr('pd.modal.name'), tr('pd.modal.phone'), tr('pd.modal.email')].map(ph => (
                 <input key={ph} type="text" placeholder={ph}
                   className="w-full px-4 py-3.5 text-sm outline-none"
                   style={{ border: `1px solid ${HAIRLINE}`, color: INK, borderRadius: '4px' }} />
               ))}
-              <textarea placeholder="Mensagem (opcional)" rows={3}
+              <textarea placeholder={tr('pd.modal.message')} rows={3}
                 className="w-full px-4 py-3.5 text-sm outline-none resize-none"
                 style={{ border: `1px solid ${HAIRLINE}`, color: INK, borderRadius: '4px' }} />
               <button onClick={() => setContactOpen(false)}
                 className="w-full py-4 text-white font-semibold text-sm transition-opacity hover:opacity-85"
                 style={{ background: CLAY, borderRadius: '8px' }}>
-                Enviar pedido de visita
+                {tr('pd.modal.submit')}
               </button>
-              <p className="text-xs text-center" style={{ color: STONE }}>Respondemos em menos de 24h. Sem compromisso.</p>
+              <p className="text-xs text-center" style={{ color: STONE }}>{tr('pd.modal.footer')}</p>
             </div>
           </div>
         </div>

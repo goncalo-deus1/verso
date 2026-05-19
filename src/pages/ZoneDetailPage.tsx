@@ -8,6 +8,8 @@ import { findZoneBySlug } from '../data/zones'
 import { ATTRIBUTE_LABELS } from '../data/attributes'
 import type { Attribute } from '../data/attributes'
 import { useQuiz } from '../context/QuizContext'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -54,6 +56,9 @@ export default function ZoneDetailPage() {
   const { slug } = useParams<{ slug: string }>()
   const zone = slug ? findZoneBySlug(slug) : undefined
   const { open: openQuiz } = useQuiz()
+  const { lang } = useLang()
+  const tr = useT(lang)
+  const locale = lang === 'pt' ? 'pt-PT' : 'en-GB'
 
   if (!zone) return <Navigate to="/" replace />
 
@@ -66,10 +71,10 @@ export default function ZoneDetailPage() {
 
         {/* Eyebrow */}
         <p style={{ ...eyebrow, marginBottom: '24px' }}>
-          {zone.kind === 'freguesia' ? `Freguesia · Lisboa` : `Concelho · AML`}
+          {zone.kind === 'freguesia' ? tr('zd.kind.freguesia') : tr('zd.kind.concelho')}
           {zone.budgetFitT2 && (
             <span style={{ color: STONE }}>
-              {' '}· T2 a partir de {zone.budgetFitT2.min.toLocaleString('pt-PT')}€/mês
+              {' '}· {tr('zd.budgetT2From').replace('{min}', zone.budgetFitT2.min.toLocaleString(locale))}
             </span>
           )}
         </p>
@@ -115,14 +120,14 @@ export default function ZoneDetailPage() {
             padding: '20px 24px',
             marginBottom: '48px',
           }}>
-            <p style={{ ...eyebrow, color: STONE, marginBottom: '8px' }}>Imóvel de referência</p>
+            <p style={{ ...eyebrow, color: STONE, marginBottom: '8px' }}>{tr('zd.signalProperty')}</p>
             <p style={{ fontSize: '15px', color: INK, lineHeight: 1.6 }}>{zone.signalProperty}</p>
           </div>
         )}
 
         {/* Perfil de zona */}
         <section style={{ marginBottom: '56px' }}>
-          <p style={{ ...eyebrow, marginBottom: '24px' }}>Perfil da zona</p>
+          <p style={{ ...eyebrow, marginBottom: '24px' }}>{tr('zd.profile')}</p>
           {profileEntries.map(([attr, value]) => (
             <ProfileBar key={attr} attr={attr} value={value} />
           ))}
@@ -131,11 +136,11 @@ export default function ZoneDetailPage() {
         {/* Orçamento */}
         {zone.budgetFitT2 && (
           <section style={{ marginBottom: '56px' }}>
-            <p style={{ ...eyebrow, marginBottom: '16px' }}>Orçamento T2 estimado</p>
+            <p style={{ ...eyebrow, marginBottom: '16px' }}>{tr('zd.budgetT2Estimated')}</p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               {[
-                { label: 'A partir de', value: `${zone.budgetFitT2.min.toLocaleString('pt-PT')}€/mês` },
-                { label: 'Até',         value: `${zone.budgetFitT2.max.toLocaleString('pt-PT')}€/mês` },
+                { label: tr('zd.from'), value: `${zone.budgetFitT2.min.toLocaleString(locale)}${tr('pd.detail.perMonth')}` },
+                { label: tr('zd.to'),   value: `${zone.budgetFitT2.max.toLocaleString(locale)}${tr('pd.detail.perMonth')}` },
               ].map(({ label, value }) => (
                 <div key={label} style={{ background: SAND, borderRadius: '4px', padding: '20px' }}>
                   <p style={{ ...eyebrow, color: STONE, marginBottom: '8px' }}>{label}</p>
@@ -163,7 +168,7 @@ export default function ZoneDetailPage() {
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            Ver imóveis em {zone.name}
+            {tr('zd.viewIn').replace('{name}', zone.name)}
           </Link>
           <button
             onClick={() => openQuiz()}
@@ -179,7 +184,7 @@ export default function ZoneDetailPage() {
               border: `1px solid ${HAIRLINE}`,
             }}
           >
-            Refazer o quiz
+            {tr('zd.redoQuiz')}
           </button>
         </div>
 
