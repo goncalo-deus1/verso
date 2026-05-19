@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
   ArrowLeft, Bed, Bath, Maximize2, Zap, Car, Calendar,
-  Share2, Phone, CheckCircle, ChevronLeft, ChevronRight, X,
+  Share2, CheckCircle, ChevronLeft, ChevronRight, X,
   MapPin,
 } from 'lucide-react'
 import { getPropertyById } from '../lib/supabase/properties'
 import type { PropertyRow } from '../lib/supabase/properties'
 import { SectionNum, Callout, Divider, BlockLabel } from '../components/Brand'
+import ContactSellerButton from '../components/property/ContactSellerButton'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -307,10 +308,11 @@ export default function PropertyDetailPage() {
                     style={{ background: CLAY, borderRadius: '8px' }}>
                     Agendar visita
                   </button>
-                  <button className="w-full flex items-center justify-center gap-2 py-3.5 text-sm font-medium"
-                    style={{ border: `1px solid ${HAIRLINE}`, color: INK, borderRadius: '8px' }}>
-                    <Phone size={14} /> Pedir contacto
-                  </button>
+                  <ContactSellerButton
+                    propertyId={property.id}
+                    ownerId={property.owner_id}
+                    className="w-full py-3.5 rounded-lg font-medium text-sm transition-opacity hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
+                  />
                 </div>
                 <p className="text-xs text-center mt-4" style={{ color: STONE }}>Sem compromisso. Respondemos em 24h.</p>
               </div>

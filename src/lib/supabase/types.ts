@@ -255,9 +255,76 @@ export interface Database {
           }
         ]
       }
+      conversations: {
+        Row: {
+          id: string
+          property_id: string
+          buyer_id: string
+          seller_id: string
+          created_at: string
+          last_message_at: string
+          buyer_last_read_at: string | null
+          seller_last_read_at: string | null
+        }
+        Insert: {
+          id?: string
+          property_id: string
+          buyer_id: string
+          seller_id: string
+          created_at?: string
+          last_message_at?: string
+          buyer_last_read_at?: string | null
+          seller_last_read_at?: string | null
+        }
+        Update: {
+          last_message_at?: string
+          buyer_last_read_at?: string | null
+          seller_last_read_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'conversations_property_id_fkey'
+            columns: ['property_id']
+            referencedRelation: 'properties'
+            referencedColumns: ['id']
+          }
+        ]
+      }
+      messages: {
+        Row: {
+          id: string
+          conversation_id: string
+          sender_id: string
+          body: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          conversation_id: string
+          sender_id: string
+          body: string
+          created_at?: string
+        }
+        Update: {
+          body?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'messages_conversation_id_fkey'
+            columns: ['conversation_id']
+            referencedRelation: 'conversations'
+            referencedColumns: ['id']
+          }
+        ]
+      }
     }
     Views: Record<string, never>
-    Functions: Record<string, never>
+    Functions: {
+      start_conversation: {
+        Args: { p_property_id: string }
+        Returns: string
+      }
+    }
     Enums: Record<string, never>
   }
 }

@@ -49,6 +49,8 @@ const EmBreve            = lazy(() => import('./pages/EmBreve'))
 const ProprietarioEmBreve = lazy(() => import('./pages/ProprietarioEmBreve'))
 const SobrePage          = lazy(() => import('./pages/SobrePage'))
 const AddPropertyPage    = lazy(() => import('./pages/AddPropertyPage'))
+const Inbox              = lazy(() => import('./pages/Inbox'))
+const ConversationThread = lazy(() => import('./pages/ConversationThread'))
 const FreguesiaRoute     = lazy(() => import('./pages/aml/FreguesiaRoute'))
 const ConcelhoRoute      = lazy(() => import('./pages/aml/ConcelhoRoute'))
 const PillarRoute        = lazy(() => import('./pages/guias/PillarRoute'))
@@ -253,6 +255,8 @@ function AppRoutes() {
         <Route path="/minha-conta" element={<Layout><ProtectedRoute><MinhaConta /></ProtectedRoute></Layout>} />
         <Route path="/perfil" element={<Layout><ProfilePage /></Layout>} />
         <Route path="/adicionar-imovel" element={<Layout><ProtectedRoute><AddPropertyPage /></ProtectedRoute></Layout>} />
+        <Route path="/inbox" element={<Layout><ProtectedRoute><Inbox /></ProtectedRoute></Layout>} />
+        <Route path="/inbox/:id" element={<Layout><ProtectedRoute><ConversationThread /></ProtectedRoute></Layout>} />
 
         {/* Catch-all 404 — runs only for URLs the SPA doesn't recognise.
             In production, vercel.json redirects known legacy paths (e.g.
