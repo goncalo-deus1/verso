@@ -8,6 +8,8 @@
 
 import { useState, useCallback, useMemo } from 'react'
 import { concelhosAML } from '../../data/concelhosAML'
+import { useLang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 
 // ─── Tipos exportados ─────────────────────────────────────────────────────────
 
@@ -18,24 +20,6 @@ export type SliderPrefs = Record<SliderKey, number>
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
 const SLIDER_KEYS: SliderKey[] = ['centralidade', 'tranquilidade', 'familiar', 'acessibilidade', 'espaco', 'mar']
-
-const SLIDER_LABELS: Record<SliderKey, string> = {
-  centralidade:   'Centro',
-  tranquilidade:  'Tranquilidade',
-  familiar:       'Familiar',
-  acessibilidade: 'Transportes',
-  espaco:         'Espaço',
-  mar:            'Junto ao mar',
-}
-
-const SLIDER_POLES: Record<SliderKey, [string, string]> = {
-  centralidade:   ['Periferia', 'Centro'],
-  tranquilidade:  ['Animado', 'Silencioso'],
-  familiar:       ['Jovem', 'Familiar'],
-  acessibilidade: ['Carro', 'TP'],
-  espaco:         ['Compacto', 'Amplo'],
-  mar:            ['Interior', 'Litoral'],
-}
 
 // Polygons reusados do MapaAML — coordenadas no mesmo viewBox 400×500
 const PATHS: Record<string, { d: string; lx: number; ly: number; name: string }> = {
@@ -92,7 +76,27 @@ type Props = {
 }
 
 export function MapaInterativo({ prefs, onPrefsChange, quizBestConcelhoSlug, quizBestScore, zonaNome }: Props) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   const [hovered, setHovered] = useState<string | null>(null)
+
+  const SLIDER_LABELS: Record<SliderKey, string> = {
+    centralidade:   tr('result.map.slider.centralidade'),
+    tranquilidade:  tr('result.map.slider.tranquilidade'),
+    familiar:       tr('result.map.slider.familiar'),
+    acessibilidade: tr('result.map.slider.acessibilidade'),
+    espaco:         tr('result.map.slider.espaco'),
+    mar:            tr('result.map.slider.mar'),
+  }
+
+  const SLIDER_POLES: Record<SliderKey, [string, string]> = {
+    centralidade:   [tr('result.map.pole.centralidade.lo'),   tr('result.map.pole.centralidade.hi')],
+    tranquilidade:  [tr('result.map.pole.tranquilidade.lo'),  tr('result.map.pole.tranquilidade.hi')],
+    familiar:       [tr('result.map.pole.familiar.lo'),       tr('result.map.pole.familiar.hi')],
+    acessibilidade: [tr('result.map.pole.acessibilidade.lo'), tr('result.map.pole.acessibilidade.hi')],
+    espaco:         [tr('result.map.pole.espaco.lo'),         tr('result.map.pole.espaco.hi')],
+    mar:            [tr('result.map.pole.mar.lo'),            tr('result.map.pole.mar.hi')],
+  }
 
   const ranking = useMemo(() => computeRanking(prefs), [prefs])
   const rankIndex = useMemo(
@@ -114,16 +118,16 @@ export function MapaInterativo({ prefs, onPrefsChange, quizBestConcelhoSlug, qui
         {/* Section head */}
         <div className="grid md:grid-cols-[180px_1fr] gap-10 mb-14 items-start">
           <div className="font-mono text-[11px] tracking-[0.2em] uppercase pt-3 border-t border-verso-rule-soft text-verso-clay">
-            § 02 — Onde se posiciona
+            {tr('result.map.eyebrow')}
           </div>
           <div>
             <h2 className="font-display font-normal text-4xl sm:text-5xl leading-[1.02] tracking-[-0.025em] text-verso-midnight">
-              {zonaNome} face aos outros{' '}
-              <em className="italic text-verso-clay">{concelhosAML.length - 1}</em> concelhos.
+              {tr('result.map.title.before').replace('{name}', zonaNome)}
+              <em className="italic text-verso-clay">{tr('result.map.title.emphasis').replace('{n}', String(concelhosAML.length - 1))}</em>
+              {tr('result.map.title.after')}
             </h2>
             <p className="mt-5 text-[15px] text-verso-midnight-soft leading-[1.6] max-w-[520px]">
-              Mexe nos pesos abaixo. Se mudares o que mais valorizas, a zona no topo actualiza.
-              Isto não é mágica — é a forma honesta de mostrares como o algoritmo funciona.
+              {tr('result.map.lede')}
             </p>
           </div>
         </div>
@@ -150,7 +154,7 @@ export function MapaInterativo({ prefs, onPrefsChange, quizBestConcelhoSlug, qui
                 viewBox="0 0 400 500"
                 className="w-full h-full"
                 role="img"
-                aria-label="Mapa de afinidade dos concelhos da AML"
+                aria-label={tr('result.map.svgLabel')}
               >
                 {Object.entries(PATHS).map(([slug, { d, lx, ly, name }]) => {
                   const rank       = rankIndex[slug] ?? 17
@@ -255,13 +259,13 @@ export function MapaInterativo({ prefs, onPrefsChange, quizBestConcelhoSlug, qui
               {/* Legenda */}
               <div className="mt-4 flex flex-wrap gap-5 font-mono text-[9px] tracking-[0.1em] uppercase text-verso-midnight-soft">
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 inline-block" style={{ background: '#C2553A' }} /> Resultado &amp; Top 3
+                  <span className="w-2.5 h-2.5 inline-block" style={{ background: '#C2553A' }} /> {tr('result.map.legend.top')}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 inline-block" style={{ background: '#94A383' }} /> Perfil semelhante (4–8)
+                  <span className="w-2.5 h-2.5 inline-block" style={{ background: '#94A383' }} /> {tr('result.map.legend.similar')}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 inline-block border border-[#1E1F18]/20" style={{ background: '#E8E0D0' }} /> Restantes
+                  <span className="w-2.5 h-2.5 inline-block border border-[#1E1F18]/20" style={{ background: '#E8E0D0' }} /> {tr('result.map.legend.rest')}
                 </span>
               </div>
             </div>
@@ -271,7 +275,7 @@ export function MapaInterativo({ prefs, onPrefsChange, quizBestConcelhoSlug, qui
           <div className="flex flex-col gap-7 pt-1">
 
             <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-verso-clay pb-3 border-b border-verso-rule-soft">
-              Ajustar preferências
+              {tr('result.map.adjust')}
             </p>
 
             {SLIDER_KEYS.map(key => (
@@ -316,13 +320,13 @@ export function MapaInterativo({ prefs, onPrefsChange, quizBestConcelhoSlug, qui
             <div className="mt-3 p-5 border border-verso-rule-soft bg-verso-paper relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-verso-clay" />
               <p className="font-mono text-[9px] tracking-[0.14em] uppercase text-verso-clay mb-2">
-                Melhor match actual
+                {tr('result.map.bestMatch')}
               </p>
               <p className="font-display text-2xl tracking-[-0.02em] text-verso-midnight leading-none">
                 {top.name}
               </p>
               <p className="font-mono text-[10px] text-verso-midnight-soft mt-1.5">
-                Afinidade · {topScore} / 100
+                {tr('result.map.bestMatch.score').replace('{score}', String(topScore))}
               </p>
             </div>
           </div>

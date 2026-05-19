@@ -7,6 +7,8 @@
 import type { ZoneProfile } from '../../data/attributes'
 import { ATTRIBUTE_LABELS } from '../../data/attributes'
 import type { TradeoffConfidence } from '../../lib/quiz/tradeoffs'
+import { useLang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 
 type Props = {
   nome: string
@@ -36,6 +38,8 @@ function VariavelBar({ nome, valor }: { nome: string; valor: number }) {
 }
 
 export function PorqueEstaZona({ contributions, tradeoff, tradeoffConfidence }: Props) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   // Top 4 atributos pela contribuição mais alta para este match
   const topVariaveis = (Object.entries(contributions) as [keyof ZoneProfile, number][])
     .sort((a, b) => b[1] - a[1])
@@ -52,15 +56,15 @@ export function PorqueEstaZona({ contributions, tradeoff, tradeoffConfidence }: 
 
         {/* Eyebrow */}
         <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-verso-clay mb-10">
-          § 01 — Porque esta zona
+          {tr('result.porque.eyebrow')}
         </p>
 
         {/* Título */}
         <div className="mb-14 md:mb-20">
           <h2 className="font-display font-normal text-4xl sm:text-5xl leading-[1.05] tracking-[-0.025em] text-verso-midnight">
-            O que{' '}
-            <em className="italic text-verso-clay">pesa</em>{' '}
-            mais neste match.
+            {tr('result.porque.title.before')}
+            <em className="italic text-verso-clay">{tr('result.porque.title.emphasis')}</em>
+            {tr('result.porque.title.after')}
           </h2>
         </div>
 
@@ -75,7 +79,7 @@ export function PorqueEstaZona({ contributions, tradeoff, tradeoffConfidence }: 
         {tradeoff && tradeoffConfidence === 'high' && (
           <div className="border-l-2 border-verso-clay pl-6 md:pl-8 max-w-3xl">
             <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-verso-clay mb-3">
-              O que esta zona te custa
+              {tr('result.porque.tradeoffLabel')}
             </p>
             <p className="font-display italic text-xl md:text-2xl leading-[1.4] text-verso-midnight">
               {tradeoff}

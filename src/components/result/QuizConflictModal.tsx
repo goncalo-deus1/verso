@@ -8,6 +8,9 @@
  * variant="refazer"    → "Vais substituir o teu quiz anterior. Tens a certeza?"
  */
 
+import { useLang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
+
 const INK    = '#1E1F18'
 const BONE   = '#F2EDE4'
 const CLAY   = '#C2553A'
@@ -21,6 +24,8 @@ type Props = {
 }
 
 export function QuizConflictModal({ variant, onPrimary, onSecondary }: Props) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   const isConflict = variant === 'conflict'
 
   return (
@@ -46,7 +51,7 @@ export function QuizConflictModal({ variant, onPrimary, onSecondary }: Props) {
           fontSize: '10px', letterSpacing: '0.18em',
           textTransform: 'uppercase', color: CLAY, marginBottom: '16px',
         }}>
-          {isConflict ? 'Quiz anterior detectado' : 'Confirmar substituição'}
+          {isConflict ? tr('result.conflict.eyebrow.conflict') : tr('result.conflict.eyebrow.refazer')}
         </p>
 
         {/* Headline */}
@@ -56,15 +61,15 @@ export function QuizConflictModal({ variant, onPrimary, onSecondary }: Props) {
           color: INK, marginBottom: '12px',
         }}>
           {isConflict
-            ? 'Já tens um quiz guardado.'
-            : 'Vais substituir o teu quiz anterior.'}
+            ? tr('result.conflict.title.conflict')
+            : tr('result.conflict.title.refazer')}
         </h2>
 
         {/* Body */}
         <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.65, marginBottom: '28px' }}>
           {isConflict
-            ? 'Queres substituir o anterior pelo novo, ou manter o que já tinhas?'
-            : 'Tens a certeza? O quiz anterior será apagado permanentemente.'}
+            ? tr('result.conflict.body.conflict')
+            : tr('result.conflict.body.refazer')}
         </p>
 
         {/* Actions */}
@@ -83,7 +88,7 @@ export function QuizConflictModal({ variant, onPrimary, onSecondary }: Props) {
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            Substituir
+            {tr('result.conflict.replace')}
           </button>
 
           {/* Secondary */}
@@ -100,7 +105,7 @@ export function QuizConflictModal({ variant, onPrimary, onSecondary }: Props) {
             onMouseEnter={e => (e.currentTarget.style.borderColor = STONE)}
             onMouseLeave={e => (e.currentTarget.style.borderColor = HAIR)}
           >
-            {isConflict ? 'Manter o anterior' : 'Cancelar'}
+            {isConflict ? tr('result.conflict.keep') : tr('result.conflict.cancel')}
           </button>
         </div>
       </div>

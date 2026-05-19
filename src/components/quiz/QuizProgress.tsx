@@ -1,3 +1,6 @@
+import { useLang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
+
 type Props = {
   currentStep: number   // 1-indexed (1-9); 0 = welcome
   totalSteps: number
@@ -5,11 +8,14 @@ type Props = {
 }
 
 export function QuizProgress({ currentStep, totalSteps, labels }: Props) {
+  const { lang } = useLang()
+  const tr = useT(lang)
+
   return (
     <aside className="md:sticky md:top-28">
       <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-verso-clay pb-3 border-b border-verso-rule-soft mb-7">
-        Progresso ·{' '}
-        {String(Math.max(1, currentStep)).padStart(2, '0')} de{' '}
+        {tr('quizProgress.eyebrow')} ·{' '}
+        {String(Math.max(1, currentStep)).padStart(2, '0')} {tr('quizProgress.of')}{' '}
         {String(totalSteps).padStart(2, '0')}
       </p>
 

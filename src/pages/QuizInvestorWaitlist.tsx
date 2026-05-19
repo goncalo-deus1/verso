@@ -10,6 +10,8 @@
  */
 
 import { useState } from 'react'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const STORAGE_KEY = 'habitta_investor_waitlist'
 
@@ -38,6 +40,8 @@ type Props = {
 }
 
 export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
@@ -46,7 +50,7 @@ export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
     e.preventDefault()
     const trimmed = email.trim()
     if (!trimmed || !trimmed.includes('@')) {
-      setError('Introduz um email válido.')
+      setError(tr('quizInv.invalidEmail'))
       return
     }
     saveEmail(trimmed)
@@ -67,7 +71,7 @@ export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
           letterSpacing: '-0.5px',
         }}
       >
-        Ainda não temos recomendação para investidores.
+        {tr('quizInv.title')}
       </h2>
 
       <p
@@ -81,9 +85,7 @@ export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
           maxWidth: '480px',
         }}
       >
-        O perfil de compra de investimento são diferentes o suficiente para
-        merecerem quizzes diferentes. Estamos a trabalhar no segundo. Deixa
-        o teu email e avisamos-te quando estiver pronto.
+        {tr('quizInv.body')}
       </p>
 
       {!submitted ? (
@@ -101,14 +103,14 @@ export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
               marginBottom: '8px',
             }}
           >
-            Email
+            {tr('quizInv.emailLabel')}
           </label>
           <input
             id="investor-email"
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            placeholder="o@teuemail.pt"
+            placeholder={tr('quizInv.emailPh')}
             style={{
               display: 'block',
               width: '100%',
@@ -146,7 +148,7 @@ export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
             onMouseEnter={e => { e.currentTarget.style.background = CLAY }}
             onMouseLeave={e => { e.currentTarget.style.background = INK }}
           >
-            Avisa-me
+            {tr('quizInv.submit')}
           </button>
         </form>
       ) : (
@@ -159,7 +161,7 @@ export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
               marginBottom: '24px',
             }}
           >
-            Anotado. Obrigado.
+            {tr('quizInv.thanks')}
           </p>
           <button
             onClick={onRestartForLiving}
@@ -175,7 +177,7 @@ export default function QuizInvestorWaitlist({ onRestartForLiving }: Props) {
             onMouseEnter={e => { e.currentTarget.style.borderColor = INK }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = HAIRLINE }}
           >
-            Começar o quiz para viver
+            {tr('quizInv.startLiving')}
           </button>
         </div>
       )}

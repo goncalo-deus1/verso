@@ -5,66 +5,31 @@
  * + nota lateral + botão para repetir o quiz.
  */
 
+import { useLang } from '../../context/LanguageContext'
+import { useT, type TKey } from '../../i18n/translations'
+
 // ─── Dados ────────────────────────────────────────────────────────────────────
 
-const VARIABLES = [
-  {
-    code: 'V.01',
-    dimension: 'Centralidade',
-    description: 'Distância ao centro histórico e densidade de serviços de referência. Valor 100 = Santo António / Príncipe Real. Valor 0 = limite exterior da AML.',
-  },
-  {
-    code: 'V.02',
-    dimension: 'Urbanidade',
-    description: 'Nível de densidade construída e actividade urbana por km². Mede a intensidade do tecido urbano — do subúrbio ao centro consolidado.',
-  },
-  {
-    code: 'V.03',
-    dimension: 'Tranquilidade',
-    description: 'Pressão sonora nocturna e intensidade de tráfego pedonal e automóvel. Dados de ruído ambiente PDM 2024.',
-  },
-  {
-    code: 'V.04',
-    dimension: 'Ambiente familiar',
-    description: 'Proximidade a parques, escolas públicas e equipamentos para crianças em raio de 500 metros.',
-  },
-  {
-    code: 'V.05',
-    dimension: 'Perfil jovem',
-    description: 'Presença de população entre os 25 e os 40 anos como indicador de dinamismo cultural e comercial do bairro.',
-  },
-  {
-    code: 'V.06',
-    dimension: 'Acessibilidade',
-    description: 'Cobertura de rede de metro, autocarro e comboio a distância a pé (≤ 10 min). Frequência nos picos de manhã.',
-  },
-  {
-    code: 'V.07',
-    dimension: 'Proximidade ao mar',
-    description: 'Distância efectiva a praia atlântica ou frente ribeirinha com uso recreativo consolidado.',
-  },
-  {
-    code: 'V.08',
-    dimension: 'Espaço',
-    description: 'Tipologias dominantes em oferta — T2+ com varanda ou quintal versus estúdio sem espaço exterior. Fonte: Idealista 2024.',
-  },
-  {
-    code: 'V.09',
-    dimension: 'Maturidade',
-    description: 'Grau de consolidação urbana. Valor 100 = bairro histórico estável. Valor 0 = zona em transição activa com obras e reconversão em curso.',
-  },
-  {
-    code: 'V.10',
-    dimension: 'Potencial de valorização',
-    description: 'Tendência de preços nos últimos 36 meses e perspectiva de crescimento baseada em projectos aprovados pela CML e investimento declarado.',
-  },
-] as const
+const VARIABLES: { code: string; dimKey: TKey; descKey: TKey }[] = [
+  { code: 'V.01', dimKey: 'result.method.v01.dim', descKey: 'result.method.v01.desc' },
+  { code: 'V.02', dimKey: 'result.method.v02.dim', descKey: 'result.method.v02.desc' },
+  { code: 'V.03', dimKey: 'result.method.v03.dim', descKey: 'result.method.v03.desc' },
+  { code: 'V.04', dimKey: 'result.method.v04.dim', descKey: 'result.method.v04.desc' },
+  { code: 'V.05', dimKey: 'result.method.v05.dim', descKey: 'result.method.v05.desc' },
+  { code: 'V.06', dimKey: 'result.method.v06.dim', descKey: 'result.method.v06.desc' },
+  { code: 'V.07', dimKey: 'result.method.v07.dim', descKey: 'result.method.v07.desc' },
+  { code: 'V.08', dimKey: 'result.method.v08.dim', descKey: 'result.method.v08.desc' },
+  { code: 'V.09', dimKey: 'result.method.v09.dim', descKey: 'result.method.v09.desc' },
+  { code: 'V.10', dimKey: 'result.method.v10.dim', descKey: 'result.method.v10.desc' },
+]
 
 // ─── Componente ───────────────────────────────────────────────────────────────
 
 type Props = { onRestart: () => void }
 
 export function Metodologia({ onRestart }: Props) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   return (
     <section className="py-20 bg-verso-paper-deep">
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
@@ -72,12 +37,13 @@ export function Metodologia({ onRestart }: Props) {
         {/* Section head */}
         <div className="grid md:grid-cols-[180px_1fr] gap-10 mb-14 items-start">
           <div className="font-mono text-[11px] tracking-[0.2em] uppercase pt-3 border-t border-verso-rule-soft text-verso-clay">
-            § 04 — Como chegámos aqui
+            {tr('result.method.eyebrow')}
           </div>
           <div>
             <h2 className="font-display font-normal text-4xl sm:text-5xl leading-[1.02] tracking-[-0.025em] text-verso-midnight">
-              Sem{' '}
-              <em className="italic text-verso-clay">truques</em>. Só pesos.
+              {tr('result.method.title.before')}
+              <em className="italic text-verso-clay">{tr('result.method.title.emphasis')}</em>
+              {tr('result.method.title.after')}
             </h2>
           </div>
         </div>
@@ -90,9 +56,9 @@ export function Metodologia({ onRestart }: Props) {
             <div className="border border-verso-rule-soft overflow-hidden">
               {/* Header */}
               <div className="grid grid-cols-[80px_160px_1fr] gap-0 bg-verso-midnight px-5 py-3">
-                <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-verso-paper/40">Código</span>
-                <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-verso-paper/40">Dimensão</span>
-                <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-verso-paper/40 hidden sm:block">Descrição</span>
+                <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-verso-paper/40">{tr('result.method.col.code')}</span>
+                <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-verso-paper/40">{tr('result.method.col.dimension')}</span>
+                <span className="font-mono text-[9px] tracking-[0.15em] uppercase text-verso-paper/40 hidden sm:block">{tr('result.method.col.description')}</span>
               </div>
 
               {/* Linhas */}
@@ -105,10 +71,10 @@ export function Metodologia({ onRestart }: Props) {
                     {v.code}
                   </span>
                   <span className="font-mono text-[11px] tracking-[0.06em] uppercase text-verso-midnight self-start pt-0.5 sm:pr-4">
-                    {v.dimension}
+                    {tr(v.dimKey)}
                   </span>
                   <p className="col-span-2 sm:col-span-1 mt-2 sm:mt-0 text-[12px] text-verso-midnight-soft leading-[1.6]">
-                    {v.description}
+                    {tr(v.descKey)}
                   </p>
                 </div>
               ))}
@@ -120,25 +86,23 @@ export function Metodologia({ onRestart }: Props) {
             <div className="p-6 border border-verso-rule-soft bg-verso-paper relative">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-verso-clay" />
               <p className="font-mono text-[9px] tracking-[0.14em] uppercase text-verso-clay mb-4">
-                Nota de redacção
+                {tr('result.method.note.label')}
               </p>
               <p className="text-[13px] text-verso-midnight-soft leading-[1.7]">
-                Os vectores de cada zona são editoriais — construídos por análise humana a partir de dados INE, PDM e Idealista, com actualização anual.
+                {tr('result.method.note.p1')}
               </p>
               <p className="text-[13px] text-verso-midnight-soft leading-[1.7] mt-3">
-                O algoritmo de recomendação usa distância euclidiana ponderada — cada resposta do questionário ajusta os pesos das variáveis antes do cálculo de afinidade.
+                {tr('result.method.note.p2')}
               </p>
               <p className="text-[13px] text-verso-midnight-soft leading-[1.7] mt-3">
-                Não há respostas certas. Há perfis — e a habitta compromete-se a dar-lhes uma resposta territorial honesta.
+                {tr('result.method.note.p3')}
               </p>
             </div>
 
             {/* Versão do modelo */}
             <div className="px-4 py-3 border border-verso-rule-soft">
-              <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-verso-midnight-soft">
-                Modelo habitta · v2.0<br />
-                Dataset AML · PDM 2024<br />
-                Última actualização · Jan 2026
+              <p className="font-mono text-[9px] tracking-[0.12em] uppercase text-verso-midnight-soft whitespace-pre-line">
+                {tr('result.method.version')}
               </p>
             </div>
 
@@ -151,7 +115,7 @@ export function Metodologia({ onRestart }: Props) {
                 className="transition-transform group-hover:-translate-x-0.5">
                 <path d="M4 1L1 5m0 0l3 4M1 5h12" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Repetir o questionário
+              {tr('result.method.restart')}
             </button>
           </div>
 

@@ -10,6 +10,8 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 import { scoreAnswers } from '../lib/quiz/scoring'
 import { questions } from '../lib/quiz/questions'
 import type { QuizAnswers } from '../lib/quiz/questions'
@@ -26,21 +28,6 @@ type Screen = 'welcome' | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'q6' | 'q7' | 'q8' 
 const Q_SCREENS: Screen[] = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8']
 // investor is a non-linear branch — not in SCREEN_ORDER for back/forward
 const SCREEN_ORDER: Screen[] = ['welcome', ...Q_SCREENS, 'loading']
-
-const QUESTION_LABELS = [
-  'Para quem', 'Comprar ou arrendar', 'Orçamento', 'Trabalho',
-  'Deslocação', 'Ambiente', 'Espaço vs. centro', 'Prioridades',
-]
-
-// Tags opcionais por opção (acrescentam contexto técnico)
-const OPTION_TAGS: Record<string, string> = {
-  b1_150: '< 150k', b2_150_250: '150–250k', b3_250_400: '250–400k',
-  b4_400_600: '400–600k', b5_600plus: '600k +', b6_undecided: 'A definir',
-  r1_600: '< 600 €', r2_600_900: '600–900 €', r3_900_1200: '900–1200 €',
-  r4_1200_1600: '1200–1600 €', r5_1600plus: '1600 € +',
-  w3_remote: 'Flexível',
-  p5_valuation: 'Valorização',
-}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -69,6 +56,8 @@ function canAdvance(screen: Screen, a: QuizAnswers): boolean {
 // ─── Sub-componentes visuais ──────────────────────────────────────────────────
 
 function WelcomeCard({ onStart }: { onStart: () => void }) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   return (
     <div className="max-w-[680px]">
       <div className="bg-verso-paper border border-verso-rule-soft p-10 sm:p-14 relative shadow-[0_20px_40px_-20px_rgba(30, 31, 24,0.10)]">
@@ -76,22 +65,20 @@ function WelcomeCard({ onStart }: { onStart: () => void }) {
 
 
         <h2 className="font-display font-normal text-4xl sm:text-5xl leading-[1.05] tracking-[-0.025em] text-verso-midnight mb-6">
-          Onde vais viver decide<br />
-          mais do que a{' '}
-          <em className="italic text-verso-clay">casa em si</em>.
+          {tr('quizPage.welcome.title1')}<br />
+          {tr('quizPage.welcome.title2')}{' '}
+          <em className="italic text-verso-clay">{tr('quizPage.welcome.title3')}</em>.
         </h2>
 
         <p className="text-[15px] text-verso-midnight-soft leading-[1.65] max-w-[480px] mb-10">
-          8 perguntas. 90 segundos. Uma resposta honesta.
-          Cada escolha ajusta o peso de dez variáveis — desde densidade construída até
-          proximidade a transporte e ruído nocturno.
+          {tr('quizPage.welcome.body')}
         </p>
 
         <button
           onClick={onStart}
           className="group inline-flex items-center gap-3.5 bg-verso-midnight text-verso-paper px-7 py-[18px] font-mono text-[12px] tracking-[0.14em] uppercase font-medium transition-all duration-300 hover:bg-verso-clay hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#1E1F18]"
         >
-          Começar o questionário
+          {tr('quizPage.welcome.start')}
           <svg width="16" height="12" viewBox="0 0 16 12" fill="none"
             className="transition-transform group-hover:translate-x-1" aria-hidden>
             <path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" strokeWidth="1.5"
@@ -113,6 +100,30 @@ type QuizCardProps = {
 }
 
 function QuizCard({ screen, answers, onSelectSingle, onToggleQ8, onNext, onPrev }: QuizCardProps) {
+  const { lang } = useLang()
+  const tr = useT(lang)
+
+  const QUESTION_LABELS = [
+    tr('quizPage.label.forWhom'),
+    tr('quizPage.label.buyOrRent'),
+    tr('quizPage.label.budget'),
+    tr('quizPage.label.work'),
+    tr('quizPage.label.commute'),
+    tr('quizPage.label.env'),
+    tr('quizPage.label.spaceCentre'),
+    tr('quizPage.label.priorities'),
+  ]
+
+  // Tags opcionais por opção (acrescentam contexto técnico)
+  const OPTION_TAGS: Record<string, string> = {
+    b1_150: '< 150k', b2_150_250: '150–250k', b3_250_400: '250–400k',
+    b4_400_600: '400–600k', b5_600plus: '600k +', b6_undecided: tr('quizPage.tag.undecided'),
+    r1_600: '< 600 €', r2_600_900: '600–900 €', r3_900_1200: '900–1200 €',
+    r4_1200_1600: '1200–1600 €', r5_1600plus: '1600 € +', r6_undecided: tr('quizPage.tag.undecided'),
+    w3_remote: tr('quizPage.tag.flexible'),
+    p5_valuation: tr('quizPage.tag.appreciation'),
+  }
+
   const step = getStep(screen)
   if (step === 0) return null
 
@@ -156,7 +167,7 @@ function QuizCard({ screen, answers, onSelectSingle, onToggleQ8, onNext, onPrev 
       <div className="p-8 sm:p-10 sm:p-12">
         {/* Eyebrow */}
         <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-verso-clay mb-5">
-          § Pergunta {String(step).padStart(2, '0')} · {eyebrow}
+          {tr('quizPage.card.eyebrow').replace('{n}', String(step).padStart(2, '0')).replace('{label}', eyebrow)}
         </p>
 
         {/* Pergunta */}
@@ -214,14 +225,14 @@ function QuizCard({ screen, answers, onSelectSingle, onToggleQ8, onNext, onPrev 
             disabled={step === 1}
             className="font-mono text-[11px] tracking-[0.14em] uppercase text-verso-midnight-soft flex items-center gap-2 disabled:opacity-30 hover:text-verso-midnight transition-colors"
           >
-            ← Anterior
+            {tr('quizPage.nav.previous')}
           </button>
           <button
             onClick={onNext}
             disabled={!advance}
             className="bg-verso-midnight text-verso-paper px-6 py-3.5 font-mono text-[11px] tracking-[0.14em] uppercase hover:bg-verso-clay transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
-            {step === 8 ? 'Ver resultado →' : 'Próxima pergunta →'}
+            {step === 8 ? tr('quizPage.nav.viewResult') : tr('quizPage.nav.next')}
           </button>
         </div>
       </div>
@@ -230,14 +241,16 @@ function QuizCard({ screen, answers, onSelectSingle, onToggleQ8, onNext, onPrev 
 }
 
 function LoadingCard() {
+  const { lang } = useLang()
+  const tr = useT(lang)
   return (
     <div className="max-w-[560px] mx-auto text-center py-20">
       <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-verso-clay mb-6">
-        A calcular
+        {tr('quizPage.loading.eyebrow')}
       </p>
       <p className="font-display font-normal text-4xl sm:text-5xl leading-[1.05] tracking-[-0.025em] text-verso-midnight">
-        A cruzar o teu perfil<br />
-        com <em className="italic text-verso-clay">18 zonas</em> da AML…
+        {tr('quizPage.loading.title1')}<br />
+        <em className="italic text-verso-clay">{tr('quizPage.loading.title2')}</em> {tr('quizPage.loading.title3')}
       </p>
     </div>
   )
@@ -246,6 +259,8 @@ function LoadingCard() {
 // ─── Componente principal ─────────────────────────────────────────────────────
 
 export default function QuizPage() {
+  const { lang } = useLang()
+  const tr = useT(lang)
   const [searchParams] = useSearchParams()
   const isRefazer = searchParams.get('refazer') === 'true'
 
@@ -255,6 +270,17 @@ export default function QuizPage() {
   const { setQuizResult, setQuizAnswers } = useQuiz()
   const { user } = useAuth()
   const navigate = useNavigate()
+
+  const QUESTION_LABELS = [
+    tr('quizPage.label.forWhom'),
+    tr('quizPage.label.buyOrRent'),
+    tr('quizPage.label.budget'),
+    tr('quizPage.label.work'),
+    tr('quizPage.label.commute'),
+    tr('quizPage.label.env'),
+    tr('quizPage.label.spaceCentre'),
+    tr('quizPage.label.priorities'),
+  ]
 
   // Prefill with saved answers when coming from "Refazer o quiz"
   useEffect(() => {
@@ -380,15 +406,15 @@ export default function QuizPage() {
         {screen !== 'loading' && screen !== 'investor' && (
           <SectionHead
             number="01"
-            label="Questionário"
+            label={tr('quizPage.section.label')}
             title={
               <>
-                Oito perguntas para{' '}
-                <em className="italic text-verso-clay">traçar o teu perfil</em>{' '}
-                territorial.
+                {tr('quizPage.section.title1')}{' '}
+                <em className="italic text-verso-clay">{tr('quizPage.section.title2')}</em>{' '}
+                {tr('quizPage.section.title3')}
               </>
             }
-            lede="Não há respostas certas. Cada escolha ajusta o peso de dez variáveis — desde densidade construída até proximidade a transporte e ruído nocturno."
+            lede={tr('quizPage.section.lede')}
           />
         )}
 

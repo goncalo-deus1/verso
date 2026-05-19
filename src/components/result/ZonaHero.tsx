@@ -16,6 +16,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import SaveZoneButton from '../SaveZoneButton'
 import { MapaAML } from '../hero/MapaAML'
+import { useLang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 
 import type { TradeoffConfidence } from '../../lib/quiz/tradeoffs'
 
@@ -32,7 +34,7 @@ type Props = {
   isGated?: boolean
 }
 
-/** Prepend "contigo" if the string starts with "Alinha em ". */
+/** Prepend "contigo" if the string starts with "Alinha em " (PT-specific data heuristic). */
 function withContigo(s: string): string {
   if (s.startsWith('Alinha em ')) return s.replace('Alinha em ', 'Alinha contigo em ')
   return s
@@ -56,6 +58,8 @@ function ZonaNome({ nome }: { nome: string }) {
 }
 
 export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfidence, slug, concelhoSlug, zoneKind, isGated = false }: Props) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   return (
     <section className="relative min-h-[92vh] bg-verso-paper border-b border-verso-rule-soft overflow-hidden">
       <div className="grid lg:grid-cols-[1.2fr_1fr] min-h-[92vh]">
@@ -66,7 +70,7 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
           {/* Eyebrow */}
           <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-verso-clay mb-8 flex items-center gap-3">
             <span className="inline-block w-8 h-px bg-verso-clay" aria-hidden />
-            A tua zona
+            {tr('result.hero.eyebrow')}
           </p>
 
           {/* 1 — Nome animado */}
@@ -113,9 +117,9 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
                   marginTop: '24px',
                 }}
               >
-                <span style={{ color: 'var(--telha-forte)' }}>Afinidade</span>
+                <span style={{ color: 'var(--telha-forte)' }}>{tr('result.hero.affinity')}</span>
                 {' '}
-                <span style={{ color: 'var(--azeitona)' }}>· {score} / 100</span>
+                <span style={{ color: 'var(--azeitona)' }}>{tr('result.hero.scoreSep').replace('{score}', String(score))}</span>
               </motion.p>
             </AnimatePresence>
 
@@ -143,7 +147,7 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
                     color: 'var(--telha-forte)',
                     marginBottom: '8px',
                   }}>
-                    Custo desta escolha
+                    {tr('result.hero.tradeoffLabel')}
                   </p>
                   <p style={{
                     fontFamily: 'var(--serif)',
@@ -172,14 +176,14 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
                 fontSize: '10px', letterSpacing: '0.15em',
                 textTransform: 'uppercase', color: '#C2553A', marginBottom: '10px',
               }}>
-                Resultado incompleto
+                {tr('result.hero.gated.eyebrow')}
               </p>
               <p style={{
                 fontFamily: 'var(--serif)', fontStyle: 'italic',
                 fontSize: '18px', color: '#1E1F18',
                 lineHeight: 1.35, marginBottom: '18px',
               }}>
-                Cria conta para veres o porquê desta zona.
+                {tr('result.hero.gated.body')}
               </p>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 <a
@@ -194,7 +198,7 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
                   onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#9A3D27'; el.style.borderColor = '#9A3D27' }}
                   onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#B24A30'; el.style.borderColor = '#B24A30' }}
                 >
-                  Criar conta
+                  {tr('result.hero.gated.createAcc')}
                 </a>
                 <a
                   href="/entrar?redirect=/quiz/dossier"
@@ -208,7 +212,7 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
                   onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = '#3A3B2E' }}
                   onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = 'rgba(30,31,24,0.2)' }}
                 >
-                  Iniciar sessão
+                  {tr('result.hero.gated.signIn')}
                 </a>
               </div>
             </div>
@@ -227,14 +231,14 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
                 onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#9A3D27'; el.style.borderColor = '#9A3D27' }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#B24A30'; el.style.borderColor = '#B24A30' }}
               >
-                Continuar ↓
+                {tr('result.hero.continue')}
               </a>
               {/* Secondary — save zone */}
               <SaveZoneButton
                 zoneSlug={slug}
                 zoneKind={zoneKind}
                 zoneName={nome}
-                label="Guardar esta análise"
+                label={tr('result.hero.save')}
               />
             </div>
           )}
@@ -250,10 +254,10 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
           {/* Metadados topo */}
           <div className="absolute top-6 left-6 right-6 flex justify-between items-start" aria-hidden>
             <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-verso-midnight-soft">
-              AML · 18 concelhos
+              {tr('result.hero.map.amlCount')}
             </p>
             <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-verso-clay text-right">
-              Posição #1
+              {tr('result.hero.map.position')}
             </p>
           </div>
 
@@ -266,7 +270,7 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
           <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end" aria-hidden>
             <div>
               <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-verso-midnight-soft mb-1">
-                Destacado
+                {tr('result.hero.map.highlighted')}
               </p>
               <AnimatePresence mode="wait">
                 <motion.p
@@ -281,9 +285,8 @@ export function ZonaHero({ nome, score, leituraCurta, tradeoff, tradeoffConfiden
                 </motion.p>
               </AnimatePresence>
             </div>
-            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-verso-midnight-soft/60 text-right leading-tight">
-              Fonte<br />
-              PDM · CML 2024
+            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-verso-midnight-soft/60 text-right leading-tight whitespace-pre-line">
+              {tr('result.hero.map.source')}
             </p>
           </div>
         </div>

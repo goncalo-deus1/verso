@@ -23,6 +23,8 @@ import { useState, useMemo, useCallback, useEffect } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 import { concelhosAML } from '../data/concelhosAML'
 import { getZoneConcelhoId } from '../data/zones'
 import {
@@ -75,6 +77,8 @@ function answersEqual(a: QuizAnswers, b: QuizAnswers): boolean {
 // ─── Loading skeleton ─────────────────────────────────────────────────────────
 
 function DossierSkeleton() {
+  const { lang } = useLang()
+  const tr = useT(lang)
   return (
     <div className="min-h-screen bg-verso-paper flex items-center justify-center">
       <div style={{ textAlign: 'center' }}>
@@ -86,7 +90,7 @@ function DossierSkeleton() {
           margin: '0 auto 16px',
         }} />
         <p style={{ fontSize: '13px', fontFamily: '"JetBrains Mono", monospace', color: '#3A3B2E', letterSpacing: '0.05em' }}>
-          A carregar…
+          {tr('dossier.loading')}
         </p>
         <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
       </div>
@@ -115,6 +119,8 @@ function DossierContent({
   isAnonymous: boolean
 }) {
   const { setQuizResult } = useQuiz()
+  const { lang } = useLang()
+  const tr = useT(lang)
   const navigate = useNavigate()
   const { best, alternatives } = result
 
@@ -218,9 +224,9 @@ function DossierContent({
                 concelhoSlug={concelhoSlug}
                 concelhoName={concelhoName}
                 freguesiaSlug={freguesiaSlug}
-                eyebrowOverride="O que vem aí"
-                titleOverride={`O que se prepara em ${concelhoName}`}
-                subtitleOverride="Investimentos públicos e projetos urbanos que poderão alterar a vida nesta zona ao longo dos próximos anos. Inclui obras em curso e já concluídas."
+                eyebrowOverride={tr('dossier.whatsComing')}
+                titleOverride={tr('dossier.prepIn').replace('{name}', concelhoName)}
+                subtitleOverride={tr('dossier.urbanSub')}
               />
             </section>
           )
@@ -241,7 +247,9 @@ function DossierContent({
 
       {/* § 06 — Para ler a seguir (sempre visível) */}
       {(() => {
-        const recentPosts = getPostsByLocale('pt').slice(0, 2)
+        // Mostra posts no idioma activo (fallback para PT seria possível se
+        // não houvesse posts em EN, mas o blog está em ambas as línguas).
+        const recentPosts = getPostsByLocale(lang).slice(0, 2)
         if (recentPosts.length === 0) return null
         return (
           <section
@@ -262,7 +270,7 @@ function DossierContent({
                   textAlign: 'center',
                 }}
               >
-                — PARA LER A SEGUIR —
+                {tr('dossier.readNext')}
               </p>
               <div
                 style={{
@@ -289,7 +297,7 @@ function DossierContent({
                     opacity: 0.5,
                   }}
                 >
-                  Ver todos os artigos →
+                  {tr('dossier.viewAllPosts')}
                 </Link>
               </div>
             </div>

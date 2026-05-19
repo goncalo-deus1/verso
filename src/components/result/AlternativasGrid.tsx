@@ -8,6 +8,8 @@
 import { Link } from 'react-router-dom'
 import type { ScoredZone } from '../../lib/quiz/scoring'
 import type { ZoneProfile } from '../../data/attributes'
+import { useLang } from '../../context/LanguageContext'
+import { useT, type TKey } from '../../i18n/translations'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -15,18 +17,18 @@ function zoneHref(z: ScoredZone) {
   return z.zone.kind === 'freguesia' ? `/freguesia/${z.zone.slug}` : `/concelho/${z.zone.slug}`
 }
 
-function deriveTags(profile: ZoneProfile): string[] {
-  const tags: string[] = []
-  if (profile.centralidade >= 70)   tags.push('central')
-  if (profile.tranquilidade >= 70)  tags.push('silencioso')
-  if (profile.familiar >= 70)       tags.push('familiar')
-  if (profile.jovem >= 65)          tags.push('perfil jovem')
-  if (profile.acessibilidade >= 75) tags.push('bem servido')
-  if (profile.mar >= 55)            tags.push('junto ao mar')
-  if (profile.espaco >= 70)         tags.push('espaçoso')
-  if (profile.valorizacao >= 70)    tags.push('em valorização')
-  if (profile.maturidade <= 30)     tags.push('em transformação')
-  if (profile.urbanidade >= 80)     tags.push('urbano')
+function deriveTagKeys(profile: ZoneProfile): TKey[] {
+  const tags: TKey[] = []
+  if (profile.centralidade >= 70)   tags.push('result.alt.tag.central')
+  if (profile.tranquilidade >= 70)  tags.push('result.alt.tag.silencioso')
+  if (profile.familiar >= 70)       tags.push('result.alt.tag.familiar')
+  if (profile.jovem >= 65)          tags.push('result.alt.tag.jovem')
+  if (profile.acessibilidade >= 75) tags.push('result.alt.tag.bemServido')
+  if (profile.mar >= 55)            tags.push('result.alt.tag.mar')
+  if (profile.espaco >= 70)         tags.push('result.alt.tag.espacoso')
+  if (profile.valorizacao >= 70)    tags.push('result.alt.tag.valorizacao')
+  if (profile.maturidade <= 30)     tags.push('result.alt.tag.transformacao')
+  if (profile.urbanidade >= 80)     tags.push('result.alt.tag.urbano')
   return tags.slice(0, 4)
 }
 
@@ -44,10 +46,12 @@ function scoreBar(score: number) {
 // ─── Card ─────────────────────────────────────────────────────────────────────
 
 function AltCard({ alt }: { alt: ScoredZone }) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   const { zone, score, tradeoff, tradeoffConfidence } = alt
-  const tags = deriveTags(alt.vector)
+  const tagKeys = deriveTagKeys(alt.vector)
   const href = zoneHref(alt)
-  const kind = zone.kind === 'freguesia' ? 'Freguesia · Lisboa' : 'Concelho · AML'
+  const kind = zone.kind === 'freguesia' ? tr('result.alt.kind.freguesia') : tr('result.alt.kind.concelho')
 
   return (
     <Link
@@ -71,7 +75,7 @@ function AltCard({ alt }: { alt: ScoredZone }) {
       <div className="mb-4">
         <div className="flex justify-between items-baseline mb-1">
           <span className="font-mono text-[9px] tracking-[0.12em] uppercase text-verso-midnight-soft">
-            Afinidade
+            {tr('result.alt.affinity')}
           </span>
           <span className="font-mono text-[12px] text-verso-clay tabular-nums">
             {score} / 100
@@ -81,14 +85,14 @@ function AltCard({ alt }: { alt: ScoredZone }) {
       </div>
 
       {/* Tags */}
-      {tags.length > 0 && (
+      {tagKeys.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-4">
-          {tags.map(tag => (
+          {tagKeys.map(tagKey => (
             <span
-              key={tag}
+              key={tagKey}
               className="font-mono text-[8px] tracking-[0.1em] uppercase px-2 py-1 border border-verso-rule-soft text-verso-midnight-soft"
             >
-              {tag}
+              {tr(tagKey)}
             </span>
           ))}
         </div>
@@ -104,7 +108,7 @@ function AltCard({ alt }: { alt: ScoredZone }) {
       {/* Seta de link */}
       <div className="mt-5 pt-4 border-t border-verso-rule-soft flex justify-end">
         <span className="font-mono text-[9px] tracking-[0.14em] uppercase text-verso-midnight-soft group-hover:text-verso-clay transition-colors flex items-center gap-1.5">
-          Ver dossier
+          {tr('result.alt.viewDossier')}
           <svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden>
             <path d="M1 4h8m0 0L6 1m3 3L6 7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -119,6 +123,8 @@ function AltCard({ alt }: { alt: ScoredZone }) {
 type Props = { alternatives: ScoredZone[] }
 
 export function AlternativasGrid({ alternatives }: Props) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   if (alternatives.length === 0) return null
 
   return (
@@ -128,15 +134,16 @@ export function AlternativasGrid({ alternatives }: Props) {
         {/* Section head */}
         <div className="grid md:grid-cols-[180px_1fr] gap-10 mb-14 items-start">
           <div className="font-mono text-[11px] tracking-[0.2em] uppercase pt-3 border-t border-verso-rule-soft text-verso-clay">
-            § 03 — Considerar também
+            {tr('result.alt.eyebrow')}
           </div>
           <div>
             <h2 className="font-display font-normal text-4xl sm:text-5xl leading-[1.02] tracking-[-0.025em] text-verso-midnight">
-              Outras zonas que se{' '}
-              <em className="italic text-verso-clay">enquadram</em> contigo.
+              {tr('result.alt.title.before')}
+              <em className="italic text-verso-clay">{tr('result.alt.title.emphasis')}</em>
+              {tr('result.alt.title.after')}
             </h2>
             <p className="mt-5 text-[15px] text-verso-midnight-soft leading-[1.6] max-w-[480px]">
-              O algoritmo seleccionou estas alternativas garantindo diversidade geográfica — concelhos diferentes para contextos de vida distintos.
+              {tr('result.alt.lede')}
             </p>
           </div>
         </div>
