@@ -1,6 +1,8 @@
 import { Lock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import type { ScoredZone } from '../../lib/quiz/scoring'
+import { pickOneLine } from '../../data/zones'
+import { useLangSafe } from '../../context/LanguageContext'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -22,6 +24,7 @@ function scoreColor(s: number) {
 type AltCardProps = { alt: ScoredZone; isLoggedIn: boolean }
 
 function AltCard({ alt, isLoggedIn }: AltCardProps) {
+  const { lang } = useLangSafe()
   const { zone, score, tradeoff } = alt
   const concelhoLabel = zone.kind === 'freguesia'
     ? `Freguesia · ${zone.concelho ?? 'Lisboa'}`
@@ -63,7 +66,7 @@ function AltCard({ alt, isLoggedIn }: AltCardProps) {
         fontStyle: 'italic',
         ...(isLoggedIn ? {} : { filter: 'blur(5px)', userSelect: 'none' }),
       }}>
-        {zone.oneLine}
+        {pickOneLine(zone, lang)}
       </p>
 
       {/* Tradeoff */}

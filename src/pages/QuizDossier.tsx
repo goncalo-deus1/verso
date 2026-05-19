@@ -26,7 +26,7 @@ import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LanguageContext'
 import { useT } from '../i18n/translations'
 import { concelhosAML } from '../data/concelhosAML'
-import { getZoneConcelhoId } from '../data/zones'
+import { getZoneConcelhoId, pickOneLine } from '../data/zones'
 import {
   MapaInterativo,
   computeRanking,
@@ -46,6 +46,7 @@ import { getPostsByLocale } from '../lib/blog'
 import { BlogPostCard }    from '../components/blog/BlogPostCard'
 import type { UserQuiz }   from '../lib/supabase/userQuiz'
 import type { QuizResult } from '../lib/quiz/scoring'
+import { pickJustification, pickTradeoff } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -142,12 +143,12 @@ function DossierContent({
       return {
         nome:               best.zone.name,
         score:              best.score,
-        leituraCurta:       best.justification,
+        leituraCurta:       pickJustification(best, lang),
         slug:               best.slug,
         concelhoSlug:       bestConcelhoSlug,
         zoneKind:           (best.zone.kind ?? 'concelho') as 'freguesia' | 'concelho',
         vector:             best.vector,
-        tradeoff:           best.tradeoff,
+        tradeoff:           pickTradeoff(best, lang),
         tradeoffConfidence: best.tradeoffConfidence,
       }
     }
@@ -155,7 +156,7 @@ function DossierContent({
     return {
       nome:               sliderTop?.name ?? best.zone.name,
       score:              sliderTop?.score ?? best.score,
-      leituraCurta:       concelho?.oneLine ?? best.justification,
+      leituraCurta:       (concelho ? pickOneLine(concelho, lang) : '') || pickJustification(best, lang),
       slug:               sliderTop?.slug ?? best.slug,
       concelhoSlug:       sliderTop?.slug ?? bestConcelhoSlug,
       zoneKind:           'concelho' as const,
@@ -192,7 +193,7 @@ function DossierContent({
         <PorqueEstaZona
           nome={best.zone.name}
           contributions={best.contributions}
-          descricao={best.justification}
+          descricao={pickJustification(best, lang)}
           tradeoff={displayData.tradeoff}
           tradeoffConfidence={displayData.tradeoffConfidence}
         />

@@ -25,16 +25,30 @@ export type ScoredZone = {
   vector:             ZoneProfile         // zone.profile — atalho para inspecção nos testes
   concelhoSlug:       string             // ID de concelho (para regra de diversidade)
   score:              number             // 0–100, 100 é match perfeito
+  /** PT justification — kept for back-compat. Use justificationEn for EN. */
   justification:      string
-  tradeoff:           string             // sentence or '' when none
-  tradeoffConfidence: TradeoffConfidence // tier of the tradeoff sentence
-  contributions:      Record<keyof ZoneProfile, number>  // 0–100 normalised, within this result
+  justificationEn:    string
+  /** PT tradeoff sentence or '' when none. */
+  tradeoff:           string
+  tradeoffEn:         string
+  tradeoffConfidence: TradeoffConfidence
+  contributions:      Record<keyof ZoneProfile, number>
 }
 
 export type QuizResult = {
   best:            ScoredZone
   alternatives:    ScoredZone[]
   lowScoreWarning: boolean
+}
+
+/** Localised justification — consumers should call this instead of reading .justification directly. */
+export function pickJustification(z: ScoredZone, lang: 'pt' | 'en'): string {
+  return lang === 'en' && z.justificationEn ? z.justificationEn : z.justification
+}
+
+/** Localised tradeoff sentence — '' when none. */
+export function pickTradeoff(z: ScoredZone, lang: 'pt' | 'en'): string {
+  return lang === 'en' && z.tradeoffEn ? z.tradeoffEn : z.tradeoff
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -168,16 +182,21 @@ export function scoreAnswers(answers: QuizAnswers): QuizResult {
     .map(zone => {
       const concelhoSlug = getZoneConcelhoId(zone)
       const concelho = concelhosAML.find(c => c.slug === concelhoSlug)
-      const tradeoffResult = getTradeoff(userProfile, zone.profile, weights, concelho)
+      // Compute PT and EN versions in one go so language toggling on the
+      // dossier doesn't require re-running the whole scoring pipeline.
+      const tradeoffPt = getTradeoff(userProfile, zone.profile, weights, concelho, 'pt')
+      const tradeoffEn = getTradeoff(userProfile, zone.profile, weights, concelho, 'en')
       return {
         zone,
         slug:               zone.slug,
         vector:             zone.profile,
         concelhoSlug,
         score:              euclideanScore(userProfile, zone.profile, weights),
-        justification:      getJustification(userProfile, zone.profile, weights),
-        tradeoff:           tradeoffResult.sentence ?? '',
-        tradeoffConfidence: tradeoffResult.confidence,
+        justification:      getJustification(userProfile, zone.profile, weights, 'pt'),
+        justificationEn:    getJustification(userProfile, zone.profile, weights, 'en'),
+        tradeoff:           tradeoffPt.sentence ?? '',
+        tradeoffEn:         tradeoffEn.sentence ?? '',
+        tradeoffConfidence: tradeoffPt.confidence,
         contributions:      calculateContributions(userProfile, weights, zone.profile),
       }
     })

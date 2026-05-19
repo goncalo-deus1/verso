@@ -31,3 +31,21 @@ export const ATTRIBUTE_LABELS: Record<Attribute, string> = {
   maturidade:     'consolidação',
   valorizacao:    'potencial de valorização',
 }
+
+export const ATTRIBUTE_LABELS_EN: Record<Attribute, string> = {
+  centralidade:   'centrality',
+  urbanidade:     'urbanity',
+  tranquilidade:  'tranquillity',
+  familiar:       'family environment',
+  jovem:          'young profile',
+  acessibilidade: 'accessibility',
+  mar:            'proximity to the sea',
+  espaco:         'space',
+  maturidade:     'consolidation',
+  valorizacao:    'appreciation potential',
+}
+
+/** Picks the localised attribute label. */
+export function getAttributeLabel(attr: Attribute, lang: 'pt' | 'en'): string {
+  return lang === 'en' ? ATTRIBUTE_LABELS_EN[attr] : ATTRIBUTE_LABELS[attr]
+}

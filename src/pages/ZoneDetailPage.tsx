@@ -4,7 +4,7 @@
  */
 
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { findZoneBySlug } from '../data/zones'
+import { findZoneBySlug, pickOneLine } from '../data/zones'
 import { ATTRIBUTE_LABELS } from '../data/attributes'
 import type { Attribute } from '../data/attributes'
 import { useQuiz } from '../context/QuizContext'
@@ -100,7 +100,7 @@ export default function ZoneDetailPage() {
           marginBottom: '40px',
           fontWeight: 400,
         }}>
-          {zone.oneLine}
+          {pickOneLine(zone, lang)}
         </p>
 
         <hr style={{ border: 'none', borderTop: `1px solid ${HAIRLINE}`, marginBottom: '40px' }} />

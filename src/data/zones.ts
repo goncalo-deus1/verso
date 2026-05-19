@@ -18,10 +18,18 @@ export type Zone = {
   margem?: 'norte' | 'sul'  // preenchido para kind === 'concelho'
   profile: ZoneProfile
   oneLine: string
+  /** Optional EN translation. Consumers should pick via pickOneLine(zone, lang). */
+  oneLineEn?: string
   shortDescription: string
   signalProperty: string
   budgetFitT2: { min: number; max: number } | null
   properties: Property[]    // TODO: ligar ao CRM via API em fase 2
+}
+
+/** Picks the localised oneLine, falling back to PT when EN is missing. */
+export function pickOneLine(zone: Pick<Zone, 'oneLine' | 'oneLineEn'> | undefined | null, lang: 'pt' | 'en'): string {
+  if (!zone) return ''
+  return (lang === 'en' && zone.oneLineEn) ? zone.oneLineEn : zone.oneLine
 }
 
 function frequesiaToZone(f: Freguesia): Zone {
@@ -49,6 +57,7 @@ export const zones: Zone[] = [
     margem: c.margem,
     profile: c.profile,
     oneLine: c.oneLine,
+    oneLineEn: c.oneLineEn,
     shortDescription: c.shortDescription,
     signalProperty: c.signalProperty,
     budgetFitT2: c.budgetFitT2,

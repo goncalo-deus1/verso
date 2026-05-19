@@ -21,6 +21,8 @@ import type { QuizResult } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
 import { getQuestions } from '../lib/quiz/questions'
 import type { Zone } from '../data/zones'
+import { pickOneLine } from '../data/zones'
+import { pickJustification, pickTradeoff } from '../lib/quiz/scoring'
 import QuizInvestorWaitlist from './QuizInvestorWaitlist'
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
@@ -170,7 +172,7 @@ function AltZoneCard({ zone, score, tradeoff, tradeoffConfidence, isLoggedIn }: 
 
 // ─── Componente: ecrã de resultado ────────────────────────────────────────────
 
-function ResultScreen({ result, onRestart, isLoggedIn, tr, onAuth }: { result: QuizResult; onRestart: () => void; isLoggedIn: boolean; tr: (k: Parameters<ReturnType<typeof useT>>[0]) => string; onAuth: (mode: 'register' | 'login') => void }) {
+function ResultScreen({ result, onRestart, isLoggedIn, tr, lang, onAuth }: { result: QuizResult; onRestart: () => void; isLoggedIn: boolean; tr: (k: Parameters<ReturnType<typeof useT>>[0]) => string; lang: 'pt' | 'en'; onAuth: (mode: 'register' | 'login') => void }) {
   const { best, alternatives, lowScoreWarning } = result
 
   return (
@@ -203,7 +205,7 @@ function ResultScreen({ result, onRestart, isLoggedIn, tr, onAuth }: { result: Q
         </div>
         {isLoggedIn ? (
           <p style={{ fontSize: '18px', color: STONE, margin: '0 0 4px', lineHeight: 1.55 }}>
-            {best.zone.oneLine}
+            {pickOneLine(best.zone, lang)}
           </p>
         ) : (
           <div style={{
@@ -274,12 +276,12 @@ function ResultScreen({ result, onRestart, isLoggedIn, tr, onAuth }: { result: Q
           gap: '14px',
         }}>
           <p style={{ fontSize: '16px', color: INK, margin: 0, lineHeight: 1.6 }}>
-            {best.justification}
+            {pickJustification(best, lang)}
           </p>
           {best.tradeoffConfidence === 'high' && (
             <p style={{ fontSize: '15px', fontStyle: 'italic', color: MOSS, margin: 0, lineHeight: 1.6 }}>
               <strong style={{ fontStyle: 'normal', fontWeight: 600, color: INK }}>{tr('quiz.result.tradeoff')}</strong>{' '}
-              {best.tradeoff}
+              {pickTradeoff(best, lang)}
             </p>
           )}
           <Link
@@ -322,7 +324,7 @@ function ResultScreen({ result, onRestart, isLoggedIn, tr, onAuth }: { result: Q
                 key={alt.zone.slug}
                 zone={alt.zone}
                 score={alt.score}
-                tradeoff={alt.tradeoff}
+                tradeoff={pickTradeoff(alt, lang)}
                 tradeoffConfidence={alt.tradeoffConfidence}
                 isLoggedIn={isLoggedIn}
               />
@@ -793,7 +795,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   // ── Ecrã de resultado ─────────────────────────────────────────────────────
 
   if (screen === 'result' && result) {
-    return shell(<ResultScreen result={result} onRestart={restart} isLoggedIn={isLoggedIn} tr={tr} onAuth={handleAuth} />)
+    return shell(<ResultScreen result={result} onRestart={restart} isLoggedIn={isLoggedIn} tr={tr} lang={lang} onAuth={handleAuth} />)
   }
 
   // ── Perguntas ─────────────────────────────────────────────────────────────
