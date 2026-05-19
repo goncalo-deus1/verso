@@ -2,31 +2,38 @@ import { motion, useReducedMotion, type Variants } from 'framer-motion'
 // Note: motion is still used for motion.div, motion.h1, etc. — only motion.span was removed
 import { useEffect, useState } from 'react'
 import { useQuiz } from '../../context/QuizContext'
+import { useLang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 import { MapaAML } from './MapaAML'
 import { trackEvent } from '../../lib/analytics'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
-const TYPEWRITER_TEXT = 'casa certa'
 const CHAR_DELAY = 55   // ms between characters
 
-function TypewriterText({ reduce }: { reduce: boolean | null }) {
-  const [displayed, setDisplayed] = useState(reduce ? TYPEWRITER_TEXT : '')
+function TypewriterText({ reduce, text }: { reduce: boolean | null; text: string }) {
+  const [displayed, setDisplayed] = useState(reduce ? text : '')
   const [done, setDone] = useState(!!reduce)
+
+  // Reset quando o texto muda (mudança de idioma) para a animação re-correr.
+  useEffect(() => {
+    setDisplayed(reduce ? text : '')
+    setDone(!!reduce)
+  }, [text, reduce])
 
   useEffect(() => {
     if (reduce) return
     let i = 0
     const interval = setInterval(() => {
       i++
-      setDisplayed(TYPEWRITER_TEXT.slice(0, i))
-      if (i >= TYPEWRITER_TEXT.length) {
+      setDisplayed(text.slice(0, i))
+      if (i >= text.length) {
         clearInterval(interval)
         setDone(true)
       }
     }, CHAR_DELAY)
     return () => clearInterval(interval)
-  }, [reduce])
+  }, [reduce, text])
 
   return (
     <>
@@ -50,6 +57,8 @@ function TypewriterText({ reduce }: { reduce: boolean | null }) {
 export function HeroEnsaio() {
   const reduce = useReducedMotion()
   const { open: openQuiz } = useQuiz()
+  const { lang } = useLang()
+  const tr = useT(lang)
 
   const container: Variants = {
     hidden: {},
@@ -89,10 +98,10 @@ export function HeroEnsaio() {
               className="font-display font-normal leading-[0.96] tracking-[-0.03em] text-verso-midnight mb-9"
               style={{ fontSize: 'clamp(3rem, 6.5vw, 6rem)' }}
             >
-              A zona certa <br />
-              antes da{' '}
+              {tr('home.hero.title1')} <br />
+              {tr('home.hero.title2')}{' '}
               <em className="italic text-verso-clay font-normal">
-                <TypewriterText reduce={reduce} />
+                <TypewriterText reduce={reduce} text={tr('home.hero.typewriter')} />
               </em>
               <span className="text-verso-clay">.</span>
             </motion.h1>
@@ -102,9 +111,7 @@ export function HeroEnsaio() {
               variants={item}
               className="text-base sm:text-[17px] text-verso-midnight-soft leading-[1.6] max-w-[440px] mb-10"
             >
-              A habitta não vende imóveis. Cruza o teu perfil com o Plano Diretor
-              Municipal — zonamento, densidade, transporte, ruído, espaço verde —
-              e revela as freguesias e concelhos da AML onde faz sentido viver.
+              {tr('home.hero.body')}
             </motion.p>
 
             {/* CTA */}
@@ -113,7 +120,7 @@ export function HeroEnsaio() {
                 onClick={() => { trackEvent('cta_clicked', { location: 'hero' }); openQuiz('hero') }}
                 className="group inline-flex items-center gap-3.5 bg-verso-midnight text-verso-paper px-7 py-[18px] text-[13px] tracking-[0.14em] uppercase font-medium transition-all duration-300 hover:bg-verso-clay hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#1E1F18] font-mono"
               >
-                Encontrar a zona certa
+                {tr('home.hero.cta')}
                 <svg
                   width="16" height="12" viewBox="0 0 16 12" fill="none"
                   className="transition-transform group-hover:translate-x-1"

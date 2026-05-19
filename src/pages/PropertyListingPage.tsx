@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { X, ChevronDown, ChevronLeft, ChevronRight, Bed, Bath, Maximize2, MapPin, Heart } from 'lucide-react'
 import { getActiveProperties } from '../lib/supabase/properties'
 import type { PropertyRow } from '../lib/supabase/properties'
+import { useLang, type Lang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -10,35 +12,30 @@ const CLAY     = '#C2553A'
 const STONE    = '#3A3B2E'
 const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 
-const fmt = (n: number) =>
-  new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n)
-
-const budgetOptions = [
-  { label: 'Qualquer preço', value: '' },
-  { label: 'Até 300 000 €', value: 'under-300k' },
-  { label: '300 000 € — 600 000 €', value: '300k-600k' },
-  { label: '600 000 € — 1 000 000 €', value: '600k-1m' },
-  { label: 'Acima de 1 000 000 €', value: 'over-1m' },
-]
-
-const sortOptions = [
-  { label: 'Mais recentes', value: 'newest' },
-  { label: 'Preço crescente', value: 'price-asc' },
-  { label: 'Preço decrescente', value: 'price-desc' },
-]
-
-const TYPE_LABEL: Record<string, string> = {
-  apartamento: 'Apartamento', moradia: 'Moradia',
-  terreno: 'Terreno', comercial: 'Comercial', garagem: 'Garagem',
-}
+const fmt = (n: number, lang: Lang) =>
+  new Intl.NumberFormat(lang === 'pt' ? 'pt-PT' : 'en-GB', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n)
 
 // ─── Horizontal property card ─────────────────────────────────────────────────
 
 function PropertyCard({ p }: { p: PropertyRow }) {
+  const { lang } = useLang()
+  const tr = useT(lang)
   const images = p.images ?? []
   const [idx, setIdx] = useState(0)
   const [hovered, setHovered] = useState(false)
   const [saved, setSaved] = useState(false)
+
+  // Mapeamento dinâmico do property_type para a label traduzida.
+  const typeLabel = (type: PropertyRow['property_type']): string => {
+    switch (type) {
+      case 'apartamento': return tr('props.type.apartamento')
+      case 'moradia':     return tr('props.type.moradia')
+      case 'terreno':     return tr('props.type.terreno')
+      case 'comercial':   return tr('props.type.comercial')
+      case 'garagem':     return tr('props.type.garagem')
+      default:            return type
+    }
+  }
 
   function prev(e: React.MouseEvent) {
     e.preventDefault()
@@ -70,7 +67,7 @@ function PropertyCard({ p }: { p: PropertyRow }) {
             />
           ) : (
             <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: '12px', color: STONE, opacity: 0.35 }}>Sem foto</span>
+              <span style={{ fontSize: '12px', color: STONE, opacity: 0.35 }}>{tr('props.noPhoto')}</span>
             </div>
           )}
         </Link>
@@ -137,10 +134,10 @@ function PropertyCard({ p }: { p: PropertyRow }) {
                 {p.typology}
               </span>
             )}
-            <span style={{ fontSize: '12px', color: STONE }}>{TYPE_LABEL[p.property_type] ?? p.property_type}</span>
+            <span style={{ fontSize: '12px', color: STONE }}>{typeLabel(p.property_type)}</span>
             {p.bedrooms > 0 && (
               <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: STONE }}>
-                <Bed size={13} /> {p.bedrooms} {p.bedrooms === 1 ? 'quarto' : 'quartos'}
+                <Bed size={13} /> {p.bedrooms} {p.bedrooms === 1 ? tr('props.bedroomSingular') : tr('props.bedroomPlural')}
               </span>
             )}
             {p.bathrooms > 0 && (
@@ -168,11 +165,11 @@ function PropertyCard({ p }: { p: PropertyRow }) {
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: '16px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <p style={{ fontSize: '22px', fontWeight: 700, color: INK, margin: 0, letterSpacing: '-0.5px' }}>
-              {fmt(p.price)}
+              {fmt(p.price, lang)}
             </p>
             {p.price_per_sqm && (
               <p style={{ fontSize: '12px', color: STONE, margin: '2px 0 0', fontFamily: 'IBM Plex Mono' }}>
-                {p.price_per_sqm.toLocaleString('pt-PT')} €/m²
+                {p.price_per_sqm.toLocaleString(lang === 'pt' ? 'pt-PT' : 'en-GB')} €/m²
               </p>
             )}
           </div>
@@ -180,7 +177,7 @@ function PropertyCard({ p }: { p: PropertyRow }) {
             style={{ padding: '9px 20px', background: CLAY, color: 'white', borderRadius: '50px', fontSize: '13px', fontWeight: 600, textDecoration: 'none', transition: 'opacity 150ms', whiteSpace: 'nowrap' }}
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}>
-            Ver imóvel
+            {tr('props.viewProperty')}
           </Link>
         </div>
       </div>
@@ -191,14 +188,16 @@ function PropertyCard({ p }: { p: PropertyRow }) {
 // ─── Advertise CTA ───────────────────────────────────────────────────────────
 
 function AdvertiseCTA() {
+  const { lang } = useLang()
+  const tr = useT(lang)
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px', padding: '28px 32px', background: INK, borderRadius: '8px', flexWrap: 'wrap' }}>
       <div>
         <p style={{ fontSize: '16px', fontWeight: 700, color: 'white', margin: '0 0 4px', letterSpacing: '-0.3px' }}>
-          Tens um imóvel para anunciar?
+          {tr('props.advertise.title')}
         </p>
         <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', margin: 0 }}>
-          Publica o teu anúncio gratuitamente e chega a compradores qualificados.
+          {tr('props.advertise.body')}
         </p>
       </div>
       <Link
@@ -207,7 +206,7 @@ function AdvertiseCTA() {
         onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
         onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
       >
-        Anunciar imóvel
+        {tr('props.advertise.cta')}
       </Link>
     </div>
   )
@@ -230,6 +229,8 @@ function FilterSelect({ value, onChange, options }: { value: string; onChange: (
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function PropertyListingPage() {
+  const { lang } = useLang()
+  const tr = useT(lang)
   const [allProperties, setAllProperties] = useState<PropertyRow[]>([])
   const [loading, setLoading] = useState(true)
   const [budget, setBudget] = useState('')
@@ -237,6 +238,21 @@ export default function PropertyListingPage() {
   const [propertyType, setPropertyType] = useState('')
   const [sort, setSort] = useState('newest')
   const [search, setSearch] = useState('')
+
+  // Opções construídas dentro do componente para reagirem a mudanças de idioma.
+  const budgetOptions = [
+    { label: tr('props.filter.anyPrice'), value: '' },
+    { label: tr('props.filter.under300k'), value: 'under-300k' },
+    { label: tr('props.filter.300k600k'), value: '300k-600k' },
+    { label: tr('props.filter.600k1m'), value: '600k-1m' },
+    { label: tr('props.filter.over1m'), value: 'over-1m' },
+  ]
+
+  const sortOptions = [
+    { label: tr('props.sort.newest'), value: 'newest' },
+    { label: tr('props.sort.priceAsc'), value: 'price-asc' },
+    { label: tr('props.sort.priceDesc'), value: 'price-desc' },
+  ]
 
   useEffect(() => {
     getActiveProperties().then(data => {
@@ -281,15 +297,15 @@ export default function PropertyListingPage() {
   const hasFilters = budget || bedrooms || propertyType || search
 
   const typeOptions = [
-    { label: 'Tipo de imóvel', value: '' },
-    { label: 'Apartamento', value: 'apartamento' },
-    { label: 'Moradia', value: 'moradia' },
-    { label: 'Terreno', value: 'terreno' },
-    { label: 'Comercial', value: 'comercial' },
+    { label: tr('props.filter.type'), value: '' },
+    { label: tr('props.type.apartamento'), value: 'apartamento' },
+    { label: tr('props.type.moradia'), value: 'moradia' },
+    { label: tr('props.type.terreno'), value: 'terreno' },
+    { label: tr('props.type.comercial'), value: 'comercial' },
   ]
 
   const bedroomOptions = [
-    { label: 'Quartos', value: '' },
+    { label: tr('props.filter.rooms'), value: '' },
     { label: 'T0', value: '0' },
     { label: 'T1', value: '1' },
     { label: 'T2', value: '2' },
@@ -307,10 +323,10 @@ export default function PropertyListingPage() {
             habitta
           </p>
           <h1 style={{ fontSize: '36px', fontWeight: 700, color: 'white', letterSpacing: '-1px', margin: 0, lineHeight: 1.1 }}>
-            Imóveis
+            {tr('props.heading')}
           </h1>
           <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.45)', marginTop: '8px' }}>
-            Selecção curada — só publicamos o que valeria a pena visitar.
+            {tr('props.subtitle')}
           </p>
         </div>
       </div>
@@ -323,7 +339,7 @@ export default function PropertyListingPage() {
           <div style={{ position: 'relative', flex: 1, minWidth: '200px' }}>
             <input
               type="text"
-              placeholder="Zona, cidade, morada…"
+              placeholder={tr('props.searchPlaceholder')}
               value={search}
               onChange={e => setSearch(e.target.value)}
               style={{ width: '100%', padding: '9px 36px 9px 14px', fontSize: '13px', border: `1px solid ${HAIRLINE}`, borderRadius: '50px', outline: 'none', color: INK, boxSizing: 'border-box' }}
@@ -350,7 +366,7 @@ export default function PropertyListingPage() {
           {hasFilters && (
             <button onClick={() => { setBudget(''); setBedrooms(''); setPropertyType(''); setSearch('') }}
               style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: CLAY, background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
-              <X size={12} /> Limpar
+              <X size={12} /> {tr('props.clear')}
             </button>
           )}
         </div>
@@ -359,7 +375,9 @@ export default function PropertyListingPage() {
       {/* Results */}
       <div style={{ maxWidth: '960px', margin: '0 auto', padding: '32px 24px 80px' }}>
         <p style={{ fontSize: '12px', color: STONE, fontFamily: 'IBM Plex Mono', marginBottom: '20px' }}>
-          {loading ? 'A carregar…' : `${filtered.length} ${filtered.length === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}`}
+          {loading
+            ? tr('props.loading')
+            : `${filtered.length} ${filtered.length === 1 ? tr('props.countSingular') : tr('props.countPlural')}`}
         </p>
 
         {loading ? (
@@ -376,11 +394,11 @@ export default function PropertyListingPage() {
         ) : (
           <div>
             <div style={{ textAlign: 'center', padding: '60px 0 48px' }}>
-              <p style={{ fontSize: '18px', fontWeight: 700, color: INK, marginBottom: '8px' }}>Sem resultados</p>
-              <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>Tenta ajustar os filtros.</p>
+              <p style={{ fontSize: '18px', fontWeight: 700, color: INK, marginBottom: '8px' }}>{tr('props.noResults')}</p>
+              <p style={{ fontSize: '14px', color: STONE, marginBottom: '24px' }}>{tr('props.tryAdjusting')}</p>
               <button onClick={() => { setBudget(''); setBedrooms(''); setPropertyType(''); setSearch('') }}
                 style={{ padding: '10px 24px', background: INK, color: 'white', borderRadius: '50px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
-                Limpar filtros
+                {tr('props.clearFilters')}
               </button>
             </div>
             <AdvertiseCTA />
