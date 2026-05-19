@@ -11,7 +11,7 @@ import { Lock } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { trackEvent } from '../lib/analytics'
 import { trackQuizCompleted } from '../lib/pixel'
-import { saveMarketingConsent, MARKETING_CONSENT_TEXT_PT } from '../lib/marketingConsent'
+import { saveMarketingConsent } from '../lib/marketingConsent'
 import { useQuiz } from '../context/QuizContext'
 import { useLang } from '../context/LanguageContext'
 import { useT } from '../i18n/translations'
@@ -19,7 +19,7 @@ import { supabase } from '../lib/supabase'
 import { scoreAnswers } from '../lib/quiz/scoring'
 import type { QuizResult } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
-import { questions } from '../lib/quiz/questions'
+import { getQuestions } from '../lib/quiz/questions'
 import type { Zone } from '../data/zones'
 import QuizInvestorWaitlist from './QuizInvestorWaitlist'
 
@@ -398,8 +398,7 @@ function ResultScreen({ result, onRestart, isLoggedIn, tr, onAuth }: { result: Q
         paddingTop: '24px',
         margin: 0,
       }}>
-        Isto é um começo, não um veredicto. O algoritmo mede distâncias — só tu sabes o que é chegar a casa.
-        Caminha por algumas destas ruas antes de decidir.
+        {tr('quiz.result.footer')}
       </p>
     </div>
   )
@@ -417,6 +416,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   const isLoggedIn = user !== null
   const { lang } = useLang()
   const tr = useT(lang)
+  const qs = getQuestions(lang)
   const navigate = useNavigate()
 
   function handleAuth(mode: 'register' | 'login') {
@@ -574,14 +574,14 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
     const isBuy = answers.q2_ownership !== 'o2_rent'
 
     const map: Partial<Record<Screen, { id: string; label: string; helper?: string }[]>> = {
-      q1: questions.q1_intent.options    as unknown as { id: string; label: string }[],
-      q2: questions.q2_ownership.options as unknown as { id: string; label: string; helper?: string }[],
-      q3: (isBuy ? questions.q3_budget.optionsBuy : questions.q3_budget.optionsRent) as unknown as { id: string; label: string }[],
-      q4: questions.q4_work.options      as unknown as { id: string; label: string }[],
-      q5: questions.q5_routine.options   as unknown as { id: string; label: string; helper?: string }[],
-      q6: questions.q6_sound.options     as unknown as { id: string; label: string; helper?: string }[],
-      q7: questions.q7_tradeoff.options  as unknown as { id: string; label: string; helper?: string }[],
-      q8: questions.q8_priority.options  as unknown as { id: string; label: string; helper?: string }[],
+      q1: qs.q1_intent.options    as unknown as { id: string; label: string }[],
+      q2: qs.q2_ownership.options as unknown as { id: string; label: string; helper?: string }[],
+      q3: (isBuy ? qs.q3_budget.optionsBuy : qs.q3_budget.optionsRent) as unknown as { id: string; label: string }[],
+      q4: qs.q4_work.options      as unknown as { id: string; label: string }[],
+      q5: qs.q5_routine.options   as unknown as { id: string; label: string; helper?: string }[],
+      q6: qs.q6_sound.options     as unknown as { id: string; label: string; helper?: string }[],
+      q7: qs.q7_tradeoff.options  as unknown as { id: string; label: string; helper?: string }[],
+      q8: qs.q8_priority.options  as unknown as { id: string; label: string; helper?: string }[],
     }
     return map[s] ?? []
   }
@@ -615,7 +615,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
     setAnswers(prev => ({ ...prev, ...updates }))
     const opts = getAllOptions(s)
     const label = opts.find(o => o.id === id)?.label ?? ''
-    setAnn(`Seleccionado: ${label}`)
+    setAnn(tr('quiz.a11y.selected').replace('{label}', label))
   }
 
   // Q8 multi-select: p7_none is mutually exclusive
@@ -626,7 +626,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
       // p7_none selected — deselect everything else
       const next = (current as string[]).includes('p7_none') ? [] : ['p7_none']
       setAnswers(prev => ({ ...prev, q8_priority: next as QuizAnswers['q8_priority'] }))
-      setAnn(next.length ? 'Seleccionado: Nada disto em particular.' : 'Removido.')
+      setAnn(next.length ? tr('quiz.a11y.selectedNone') : tr('quiz.a11y.removed'))
       return
     }
 
@@ -637,14 +637,14 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
       // Deselect
       const next = withoutNone.filter(v => v !== id) as QuizAnswers['q8_priority']
       setAnswers(prev => ({ ...prev, q8_priority: next }))
-      setAnn(`Removido. ${next?.length ?? 0} seleccionado(s).`)
+      setAnn(tr('quiz.a11y.removedCount').replace('{n}', String(next?.length ?? 0)))
     } else if (withoutNone.length < 2) {
       // Select (max 2 non-none options)
       const next = [...withoutNone, id] as QuizAnswers['q8_priority']
       setAnswers(prev => ({ ...prev, q8_priority: next }))
-      setAnn(`Adicionado. ${next?.length ?? 0} seleccionado(s).`)
+      setAnn(tr('quiz.a11y.addedCount').replace('{n}', String(next?.length ?? 0)))
     } else {
-      setAnn('Máximo de 2 selecções atingido.')
+      setAnn(tr('quiz.a11y.maxReached'))
     }
   }
 
@@ -743,10 +743,10 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
           className="font-display"
           style={{ fontSize: '26px', fontWeight: 400, color: INK, lineHeight: 1.2, margin: '0 0 16px', letterSpacing: '-0.4px' }}
         >
-          Queres receber atualizações sobre as zonas certas para ti?
+          {tr('quiz.marketing.title')}
         </h2>
         <p style={{ fontSize: '14px', color: STONE, lineHeight: 1.65, margin: '0 0 32px' }}>
-          {MARKETING_CONSENT_TEXT_PT}
+          {tr('auth.marketing')}
         </p>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <button
@@ -759,7 +759,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
             onMouseEnter={e => { e.currentTarget.style.opacity = '0.88' }}
             onMouseLeave={e => { e.currentTarget.style.opacity = '1' }}
           >
-            Sim, manda-me
+            {tr('quiz.marketing.yes')}
           </button>
           <button
             onClick={() => handleMarketingChoice(false)}
@@ -771,7 +771,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
             onMouseEnter={e => { e.currentTarget.style.borderColor = STONE }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = HAIRLINE }}
           >
-            Não, obrigado
+            {tr('quiz.marketing.no')}
           </button>
         </div>
       </div>
@@ -841,7 +841,7 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
 
         <div
           role="group"
-          aria-label={`Pergunta ${stepNum} de 8`}
+          aria-label={tr('quiz.a11y.questionOf').replace('{n}', String(stepNum))}
           style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '28px' }}
         >
           {opts.map((opt, idx) => {
@@ -934,12 +934,12 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   if (screen === 'q1') {
     return renderQuestion(
       1,
-      questions.q1_intent.options as unknown as { id: string; label: string }[],
+      qs.q1_intent.options as unknown as { id: string; label: string }[],
       false,
       answers.q1_intent, [],
       id => selectSingle('q1', id), () => {},
       goNext, goPrev,
-      questions.q1_intent.label,
+      qs.q1_intent.label,
     )
   }
 
@@ -947,20 +947,20 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   if (screen === 'q2') {
     return renderQuestion(
       2,
-      questions.q2_ownership.options as unknown as { id: string; label: string; helper?: string }[],
+      qs.q2_ownership.options as unknown as { id: string; label: string; helper?: string }[],
       false,
       answers.q2_ownership, [],
       id => selectSingle('q2', id), () => {},
       goNext, goPrev,
-      questions.q2_ownership.label,
+      qs.q2_ownership.label,
     )
   }
 
   // Q3 — Orçamento (label e opções dependem de Q2)
   if (screen === 'q3') {
     const isBuy = answers.q2_ownership !== 'o2_rent'
-    const q3Label = isBuy ? questions.q3_budget.labelBuy : questions.q3_budget.labelRent
-    const q3Opts  = (isBuy ? questions.q3_budget.optionsBuy : questions.q3_budget.optionsRent) as unknown as { id: string; label: string }[]
+    const q3Label = isBuy ? qs.q3_budget.labelBuy : qs.q3_budget.labelRent
+    const q3Opts  = (isBuy ? qs.q3_budget.optionsBuy : qs.q3_budget.optionsRent) as unknown as { id: string; label: string }[]
     return renderQuestion(
       3,
       q3Opts,
@@ -976,12 +976,12 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   if (screen === 'q4') {
     return renderQuestion(
       4,
-      questions.q4_work.options as unknown as { id: string; label: string }[],
+      qs.q4_work.options as unknown as { id: string; label: string }[],
       false,
       answers.q4_work, [],
       id => selectSingle('q4', id), () => {},
       goNext, goPrev,
-      questions.q4_work.label,
+      qs.q4_work.label,
     )
   }
 
@@ -989,12 +989,12 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   if (screen === 'q5') {
     return renderQuestion(
       5,
-      questions.q5_routine.options as unknown as { id: string; label: string; helper?: string }[],
+      qs.q5_routine.options as unknown as { id: string; label: string; helper?: string }[],
       false,
       answers.q5_routine, [],
       id => selectSingle('q5', id), () => {},
       goNext, goPrev,
-      questions.q5_routine.label,
+      qs.q5_routine.label,
     )
   }
 
@@ -1002,12 +1002,12 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   if (screen === 'q6') {
     return renderQuestion(
       6,
-      questions.q6_sound.options as unknown as { id: string; label: string; helper?: string }[],
+      qs.q6_sound.options as unknown as { id: string; label: string; helper?: string }[],
       false,
       answers.q6_sound, [],
       id => selectSingle('q6', id), () => {},
       goNext, goPrev,
-      questions.q6_sound.label,
+      qs.q6_sound.label,
     )
   }
 
@@ -1015,12 +1015,12 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   if (screen === 'q7') {
     return renderQuestion(
       7,
-      questions.q7_tradeoff.options as unknown as { id: string; label: string; helper?: string }[],
+      qs.q7_tradeoff.options as unknown as { id: string; label: string; helper?: string }[],
       false,
       answers.q7_tradeoff, [],
       id => selectSingle('q7', id), () => {},
       goNext, goPrev,
-      questions.q7_tradeoff.label,
+      qs.q7_tradeoff.label,
     )
   }
 
@@ -1028,13 +1028,13 @@ export default function QuizFlow({ onClose }: { onClose?: () => void }) {
   if (screen === 'q8') {
     return renderQuestion(
       8,
-      questions.q8_priority.options as unknown as { id: string; label: string; helper?: string }[],
+      qs.q8_priority.options as unknown as { id: string; label: string; helper?: string }[],
       true,
       undefined,
       (answers.q8_priority ?? []) as string[],
       () => {}, id => toggleQ8(id),
       goNext, goPrev,
-      questions.q8_priority.label,
+      qs.q8_priority.label,
     )
   }
 

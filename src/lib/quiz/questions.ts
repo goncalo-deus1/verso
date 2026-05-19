@@ -1,4 +1,10 @@
 // questions.ts — As 8 perguntas do quiz Habitta (v3)
+//
+// PT é a fonte de verdade (estrutura, IDs, ordem, scoring).
+// `questionsEn` é um mirror estrito com as mesmas keys/IDs e apenas
+// labels/helpers traduzidos. `getQuestions(lang)` devolve a versão certa.
+
+import type { Lang } from '../../context/LanguageContext'
 
 export const questions = {
   // ── Q1 — Para quem é a casa? ──────────────────────────────────────────────
@@ -174,3 +180,154 @@ export const QUESTION_ORDER: (keyof typeof questions)[] = [
   'q1_intent', 'q2_ownership', 'q3_budget', 'q4_work',
   'q5_routine', 'q6_sound', 'q7_tradeoff', 'q8_priority',
 ]
+
+// ── EN mirror ────────────────────────────────────────────────────────────────
+// Mesma forma que `questions`, com IDs idênticos. Apenas labels e helpers
+// mudam. Os campos numéricos (order, maxSelections) e booleanos (optional,
+// multiSelect) repetem-se exactamente.
+
+export const questionsEn = {
+  q1_intent: {
+    order: 1,
+    label: 'Who is the home for?',
+    options: [
+      { id: 'i1_single', label: 'To live on my own' },
+      { id: 'i2_couple', label: 'To live as a couple' },
+      { id: 'i3_family', label: 'To live as a family' },
+      { id: 'i4_invest', label: 'To invest or rent out' },
+    ],
+  },
+  q2_ownership: {
+    order: 2,
+    label: 'Are you buying or renting?',
+    options: [
+      { id: 'o1_buy',  label: 'Buy',  helper: 'first home or moving' },
+      { id: 'o2_rent', label: 'Rent', helper: 'for now' },
+    ],
+  },
+  q3_budget: {
+    order: 3,
+    labelBuy:  "What's your budget to buy?",
+    labelRent: "What's your maximum monthly rent?",
+    optional: true,
+    optionsBuy: [
+      { id: 'b1_150',       label: 'Up to €150,000' },
+      { id: 'b2_150_250',   label: '€150,000 – €250,000' },
+      { id: 'b3_250_400',   label: '€250,000 – €400,000' },
+      { id: 'b4_400_600',   label: '€400,000 – €600,000' },
+      { id: 'b5_600plus',   label: 'More than €600,000' },
+      { id: 'b6_undecided', label: 'Still deciding' },
+    ],
+    optionsRent: [
+      { id: 'r1_600',       label: 'Up to €600' },
+      { id: 'r2_600_900',   label: '€600 – €900' },
+      { id: 'r3_900_1200',  label: '€900 – €1,200' },
+      { id: 'r4_1200_1600', label: '€1,200 – €1,600' },
+      { id: 'r5_1600plus',  label: 'More than €1,600' },
+      { id: 'r6_undecided', label: 'Still deciding' },
+    ],
+  },
+  q4_work: {
+    order: 4,
+    label: 'How do you currently work?',
+    options: [
+      { id: 'w1_onsite',     label: 'In-person — fixed office' },
+      { id: 'w2_hybrid',     label: 'Hybrid — some days at home' },
+      { id: 'w3_remote',     label: 'Remote — work from home' },
+      { id: 'w4_irrelevant', label: 'Between projects / N/A' },
+    ],
+  },
+  q5_routine: {
+    order: 5,
+    label: 'In your day-to-day, you need…',
+    options: [
+      {
+        id: 'r1_walking',
+        label: 'The centre on foot',
+        helper: 'cafés, work, friends — everything within walking distance',
+      },
+      {
+        id: 'r2_transit',
+        label: 'Frequent public transport',
+        helper: "you don't need to live in the centre, but you need to get there easily",
+      },
+      {
+        id: 'r3_car',
+        label: 'Car and parking',
+        helper: 'you go where you need to, on your own time',
+      },
+      {
+        id: 'r4_minimal',
+        label: 'Minimal commuting',
+        helper: 'your life mostly happens near home',
+      },
+    ],
+  },
+  q6_sound: {
+    order: 6,
+    label: 'Where you live, you want to hear…',
+    options: [
+      {
+        id: 's1_city',
+        label: 'The city breathing',
+        helper: 'traffic, terraces, people — part of urban life',
+      },
+      {
+        id: 's2_neighborhood',
+        label: 'A quiet neighbourhood',
+        helper: 'normal background sound, little nightlife',
+      },
+      {
+        id: 's3_silence',
+        label: 'Near-total silence',
+        helper: 'nature, or a street with no night traffic',
+      },
+    ],
+  },
+  q7_tradeoff: {
+    order: 7,
+    label: 'If you had to choose now, would you prefer…',
+    options: [
+      {
+        id: 't1_space',
+        label: 'More space, further out',
+        helper: 'more square metres per euro, the city is further away',
+      },
+      {
+        id: 't2_central',
+        label: 'Compact space, more central',
+        helper: 'less space, but close to everything',
+      },
+      {
+        id: 't3_balance',
+        label: 'A balance between the two',
+        helper: 'mid-sized home, 15–25 minutes from the centre',
+      },
+    ],
+  },
+  q8_priority: {
+    order: 8,
+    label: "If there are one or two things you really can't give up…",
+    optional: true,
+    multiSelect: true,
+    maxSelections: 2,
+    options: [
+      { id: 'p1_sea',          label: 'Sea and nature',           helper: 'beach, river, greenery, views' },
+      { id: 'p2_neighborhood', label: 'Neighbourhood life',       helper: 'cafés, local shops, familiar faces' },
+      { id: 'p3_family',       label: 'Schools and family',       helper: 'good schools, parks, room to grow up' },
+      { id: 'p4_silence',      label: 'Silence and tranquillity', helper: 'away from urban noise' },
+      { id: 'p5_valuation',    label: 'Appreciation potential',   helper: 'an area that will be worth more in 10 years' },
+      { id: 'p6_youth',        label: 'Buzz and young people',    helper: 'midweek nights with movement, culture, friends' },
+      { id: 'p7_none',         label: 'None of this in particular', helper: 'I trust the balance' },
+    ],
+  },
+} as const
+
+/**
+ * Devolve a versão localizada das perguntas. PT é o default.
+ * O cast para `typeof questions` mantém-se compatível com consumers
+ * que esperam o shape exacto do source PT (os IDs e a estrutura batem).
+ */
+export function getQuestions(lang: Lang): typeof questions {
+  return (lang === 'en' ? (questionsEn as unknown as typeof questions) : questions)
+}

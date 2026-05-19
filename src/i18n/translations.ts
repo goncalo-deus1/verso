@@ -443,6 +443,18 @@ const t = {
   'quiz.lock.register':  { pt: 'Criar conta gratuita',   en: 'Create free account' },
   'quiz.lock.signin':    { pt: 'Entrar',                  en: 'Sign in' },
 
+  // ── Quiz: marketing-consent screen, a11y announcements ─────────────────────
+  'quiz.marketing.title':   { pt: 'Queres receber atualizações sobre as zonas certas para ti?', en: 'Want updates about the right areas for you?' },
+  'quiz.marketing.yes':     { pt: 'Sim, manda-me', en: 'Yes, send me updates' },
+  'quiz.marketing.no':      { pt: 'Não, obrigado', en: 'No, thanks' },
+  'quiz.a11y.selected':     { pt: 'Seleccionado: {label}', en: 'Selected: {label}' },
+  'quiz.a11y.selectedNone': { pt: 'Seleccionado: Nada disto em particular.', en: 'Selected: None of this in particular.' },
+  'quiz.a11y.removed':      { pt: 'Removido.', en: 'Removed.' },
+  'quiz.a11y.addedCount':   { pt: 'Adicionado. {n} seleccionado(s).', en: 'Added. {n} selected.' },
+  'quiz.a11y.removedCount': { pt: 'Removido. {n} seleccionado(s).', en: 'Removed. {n} selected.' },
+  'quiz.a11y.maxReached':   { pt: 'Máximo de 2 selecções atingido.', en: 'Maximum 2 selections reached.' },
+  'quiz.a11y.questionOf':   { pt: 'Pergunta {n} de 8', en: 'Question {n} of 8' },
+
 } as const
 
 export type TKey = keyof typeof t
