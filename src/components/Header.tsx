@@ -134,10 +134,10 @@ export default function Header() {
                     onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
                   >
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: CLAY, display: 'inline-block' }} />
-                    A minha zona
+                    {tr('header.myZone')}
                   </Link>
                 )}
-                <NavLinkDesktop to="/imoveis" active={isActive('/imoveis')}>Imóveis</NavLinkDesktop>
+                <NavLinkDesktop to="/imoveis" active={isActive('/imoveis')}>{tr('header.properties')}</NavLinkDesktop>
                 <NavLinkDesktop to="/blog" active={isActive('/blog')}>{tr('header.guides')}</NavLinkDesktop>
               </>
             ) : (
@@ -156,7 +156,7 @@ export default function Header() {
                 </button>
                 <NavLinkDesktop to="/areas" active={isActive('/areas')}>{tr('header.areas')}</NavLinkDesktop>
                 <NavLinkDesktop to="/blog" active={isActive('/blog')}>{tr('header.guides')}</NavLinkDesktop>
-                <NavLinkDesktop to="/imoveis" active={isActive('/imoveis')}>Imóveis</NavLinkDesktop>
+                <NavLinkDesktop to="/imoveis" active={isActive('/imoveis')}>{tr('header.properties')}</NavLinkDesktop>
               </>
             )}
           </nav>
@@ -211,11 +211,11 @@ export default function Header() {
                           <p className="text-sm font-medium truncate mt-0.5" style={{ color: BONE }}>{user.email ?? ''}</p>
                         </div>
                         <div className="p-1.5">
-                          <MenuItem to="/minha-conta" icon={<User size={14} />}>A minha conta</MenuItem>
+                          <MenuItem to="/minha-conta" icon={<User size={14} />}>{tr('header.myAccount')}</MenuItem>
                           <MenuItem to="/inbox" icon={<MessageSquare size={14} />} badge={unread > 0 ? (unread > 9 ? '9+' : String(unread)) : undefined}>
-                            Mensagens
+                            {tr('header.messages')}
                           </MenuItem>
-                          <MenuItem to="/sobre" icon={<Info size={14} />}>Sobre nós</MenuItem>
+                          <MenuItem to="/sobre" icon={<Info size={14} />}>{tr('header.about')}</MenuItem>
                           {/* Idioma — toggle in-place. Não fecha o menu para o utilizador ver o switch. */}
                           <button
                             type="button"
@@ -226,7 +226,7 @@ export default function Header() {
                             onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
                           >
                             <Globe size={14} />
-                            <span style={{ flex: 1 }}>Idioma</span>
+                            <span style={{ flex: 1 }}>{tr('header.language')}</span>
                             <span style={{ fontFamily: 'IBM Plex Mono', fontSize: 11, letterSpacing: '0.5px' }}>
                               <span style={{ color: lang === 'pt' ? BONE : 'rgba(255,255,255,0.35)' }}>PT</span>
                               <span style={{ color: 'rgba(255,255,255,0.25)' }}> / </span>
@@ -333,12 +333,12 @@ export default function Header() {
                       style={{ color: INK, fontSize: 16, fontWeight: 500, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}
                     >
                       <span style={{ width: 6, height: 6, borderRadius: '50%', background: CLAY, display: 'inline-block' }} />
-                      A minha zona
+                      {tr('header.myZone')}
                     </Link>
                   )}
-                  <NavLinkMobile to="/imoveis" active={isActive('/imoveis')} onClick={() => setOpen(false)}>Imóveis</NavLinkMobile>
+                  <NavLinkMobile to="/imoveis" active={isActive('/imoveis')} onClick={() => setOpen(false)}>{tr('header.properties')}</NavLinkMobile>
                   <NavLinkMobile to="/blog" active={isActive('/blog')} onClick={() => setOpen(false)}>{tr('header.guides')}</NavLinkMobile>
-                  <NavLinkMobile to="/sobre" active={isActive('/sobre')} onClick={() => setOpen(false)}>Sobre nós</NavLinkMobile>
+                  <NavLinkMobile to="/sobre" active={isActive('/sobre')} onClick={() => setOpen(false)}>{tr('header.about')}</NavLinkMobile>
                 </>
               ) : (
                 <>
@@ -350,8 +350,8 @@ export default function Header() {
                   </button>
                   <NavLinkMobile to="/areas" active={isActive('/areas')} onClick={() => setOpen(false)}>{tr('header.areas')}</NavLinkMobile>
                   <NavLinkMobile to="/blog" active={isActive('/blog')} onClick={() => setOpen(false)}>{tr('header.guides')}</NavLinkMobile>
-                  <NavLinkMobile to="/imoveis" active={isActive('/imoveis')} onClick={() => setOpen(false)}>Imóveis</NavLinkMobile>
-                  <NavLinkMobile to="/sobre" active={isActive('/sobre')} onClick={() => setOpen(false)}>Sobre nós</NavLinkMobile>
+                  <NavLinkMobile to="/imoveis" active={isActive('/imoveis')} onClick={() => setOpen(false)}>{tr('header.properties')}</NavLinkMobile>
+                  <NavLinkMobile to="/sobre" active={isActive('/sobre')} onClick={() => setOpen(false)}>{tr('header.about')}</NavLinkMobile>
                 </>
               )}
             </nav>
@@ -366,7 +366,7 @@ export default function Header() {
                   borderRadius: 999, fontSize: 12, fontFamily: 'IBM Plex Mono',
                 }}
               >
-                {lang === 'pt' ? 'Switch to English' : 'Mudar para Português'}
+                {tr('header.switchLang')}
               </button>
 
               {user ? (
@@ -387,7 +387,7 @@ export default function Header() {
                     className="flex items-center gap-2 text-sm font-medium"
                     style={{ color: STONE, textDecoration: 'none' }}
                   >
-                    <User size={14} /> A minha conta
+                    <User size={14} /> {tr('header.myAccount')}
                   </Link>
                   <button
                     onClick={() => { signOut(); setOpen(false) }}
