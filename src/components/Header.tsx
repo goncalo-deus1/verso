@@ -119,28 +119,59 @@ export default function Header() {
               {lang === 'pt' ? 'EN' : 'PT'}
             </button>
 
+            {user && (
+              <Link
+                to="/inbox"
+                aria-label={unread > 0 ? `Mensagens: ${unread} ${unread === 1 ? 'não lida' : 'não lidas'}` : 'Mensagens'}
+                style={{
+                  position: 'relative',
+                  width: 32, height: 32, borderRadius: '50%',
+                  border: unread > 0 ? '1px solid #C2553A' : '1px solid rgba(30, 31, 24, 0.125)',
+                  background: 'white',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: unread > 0 ? '#C2553A' : '#3A3B2E',
+                  textDecoration: 'none', transition: 'all 150ms',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#C2553A'; e.currentTarget.style.color = '#C2553A' }}
+                onMouseLeave={e => {
+                  if (unread === 0) {
+                    e.currentTarget.style.borderColor = 'rgba(30, 31, 24, 0.125)'
+                    e.currentTarget.style.color = '#3A3B2E'
+                  }
+                }}
+              >
+                <MessageSquare size={15} strokeWidth={2} />
+                {unread > 0 && (
+                  <span
+                    aria-hidden
+                    style={{
+                      position: 'absolute', top: -4, right: -4,
+                      minWidth: 18, height: 18, padding: '0 5px',
+                      background: '#C2553A', color: '#F2EDE4',
+                      borderRadius: 9, fontSize: 10, fontWeight: 700,
+                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                      fontFamily: 'IBM Plex Mono',
+                      border: '2px solid #F8F7F4',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {unread > 99 ? '99+' : unread}
+                  </span>
+                )}
+              </Link>
+            )}
+
             {user ? (
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="flex items-center gap-2 px-3 py-1.5 transition-colors duration-150"
                   style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '50px', background: 'white' }}
-                  aria-label={unread > 0 ? `Menu do utilizador, ${unread} ${unread === 1 ? 'mensagem nova' : 'mensagens novas'}` : 'Menu do utilizador'}
+                  aria-label="Menu do utilizador"
                 >
-                  <div className="relative w-5 h-5 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0"
+                  <div className="w-5 h-5 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0"
                     style={{ background: '#C2553A', borderRadius: '50%' }}>
                     {name.charAt(0).toUpperCase()}
-                    {unread > 0 && (
-                      <span
-                        aria-hidden
-                        style={{
-                          position: 'absolute', top: -2, right: -2,
-                          width: 8, height: 8, borderRadius: '50%',
-                          background: '#C2553A',
-                          border: '1.5px solid #F8F7F4',
-                        }}
-                      />
-                    )}
                   </div>
                   <span className="text-sm font-medium max-w-[100px] truncate" style={{ color: '#1E1F18' }}>
                     {name}
@@ -217,6 +248,43 @@ export default function Header() {
               </>
             )}
           </div>
+
+          {/* Mobile: dedicated message button visible sempre (fora do hamburger) */}
+          {user && (
+            <Link
+              to="/inbox"
+              className="lg:hidden"
+              aria-label={unread > 0 ? `Mensagens: ${unread} ${unread === 1 ? 'não lida' : 'não lidas'}` : 'Mensagens'}
+              style={{
+                position: 'relative',
+                width: 36, height: 36, borderRadius: '50%',
+                border: unread > 0 ? '1px solid #C2553A' : '1px solid rgba(30, 31, 24, 0.125)',
+                background: 'white',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: unread > 0 ? '#C2553A' : '#1E1F18',
+                textDecoration: 'none', marginRight: 6,
+              }}
+            >
+              <MessageSquare size={16} strokeWidth={2} />
+              {unread > 0 && (
+                <span
+                  aria-hidden
+                  style={{
+                    position: 'absolute', top: -4, right: -4,
+                    minWidth: 18, height: 18, padding: '0 5px',
+                    background: '#C2553A', color: '#F2EDE4',
+                    borderRadius: 9, fontSize: 10, fontWeight: 700,
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'IBM Plex Mono',
+                    border: '2px solid #F8F7F4',
+                    lineHeight: 1,
+                  }}
+                >
+                  {unread > 99 ? '99+' : unread}
+                </span>
+              )}
+            </Link>
+          )}
 
           {/* Mobile toggle */}
           <button onClick={() => setOpen(!open)} className="lg:hidden p-2" style={{ color: '#1E1F18' }} aria-label="Menu">
