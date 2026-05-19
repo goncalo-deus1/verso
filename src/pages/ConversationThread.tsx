@@ -118,17 +118,32 @@ export default function ConversationThread() {
       setMessages(msgs ?? [])
       setLoading(false)
 
-      // Marca como lida ao abrir
+      // Marca como lida ao abrir. Usamos o ref para a callback (que ainda
+      // pode não estar montado abaixo) — mas no primeiro render é o mesmo.
       markAsRead(normConv)
     }
 
     load()
     return () => { cancelled = true }
-  }, [id, user, authLoading, markAsRead])
+    // Intencionalmente sem markAsRead nas deps: queremos um load por (id, user)
+    // — não por mudança de referência da callback (ver pattern do canal abaixo).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, user, authLoading])
+
+  // Refs para conversation e markAsRead — o canal realtime tem de viver o
+  // tempo todo da página. Sem refs, qualquer mudança nestes dois (incluindo
+  // o set inicial de conversation depois do load) tearia down e re-subscreveria
+  // o canal, criando janelas onde events do servidor são silenciosamente
+  // perdidos. O bug que isto resolve: comprador deixou de receber resposta do
+  // dono em real-time e só via depois de refresh.
+  const conversationRef = useRef<ConversationWithProperty | null>(null)
+  const markAsReadRef = useRef(markAsRead)
+  useEffect(() => { conversationRef.current = conversation }, [conversation])
+  useEffect(() => { markAsReadRef.current = markAsRead }, [markAsRead])
 
   // Subscrição realtime: ouve INSERT em messages desta conversa.
-  // Protecção contra duplicados: se já existe localmente uma mensagem com o
-  // mesmo id, ignoramos o evento (acontece quando nós próprios enviámos).
+  // Dependências mínimas: id + user.id. O canal é criado uma vez por sessão
+  // de utilizador nesta conversa e só é destruído ao desmontar.
   useEffect(() => {
     if (!id || !user) return
 
@@ -143,18 +158,24 @@ export default function ConversationThread() {
             if (prev.some(m => m.id === incoming.id)) return prev
             return [...prev, incoming]
           })
-          // Se a mensagem é de outro, marca como lida.
-          if (incoming.sender_id !== user.id && conversation) {
-            markAsRead(conversation)
+          if (incoming.sender_id !== user.id) {
+            const conv = conversationRef.current
+            if (conv) markAsReadRef.current(conv)
           }
         },
       )
-      .subscribe()
+      .subscribe(status => {
+        // Útil em DevTools quando algo correr mal — sinaliza CHANNEL_ERROR ou
+        // TIMED_OUT, que normalmente indicam JWT inválido ou RLS a bloquear.
+        if (status !== 'SUBSCRIBED') {
+          console.warn('[ConversationThread] realtime status:', status)
+        }
+      })
 
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [id, user, conversation, markAsRead])
+  }, [id, user])
 
   // Auto-scroll para o fim sempre que mensagens mudam.
   useEffect(() => {
