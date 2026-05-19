@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
+import { useLangSafe } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const INK  = '#1E1F18'
 const BONE = '#F2EDE4'
@@ -7,6 +9,9 @@ const CLAY = '#C2553A'
 const MOSS = '#6B7A5A'
 
 export default function EmBreve() {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
+
   return (
     <div
       style={{
@@ -31,7 +36,7 @@ export default function EmBreve() {
           marginBottom: '32px',
         }}
       >
-        Em breve
+        {tr('pages.embreve.eyebrow')}
       </p>
 
       <h1
@@ -46,7 +51,7 @@ export default function EmBreve() {
           marginBottom: '24px',
         }}
       >
-        Os imóveis estão a chegar.
+        {tr('pages.embreve.title')}
       </h1>
 
       <p
@@ -58,7 +63,7 @@ export default function EmBreve() {
           marginBottom: '48px',
         }}
       >
-        Esta secção está a ser preparada. Por enquanto, usa o quiz para encontrar a zona certa — os imóveis seguem-se em breve.
+        {tr('pages.embreve.body')}
       </p>
 
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -77,7 +82,7 @@ export default function EmBreve() {
           onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
           onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
         >
-          Fazer o quiz
+          {tr('pages.embreve.takeQuiz')}
         </Link>
 
         <Link
@@ -98,7 +103,7 @@ export default function EmBreve() {
           onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(30, 31, 24, 0.5)')}
           onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(30, 31, 24, 0.2)')}
         >
-          <ArrowLeft size={14} /> Início
+          <ArrowLeft size={14} /> {tr('pages.embreve.home')}
         </Link>
       </div>
     </div>

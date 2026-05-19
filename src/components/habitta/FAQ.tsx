@@ -1,4 +1,6 @@
 import { faqPageJsonLd } from '../../lib/jsonLd'
+import { useLangSafe } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 
 export interface FAQItem {
   q: string
@@ -7,6 +9,7 @@ export interface FAQItem {
 
 interface FAQProps {
   items: FAQItem[]
+  /** If omitted, falls back to the localised default ("Perguntas frequentes" / "Frequently asked questions"). */
   title?: string
   /**
    * If false, this FAQ block won't emit its own FAQPage JSON-LD.
@@ -20,7 +23,10 @@ interface FAQProps {
  * Uses native <details>/<summary> so it works without JS (critical
  * for AI crawler / prerendered output).
  */
-export function FAQ({ items, title = 'Perguntas frequentes', emitJsonLd = true }: FAQProps) {
+export function FAQ({ items, title, emitJsonLd = true }: FAQProps) {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
+  const resolvedTitle = title ?? tr('habitta.faq.defaultTitle')
   if (!items || items.length === 0) return null
 
   const ld = faqPageJsonLd(items)
@@ -41,7 +47,7 @@ export function FAQ({ items, title = 'Perguntas frequentes', emitJsonLd = true }
           margin: '0 0 var(--space-4)',
         }}
       >
-        {title}
+        {resolvedTitle}
       </h2>
       <div style={{ borderTop: '1px solid rgba(44, 44, 42, 0.15)' }}>
         {items.map((item, i) => (

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
+import { useLangSafe } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const INK  = '#1E1F18'
 const BONE = '#F2EDE4'
@@ -8,6 +10,15 @@ const MOSS = '#6B7A5A'
 const SAND = '#E8E0D0'
 
 export default function ProprietarioEmBreve() {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
+
+  const cards = [
+    { title: tr('pages.ownerembreve.card1.title'), body: tr('pages.ownerembreve.card1.body') },
+    { title: tr('pages.ownerembreve.card2.title'), body: tr('pages.ownerembreve.card2.body') },
+    { title: tr('pages.ownerembreve.card3.title'), body: tr('pages.ownerembreve.card3.body') },
+  ]
+
   return (
     <div style={{ minHeight: '100vh', background: BONE }}>
 
@@ -30,7 +41,7 @@ export default function ProprietarioEmBreve() {
             marginBottom: '32px',
           }}
         >
-          Área do Proprietário · Em breve
+          {tr('pages.ownerembreve.eyebrow')}
         </p>
 
         <h1
@@ -45,7 +56,7 @@ export default function ProprietarioEmBreve() {
             margin: '0 auto 24px',
           }}
         >
-          Uma plataforma para quem tem imóveis, não apenas para quem os procura.
+          {tr('pages.ownerembreve.title')}
         </h1>
 
         <p
@@ -57,7 +68,7 @@ export default function ProprietarioEmBreve() {
             margin: '0 auto',
           }}
         >
-          Estamos a construir ferramentas para proprietários gerirem imóveis, publicarem anúncios e chegarem a compradores qualificados — sem intermediários desnecessários.
+          {tr('pages.ownerembreve.body')}
         </p>
       </div>
 
@@ -78,24 +89,11 @@ export default function ProprietarioEmBreve() {
             textAlign: 'center',
           }}
         >
-          O que vem aí
+          {tr('pages.ownerembreve.whatsNext')}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4" style={{ marginBottom: '56px' }}>
-          {[
-            {
-              title: 'Publicar anúncios',
-              body: 'Cria e gere anúncios de venda ou arrendamento com dados de mercado integrados.',
-            },
-            {
-              title: 'Perfil do imóvel',
-              body: 'PDM, classe energética, histórico de transações e zonamento num único lugar.',
-            },
-            {
-              title: 'Contacto direto',
-              body: 'Recebe pedidos de visita de compradores verificados — sem comissão de intermediário.',
-            },
-          ].map(card => (
+          {cards.map(card => (
             <div
               key={card.title}
               style={{
@@ -144,7 +142,7 @@ export default function ProprietarioEmBreve() {
             onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(30, 31, 24, 0.5)')}
             onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(30, 31, 24, 0.2)')}
           >
-            <ArrowLeft size={14} /> Voltar ao início
+            <ArrowLeft size={14} /> {tr('pages.ownerembreve.backHome')}
           </Link>
         </div>
       </div>

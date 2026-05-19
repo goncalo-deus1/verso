@@ -2,6 +2,8 @@ import { useParams, Link, Navigate } from 'react-router-dom'
 import { ArrowLeft, Clock, ArrowRight } from 'lucide-react'
 import { editorials } from '../data/editorial'
 import type { ContentBlock } from '../types'
+import { useLangSafe } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const eyebrow: React.CSSProperties = {
   fontFamily: 'Inter, Arial, sans-serif',
@@ -11,30 +13,30 @@ const eyebrow: React.CSSProperties = {
   letterSpacing: '2.5px',
 }
 
-function ZoneBlock({ block }: { block: Extract<ContentBlock, { type: 'zone' }> }) {
+function ZoneBlock({ block, tr }: { block: Extract<ContentBlock, { type: 'zone' }>; tr: (key: Parameters<ReturnType<typeof useT>>[0]) => string }) {
   return (
     <div className="sand-card" style={{ padding: '32px', margin: '0 0 40px' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
         <div style={{ flex: '1 1 200px' }}>
-          <p style={{ ...eyebrow, color: '#C2553A', marginBottom: '6px' }}>Preço médio</p>
+          <p style={{ ...eyebrow, color: '#C2553A', marginBottom: '6px' }}>{tr('editorial.zone.avgPrice')}</p>
           <p style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '15px', color: '#1E1F18', fontWeight: 500 }}>{block.price}</p>
         </div>
         <div style={{ flex: '2 1 300px' }}>
-          <p style={{ ...eyebrow, color: '#6B7A5A', marginBottom: '6px' }}>Para quem</p>
+          <p style={{ ...eyebrow, color: '#6B7A5A', marginBottom: '6px' }}>{tr('editorial.zone.forWhom')}</p>
           <p style={{ fontSize: '14px', color: '#1E1F18', lineHeight: '1.6' }}>{block.for}</p>
         </div>
       </div>
       <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid rgba(30, 31, 24, 0.125)', display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
         <div style={{ flex: '1 1 200px' }}>
-          <p style={{ ...eyebrow, color: '#3A3B2E', marginBottom: '6px' }}>Vibe</p>
+          <p style={{ ...eyebrow, color: '#3A3B2E', marginBottom: '6px' }}>{tr('editorial.zone.vibe')}</p>
           <p style={{ fontSize: '13px', color: '#3A3B2E', lineHeight: '1.6' }}>{block.vibe}</p>
         </div>
         <div style={{ flex: '1 1 200px' }}>
-          <p style={{ ...eyebrow, color: '#3A3B2E', marginBottom: '6px' }}>Potencial futuro</p>
+          <p style={{ ...eyebrow, color: '#3A3B2E', marginBottom: '6px' }}>{tr('editorial.zone.future')}</p>
           <p style={{ fontSize: '13px', color: '#3A3B2E', lineHeight: '1.6' }}>{block.future}</p>
         </div>
         <div style={{ flex: '1 1 200px' }}>
-          <p style={{ ...eyebrow, color: '#C2553A', marginBottom: '6px' }}>Atenção</p>
+          <p style={{ ...eyebrow, color: '#C2553A', marginBottom: '6px' }}>{tr('editorial.zone.watch')}</p>
           <p style={{ fontSize: '13px', color: '#3A3B2E', lineHeight: '1.6' }}>{block.watch}</p>
         </div>
       </div>
@@ -42,7 +44,7 @@ function ZoneBlock({ block }: { block: Extract<ContentBlock, { type: 'zone' }> }
   )
 }
 
-function Block({ block }: { block: ContentBlock }) {
+function Block({ block, tr }: { block: ContentBlock; tr: (key: Parameters<ReturnType<typeof useT>>[0]) => string }) {
   switch (block.type) {
     case 'lead':
       return (
@@ -84,7 +86,7 @@ function Block({ block }: { block: ContentBlock }) {
         </ul>
       )
     case 'zone':
-      return <ZoneBlock block={block} />
+      return <ZoneBlock block={block} tr={tr} />
     case 'divider':
       return <hr style={{ border: 'none', borderTop: '1px solid rgba(30, 31, 24, 0.125)', margin: '56px 0' }} />
     case 'cta':
@@ -137,6 +139,8 @@ function Block({ block }: { block: ContentBlock }) {
 }
 
 export default function ArticleDetailPage() {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   const { slug } = useParams<{ slug: string }>()
   const article = editorials.find(e => e.slug === slug)
 
@@ -164,7 +168,7 @@ export default function ArticleDetailPage() {
               {article.title}
             </h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginTop: '16px', fontFamily: 'IBM Plex Mono, monospace', fontSize: '12px', color: 'rgba(255,255,255,0.4)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Clock size={11} /> {article.readTime} min de leitura</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Clock size={11} /> {tr('editorial.readTimeLong').replace('{n}', String(article.readTime))}</span>
               <span>{article.date}</span>
               <span>{article.author}</span>
             </div>
@@ -178,14 +182,14 @@ export default function ArticleDetailPage() {
           style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#3A3B2E', textDecoration: 'none', fontWeight: 500, transition: 'color 150ms' }}
           onMouseEnter={e => (e.currentTarget.style.color = '#C2553A')}
           onMouseLeave={e => (e.currentTarget.style.color = '#3A3B2E')}>
-          <ArrowLeft size={13} /> Todos os guias
+          <ArrowLeft size={13} /> {tr('editorial.backToAll')}
         </Link>
       </div>
 
       {/* Article body */}
       <article className="px-5 sm:px-8" style={{ maxWidth: '800px', margin: '0 auto', paddingTop: 'clamp(40px, 5vw, 64px)', paddingBottom: '80px' }}>
         {article.content ? (
-          article.content.map((block, i) => <Block key={i} block={block} />)
+          article.content.map((block, i) => <Block key={i} block={block} tr={tr} />)
         ) : (
           <p style={{ fontSize: '17px', color: '#3A3B2E', lineHeight: '1.85' }}>{article.excerpt}</p>
         )}
@@ -195,7 +199,7 @@ export default function ArticleDetailPage() {
       {others.length > 0 && (
         <section className="px-5 sm:px-8 md:px-12" style={{ borderTop: '1px solid rgba(30, 31, 24, 0.125)', background: '#E8E0D0', paddingTop: 'clamp(56px, 6vw, 80px)', paddingBottom: 'clamp(56px, 6vw, 80px)' }}>
           <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-            <p style={{ ...eyebrow, color: '#C2553A', marginBottom: '32px' }}>Continuar a ler</p>
+            <p style={{ ...eyebrow, color: '#C2553A', marginBottom: '32px' }}>{tr('editorial.continueReading')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '8px' }}>
               {others.map(a => (
                 <Link key={a.id} to={`/editorial/${a.slug}`}
@@ -212,7 +216,7 @@ export default function ArticleDetailPage() {
                   <div style={{ padding: '20px 24px 24px' }}>
                     <span style={{ ...eyebrow, fontSize: '9px', color: '#C2553A', display: 'block', marginBottom: '8px' }}>{a.category}</span>
                     <h3 className="font-display" style={{ fontSize: '17px', color: '#1E1F18', lineHeight: '1.3', letterSpacing: '-0.3px', fontWeight: 400 }}>{a.title}</h3>
-                    <p style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#3A3B2E', marginTop: '12px' }}>{a.readTime} min</p>
+                    <p style={{ fontFamily: 'IBM Plex Mono, monospace', fontSize: '11px', color: '#3A3B2E', marginTop: '12px' }}>{tr('editorial.readTime').replace('{n}', String(a.readTime))}</p>
                   </div>
                 </Link>
               ))}

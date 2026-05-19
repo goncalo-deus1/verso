@@ -1,3 +1,6 @@
+import { useLangSafe } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
+
 export interface MetadataSource {
   label: string
   href?: string
@@ -13,10 +16,12 @@ interface MetadataProps {
 
 /**
  * Metadata — page-footer attribution block.
- * "Atualizado: X · Próxima revisão: Y · Fontes: A, B, C."
+ * "Updated: X · Next review: Y · Sources: A, B, C."
  * JetBrains Mono, small.
  */
 export function Metadata({ updated, nextReview, sources }: MetadataProps) {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   return (
     <footer
       style={{
@@ -32,14 +37,14 @@ export function Metadata({ updated, nextReview, sources }: MetadataProps) {
         lineHeight: 1.7,
       }}
     >
-      <span>Atualizado: {updated}</span>
+      <span>{tr('habitta.metadata.updated')}: {updated}</span>
       <span aria-hidden> · </span>
-      <span>Próxima revisão: {nextReview}</span>
+      <span>{tr('habitta.metadata.nextReview')}: {nextReview}</span>
       {sources.length > 0 ? (
         <>
           <span aria-hidden> · </span>
           <span>
-            Fontes:{' '}
+            {tr('habitta.metadata.sources')}:{' '}
             {sources.map((s, i) => (
               <span key={i}>
                 {s.href ? (

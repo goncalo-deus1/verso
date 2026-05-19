@@ -1,7 +1,12 @@
+import { useLangSafe } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
+
 interface CTAProps {
   headline: string
   href: string
   duration: string
+  /** Optional button label override. Defaults to a localised "Get started →". */
+  label?: string
 }
 
 /**
@@ -9,7 +14,10 @@ interface CTAProps {
  * The duration prop is REQUIRED — empty CTAs without a time commitment
  * violate the brand spec.
  */
-export function CTA({ headline, href, duration }: CTAProps) {
+export function CTA({ headline, href, duration, label }: CTAProps) {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
+  const resolvedLabel = label ?? tr('habitta.cta.defaultLabel')
   return (
     <aside
       style={{
@@ -63,7 +71,7 @@ export function CTA({ headline, href, duration }: CTAProps) {
           textDecoration: 'none',
         }}
       >
-        Começar →
+        {resolvedLabel}
       </a>
     </aside>
   )

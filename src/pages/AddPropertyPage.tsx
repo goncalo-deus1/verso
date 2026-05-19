@@ -2,6 +2,8 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ImagePlus, X, GripVertical } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 import { createProperty } from '../lib/supabase/properties'
 import type { PropertyInsert } from '../lib/supabase/properties'
 import { supabase } from '../lib/supabase'
@@ -170,10 +172,12 @@ function ImageUploader({
   images,
   onChange,
   userId,
+  tr,
 }: {
   images: UploadedImage[]
   onChange: (imgs: UploadedImage[]) => void
   userId: string
+  tr: ReturnType<typeof useT>
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
@@ -183,7 +187,7 @@ function ImageUploader({
   async function uploadFiles(files: FileList | null) {
     if (!files || files.length === 0) return
     if (images.length + files.length > 10) {
-      setUploadError('Máximo de 10 fotografias.')
+      setUploadError(tr('addprop.photos.err.max'))
       return
     }
     setUploading(true)
@@ -192,13 +196,13 @@ function ImageUploader({
 
     for (const file of Array.from(files)) {
       if (!file.type.startsWith('image/')) continue
-      if (file.size > 10 * 1024 * 1024) { setUploadError(`"${file.name}" excede 10 MB.`); continue }
+      if (file.size > 10 * 1024 * 1024) { setUploadError(`"${file.name}"${tr('addprop.photos.err.sizeSuffix')}`); continue }
 
       const ext  = file.name.split('.').pop()
       const path = `${userId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
       const { error } = await supabase.storage.from('property-images').upload(path, file, { upsert: false })
-      if (error) { setUploadError(`Erro ao carregar "${file.name}".`); continue }
+      if (error) { setUploadError(`${tr('addprop.photos.err.uploadPrefix')}"${file.name}"${tr('addprop.photos.err.uploadSuffix')}`); continue }
 
       const { data } = supabase.storage.from('property-images').getPublicUrl(path)
       results.push({ url: data.publicUrl, path })
@@ -233,10 +237,10 @@ function ImageUploader({
       >
         <ImagePlus size={28} color={dragOver ? CLAY : STONE} style={{ margin: '0 auto 10px', opacity: dragOver ? 1 : 0.4 }} />
         <p style={{ fontSize: '14px', fontWeight: 500, color: INK, margin: '0 0 4px' }}>
-          {uploading ? 'A carregar…' : 'Clica ou arrasta fotografias'}
+          {uploading ? tr('addprop.photos.uploading') : tr('addprop.photos.dropPrompt')}
         </p>
         <p style={{ fontSize: '12px', color: STONE, opacity: 0.6, margin: 0 }}>
-          JPG, PNG, WEBP · máx. 10 MB por foto · até 10 fotos
+          {tr('addprop.photos.dropHint')}
         </p>
         <input
           ref={inputRef}
@@ -259,7 +263,7 @@ function ImageUploader({
             <div key={img.path} style={{ position: 'relative', borderRadius: '6px', overflow: 'hidden', aspectRatio: '4/3', border: `1px solid ${HAIRLINE}` }}>
               {i === 0 && (
                 <span style={{ position: 'absolute', top: '6px', left: '6px', fontSize: '10px', fontWeight: 700, background: CLAY, color: 'white', padding: '2px 6px', borderRadius: '4px', zIndex: 1 }}>
-                  Capa
+                  {tr('addprop.photos.cover')}
                 </span>
               )}
               <img src={img.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
@@ -286,6 +290,8 @@ function ImageUploader({
 export default function AddPropertyPage() {
   const { user } = useAuth()
   const navigate = useNavigate()
+  const { lang } = useLang()
+  const tr = useT(lang)
   const [form, setForm] = useState<FormState>(INITIAL)
   const [images, setImages] = useState<UploadedImage[]>([])
   const [saving, setSaving] = useState(false)
@@ -303,10 +309,10 @@ export default function AddPropertyPage() {
     if (!user) return
     setError(null)
 
-    if (!form.title.trim()) { setError('O título é obrigatório.'); return }
-    if (!form.location.trim()) { setError('A localização é obrigatória.'); return }
-    if (!form.municipality.trim()) { setError('O município é obrigatório.'); return }
-    if (!form.price || Number(form.price) <= 0) { setError('O preço tem de ser maior que 0.'); return }
+    if (!form.title.trim()) { setError(tr('addprop.err.title')); return }
+    if (!form.location.trim()) { setError(tr('addprop.err.location')); return }
+    if (!form.municipality.trim()) { setError(tr('addprop.err.municipality')); return }
+    if (!form.price || Number(form.price) <= 0) { setError(tr('addprop.err.price')); return }
 
     setSaving(true)
     try {
@@ -350,7 +356,7 @@ export default function AddPropertyPage() {
       await createProperty(payload)
       navigate('/minha-conta')
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Erro ao guardar. Tenta novamente.')
+      setError(err instanceof Error ? err.message : tr('addprop.err.save'))
     } finally {
       setSaving(false)
     }
@@ -363,10 +369,10 @@ export default function AddPropertyPage() {
         {/* Header */}
         <div style={{ marginBottom: '40px' }}>
           <h1 style={{ fontSize: '28px', fontWeight: 700, color: INK, letterSpacing: '-0.6px', margin: '0 0 6px' }}>
-            Adicionar imóvel
+            {tr('addprop.page.title')}
           </h1>
           <p style={{ fontSize: '14px', color: STONE, margin: 0 }}>
-            Preenche os dados do imóvel. Podes guardar como rascunho e publicar mais tarde.
+            {tr('addprop.page.subtitle')}
           </p>
         </div>
 
@@ -374,49 +380,49 @@ export default function AddPropertyPage() {
 
           {/* ── Identificação ── */}
           <section>
-            <SectionTitle>Identificação</SectionTitle>
+            <SectionTitle>{tr('addprop.section.identification')}</SectionTitle>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <Field>
-                <Label>Título *</Label>
-                <Input value={form.title} onChange={set('title')} placeholder="ex. Apartamento T2 com terraço, Alcântara" required />
+                <Label>{tr('addprop.label.title')}</Label>
+                <Input value={form.title} onChange={set('title')} placeholder={tr('addprop.placeholder.title')} required />
               </Field>
               <Row>
                 <Field>
-                  <Label>Tipo de imóvel *</Label>
+                  <Label>{tr('addprop.label.propertyType')}</Label>
                   <Select value={form.property_type} onChange={set('property_type')}>
-                    <option value="apartamento">Apartamento</option>
-                    <option value="moradia">Moradia</option>
-                    <option value="terreno">Terreno</option>
-                    <option value="comercial">Comercial</option>
-                    <option value="garagem">Garagem</option>
+                    <option value="apartamento">{tr('props.type.apartamento')}</option>
+                    <option value="moradia">{tr('props.type.moradia')}</option>
+                    <option value="terreno">{tr('props.type.terreno')}</option>
+                    <option value="comercial">{tr('props.type.comercial')}</option>
+                    <option value="garagem">{tr('props.type.garagem')}</option>
                   </Select>
                 </Field>
                 <Field>
-                  <Label>Tipologia</Label>
+                  <Label>{tr('addprop.label.typology')}</Label>
                   <Select value={form.typology} onChange={set('typology')}>
-                    <option value="">— selecionar —</option>
+                    <option value="">{tr('addprop.option.placeholder')}</option>
                     {['T0','T1','T2','T3','T4','T5+'].map(t => <option key={t} value={t}>{t}</option>)}
                   </Select>
                 </Field>
               </Row>
               <Row>
                 <Field>
-                  <Label>Estado</Label>
+                  <Label>{tr('addprop.label.status')}</Label>
                   <Select value={form.status} onChange={set('status')}>
-                    <option value="draft">Rascunho</option>
-                    <option value="active">Ativo (publicado)</option>
-                    <option value="reserved">Reservado</option>
-                    <option value="sold">Vendido</option>
+                    <option value="draft">{tr('account.status.draft')}</option>
+                    <option value="active">{tr('addprop.option.status.activePub')}</option>
+                    <option value="reserved">{tr('account.status.reserved')}</option>
+                    <option value="sold">{tr('account.status.sold')}</option>
                   </Select>
                 </Field>
                 <Field>
-                  <Label>Condição</Label>
+                  <Label>{tr('addprop.label.condition')}</Label>
                   <Select value={form.condition} onChange={set('condition')}>
-                    <option value="">— selecionar —</option>
-                    <option value="novo">Novo</option>
-                    <option value="usado">Usado</option>
-                    <option value="para_recuperar">Para recuperar</option>
-                    <option value="em_construcao">Em construção</option>
+                    <option value="">{tr('addprop.option.placeholder')}</option>
+                    <option value="novo">{tr('pd.cond.novo')}</option>
+                    <option value="usado">{tr('pd.cond.usado')}</option>
+                    <option value="para_recuperar">{tr('pd.cond.para_recuperar')}</option>
+                    <option value="em_construcao">{tr('pd.cond.em_construcao')}</option>
                   </Select>
                 </Field>
               </Row>
@@ -425,26 +431,26 @@ export default function AddPropertyPage() {
 
           {/* ── Localização ── */}
           <section>
-            <SectionTitle>Localização</SectionTitle>
+            <SectionTitle>{tr('addprop.section.location')}</SectionTitle>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <Field>
-                <Label>Morada / Zona *</Label>
-                <Input value={form.location} onChange={set('location')} placeholder="ex. Rua de Alcântara, Lisboa" required />
+                <Label>{tr('addprop.label.location')}</Label>
+                <Input value={form.location} onChange={set('location')} placeholder={tr('addprop.placeholder.location')} required />
               </Field>
               <Row>
                 <Field>
-                  <Label>Município *</Label>
-                  <Input value={form.municipality} onChange={set('municipality')} placeholder="ex. Lisboa" required />
+                  <Label>{tr('addprop.label.municipality')}</Label>
+                  <Input value={form.municipality} onChange={set('municipality')} placeholder={tr('addprop.placeholder.municipality')} required />
                 </Field>
                 <Field>
-                  <Label>Zona do quiz</Label>
+                  <Label>{tr('addprop.label.zoneSlug')}</Label>
                   <Select value={form.zone_slug} onChange={set('zone_slug')}>
-                    <option value="">— nenhuma —</option>
+                    <option value="">{tr('addprop.option.none')}</option>
                     {zones.map(z => (
                       <option key={z.slug} value={z.slug}>{z.name} ({z.kind})</option>
                     ))}
                   </Select>
-                  <Hint>Liga o imóvel às recomendações do quiz</Hint>
+                  <Hint>{tr('addprop.hint.zoneSlug')}</Hint>
                 </Field>
               </Row>
             </div>
@@ -452,75 +458,75 @@ export default function AddPropertyPage() {
 
           {/* ── Preço ── */}
           <section>
-            <SectionTitle>Preço</SectionTitle>
+            <SectionTitle>{tr('addprop.section.price')}</SectionTitle>
             <Row>
               <Field>
-                <Label>Preço (€) *</Label>
-                <Input type="number" min="0" value={form.price} onChange={set('price')} placeholder="350000" required />
+                <Label>{tr('addprop.label.price')}</Label>
+                <Input type="number" min="0" value={form.price} onChange={set('price')} placeholder={tr('addprop.placeholder.price')} required />
               </Field>
               <Field>
-                <Label>Condomínio (€/mês)</Label>
-                <Input type="number" min="0" value={form.condominium_fee} onChange={set('condominium_fee')} placeholder="120" />
+                <Label>{tr('addprop.label.condoFee')}</Label>
+                <Input type="number" min="0" value={form.condominium_fee} onChange={set('condominium_fee')} placeholder={tr('addprop.placeholder.condoFee')} />
               </Field>
             </Row>
           </section>
 
           {/* ── Características ── */}
           <section>
-            <SectionTitle>Características</SectionTitle>
+            <SectionTitle>{tr('addprop.section.features')}</SectionTitle>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <Row cols={3}>
                 <Field>
-                  <Label>Área (m²)</Label>
-                  <Input type="number" min="0" value={form.sqm} onChange={set('sqm')} placeholder="85" />
+                  <Label>{tr('addprop.label.sqm')}</Label>
+                  <Input type="number" min="0" value={form.sqm} onChange={set('sqm')} placeholder={tr('addprop.placeholder.sqm')} />
                 </Field>
                 <Field>
-                  <Label>Quartos</Label>
+                  <Label>{tr('addprop.label.bedrooms')}</Label>
                   <Input type="number" min="0" max="20" value={form.bedrooms} onChange={set('bedrooms')} />
                 </Field>
                 <Field>
-                  <Label>WCs</Label>
+                  <Label>{tr('addprop.label.bathrooms')}</Label>
                   <Input type="number" min="0" max="10" value={form.bathrooms} onChange={set('bathrooms')} />
                 </Field>
               </Row>
               <Row cols={3}>
                 <Field>
-                  <Label>Estacionamentos</Label>
+                  <Label>{tr('addprop.label.parking')}</Label>
                   <Input type="number" min="0" max="10" value={form.parking_spots} onChange={set('parking_spots')} />
                 </Field>
                 <Field>
-                  <Label>Piso</Label>
-                  <Input type="number" value={form.floor} onChange={set('floor')} placeholder="3" />
+                  <Label>{tr('addprop.label.floor')}</Label>
+                  <Input type="number" value={form.floor} onChange={set('floor')} placeholder={tr('addprop.placeholder.floor')} />
                 </Field>
                 <Field>
-                  <Label>Total de pisos</Label>
-                  <Input type="number" value={form.total_floors} onChange={set('total_floors')} placeholder="8" />
+                  <Label>{tr('addprop.label.totalFloors')}</Label>
+                  <Input type="number" value={form.total_floors} onChange={set('total_floors')} placeholder={tr('addprop.placeholder.totalFloors')} />
                 </Field>
               </Row>
               <Row>
                 <Field>
-                  <Label>Ano de construção</Label>
-                  <Input type="number" min="1800" max={new Date().getFullYear()} value={form.year_built} onChange={set('year_built')} placeholder="2005" />
+                  <Label>{tr('addprop.label.yearBuilt')}</Label>
+                  <Input type="number" min="1800" max={new Date().getFullYear()} value={form.year_built} onChange={set('year_built')} placeholder={tr('addprop.placeholder.yearBuilt')} />
                 </Field>
                 <Field>
-                  <Label>Orientação solar</Label>
+                  <Label>{tr('addprop.label.orientation')}</Label>
                   <Select value={form.orientation} onChange={set('orientation')}>
-                    <option value="">— selecionar —</option>
-                    <option value="norte">Norte</option>
-                    <option value="sul">Sul</option>
-                    <option value="este">Este</option>
-                    <option value="oeste">Oeste</option>
-                    <option value="nascente">Nascente</option>
-                    <option value="poente">Poente</option>
-                    <option value="multiple">Múltipla</option>
+                    <option value="">{tr('addprop.option.placeholder')}</option>
+                    <option value="norte">{tr('addprop.option.orient.norte')}</option>
+                    <option value="sul">{tr('addprop.option.orient.sul')}</option>
+                    <option value="este">{tr('addprop.option.orient.este')}</option>
+                    <option value="oeste">{tr('addprop.option.orient.oeste')}</option>
+                    <option value="nascente">{tr('addprop.option.orient.nascente')}</option>
+                    <option value="poente">{tr('addprop.option.orient.poente')}</option>
+                    <option value="multiple">{tr('addprop.option.orient.multiple')}</option>
                   </Select>
                 </Field>
               </Row>
               <Row>
                 <Field>
-                  <Label>Certificado energético</Label>
+                  <Label>{tr('addprop.label.energy')}</Label>
                   <Select value={form.energy_rating} onChange={set('energy_rating')}>
-                    <option value="">— selecionar —</option>
+                    <option value="">{tr('addprop.option.placeholder')}</option>
                     {['A+','A','B','B-','C','D','E','F','Isento'].map(r => <option key={r} value={r}>{r}</option>)}
                   </Select>
                 </Field>
@@ -530,45 +536,46 @@ export default function AddPropertyPage() {
 
           {/* ── Extras ── */}
           <section>
-            <SectionTitle>Extras</SectionTitle>
+            <SectionTitle>{tr('addprop.section.extras')}</SectionTitle>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '14px' }}>
-              <Toggle checked={form.has_elevator} onChange={toggle('has_elevator')} label="Elevador" />
-              <Toggle checked={form.has_garden} onChange={toggle('has_garden')} label="Jardim" />
-              <Toggle checked={form.has_pool} onChange={toggle('has_pool')} label="Piscina" />
-              <Toggle checked={form.has_terrace} onChange={toggle('has_terrace')} label="Terraço" />
-              <Toggle checked={form.has_storage} onChange={toggle('has_storage')} label="Arrecadação" />
-              <Toggle checked={form.is_featured} onChange={toggle('is_featured')} label="Destaque" />
+              <Toggle checked={form.has_elevator} onChange={toggle('has_elevator')} label={tr('pd.extra.elevator')} />
+              <Toggle checked={form.has_garden} onChange={toggle('has_garden')} label={tr('pd.extra.garden')} />
+              <Toggle checked={form.has_pool} onChange={toggle('has_pool')} label={tr('pd.extra.pool')} />
+              <Toggle checked={form.has_terrace} onChange={toggle('has_terrace')} label={tr('pd.extra.terrace')} />
+              <Toggle checked={form.has_storage} onChange={toggle('has_storage')} label={tr('pd.extra.storage')} />
+              <Toggle checked={form.is_featured} onChange={toggle('is_featured')} label={tr('addprop.extra.featured')} />
             </div>
           </section>
 
           {/* ── Fotografias ── */}
           <section>
-            <SectionTitle>Fotografias</SectionTitle>
+            <SectionTitle>{tr('addprop.section.photos')}</SectionTitle>
             <ImageUploader
               images={images}
               onChange={setImages}
               userId={user?.id ?? ''}
+              tr={tr}
             />
-            <Hint>A primeira fotografia é usada como capa. Máximo 10 fotos.</Hint>
+            <Hint>{tr('addprop.photos.coverHint')}</Hint>
           </section>
 
           {/* ── Conteúdo ── */}
           <section>
-            <SectionTitle>Descrição e destaques</SectionTitle>
+            <SectionTitle>{tr('addprop.section.content')}</SectionTitle>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <Field>
-                <Label>Descrição</Label>
-                <Textarea value={form.description} onChange={set('description')} placeholder="Descreve o imóvel em detalhe..." rows={4} />
+                <Label>{tr('addprop.label.description')}</Label>
+                <Textarea value={form.description} onChange={set('description')} placeholder={tr('addprop.placeholder.description')} rows={4} />
               </Field>
               <Field>
-                <Label>Destaques</Label>
-                <Textarea value={form.highlights} onChange={set('highlights')} placeholder={'Vista para o rio\nLuz natural abundante\nAcabamentos de qualidade'} rows={4} />
-                <Hint>Um destaque por linha</Hint>
+                <Label>{tr('addprop.label.highlights')}</Label>
+                <Textarea value={form.highlights} onChange={set('highlights')} placeholder={tr('addprop.placeholder.highlights')} rows={4} />
+                <Hint>{tr('addprop.hint.highlights')}</Hint>
               </Field>
               <Field>
-                <Label>Tags</Label>
-                <Input value={form.tags} onChange={set('tags')} placeholder="renovado, luminoso, silencioso" />
-                <Hint>Separadas por vírgula</Hint>
+                <Label>{tr('addprop.label.tags')}</Label>
+                <Input value={form.tags} onChange={set('tags')} placeholder={tr('addprop.placeholder.tags')} />
+                <Hint>{tr('addprop.hint.tags')}</Hint>
               </Field>
             </div>
           </section>
@@ -586,7 +593,7 @@ export default function AddPropertyPage() {
               onClick={() => navigate(-1)}
               style={{ padding: '10px 20px', border: `1px solid ${HAIRLINE}`, background: 'white', color: STONE, borderRadius: '50px', fontSize: '14px', cursor: 'pointer' }}
             >
-              Cancelar
+              {tr('addprop.cta.cancel')}
             </button>
             <button
               type="submit"
@@ -597,7 +604,7 @@ export default function AddPropertyPage() {
                 cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 150ms',
               }}
             >
-              {saving ? 'A guardar…' : form.status === 'draft' ? 'Guardar rascunho' : 'Publicar imóvel'}
+              {saving ? tr('addprop.cta.saving') : form.status === 'draft' ? tr('addprop.cta.saveDraft') : tr('addprop.cta.publish')}
             </button>
           </div>
 

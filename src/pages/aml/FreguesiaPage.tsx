@@ -31,6 +31,8 @@ import {
   placeJsonLd,
   breadcrumbListJsonLd,
 } from '../../lib/jsonLd'
+import { useLangSafe } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -120,25 +122,32 @@ function pageUrl(props: FreguesiaPageProps): string {
   return `${BASE_URL}/aml/${props.concelho.slug}/${props.freguesia.slug}`
 }
 
-function buildFactRows(props: FreguesiaPageProps): DataBlockRow[] {
+function buildFactRows(
+  props: FreguesiaPageProps,
+  tr: (key: Parameters<ReturnType<typeof useT>>[0]) => string,
+): DataBlockRow[] {
   return [
-    { label: 'Preço mediano',         value: props.facts.medianPricePerSqm, source: props.factSources.medianPricePerSqm },
-    { label: 'Variação YoY',          value: props.facts.yoyVariation,      source: props.factSources.yoyVariation },
-    { label: 'Arrendamento mediano',  value: props.facts.medianRent,        source: props.factSources.medianRent },
-    { label: 'Até Marquês de Pombal', value: props.facts.timeToMarques,     source: props.factSources.timeToMarques },
-    { label: 'Escolas',               value: props.facts.schools,           source: props.factSources.schools },
-    { label: 'Áreas verdes',          value: props.facts.greenAreas,        source: props.factSources.greenAreas },
+    { label: tr('freg.facts.medianPrice'),   value: props.facts.medianPricePerSqm, source: props.factSources.medianPricePerSqm },
+    { label: tr('freg.facts.yoy'),           value: props.facts.yoyVariation,      source: props.factSources.yoyVariation },
+    { label: tr('freg.facts.medianRent'),    value: props.facts.medianRent,        source: props.factSources.medianRent },
+    { label: tr('freg.facts.timeToMarques'), value: props.facts.timeToMarques,     source: props.factSources.timeToMarques },
+    { label: tr('freg.facts.schools'),       value: props.facts.schools,           source: props.factSources.schools },
+    { label: tr('freg.facts.greenAreas'),    value: props.facts.greenAreas,        source: props.factSources.greenAreas },
   ]
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function FreguesiaPage(props: FreguesiaPageProps) {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   const url = pageUrl(props)
 
   // JSON-LD: Article + Place + BreadcrumbList. (FAQ is emitted by the FAQ block.)
   const articleLd = articleJsonLd({
-    headline:      `Viver em ${props.freguesia.name}, ${props.concelho.name} — 2026`,
+    headline:      tr('freg.article.headline')
+      .replace('{name}', props.freguesia.name)
+      .replace('{concelho}', props.concelho.name),
     description:   props.meta.description,
     url,
     image:         props.meta.heroImage,
@@ -155,8 +164,8 @@ export default function FreguesiaPage(props: FreguesiaPageProps) {
   })
 
   const breadcrumbLd = breadcrumbListJsonLd([
-    { name: 'habitta', url: BASE_URL },
-    { name: 'AML',     url: `${BASE_URL}/aml` },
+    { name: tr('freg.breadcrumb.brand'), url: BASE_URL },
+    { name: tr('freg.breadcrumb.aml'),   url: `${BASE_URL}/aml` },
     { name: props.concelho.name, url: `${BASE_URL}/aml/${props.concelho.slug}` },
     { name: props.freguesia.name, url },
   ])
@@ -189,7 +198,7 @@ export default function FreguesiaPage(props: FreguesiaPageProps) {
             margin: '0 0 var(--space-2)',
           }}
         >
-          AML · {props.concelho.name}
+          {tr('freg.eyebrow').replace('{concelho}', props.concelho.name)}
         </p>
 
         {/* H1 — must include freguesia name + concelho */}
@@ -204,19 +213,19 @@ export default function FreguesiaPage(props: FreguesiaPageProps) {
             margin: '0 0 var(--space-5)',
           }}
         >
-          Viver em <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{props.freguesia.name}</em>
+          {tr('freg.h1.livingIn')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{props.freguesia.name}</em>
         </h1>
 
         {/* Lede — inside first 200 words */}
         <Lede>
-          {props.freguesia.name} custa <em>{props.lede.pricePerSqm}</em> em {props.lede.year}.
+          {props.freguesia.name} {tr('freg.lede.costs')} <em>{props.lede.pricePerSqm}</em> {tr('freg.lede.in')} {props.lede.year}.
           {' '}{props.lede.comparison}.
-          {' '}Faz sentido para {props.lede.fitsFor}.
-          {' '}Não faz para {props.lede.doesntFitFor}.
+          {' '}{tr('freg.lede.fitsFor')} {props.lede.fitsFor}.
+          {' '}{tr('freg.lede.doesntFitFor')} {props.lede.doesntFitFor}.
         </Lede>
 
         {/* Data block — six key facts */}
-        <DataBlock rows={buildFactRows(props)} caption="Dados-chave" />
+        <DataBlock rows={buildFactRows(props, tr)} caption={tr('freg.facts.caption')} />
 
         {/* H2 1 — "Para quem [freguesia] faz sentido" */}
         <h2
@@ -230,31 +239,31 @@ export default function FreguesiaPage(props: FreguesiaPageProps) {
             margin: 'var(--space-6) 0 var(--space-3)',
           }}
         >
-          Para quem {props.freguesia.name} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>faz sentido</em>
+          {tr('freg.h2.fitsFor.before')} {props.freguesia.name} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{tr('freg.h2.fitsFor.emphasis')}</em>
         </h2>
         <p style={proseStyle}>{props.prose.fitsBecause}</p>
 
         {/* H2 2 — "Para quem não faz" */}
         <h2 style={h2Style}>
-          Para quem <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>não faz</em>
+          {tr('freg.h2.doesntFit.before')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{tr('freg.h2.doesntFit.emphasis')}</em>
         </h2>
         <p style={proseStyle}>{props.prose.doesntFitBecause}</p>
 
         {/* H2 3 — trade-off */}
         <h2 style={h2Style}>
-          O que estás a <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>pagar</em> (e o que não estás)
+          {tr('freg.h2.tradeOff.before')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{tr('freg.h2.tradeOff.emphasis')}</em> {tr('freg.h2.tradeOff.after')}
         </h2>
         <p style={proseStyle}>{props.prose.tradeOff}</p>
 
         {/* H2 4 — YoY change */}
         <h2 style={h2Style}>
-          Como mudou em <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>2026</em>
+          {tr('freg.h2.yearChange.before')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{tr('freg.h2.yearChange.emphasis')}</em>
         </h2>
         <p style={proseStyle}>{props.prose.yearChange}</p>
 
         {/* Comparison */}
         <h2 style={h2Style}>
-          Comparado com <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>vizinhos</em>
+          {tr('freg.h2.comparison.before')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{tr('freg.h2.comparison.emphasis')}</em>
         </h2>
         <ComparisonTable
           columns={props.comparison.columns}

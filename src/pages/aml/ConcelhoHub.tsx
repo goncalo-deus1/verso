@@ -56,6 +56,7 @@ import {
 } from '../../lib/jsonLd'
 
 import { useLangSafe } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 import SaveZoneButton             from '../../components/SaveZoneButton'
 import ConcelhoSummary            from '../../components/concelho/ConcelhoSummary'
 import ConcelhoEditorial          from '../../components/concelho/ConcelhoEditorial'
@@ -110,6 +111,17 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
   const ine    = getConcelhoBySlug(data.slug)!
   const legacy = concelhosAML.find(c => c.slug === data.slug)!
   const { lang } = useLangSafe()
+  const tr = useT(lang)
+
+  // ── Localisation helpers for enum-like data values ─────────────────────
+  const eyebrowKindLabel = tr('concelhoUI.eyebrow.kind.concelho')
+  const localiseSubRegiao = (sub: string): string =>
+    sub === 'GRANDE LISBOA'
+      ? tr('concelhoUI.eyebrow.subRegiao.grandeLisboa')
+      : sub === 'PENÍNSULA DE SETÚBAL'
+        ? tr('concelhoUI.eyebrow.subRegiao.peninsulaSetubal')
+        : sub
+  const subRegiaoLabel = localiseSubRegiao(data.eyebrow.subRegiao)
 
   // Selecciona o corpo editorial pelo idioma activo. Fallback gracioso
   // para PT quando a versão EN ainda não existe para este concelho —
@@ -142,25 +154,25 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
 
   // ─── Data block — 5 rows, all INE ─────────────────────────────────────
   const factRows: DataBlockRow[] = [
-    { label: 'Mediana 2025',         value: fmtPrice(ine.medianaT4_2025), source: INE_2025_FONTE },
-    { label: '1.º quartil 2025',     value: fmtPrice(ine.q1_T4_2025),     source: 'INE Q4 2025' },
-    { label: '3.º quartil 2025',     value: fmtPrice(ine.q3_T4_2025),     source: 'INE Q4 2025' },
-    { label: 'YoY (2024→2025)',      value: fmtPct(yoy),                  source: 'INE Q4 2025' },
-    { label: '6 anos (2019→2025)',   value: fmtPct(seisAnos, 0),          source: 'INE séries 2019–2025' },
+    { label: tr('concelhoUI.dataBlock.medianaT4_2025'), value: fmtPrice(ine.medianaT4_2025), source: INE_2025_FONTE },
+    { label: tr('concelhoUI.dataBlock.q1_2025'),        value: fmtPrice(ine.q1_T4_2025),     source: tr('concelhoUI.dataBlock.sourceQ4') },
+    { label: tr('concelhoUI.dataBlock.q3_2025'),        value: fmtPrice(ine.q3_T4_2025),     source: tr('concelhoUI.dataBlock.sourceQ4') },
+    { label: tr('concelhoUI.dataBlock.yoy'),            value: fmtPct(yoy),                  source: tr('concelhoUI.dataBlock.sourceQ4') },
+    { label: tr('concelhoUI.dataBlock.sixYears'),       value: fmtPct(seisAnos, 0),          source: tr('concelhoUI.dataBlock.sourceSeries') },
   ]
 
   // ─── Comparison table — this concelho + 4 neighbors ───────────────────
   const compColumns: ComparisonColumn[] = [
-    { key: 'name',  label: 'Concelho' },
-    { key: 'sub',   label: 'Sub-região' },
-    { key: 'price', label: 'Mediana 2025' },
-    { key: 'yoy',   label: 'YoY' },
-    { key: 'seis',  label: '6 anos' },
+    { key: 'name',  label: tr('concelhoUI.compare.col.concelho') },
+    { key: 'sub',   label: tr('concelhoUI.compare.col.subRegiao') },
+    { key: 'price', label: tr('concelhoUI.compare.col.mediana2025') },
+    { key: 'yoy',   label: tr('concelhoUI.compare.col.yoy') },
+    { key: 'seis',  label: tr('concelhoUI.compare.col.sixYears') },
   ]
   const compRows: ComparisonRow[] = [
     {
       name:  legacy.name,
-      sub:   ine.subRegiao,
+      sub:   localiseSubRegiao(ine.subRegiao),
       price: fmtPrice(ine.medianaT4_2025),
       yoy:   fmtPct(yoy),
       seis:  fmtPct(seisAnos, 0),
@@ -170,7 +182,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
       .filter((c): c is NonNullable<typeof c> => Boolean(c))
       .map(c => ({
         name:  c.name,
-        sub:   c.subRegiao,
+        sub:   localiseSubRegiao(c.subRegiao),
         price: fmtPrice(c.medianaT4_2025),
         yoy:   fmtPct(getYoY(c)),
         seis:  fmtPct(getCrescimento6Anos(c), 0),
@@ -186,17 +198,17 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
   // ─── Hard facts grid (legacy data) ────────────────────────────────────
   const legacyFacts = [
     {
-      label: 'População',
-      value: `${fmtThousand(legacy.populationApprox)} hab.`,
+      label: tr('concelhoUI.facts.populacao'),
+      value: `${fmtThousand(legacy.populationApprox)} ${tr('concelhoUI.facts.populacao.suffix')}`,
     },
     {
-      label: 'Renda T2 estimada',
+      label: tr('concelhoUI.facts.rendaT2'),
       value: legacy.budgetFitT2
-        ? `${legacy.budgetFitT2.min}–${legacy.budgetFitT2.max} €/mês`
+        ? `${legacy.budgetFitT2.min}–${legacy.budgetFitT2.max} ${tr('concelhoUI.facts.rendaT2.suffix')}`
         : '—',
     },
     {
-      label: 'Transportes',
+      label: tr('concelhoUI.facts.transportes'),
       value: legacy.transport,
     },
   ]
@@ -217,7 +229,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
       <div className="habitta-container" style={{ paddingBlock: 'var(--space-6)' }}>
         {/* 1. Eyebrow + H1 + oneLine */}
         <p style={eyebrowStyle}>
-          {data.eyebrow.kind} · {data.eyebrow.subRegiao}
+          {eyebrowKindLabel} · {subRegiaoLabel}
         </p>
         <h1
           style={{
@@ -230,7 +242,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
             margin: '0 0 var(--space-3)',
           }}
         >
-          O concelho de <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{legacy.name}</em>
+          {tr('concelhoUI.h1.prefix')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{legacy.name}</em>
         </h1>
         <p
           style={{
@@ -259,21 +271,25 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
 
         {/* 3. Lede + DataBlock INE */}
         <Lede>{data.lede}</Lede>
-        <DataBlock rows={factRows} caption="Dados-chave (INE Q4 2025)" />
+        <DataBlock rows={factRows} caption={tr('concelhoUI.dataBlock.caption')} />
 
         {/* 4. ComparisonTable */}
         <h2 style={h2Style}>
-          Comparado com <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>vizinhos</em>
+          {tr('concelhoUI.compare.h2.prefix')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{tr('concelhoUI.compare.h2.suffix')}</em>
         </h2>
         <ComparisonTable
           columns={compColumns}
           rows={compRows}
-          caption={`${legacy.name} vs ${compRows.length - 1} concelhos vizinhos (INE Q4 2025)`}
+          caption={`${legacy.name} vs ${compRows.length - 1} ${
+            compRows.length - 1 === 1
+              ? tr('concelhoUI.compare.caption.vsSingular')
+              : tr('concelhoUI.compare.caption.vsPlural')
+          } ${tr('concelhoUI.compare.caption.suffix')}`}
         />
 
         {/* 5. honestDescription */}
         <h2 style={h2Style}>
-          O que é <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{legacy.name}</em>
+          {tr('concelhoUI.what.h2.prefix')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{legacy.name}</em>
         </h2>
         <p style={proseStyle}>{legacy.honestDescription}</p>
 
@@ -331,7 +347,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
 
         {/* 9. Freguesias list */}
         <h2 style={h2Style}>
-          As <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>freguesias</em> de {legacy.name}
+          {tr('concelhoUI.freguesias.h2.prefix')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{tr('concelhoUI.freguesias.h2.word')}</em> {tr('concelhoUI.freguesias.h2.connector')} {legacy.name}
         </h2>
         {hasMicroDescs ? (
           // Lisboa-style: 3-col grid with anchored microDescs
@@ -384,7 +400,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
                           color: 'var(--clay)',
                         }}
                       >
-                        · página
+                        · {tr('concelhoUI.freguesias.hasPageBadge')}
                       </span>
                     ) : null}
                   </a>
@@ -455,7 +471,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
           }}
         >
           <div style={{ background: SAND, borderRadius: '4px', padding: 'var(--space-4)' }}>
-            <p style={eyebrowStyle}>Quem se dá bem aqui</p>
+            <p style={eyebrowStyle}>{tr('concelhoUI.cards.fits')}</p>
             <p
               style={{
                 fontFamily: 'var(--font-body-stack)',
@@ -469,7 +485,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
             </p>
           </div>
           <div style={{ background: SAND, borderRadius: '4px', padding: 'var(--space-4)' }}>
-            <p style={eyebrowStyle}>Quem não se dá bem aqui</p>
+            <p style={eyebrowStyle}>{tr('concelhoUI.cards.notFits')}</p>
             <p
               style={{
                 fontFamily: 'var(--font-body-stack)',
@@ -500,9 +516,9 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
 
         {/* 15. CTA */}
         <CTA
-          headline="2 minutos até saberes em qual."
+          headline={tr('concelhoUI.cta.headline')}
           href="/quiz"
-          duration="2 minutos até à tua resposta."
+          duration={tr('concelhoUI.cta.duration')}
         />
 
         {/* 16. Metadata footer */}

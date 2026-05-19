@@ -19,6 +19,8 @@ import { ComparisonBox } from '../../components/blog/ComparisonBox'
 import { MapEmbed } from '../../components/blog/MapEmbed'
 import { FAQ } from '../../components/blog/FAQ'
 import { Sources } from '../../components/blog/Sources'
+import { useLangSafe, type Lang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -348,13 +350,13 @@ function useActiveTocId(items: TocItem[]): string {
   return active
 }
 
-function TableOfContents({ items }: { items: TocItem[] }) {
+function TableOfContents({ items, tr }: { items: TocItem[]; tr: ReturnType<typeof useT> }) {
   const activeId = useActiveTocId(items)
   if (items.length < 2) return null
 
   return (
     <nav
-      aria-label="Índice do artigo"
+      aria-label={tr('blog.post.toc.label')}
       style={{
         position: 'sticky',
         top: '112px',
@@ -373,7 +375,7 @@ function TableOfContents({ items }: { items: TocItem[] }) {
           marginBottom: '14px',
         }}
       >
-        Neste artigo
+        {tr('blog.post.toc.heading')}
       </p>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {items.map(item => {
@@ -410,7 +412,7 @@ function TableOfContents({ items }: { items: TocItem[] }) {
 
 // ─── Related posts card ───────────────────────────────────────────────────────
 
-function RelatedCard({ post }: { post: BlogPost }) {
+function RelatedCard({ post, tr }: { post: BlogPost; tr: ReturnType<typeof useT> }) {
   const { meta } = post
   return (
     <Link
@@ -484,7 +486,7 @@ function RelatedCard({ post }: { post: BlogPost }) {
               marginTop: '10px',
             }}
           >
-            {meta.readingTime} min de leitura
+            {tr('blog.readTimeLong').replace('{n}', String(meta.readingTime))}
           </p>
         </div>
       </article>
@@ -494,7 +496,7 @@ function RelatedCard({ post }: { post: BlogPost }) {
 
 // ─── JSON-LD helpers ──────────────────────────────────────────────────────────
 
-function articleSchema(meta: BlogPostMeta) {
+function articleSchema(meta: BlogPostMeta, lang: Lang) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -505,7 +507,7 @@ function articleSchema(meta: BlogPostMeta) {
     dateModified: meta.updatedAt,
     author: { '@type': 'Organization', name: meta.author },
     publisher: { '@type': 'Organization', name: 'Habitta', url: BASE_URL },
-    inLanguage: 'pt-PT',
+    inLanguage: lang === 'en' ? 'en-GB' : 'pt-PT',
     url: `${BASE_URL}/blog/${meta.slug}`,
   }
 }
@@ -542,7 +544,7 @@ function faqSchema(faqs: BlogPostMeta['faqs']) {
 
 // ─── Sticky mobile CTA ────────────────────────────────────────────────────────
 
-function MobileStickyCta() {
+function MobileStickyCta({ tr }: { tr: ReturnType<typeof useT> }) {
   const [visible, setVisible] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -588,7 +590,7 @@ function MobileStickyCta() {
           borderRadius: '4px',
         }}
       >
-        Encontra a tua zona em 2 min →
+        {tr('blog.post.mobileCta')}
       </Link>
     </div>
   )
@@ -597,8 +599,10 @@ function MobileStickyCta() {
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function BlogPost() {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   const { slug } = useParams<{ slug: string }>()
-  const post = slug ? getPostBySlug(slug) : undefined
+  const post = slug ? getPostBySlug(slug, lang) : undefined
   const [PostComponent, setPostComponent] = useState<ComponentType | null>(null)
   const [loadError, setLoadError] = useState(false)
   const tracked = useRef(false)
@@ -633,7 +637,7 @@ export default function BlogPost() {
   if (!post) return <Navigate to="/blog" replace />
 
   const { meta } = post
-  const related = getRelatedPosts(meta.relatedPosts ?? [])
+  const related = getRelatedPosts(meta.relatedPosts ?? [], lang)
   const pageUrl = `${BASE_URL}/blog/${meta.slug}`
   const faq = faqSchema(meta.faqs)
 
@@ -652,7 +656,7 @@ export default function BlogPost() {
         <meta property="og:title" content={`${meta.title} | Habitta`} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.heroImage} />
-        <meta property="og:locale" content="pt_PT" />
+        <meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'pt_PT'} />
         <meta property="article:published_time" content={meta.publishedAt} />
         <meta property="article:modified_time" content={meta.updatedAt} />
         <meta property="article:author" content={meta.author} />
@@ -660,8 +664,8 @@ export default function BlogPost() {
         <meta name="twitter:title" content={`${meta.title} | Habitta`} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.heroImage} />
-        <link rel="alternate" hrefLang="pt-pt" href={pageUrl} />
-        <script type="application/ld+json">{JSON.stringify(articleSchema(meta))}</script>
+        <link rel="alternate" hrefLang={lang === 'en' ? 'en' : 'pt-pt'} href={pageUrl} />
+        <script type="application/ld+json">{JSON.stringify(articleSchema(meta, lang))}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema(meta))}</script>
         {faq && <script type="application/ld+json">{JSON.stringify(faq)}</script>}
       </Helmet>
@@ -683,7 +687,7 @@ export default function BlogPost() {
             zIndex: 50,
           }}
         >
-          DRAFT — noindex, nofollow — não visível em produção
+          {tr('blog.post.draftBanner')}
         </div>
       )}
 
@@ -736,7 +740,7 @@ export default function BlogPost() {
                 marginBottom: '20px',
               }}
             >
-              <ArrowLeft size={11} /> Blog
+              <ArrowLeft size={11} /> {tr('blog.post.backToBlog')}
             </Link>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <span
@@ -761,7 +765,7 @@ export default function BlogPost() {
                   letterSpacing: '0.5px',
                 }}
               >
-                {meta.readingTime} min
+                {tr('blog.readTime').replace('{n}', String(meta.readingTime))}
               </span>
             </div>
             <h1
@@ -792,7 +796,7 @@ export default function BlogPost() {
               <span>{meta.author}</span>
               <span>·</span>
               <span>
-                {new Date(meta.publishedAt).toLocaleDateString('pt-PT', {
+                {new Date(meta.publishedAt).toLocaleDateString(lang === 'en' ? 'en-GB' : 'pt-PT', {
                   day: 'numeric',
                   month: 'long',
                   year: 'numeric',
@@ -834,7 +838,7 @@ export default function BlogPost() {
                   margin: '0 auto',
                   animation: 'habitta-spin 0.8s linear infinite',
                 }}
-                aria-label="A carregar artigo"
+                aria-label={tr('blog.post.loadingAria')}
               />
             </div>
           )}
@@ -853,7 +857,7 @@ export default function BlogPost() {
 
         {/* ── TOC sidebar (desktop only) ──────────────────────────────────── */}
         <div className="hidden lg:block" style={{ width: '220px', flexShrink: 0 }}>
-          <TableOfContents items={tocItems} />
+          <TableOfContents items={tocItems} tr={tr} />
         </div>
       </div>
 
@@ -879,11 +883,11 @@ export default function BlogPost() {
                 marginBottom: '32px',
               }}
             >
-              Continuar a ler
+              {tr('blog.post.related')}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {related.map(p => (
-                <RelatedCard key={p.meta.slug} post={p} />
+                <RelatedCard key={p.meta.slug} post={p} tr={tr} />
               ))}
             </div>
           </div>
@@ -891,7 +895,7 @@ export default function BlogPost() {
       )}
 
       {/* ── Mobile sticky CTA ──────────────────────────────────────────────── */}
-      <MobileStickyCta />
+      <MobileStickyCta tr={tr} />
     </div>
   )
 }

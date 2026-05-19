@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { getPostsByLocale, categoryLabel, type BlogPost } from '../../lib/blog'
+import { useLangSafe, type Lang } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 
 const INK  = '#1E1F18'
 const CLAY = '#C2553A'
@@ -23,8 +25,8 @@ const ALL_CATEGORIES = [
   'decisao-compra',
 ]
 
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('pt-PT', {
+function formatDate(iso: string, lang: Lang): string {
+  return new Date(iso).toLocaleDateString(lang === 'en' ? 'en-GB' : 'pt-PT', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -33,7 +35,7 @@ function formatDate(iso: string): string {
 
 // ─── Featured card — large hero layout ───────────────────────────────────────
 
-function FeaturedCard({ post }: { post: BlogPost }) {
+function FeaturedCard({ post, lang, tr }: { post: BlogPost; lang: Lang; tr: ReturnType<typeof useT> }) {
   const { meta } = post
   return (
     <Link to={`/blog/${meta.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
@@ -114,7 +116,7 @@ function FeaturedCard({ post }: { post: BlogPost }) {
                   letterSpacing: '0.5px',
                 }}
               >
-                {meta.readingTime} min
+                {tr('blog.readTime').replace('{n}', String(meta.readingTime))}
               </span>
             </div>
             <h2
@@ -154,7 +156,7 @@ function FeaturedCard({ post }: { post: BlogPost }) {
                 color: 'rgba(255,255,255,0.25)',
               }}
             >
-              <span>{formatDate(meta.publishedAt)}</span>
+              <span>{formatDate(meta.publishedAt, lang)}</span>
               <span>·</span>
               <span>{meta.author}</span>
             </div>
@@ -167,7 +169,7 @@ function FeaturedCard({ post }: { post: BlogPost }) {
 
 // ─── Regular post card ────────────────────────────────────────────────────────
 
-function PostCard({ post }: { post: BlogPost }) {
+function PostCard({ post, lang, tr }: { post: BlogPost; lang: Lang; tr: ReturnType<typeof useT> }) {
   const { meta } = post
   return (
     <Link to={`/blog/${meta.slug}`} style={{ textDecoration: 'none' }}>
@@ -266,8 +268,8 @@ function PostCard({ post }: { post: BlogPost }) {
               paddingTop: '14px',
             }}
           >
-            <span>{meta.readingTime} min</span>
-            <span>{formatDate(meta.publishedAt)}</span>
+            <span>{tr('blog.readTime').replace('{n}', String(meta.readingTime))}</span>
+            <span>{formatDate(meta.publishedAt, lang)}</span>
           </div>
         </div>
       </article>
@@ -282,11 +284,13 @@ function FilterPills({
   active,
   onChange,
   counts,
+  tr,
 }: {
   categories: string[]
   active: string
   onChange: (c: string) => void
   counts: Record<string, number>
+  tr: ReturnType<typeof useT>
 }) {
   return (
     <div
@@ -299,7 +303,7 @@ function FilterPills({
     >
       {categories.map(cat => {
         const isActive = cat === active
-        const label = cat === 'todos' ? 'Todos' : categoryLabel(cat)
+        const label = cat === 'todos' ? tr('blog.filter.all') : categoryLabel(cat)
         const count = counts[cat] ?? 0
         if (cat !== 'todos' && count === 0) return null
         return (
@@ -362,8 +366,10 @@ function FilterPills({
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function BlogIndex() {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   const [activeCategory, setActiveCategory] = useState('todos')
-  const allPosts = getPostsByLocale('pt')
+  const allPosts = getPostsByLocale(lang)
 
   // Count posts per category (for hiding empty filter pills)
   const counts = allPosts.reduce<Record<string, number>>((acc, p) => {
@@ -383,23 +389,23 @@ export default function BlogIndex() {
   return (
     <div className="min-h-screen" style={{ background: BONE }}>
       <Helmet>
-        <title>Blog | Habitta</title>
+        <title>{tr('blog.meta.title')}</title>
         <meta
           name="description"
-          content="Análises, guias e comparações sobre zonas da AML. Conteúdo editorial honesto para quem quer comprar bem."
+          content={tr('blog.meta.description')}
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={ogUrl} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={ogUrl} />
-        <meta property="og:title" content="Blog | Habitta" />
+        <meta property="og:title" content={tr('blog.meta.title')} />
         <meta
           property="og:description"
-          content="Análises, guias e comparações sobre zonas da AML. Conteúdo editorial honesto para quem quer comprar bem."
+          content={tr('blog.meta.description')}
         />
-        <meta property="og:locale" content="pt_PT" />
+        <meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'pt_PT'} />
         <meta name="twitter:card" content="summary_large_image" />
-        <link rel="alternate" hrefLang="pt-pt" href={ogUrl} />
+        <link rel="alternate" hrefLang={lang === 'en' ? 'en' : 'pt-pt'} href={ogUrl} />
       </Helmet>
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
@@ -421,7 +427,7 @@ export default function BlogIndex() {
               marginBottom: '14px',
             }}
           >
-            — Habitta Editorial
+            {tr('blog.eyebrow')}
           </p>
           <h1
             className="font-display"
@@ -434,7 +440,7 @@ export default function BlogIndex() {
               maxWidth: '480px',
             }}
           >
-            Blog
+            {tr('blog.heading')}
           </h1>
           <p
             style={{
@@ -446,7 +452,7 @@ export default function BlogIndex() {
               color: 'rgba(255,255,255,0.22)',
             }}
           >
-            — Análises · Guias · Zonas da AML —
+            {tr('blog.subheading')}
           </p>
         </div>
       </section>
@@ -464,18 +470,19 @@ export default function BlogIndex() {
           active={activeCategory}
           onChange={setActiveCategory}
           counts={counts}
+          tr={tr}
         />
 
         {filtered.length === 0 && (
           <p style={{ color: 'rgba(30,31,24,0.4)', fontSize: '16px', padding: '40px 0' }}>
-            Nenhum artigo nesta categoria ainda.
+            {tr('blog.empty')}
           </p>
         )}
 
         {/* Featured (newest / first in filtered list) */}
         {featured && (
           <div style={{ marginBottom: '32px' }}>
-            <FeaturedCard post={featured} />
+            <FeaturedCard post={featured} lang={lang} tr={tr} />
           </div>
         )}
 
@@ -486,7 +493,7 @@ export default function BlogIndex() {
             style={{ gap: '20px' }}
           >
             {rest.map(post => (
-              <PostCard key={post.meta.slug} post={post} />
+              <PostCard key={post.meta.slug} post={post} lang={lang} tr={tr} />
             ))}
           </div>
         )}
@@ -511,7 +518,7 @@ export default function BlogIndex() {
             marginBottom: '16px',
           }}
         >
-          Quiz gratuito
+          {tr('blog.cta.eyebrow')}
         </p>
         <h2
           className="font-display"
@@ -523,7 +530,7 @@ export default function BlogIndex() {
             fontWeight: 400,
           }}
         >
-          Encontra a zona certa em 2 minutos
+          {tr('blog.cta.heading')}
         </h2>
         <p
           style={{
@@ -535,7 +542,7 @@ export default function BlogIndex() {
             margin: '0 auto 28px',
           }}
         >
-          Orçamento, estilo de vida, transportes. Cruza tudo e recebe o teu dossier de zonas.
+          {tr('blog.cta.body')}
         </p>
         <Link
           to="/quiz"
@@ -557,7 +564,7 @@ export default function BlogIndex() {
           onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.background = CLAY)}
           onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.background = INK)}
         >
-          Fazer o quiz →
+          {tr('blog.cta.button')}
         </Link>
       </section>
     </div>

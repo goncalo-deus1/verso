@@ -21,6 +21,8 @@ import { runQuiz } from '../quiz/engine'
 import type { QuizAnswers, ScoredZone, ZoneScoreBreakdown } from '../quiz/types'
 import { useQuiz } from '../context/QuizContext'
 import { useAuth } from '../context/AuthContext'
+import { useLangSafe } from '../context/LanguageContext'
+import { useT, type TKey } from '../i18n/translations'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -36,32 +38,34 @@ function formatPreco(precoMin: number): string {
 
 // ─── Score Breakdown Grid ────────────────────────────────────────────────────
 
-type BreakdownDim = { key: keyof Omit<ZoneScoreBreakdown, 'total'>; label: string; max: number }
+type BreakdownDim = { key: keyof Omit<ZoneScoreBreakdown, 'total'>; labelKey: TKey; max: number }
 
 const BREAKDOWN_DIMS: BreakdownDim[] = [
-  { key: 'geografia',      label: 'Geografia',  max: 30 },
-  { key: 'orcamento',      label: 'Orçamento',  max: 20 },
-  { key: 'lifestyle',      label: 'Lifestyle',  max: 20 },
-  { key: 'preferenciaCasa', label: 'Casa',      max: 10 },
-  { key: 'objetivo',       label: 'Objetivo',   max: 10 },
-  { key: 'familia',        label: 'Família',    max: 10 },
+  { key: 'geografia',       labelKey: 'pages.quizresults.dim.geografia', max: 30 },
+  { key: 'orcamento',       labelKey: 'pages.quizresults.dim.orcamento', max: 20 },
+  { key: 'lifestyle',       labelKey: 'pages.quizresults.dim.lifestyle', max: 20 },
+  { key: 'preferenciaCasa', labelKey: 'pages.quizresults.dim.casa',      max: 10 },
+  { key: 'objetivo',        labelKey: 'pages.quizresults.dim.objetivo',  max: 10 },
+  { key: 'familia',         labelKey: 'pages.quizresults.dim.familia',   max: 10 },
 ]
 
 function ScoreBreakdown({ breakdown }: { breakdown: ZoneScoreBreakdown }) {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   return (
     <div>
       <p className="text-xs font-medium uppercase mb-3"
         style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono', letterSpacing: '1px', fontSize: '10px' }}>
-        Score por dimensão
+        {tr('pages.quizresults.breakdown.title')}
       </p>
       <div className="grid grid-cols-3 gap-x-5 gap-y-3.5">
-        {BREAKDOWN_DIMS.map(({ key, label, max }) => {
+        {BREAKDOWN_DIMS.map(({ key, labelKey, max }) => {
           const v = breakdown[key]
           return (
             <div key={key}>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono', fontSize: '10px' }}>
-                  {label}
+                  {tr(labelKey)}
                 </span>
                 <span className="text-xs" style={{ color: '#1E1F18', fontFamily: 'IBM Plex Mono', fontSize: '10px' }}>
                   {v}/{max}
@@ -81,6 +85,8 @@ function ScoreBreakdown({ breakdown }: { breakdown: ZoneScoreBreakdown }) {
 // ─── Gate de login ────────────────────────────────────────────────────────────
 
 function LoginGate() {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   return (
     <div className="flex flex-col items-center gap-4 py-6 px-4 text-center"
       style={{ background: '#F2EDE4', border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
@@ -90,22 +96,22 @@ function LoginGate() {
       </div>
       <div>
         <p className="text-sm font-semibold mb-1" style={{ color: '#1E1F18' }}>
-          Crie uma conta para ver o resultado completo
+          {tr('pages.quizresults.loginGate.title')}
         </p>
         <p className="text-xs leading-relaxed" style={{ color: '#3A3B2E', maxWidth: '32ch', margin: '0 auto' }}>
-          O nome da zona e a descrição estão reservados a utilizadores registados.
+          {tr('pages.quizresults.loginGate.body')}
         </p>
       </div>
       <div className="flex gap-2">
         <Link to="/entrar?mode=register"
           className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-semibold"
           style={{ background: '#1E1F18', color: '#F2EDE4', borderRadius: '2px', textDecoration: 'none' }}>
-          Criar conta gratuita
+          {tr('auth.createTitle')}
         </Link>
         <Link to="/entrar"
           className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-medium"
           style={{ border: '1px solid rgba(30, 31, 24, 0.125)', color: '#3A3B2E', borderRadius: '2px', textDecoration: 'none' }}>
-          Entrar
+          {tr('header.signIn')}
         </Link>
       </div>
     </div>
@@ -117,6 +123,8 @@ function LoginGate() {
 function PrimaryResult({ result, isLoggedIn }: { result: ScoredZone; isLoggedIn: boolean }) {
   const { zone, score, reasons, tradeOff, breakdown } = result
   const color = scoreColor(score)
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
 
   return (
     <article style={{ background: '#ffffff', border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
@@ -129,7 +137,7 @@ function PrimaryResult({ result, isLoggedIn }: { result: ScoredZone; isLoggedIn:
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: '#C2553A' }} />
           <span className="text-xs font-semibold uppercase"
             style={{ color: '#C2553A', fontFamily: 'IBM Plex Mono', fontSize: '10px', letterSpacing: '2px' }}>
-            A zona que melhor encaixa convosco
+            {tr('pages.quizresults.tag.bestFit')}
           </span>
         </div>
 
@@ -180,7 +188,7 @@ function PrimaryResult({ result, isLoggedIn }: { result: ScoredZone; isLoggedIn:
       <div className="px-8 lg:px-10 pb-6">
         <p className="text-xs font-semibold uppercase mb-4"
           style={{ color: '#1E1F18', fontFamily: 'IBM Plex Mono', letterSpacing: '1px', fontSize: '10px' }}>
-          Porque esta zona faz sentido
+          {tr('pages.quizresults.why')}
         </p>
         <ul className="space-y-3">
           {reasons.map((reason, i) => (
@@ -197,7 +205,7 @@ function PrimaryResult({ result, isLoggedIn }: { result: ScoredZone; isLoggedIn:
         <div className="p-4" style={{ background: '#F2EDE4', borderRadius: '2px', border: '1px solid rgba(30, 31, 24, 0.125)' }}>
           <p className="text-xs font-semibold uppercase mb-2"
             style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono', letterSpacing: '1px', fontSize: '10px' }}>
-            O principal trade-off
+            {tr('pages.quizresults.tradeOff')}
           </p>
           <p className="text-sm leading-relaxed" style={{ color: '#3A3B2E' }}>{tradeOff}</p>
         </div>
@@ -211,7 +219,7 @@ function PrimaryResult({ result, isLoggedIn }: { result: ScoredZone; isLoggedIn:
           </div>
           <div className="flex-shrink-0 lg:text-right">
             <p className="text-xs mb-1" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono', fontSize: '10px' }}>
-              Preço mínimo (T2)
+              {tr('pages.quizresults.priceMinT2')}
             </p>
             <p className="font-display text-2xl" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>
               {formatPreco(zone.precoMin)}
@@ -228,6 +236,8 @@ function PrimaryResult({ result, isLoggedIn }: { result: ScoredZone; isLoggedIn:
 function AlternativeCard({ result, isLoggedIn }: { result: ScoredZone; isLoggedIn: boolean }) {
   const { zone, score, reasons, tradeOff } = result
   const color = scoreColor(score)
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
 
   return (
     <article className="p-6" style={{ background: '#ffffff', border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
@@ -276,7 +286,7 @@ function AlternativeCard({ result, isLoggedIn }: { result: ScoredZone; isLoggedI
       {/* Preço */}
       <div className="flex items-center justify-between pt-4" style={{ borderTop: '1px solid rgba(30, 31, 24, 0.125)' }}>
         <p className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono', fontSize: '10px' }}>
-          Preço mínimo (T2)
+          {tr('pages.quizresults.priceMinT2')}
         </p>
         <p className="font-display font-medium" style={{ color: '#1E1F18' }}>
           {formatPreco(zone.precoMin)}
@@ -290,6 +300,8 @@ function AlternativeCard({ result, isLoggedIn }: { result: ScoredZone; isLoggedI
 
 function NoResultsFallback() {
   const { open: openQuiz } = useQuiz()
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-8" style={{ background: '#F2EDE4' }}>
       <div className="max-w-sm text-center">
@@ -298,17 +310,16 @@ function NoResultsFallback() {
           <span className="font-display text-lg" style={{ color: '#3A3B2E' }}>—</span>
         </div>
         <h1 className="font-display text-2xl mb-3" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>
-          Sem correspondências
+          {tr('pages.quizresults.noMatches.title')}
         </h1>
         <p className="text-sm leading-relaxed mb-8" style={{ color: '#3A3B2E', maxWidth: '36ch', margin: '0 auto 2rem' }}>
-          Nenhuma zona passou os critérios combinados de orçamento, localização e commute.
-          Tenta relaxar uma das restrições — especialmente o orçamento ou a tolerância de deslocação.
+          {tr('pages.quizresults.noMatches.body')}
         </p>
         <button
           onClick={() => openQuiz()}
           className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold"
           style={{ background: '#1E1F18', color: '#F2EDE4', borderRadius: '2px', border: 'none', cursor: 'pointer' }}>
-          <RotateCcw size={14} /> Refazer o quiz
+          <RotateCcw size={14} /> {tr('zd.redoQuiz')}
         </button>
       </div>
     </div>
@@ -321,6 +332,8 @@ export default function QuizResults() {
   const location = useLocation()
   const { open: openQuiz } = useQuiz()
   const { user } = useAuth()
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   const isLoggedIn = user !== null
   const rawAnswers = location.state?.answers as QuizAnswers | undefined
 
@@ -351,18 +364,24 @@ export default function QuizResults() {
         <header className="mb-10">
           <p className="text-xs uppercase mb-3"
             style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono', letterSpacing: '2px', fontSize: '10px' }}>
-            Resultado do quiz
+            {tr('pages.quizresults.headerEyebrow')}
           </p>
           <h1 className="font-display text-4xl lg:text-5xl mb-4"
             style={{ color: '#1E1F18', letterSpacing: '-1.5px', lineHeight: '1.08' }}>
-            A vossa recomendação
+            {tr('pages.quizresults.headerTitle')}
           </h1>
           <p className="text-sm leading-relaxed" style={{ color: '#3A3B2E' }}>
-            Analisámos {totalAnalysed} zona{totalAnalysed !== 1 ? 's' : ''}.
+            {(totalAnalysed === 1
+              ? tr('pages.quizresults.intro.analysed.one')
+              : tr('pages.quizresults.intro.analysed.many')
+            ).replace('{n}', String(totalAnalysed))}
             {result.filteredCount > 0 && (
-              <> {result.filteredCount} eliminada{result.filteredCount !== 1 ? 's' : ''} por orçamento ou localização.</>
+              (result.filteredCount === 1
+                ? tr('pages.quizresults.intro.filtered.one')
+                : tr('pages.quizresults.intro.filtered.many')
+              ).replace('{n}', String(result.filteredCount))
             )}
-            {' '}Esta é a melhor correspondência para o vosso perfil.
+            {tr('pages.quizresults.intro.bestMatch')}
           </p>
         </header>
 
@@ -374,7 +393,7 @@ export default function QuizResults() {
           <section className="mt-8">
             <p className="text-xs font-semibold uppercase mb-4"
               style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono', letterSpacing: '1.5px', fontSize: '10px' }}>
-              Outras zonas a considerar
+              {tr('pages.quizresults.otherAreas')}
             </p>
             <div className="space-y-3">
               {alternatives.map(alt => (
@@ -387,10 +406,8 @@ export default function QuizResults() {
         {/* Nota editorial */}
         <div className="mt-8 p-5" style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
           <p className="text-xs leading-relaxed" style={{ color: '#3A3B2E' }}>
-            <span className="font-semibold" style={{ color: '#1E1F18' }}>Nota:</span>{' '}
-            A zona certa não é um detalhe — é a decisão mais importante de toda a compra.
-            Esta recomendação é um ponto de partida informado, não uma prescrição.
-            Visitem, explorem e confirmem antes de decidir.
+            <span className="font-semibold" style={{ color: '#1E1F18' }}>{tr('pages.quizresults.note.label')}</span>{' '}
+            {tr('pages.quizresults.note.body')}
           </p>
         </div>
 
@@ -399,14 +416,14 @@ export default function QuizResults() {
           <Link to="/areas"
             className="flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-semibold"
             style={{ background: '#1E1F18', color: '#F2EDE4', borderRadius: '2px' }}>
-            Explorar todas as zonas
+            {tr('pages.quizresults.cta.exploreAll')}
             <ArrowRight size={15} />
           </Link>
           <button
             onClick={() => openQuiz()}
             className="flex items-center justify-center gap-2 px-6 py-4 text-sm font-medium"
             style={{ border: '1px solid rgba(30, 31, 24, 0.125)', color: '#3A3B2E', borderRadius: '2px', background: 'none', cursor: 'pointer' }}>
-            <RotateCcw size={14} /> Refazer o quiz
+            <RotateCcw size={14} /> {tr('zd.redoQuiz')}
           </button>
         </div>
 

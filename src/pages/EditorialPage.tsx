@@ -3,11 +3,21 @@ import { Clock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { editorials } from '../data/editorial'
 import { BlockLabel, Callout } from '../components/Brand'
+import { useLangSafe } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
-const categories = ['Todos', 'Guia do Comprador', 'Tendências de Mercado', 'Análise', 'Contexto Urbanístico']
+const CATEGORY_KEYS = [
+  'editorial.cat.all',
+  'editorial.cat.buyerGuide',
+  'editorial.cat.marketTrends',
+  'editorial.cat.analysis',
+  'editorial.cat.urbanContext',
+] as const
 
 export default function EditorialPage() {
-  const [active, setActive] = useState('Todos')
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
+  const [active, setActive] = useState<(typeof CATEGORY_KEYS)[number]>('editorial.cat.all')
   const [featured, ...rest] = editorials
 
   return (
@@ -15,32 +25,32 @@ export default function EditorialPage() {
       {/* Header */}
       <section style={{ background: '#1E1F18' }} className="pt-32 pb-16 lg:pt-40 lg:pb-20">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
-          <BlockLabel light>Editorial</BlockLabel>
+          <BlockLabel light>{tr('editorial.eyebrow')}</BlockLabel>
           <h1 className="font-display text-white text-4xl lg:text-5xl max-w-xl" style={{ letterSpacing: '-1.5px', lineHeight: '1.1' }}>
-            Guias, análises e perspectivas
+            {tr('editorial.heading')}
           </h1>
           <p className="mt-4 max-w-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
-            Tudo o que precisa de saber para comprar bem — sem ruído, sem pressão.
+            {tr('editorial.subtitle')}
           </p>
         </div>
       </section>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
         <Callout>
-          Comprar um imóvel é uma das decisões mais complexas da vida. Os nossos guias existem para que essa complexidade não seja um obstáculo — mas uma vantagem.
+          {tr('editorial.callout')}
         </Callout>
       </div>
 
       <div className="max-w-7xl mx-auto px-8 lg:px-12 pb-12">
         {/* Categories */}
         <div className="flex flex-wrap gap-2 mb-12">
-          {categories.map(cat => (
-            <button key={cat} onClick={() => setActive(cat)}
+          {CATEGORY_KEYS.map(catKey => (
+            <button key={catKey} onClick={() => setActive(catKey)}
               className="px-4 py-2 text-sm font-medium transition-all duration-150"
-              style={active === cat
+              style={active === catKey
                 ? { background: '#1E1F18', color: '#F2EDE4', borderRadius: '2px' }
                 : { background: '#F2EDE4', color: '#3A3B2E', border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
-              {cat}
+              {tr(catKey)}
             </button>
           ))}
         </div>
@@ -65,7 +75,7 @@ export default function EditorialPage() {
               </h2>
               <p className="text-base leading-relaxed max-w-xl mb-5" style={{ color: 'rgba(255,255,255,0.6)' }}>{featured.excerpt}</p>
               <div className="flex items-center gap-5 text-xs" style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'IBM Plex Mono' }}>
-                <span className="flex items-center gap-1.5"><Clock size={11} /> {featured.readTime} min</span>
+                <span className="flex items-center gap-1.5"><Clock size={11} /> {tr('editorial.readTime').replace('{n}', String(featured.readTime))}</span>
                 <span>{featured.date}</span>
                 <span>{featured.author}</span>
               </div>
@@ -98,7 +108,7 @@ export default function EditorialPage() {
                 </h3>
                 <p className="text-sm leading-relaxed mb-4 line-clamp-3" style={{ color: '#3A3B2E' }}>{article.excerpt}</p>
                 <div className="flex items-center justify-between text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono', borderTop: '1px solid rgba(30, 31, 24, 0.125)', paddingTop: '12px' }}>
-                  <span className="flex items-center gap-1.5"><Clock size={11} /> {article.readTime} min</span>
+                  <span className="flex items-center gap-1.5"><Clock size={11} /> {tr('editorial.readTime').replace('{n}', String(article.readTime))}</span>
                   <span>{article.date}</span>
                 </div>
               </div>

@@ -2,6 +2,8 @@ import { useParams, Link } from 'react-router-dom'
 import { freguesias } from '../data/freguesias'
 import { concelhosAML } from '../data/concelhosAML'
 import SaveZoneButton from '../components/SaveZoneButton'
+import { useLangSafe } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const INK      = '#1E1F18'
 const BONE     = '#F2EDE4'
@@ -14,18 +16,20 @@ const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 export default function FreguesiDetailPage() {
   const { slug } = useParams<{ slug: string }>()
   const freguesia = slug ? freguesias.find(f => f.slug === slug) : undefined
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
 
   if (!freguesia) return (
     <main className="min-h-screen bg-verso-paper flex items-center justify-center px-6">
       <div className="text-center max-w-md">
         <p className="font-mono text-[11px] tracking-[0.15em] uppercase text-verso-clay mb-4">
-          § Freguesia não encontrada
+          {tr('pages.fregdetail.notFound.eyebrow')}
         </p>
         <p className="font-display text-3xl text-verso-midnight mb-6">
-          Esta freguesia não existe no nosso atlas.
+          {tr('pages.fregdetail.notFound.title')}
         </p>
         <Link to="/" className="font-mono text-xs tracking-[0.15em] uppercase text-verso-midnight hover:text-verso-clay">
-          ← Voltar ao mapa
+          {tr('pages.fregdetail.notFound.back')}
         </Link>
       </div>
     </main>
@@ -43,30 +47,36 @@ export default function FreguesiDetailPage() {
     margin: '0 0 24px',
   }
 
+  const trendLabel = (t: 'growing' | 'stable' | 'declining'): string => {
+    if (t === 'growing') return tr('pages.fregdetail.trend.growing')
+    if (t === 'stable') return tr('pages.fregdetail.trend.stable')
+    return tr('pages.fregdetail.trend.declining')
+  }
+
   const facts = [
     {
-      label: 'Idade mediana',
+      label: tr('pages.fregdetail.fact.medianAge'),
       value: freguesia.hardFacts.medianAgeYears != null
-        ? `${freguesia.hardFacts.medianAgeYears} anos`
-        : '— a confirmar',
+        ? tr('pages.fregdetail.fact.medianAgeUnit').replace('{n}', String(freguesia.hardFacts.medianAgeYears))
+        : tr('pages.fregdetail.fact.tbd'),
     },
     {
-      label: 'Metro/elétrico/comboio à Baixa',
+      label: tr('pages.fregdetail.fact.transitToBaixa'),
       value: freguesia.hardFacts.tramMetroOrTrainToBaixaMinutes != null
-        ? `${freguesia.hardFacts.tramMetroOrTrainToBaixaMinutes} min`
-        : '— a confirmar',
+        ? tr('pages.fregdetail.fact.transitToBaixaUnit').replace('{n}', String(freguesia.hardFacts.tramMetroOrTrainToBaixaMinutes))
+        : tr('pages.fregdetail.fact.tbd'),
     },
     {
-      label: 'Renda mediana T2',
+      label: tr('pages.fregdetail.fact.medianRent'),
       value: freguesia.hardFacts.medianT2RentEuros != null
-        ? `${freguesia.hardFacts.medianT2RentEuros} €/mês`
-        : '— a confirmar',
+        ? tr('pages.fregdetail.fact.medianRentUnit').replace('{n}', String(freguesia.hardFacts.medianT2RentEuros))
+        : tr('pages.fregdetail.fact.tbd'),
     },
     {
-      label: 'Tendência populacional (3 anos)',
+      label: tr('pages.fregdetail.fact.popTrend'),
       value: freguesia.hardFacts.populationTrend3y != null
-        ? { growing: 'Em crescimento', stable: 'Estável', declining: 'Em declínio' }[freguesia.hardFacts.populationTrend3y]
-        : '— a confirmar',
+        ? trendLabel(freguesia.hardFacts.populationTrend3y)
+        : tr('pages.fregdetail.fact.tbd'),
     },
   ]
 
@@ -77,7 +87,7 @@ export default function FreguesiDetailPage() {
 
         {/* Eyebrow */}
         <p style={eyebrow}>
-          FREGUESIA · {(concelho?.name ?? 'Lisboa').toUpperCase()}
+          {tr('pages.fregdetail.eyebrow').replace('{concelho}', (concelho?.name ?? 'Lisboa').toUpperCase())}
         </p>
 
         {/* H1 */}
@@ -127,11 +137,11 @@ export default function FreguesiDetailPage() {
         {/* Quem se dá bem / mal */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ marginBottom: '48px' }}>
           <div style={{ background: SAND, borderRadius: '4px', padding: '28px' }}>
-            <p style={{ ...eyebrow, marginBottom: '12px' }}>Quem se dá bem aqui</p>
+            <p style={{ ...eyebrow, marginBottom: '12px' }}>{tr('pages.fregdetail.fitsHere')}</p>
             <p style={{ fontSize: '16px', color: INK, lineHeight: 1.6, margin: 0 }}>{freguesia.whoFitsHere}</p>
           </div>
           <div style={{ background: SAND, borderRadius: '4px', padding: '28px' }}>
-            <p style={{ ...eyebrow, marginBottom: '12px' }}>Quem não se dá bem aqui</p>
+            <p style={{ ...eyebrow, marginBottom: '12px' }}>{tr('pages.fregdetail.doesNotFit')}</p>
             <p style={{ fontSize: '16px', color: INK, lineHeight: 1.6, margin: 0 }}>{freguesia.whoDoesNotFit}</p>
           </div>
         </div>
@@ -142,7 +152,7 @@ export default function FreguesiDetailPage() {
             className="font-display"
             style={{ fontSize: '26px', fontWeight: 400, color: INK, marginBottom: '24px' }}
           >
-            Três ruas para conhecer
+            {tr('pages.fregdetail.threeStreets')}
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             {freguesia.referenceStreets.map(street => (
@@ -173,7 +183,7 @@ export default function FreguesiDetailPage() {
               textDecoration: 'none',
             }}
           >
-            Ver os imóveis em {freguesia.name}
+            {tr('pages.fregdetail.viewListings').replace('{name}', freguesia.name)}
           </Link>
 
           {concelho && (
@@ -181,7 +191,7 @@ export default function FreguesiDetailPage() {
               to={`/concelho/${concelho.slug}`}
               style={{ color: STONE, fontSize: '14px', textDecoration: 'underline' }}
             >
-              Parte do concelho de {concelho.name} ↗
+              {tr('pages.fregdetail.partOfConcelho').replace('{name}', concelho.name)}
             </Link>
           )}
         </div>

@@ -23,6 +23,8 @@ import type {
   MetadataSource,
 } from '../../components/habitta'
 import { articleJsonLd, breadcrumbListJsonLd } from '../../lib/jsonLd'
+import { useLangSafe } from '../../context/LanguageContext'
+import { useT } from '../../i18n/translations'
 
 const BASE_URL = 'https://www.usehabitta.com'
 
@@ -109,6 +111,8 @@ function renderHeadline(text: string, emphasis?: string) {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function PillarPage(props: PillarPageProps) {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
   const url = `${BASE_URL}/guias/${props.slug}`
 
   const articleLd = articleJsonLd({
@@ -120,8 +124,8 @@ export default function PillarPage(props: PillarPageProps) {
     dateModified:  props.meta.updated,
   })
   const breadcrumbLd = breadcrumbListJsonLd([
-    { name: 'habitta',  url: BASE_URL },
-    { name: 'Guias',    url: `${BASE_URL}/guias` },
+    { name: tr('pillar.breadcrumb.brand'),  url: BASE_URL },
+    { name: tr('pillar.breadcrumb.guides'), url: `${BASE_URL}/guias` },
     { name: props.title, url },
   ])
 
@@ -214,7 +218,7 @@ export default function PillarPage(props: PillarPageProps) {
                 margin: 'var(--space-6) 0 var(--space-2)',
               }}
             >
-              Insight {ins.number}
+              {tr('pillar.insight').replace('{number}', ins.number)}
             </p>
             <h2 style={{ ...h2Style, margin: '0 0 var(--space-3)' }}>
               {renderHeadline(ins.headline, ins.emphasis)}
@@ -228,7 +232,7 @@ export default function PillarPage(props: PillarPageProps) {
         {props.table ? (
           <>
             <h2 style={h2Style}>
-              Os <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>18 concelhos</em>, lado a lado
+              {tr('pillar.table.h2.before')} <em style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{tr('pillar.table.h2.emphasis')}</em>{tr('pillar.table.h2.after')}
             </h2>
             <ComparisonTable
               columns={props.table.columns}

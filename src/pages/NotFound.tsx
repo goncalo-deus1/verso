@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { ArrowLeft } from 'lucide-react'
+import { useLangSafe } from '../context/LanguageContext'
+import { useT } from '../i18n/translations'
 
 const INK  = '#1E1F18'
 const BONE = '#F2EDE4'
@@ -8,10 +10,13 @@ const CLAY = '#C2553A'
 const MOSS = '#6B7A5A'
 
 export default function NotFound() {
+  const { lang } = useLangSafe()
+  const tr = useT(lang)
+
   return (
     <>
       <Helmet>
-        <title>Página não encontrada — habitta</title>
+        <title>{tr('pages.notfound.docTitle')}</title>
         <meta name="robots" content="noindex, follow" />
       </Helmet>
 
@@ -38,7 +43,7 @@ export default function NotFound() {
             marginBottom: '32px',
           }}
         >
-          Erro 404
+          {tr('pages.notfound.eyebrow')}
         </p>
 
         <h1
@@ -53,7 +58,7 @@ export default function NotFound() {
             marginBottom: '24px',
           }}
         >
-          Esta página não existe.
+          {tr('pages.notfound.title')}
         </h1>
 
         <p
@@ -65,7 +70,7 @@ export default function NotFound() {
             marginBottom: '48px',
           }}
         >
-          O endereço que tentaste abrir não corresponde a nenhuma página deste site. Volta ao início ou explora a AML.
+          {tr('pages.notfound.body')}
         </p>
 
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -86,7 +91,7 @@ export default function NotFound() {
             onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
             onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
-            <ArrowLeft size={14} /> Voltar ao início
+            <ArrowLeft size={14} /> {tr('pages.notfound.backHome')}
           </Link>
 
           <Link
@@ -105,7 +110,7 @@ export default function NotFound() {
             onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(30, 31, 24, 0.5)')}
             onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(30, 31, 24, 0.2)')}
           >
-            Explorar a AML
+            {tr('pages.notfound.exploreAml')}
           </Link>
         </div>
       </div>
