@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, User, LogOut, ChevronDown } from 'lucide-react'
+import { Menu, X, User, LogOut, ChevronDown, MessageSquare } from 'lucide-react'
 import { useAuth, displayName } from '../context/AuthContext'
 import { useQuiz } from '../context/QuizContext'
 import { useLang } from '../context/LanguageContext'
@@ -144,6 +144,13 @@ export default function Header() {
                         <p className="text-sm font-medium truncate mt-0.5" style={{ color: '#F2EDE4' }}>{user.email ?? ''}</p>
                       </div>
                       <div className="p-1.5">
+                        <Link to="/inbox" onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors duration-150"
+                          style={{ color: 'rgba(255,255,255,0.55)', borderRadius: '8px' }}
+                          onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
+                          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}>
+                          <MessageSquare size={14} /> Mensagens
+                        </Link>
                         <Link to="/minha-conta" onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors duration-150"
                           style={{ color: 'rgba(255,255,255,0.55)', borderRadius: '8px' }}
@@ -241,6 +248,10 @@ export default function Header() {
                       <p className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>{user.email ?? ''}</p>
                     </div>
                   </div>
+                  <Link to="/inbox" onClick={() => setOpen(false)}
+                    className="flex items-center gap-2 text-sm font-medium" style={{ color: '#3A3B2E', textDecoration: 'none' }}>
+                    <MessageSquare size={14} /> Mensagens
+                  </Link>
                   <button onClick={() => { signOut(); setOpen(false) }}
                     className="flex items-center gap-2 text-sm font-medium" style={{ color: '#3A3B2E' }}>
                     <LogOut size={14} /> {tr('header.signOut')}
