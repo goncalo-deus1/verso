@@ -33,7 +33,14 @@ function toUpperSubRegiao(s: 'Grande Lisboa' | 'Península de Setúbal'): SubReg
 
 export interface BuildHubInput {
   slug: string
+  /** Raw markdown in Portuguese. Required. */
   mdRaw: string
+  /**
+   * Optional raw markdown in English. When provided, the EN version is
+   * pre-parsed and stored alongside the PT version so the consumer can
+   * pick per-language at render time without any extra fetch.
+   */
+  mdRawEn?: string
   lede: string
   neighbors: string[]
   /** Optional override. Default: legacy parishes slugified, no microDesc. */
@@ -64,7 +71,8 @@ export function buildHub(input: BuildHubInput): ConcelhoData {
     lede: input.lede,
     comparisonNeighbors: input.neighbors,
     freguesias,
-    md: parseConcelhoMd(input.mdRaw),
+    md:   parseConcelhoMd(input.mdRaw),
+    mdEn: input.mdRawEn ? parseConcelhoMd(input.mdRawEn) : undefined,
     updated:    input.updated    ?? '2026-05-15',
     nextReview: input.nextReview ?? '2026-08-15',
   }

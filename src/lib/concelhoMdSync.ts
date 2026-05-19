@@ -100,16 +100,18 @@ function parseFrontmatterAndBody(raw: string): {
 }
 
 function parseSummary(chunk: string): string {
-  const match = chunk.match(/(\*\*Resumo rápido:\*\*[\s\S]*?)(?=\n\n|\*Atualizado|$)/m)
+  // Aceita PT ("Resumo rápido:") e EN ("Quick summary:") como prefixo.
+  const match = chunk.match(/(\*\*(?:Resumo rápido|Quick summary):\*\*[\s\S]*?)(?=\n\n|\*Atualizado|\*Updated|$)/m)
   if (!match) return ''
   return match[1]
-    .replace(/^\*\*Resumo rápido:\*\*\s*/, '')
-    .replace(/^Resumo rápido:\s*/, '')
+    .replace(/^\*\*(?:Resumo rápido|Quick summary):\*\*\s*/, '')
+    .replace(/^(?:Resumo rápido|Quick summary):\s*/, '')
     .trim()
 }
 
 function parseUpdatedAt(chunk: string): string {
-  const match = chunk.match(/\*Atualizado a ([^*]+)\.\*/)
+  // PT: "*Atualizado a X.*"  |  EN: "*Updated on X.*"
+  const match = chunk.match(/\*(?:Atualizado a|Updated on) ([^*]+)\.\*/)
   return match ? match[1].trim() : ''
 }
 
@@ -129,7 +131,8 @@ function parseMainSections(chunk: string): ConcelhoSection[] {
 
 function parseFAQs(chunk: string): ConcelhoFAQ[] {
   if (!chunk.trim()) return []
-  const content = chunk.replace(/^## Perguntas frequentes\s*/m, '').trim()
+  // PT: "## Perguntas frequentes"  |  EN: "## FAQ"
+  const content = chunk.replace(/^## (?:Perguntas frequentes|FAQ)\s*/m, '').trim()
   if (!content) return []
   const parts = content.split(/(?=^### )/m).filter(s => s.trim())
   return parts.map(part => {
@@ -144,7 +147,8 @@ function parseFAQs(chunk: string): ConcelhoFAQ[] {
 }
 
 function parseSources(chunk: string): string {
-  return chunk.replace(/^## Fontes\s*/m, '').trim()
+  // PT: "## Fontes"  |  EN: "## Sources"
+  return chunk.replace(/^## (?:Fontes|Sources)\s*/m, '').trim()
 }
 
 function parseJsonLd(chunk: string): string {

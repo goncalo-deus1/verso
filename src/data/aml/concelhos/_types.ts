@@ -80,8 +80,15 @@ export interface ConcelhoData {
   comparisonNeighbors: string[]
   /** All freguesias of the concelho. For Lisboa, includes micro-descriptions. */
   freguesias: ConcelhoDataFreguesia[]
-  /** Pre-parsed MD content, loaded synchronously via Vite ?raw at module load. */
+  /** Pre-parsed MD content (Portuguese), loaded synchronously via Vite ?raw at module load. */
   md: ConcelhoMdContent
+  /**
+   * Optional English version. When present and `lang === 'en'`, the
+   * consumer should prefer this over `md`. When absent, the page
+   * gracefully falls back to the PT content (the alternative is a
+   * broken EN page — undesirable).
+   */
+  mdEn?: ConcelhoMdContent
   /** ISO YYYY-MM-DD. */
   updated: string
   nextReview: string

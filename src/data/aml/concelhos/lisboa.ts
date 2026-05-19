@@ -1,4 +1,5 @@
-import mdRaw from '../../../content/concelhos/01-lisboa.md?raw'
+import mdRaw   from '../../../content/concelhos/01-lisboa.md?raw'
+import mdRawEn from '../../../content/concelhos/en/01-lisboa.md?raw'
 import { getConcelhoBySlug, getCrescimento6Anos } from '../concelhos-aml-2025'
 import { fmtPriceEuroM2 as fmtPrice, fmtPct } from '../../../lib/format'
 import { buildHub } from './_buildHub'
@@ -36,6 +37,7 @@ const freguesias: ConcelhoDataFreguesia[] = [
 export default buildHub({
   slug: 'lisboa',
   mdRaw,
+  mdRawEn,
   neighbors: ['cascais', 'oeiras', 'loures', 'amadora'],
   freguesias,
   lede: `Lisboa concelho custa ${fmtPrice(ine.medianaT4_2025)} em 2025 (INE). Cresceu ${fmtPct(getCrescimento6Anos(ine), 0)} em 6 anos — a margem sul, no mesmo período, mais do dobro. A Lisboa que conheces é um dos 18 concelhos da AML, e está entre os que crescem mais devagar.`,

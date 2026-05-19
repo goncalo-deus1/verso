@@ -24,3 +24,13 @@ export function useLang() {
   if (!ctx) throw new Error('useLang must be used inside LanguageProvider')
   return ctx
 }
+
+/**
+ * Variante para componentes que podem ser renderizados sem provider
+ * (ex: rotas pre-renderizadas em SSR onde o provider não existe na árvore).
+ * Devolve sempre PT como default seguro, sem partir.
+ */
+export function useLangSafe(): { lang: Lang; toggle: () => void } {
+  const ctx = useContext(LanguageContext)
+  return ctx ?? { lang: 'pt', toggle: () => {} }
+}

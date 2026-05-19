@@ -140,19 +140,18 @@ export async function loadConcelhoContent(slug: string): Promise<ConcelhoContent
 
 /** Extrai o parágrafo "**Resumo rápido:** ..." do chunk de introdução, sem o prefixo. */
 function parseSummary(chunk: string): string {
-  // Captura desde **Resumo rápido:** até ao fim do parágrafo (linha vazia ou *Atualizado*)
-  const match = chunk.match(/(\*\*Resumo rápido:\*\*[\s\S]*?)(?=\n\n|\*Atualizado|$)/m)
+  // Aceita PT ("Resumo rápido:") e EN ("Quick summary:") como prefixo.
+  const match = chunk.match(/(\*\*(?:Resumo rápido|Quick summary):\*\*[\s\S]*?)(?=\n\n|\*Atualizado|\*Updated|$)/m)
   if (!match) return ''
-  // Remove o prefixo "**Resumo rápido:**" (com ou sem bold) e faz trim
   return match[1]
-    .replace(/^\*\*Resumo rápido:\*\*\s*/, '')
-    .replace(/^Resumo rápido:\s*/, '')
+    .replace(/^\*\*(?:Resumo rápido|Quick summary):\*\*\s*/, '')
+    .replace(/^(?:Resumo rápido|Quick summary):\s*/, '')
     .trim()
 }
 
-/** Extrai a data de "Atualizado a X." do chunk de introdução. */
+/** PT: "Atualizado a X."  |  EN: "Updated on X." */
 function parseUpdatedAt(chunk: string): string {
-  const match = chunk.match(/\*Atualizado a ([^*]+)\.\*/)
+  const match = chunk.match(/\*(?:Atualizado a|Updated on) ([^*]+)\.\*/)
   return match ? match[1].trim() : ''
 }
 
@@ -184,8 +183,8 @@ function parseMainSections(chunk: string): ConcelhoSection[] {
 function parseFAQs(chunk: string): ConcelhoFAQ[] {
   if (!chunk.trim()) return []
 
-  // Remove o cabeçalho "## Perguntas frequentes"
-  const content = chunk.replace(/^## Perguntas frequentes\s*/m, '').trim()
+  // PT: "## Perguntas frequentes"  |  EN: "## FAQ"
+  const content = chunk.replace(/^## (?:Perguntas frequentes|FAQ)\s*/m, '').trim()
   if (!content) return []
 
   // Divide no início de cada ### (lookahead)
@@ -202,9 +201,9 @@ function parseFAQs(chunk: string): ConcelhoFAQ[] {
   })
 }
 
-/** Extrai o texto das fontes (remove o cabeçalho "## Fontes"). */
+/** PT: "## Fontes"  |  EN: "## Sources" */
 function parseSources(chunk: string): string {
-  return chunk.replace(/^## Fontes\s*/m, '').trim()
+  return chunk.replace(/^## (?:Fontes|Sources)\s*/m, '').trim()
 }
 
 /**

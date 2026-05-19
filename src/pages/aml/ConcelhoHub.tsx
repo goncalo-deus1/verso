@@ -55,6 +55,7 @@ import {
   breadcrumbListJsonLd,
 } from '../../lib/jsonLd'
 
+import { useLangSafe } from '../../context/LanguageContext'
 import SaveZoneButton             from '../../components/SaveZoneButton'
 import ConcelhoSummary            from '../../components/concelho/ConcelhoSummary'
 import ConcelhoEditorial          from '../../components/concelho/ConcelhoEditorial'
@@ -108,6 +109,12 @@ export interface ConcelhoHubProps {
 export default function ConcelhoHub({ data }: ConcelhoHubProps) {
   const ine    = getConcelhoBySlug(data.slug)!
   const legacy = concelhosAML.find(c => c.slug === data.slug)!
+  const { lang } = useLangSafe()
+
+  // Selecciona o corpo editorial pelo idioma activo. Fallback gracioso
+  // para PT quando a versão EN ainda não existe para este concelho —
+  // melhor mostrar conteúdo em PT do que uma página vazia em EN.
+  const md = lang === 'en' && data.mdEn ? data.mdEn : data.md
 
   const url      = `${BASE_URL}${data.canonicalUrl}`
   const yoy      = getYoY(ine)
@@ -116,14 +123,14 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
   // ─── JSON-LD payloads ─────────────────────────────────────────────────
   const articleLd = articleJsonLd({
     headline:      `O concelho de ${legacy.name} em 2026 — habitta`,
-    description:   data.md.frontmatter.meta_description,
+    description:   md.frontmatter.meta_description,
     url,
     datePublished: data.updated,
     dateModified:  data.updated,
   })
   const placeLd = placeJsonLd({
     name:        legacy.name,
-    description: data.md.frontmatter.meta_description,
+    description: md.frontmatter.meta_description,
     url,
     concelho:    'Área Metropolitana de Lisboa',
   })
@@ -203,8 +210,8 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(placeLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-      {data.md.jsonLd ? (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: data.md.jsonLd }} />
+      {md.jsonLd ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: md.jsonLd }} />
       ) : null}
 
       <div className="habitta-container" style={{ paddingBlock: 'var(--space-6)' }}>
@@ -313,13 +320,13 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
         </div>
 
         {/* 7. Resumo rápido (MD) */}
-        {data.md.summary ? (
-          <ConcelhoSummary summary={data.md.summary} updatedAt={data.md.updatedAt} />
+        {md.summary ? (
+          <ConcelhoSummary summary={md.summary} updatedAt={md.updatedAt} />
         ) : null}
 
         {/* 8. Editorial completo (MD) */}
-        {data.md.sections.length > 0 ? (
-          <ConcelhoEditorial sections={data.md.sections} />
+        {md.sections.length > 0 ? (
+          <ConcelhoEditorial sections={md.sections} />
         ) : null}
 
         {/* 9. Freguesias list */}
@@ -429,13 +436,13 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
         )}
 
         {/* 10. FAQ (MD) */}
-        {data.md.faqs.length > 0 ? (
-          <ConcelhoFAQ faqs={data.md.faqs} />
+        {md.faqs.length > 0 ? (
+          <ConcelhoFAQ faqs={md.faqs} />
         ) : null}
 
         {/* 11. Sources (MD) */}
-        {data.md.sources ? (
-          <ConcelhoSources sources={data.md.sources} />
+        {md.sources ? (
+          <ConcelhoSources sources={md.sources} />
         ) : null}
 
         {/* 12. Cards "Quem se dá bem / mal" */}
