@@ -249,43 +249,6 @@ export default function Header() {
             )}
           </div>
 
-          {/* Mobile: dedicated message button visible sempre (fora do hamburger) */}
-          {user && (
-            <Link
-              to="/inbox"
-              className="lg:hidden"
-              aria-label={unread > 0 ? `Mensagens: ${unread} ${unread === 1 ? 'não lida' : 'não lidas'}` : 'Mensagens'}
-              style={{
-                position: 'relative',
-                width: 36, height: 36, borderRadius: '50%',
-                border: unread > 0 ? '1px solid #C2553A' : '1px solid rgba(30, 31, 24, 0.125)',
-                background: 'white',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: unread > 0 ? '#C2553A' : '#1E1F18',
-                textDecoration: 'none', marginRight: 6,
-              }}
-            >
-              <MessageSquare size={16} strokeWidth={2} />
-              {unread > 0 && (
-                <span
-                  aria-hidden
-                  style={{
-                    position: 'absolute', top: -4, right: -4,
-                    minWidth: 18, height: 18, padding: '0 5px',
-                    background: '#C2553A', color: '#F2EDE4',
-                    borderRadius: 9, fontSize: 10, fontWeight: 700,
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    fontFamily: 'IBM Plex Mono',
-                    border: '2px solid #F8F7F4',
-                    lineHeight: 1,
-                  }}
-                >
-                  {unread > 99 ? '99+' : unread}
-                </span>
-              )}
-            </Link>
-          )}
-
           {/* Mobile toggle */}
           <button onClick={() => setOpen(!open)} className="lg:hidden p-2" style={{ color: '#1E1F18' }} aria-label="Menu">
             {open ? <X size={20} /> : <Menu size={20} />}
