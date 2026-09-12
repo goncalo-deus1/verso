@@ -4,17 +4,44 @@
 > Pick the zone before the house. Data-driven, sourced, opinionated.
 
 ## Core
-- [Início](https://www.usehabitta.com/): The 2-minute zone quiz.
+- [Início](https://www.usehabitta.com/): The 2-minute zone quiz and main entry point for buyers.
+- [Quiz](https://www.usehabitta.com/quiz): Preference quiz for matching a buyer profile to AML zones.
 - [Sobre](https://www.usehabitta.com/sobre): Methodology behind habitta's recommendations.
 
+## Tools
+- [Ferramentas](https://www.usehabitta.com/ferramentas): Home for buyer calculators.
+- [Calculadora de credito habitacao](https://www.usehabitta.com/ferramentas/calculadora-credito-habitacao): Monthly mortgage payment estimator for Portugal.
+- [Calculadora de entrada necessaria](https://www.usehabitta.com/ferramentas/calculadora-entrada-necessaria): Upfront cash and savings estimator for buying in Portugal.
+
 ## Guias
-<!-- Populated as pillar pages ship under /guias/:slug -->
+- [A AML nao e Lisboa](https://www.usehabitta.com/guias/aml-nao-e-lisboa): Long-form guide for choosing where to live in the Lisbon Metropolitan Area.
 
 ## AML
-<!-- AML thesis hub and per-concelho hubs ship under /aml and /aml/:concelho -->
+- [Lisboa](https://www.usehabitta.com/aml/lisboa): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Cascais](https://www.usehabitta.com/aml/cascais): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Oeiras](https://www.usehabitta.com/aml/oeiras): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Sintra](https://www.usehabitta.com/aml/sintra): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Loures](https://www.usehabitta.com/aml/loures): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Mafra](https://www.usehabitta.com/aml/mafra): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Odivelas](https://www.usehabitta.com/aml/odivelas): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Amadora](https://www.usehabitta.com/aml/amadora): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Vila Franca de Xira](https://www.usehabitta.com/aml/vila-franca-de-xira): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Almada](https://www.usehabitta.com/aml/almada): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Seixal](https://www.usehabitta.com/aml/seixal): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Setúbal](https://www.usehabitta.com/aml/setubal): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Barreiro](https://www.usehabitta.com/aml/barreiro): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Moita](https://www.usehabitta.com/aml/moita): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Montijo](https://www.usehabitta.com/aml/montijo): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Alcochete](https://www.usehabitta.com/aml/alcochete): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Sesimbra](https://www.usehabitta.com/aml/sesimbra): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
+- [Palmela](https://www.usehabitta.com/aml/palmela): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.
 
-## Freguesias
-<!-- Populated as freguesia pages ship under /aml/:concelho/:freguesia -->
+## Blog
+- [Os 18 concelhos da AML classificados: onde comprar casa em 2026](https://www.usehabitta.com/blog/18-concelhos-aml-classificados): Da Amadora a Setúbal, de Cascais a Alcochete. Analisamos os 18 concelhos da Área Metropolitana de Lisboa por preço, acessibilidade, perfil e potencial. Um mapa claro para decidir onde investir.
+- [Financiamento a 100% para jovens: tens direito, mas devias usar?](https://www.usehabitta.com/blog/financiamento-100-jovens-comprar-casa): A Garantia Pública permite financiamento até 100% para jovens em Portugal. Quando faz sentido usar e quando é má ideia — a conversa honesta que falta.
+- [Documentos necessários para comprar casa em Portugal](https://www.usehabitta.com/blog/documentos-necessarios-para-comprar-casa-portugal): Descobre quais são os documentos necessários para comprar casa em Portugal, com ou sem crédito habitação. Guia simples com checklist, FAQ e documentos do comprador e do imóvel.
+- [Melhores zonas para viver em Lisboa em 2026](https://www.usehabitta.com/blog/melhores-zonas-viver-lisboa-2026): Marvila, Príncipe Real, Parque das Nações, Mouraria, Campo de Ourique e Belém. Preços reais, contexto urbano e para quem é cada zona — antes de ver um único anúncio.
 
-## Comparações
-<!-- Populated as comparison pages ship under /comparar/:a-vs-b -->
+## Machine-readable files
+- [Sitemap](https://www.usehabitta.com/sitemap.xml): Canonical crawl map.
+- [Robots](https://www.usehabitta.com/robots.txt): Crawl permissions, including explicit AI crawler allow rules.

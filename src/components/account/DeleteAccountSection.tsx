@@ -108,8 +108,8 @@ export default function DeleteAccountSection() {
             margin: '0 0 20px',
           }}
         >
-          Esta acção é permanente. Todos os teus dados — perfil, sessões de quiz,
-          zonas guardadas — serão removidos definitivamente. Não há volta atrás.
+          Esta acção é permanente. Todos os teus dados (perfil, sessões de quiz,
+          zonas guardadas) serão removidos definitivamente. Não há volta atrás.
         </p>
         <button
           aria-label="Abrir confirmação de eliminação de conta"

@@ -1,7 +1,7 @@
 ---
 title: "Living in Odivelas: a full guide to the municipality (2026)"
 slug: aml/odivelas
-meta_description: "Everything about living in Odivelas: T2 rent, three-year projection, the future Violet Line, transport, schools and resident profile."
+meta_description: "Everything about living in Odivelas: T2 rent, three year projection, the future Violet Line, transport, schools and resident profile."
 language: en
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/odivelas
@@ -19,15 +19,15 @@ canonical: https://www.usehabitta.com/aml/odivelas
 
 Odivelas has an advantage that most AML municipalities lack: direct metro to the centre of Lisboa. The Yellow Line terminates in Odivelas, with stops at Senhor Roubado and Ameixoeira. The municipality is compact (just 26 km²), urban and with its own retail life.
 
-The most sought-after parishes are Odivelas-Vila, Pontinha (close to the Lisboa border) and Olival Basto (next to the future Violet Line). Caneças has a more rural profile.
+The most sought after parishes are Odivelas Vila, Pontinha (close to the Lisboa border) and Olival Basto (next to the future Violet Line). Caneças has a more rural profile.
 
 ## How much does it cost to rent a T2 in Odivelas in 2026?
 
 The median rent per square metre in Odivelas is around €10 to €11, according to INE data for Greater Lisboa. For an 80 m² T2, rent sits between €850 and €950 per month.
 
-The most expensive areas are Odivelas-Vila (next to the metro) and Pontinha. The more affordable ones are Caneças and inland parts of Ramada.
+The most expensive areas are Odivelas Vila (next to the metro) and Pontinha. The more affordable ones are Caneças and inland parts of Ramada.
 
-### Three-year T2 rent projection (2026 to 2029)
+### Three year T2 rent projection (2026 to 2029)
 
 Base scenario: accumulated growth between 12% and 18%, taking the median T2 rent to between €950 and €1,100 per month by 2029. The Violet Line opening will increase demand in areas served by the new stations (Olival Basto, Ramada, Caneças). The median sale price in Odivelas was €3,048 per square metre in the first quarter of 2025, according to INE.
 
@@ -39,7 +39,7 @@ The population is growing moderately in every parish. Caneças (the only one wit
 
 ## Who lives in Odivelas? Resident profile
 
-Odivelas has a socially diverse profile. The Portuguese middle class is concentrated in Odivelas-Vila and Pontinha. There are Brazilian, Ukrainian and African communities with significant presence. Young families have been arriving over the past two decades, attracted by the combination of metro and affordable prices.
+Odivelas has a socially diverse profile. The Portuguese middle class is concentrated in Odivelas Vila and Pontinha. There are Brazilian, Ukrainian and African communities with significant presence. Young families have been arriving over the past two decades, attracted by the combination of metro and affordable prices.
 
 The City Council acknowledges 1,220 families on the waiting list for municipal housing, signalling housing pressure.
 
@@ -47,7 +47,7 @@ The City Council acknowledges 1,220 families on the waiting list for municipal h
 
 Odivelas is well served:
 
-**Violet Metro Line** — `In progress`
+**Violet Metro Line**, `In progress`
 Light surface metro between Odivelas and Loures, with 8 stations in Odivelas (Póvoa de Santo Adrião, Olival de Basto, Ramada and Caneças). Opening expected in 2026, with confirmed delays; new dates not yet confirmed.
 
 The Yellow Line has its terminus in Odivelas, with stations at Senhor Roubado and Ameixoeira. From Odivelas to Marquês de Pombal is 20 minutes.
@@ -62,28 +62,28 @@ The Violet Line will create 8 new stations in Odivelas, significantly improving 
 
 The City Council is carrying out the rehabilitation of 52 units (26 completed in October 2025, the rest by June 2026) and the construction of 6 new developments. Four of these should be completed by June 2026 and the remaining two by December 2027.
 
-There are more than a dozen developments on the market, especially in Odivelas-Vila and Ramada.
+There are more than a dozen developments on the market, especially in Odivelas Vila and Ramada.
 
 ## Schools, healthcare and retail
 
-In education, the public basic and secondary school provision is the backbone — a few private colleges complement it, but Odivelas is not a destination for international schools. Those looking for higher education cross into Lisboa: the Cidade Universitária is 10 minutes by car from Odivelas-Vila.
+In education, the public basic and secondary school provision is the backbone, a few private colleges complement it, but Odivelas is not a destination for international schools. Those looking for higher education cross into Lisboa: the Cidade Universitária is 10 minutes by car from Odivelas Vila.
 
 In healthcare, Hospital Beatriz Ângelo (in Loures) is the closest public reference. Private provision includes smaller clinics.
 
-In retail, Odivelas Parque is the main shopping centre. Local retail is strong in Odivelas-Vila and Pontinha.
+In retail, Odivelas Parque is the main shopping centre. Local retail is strong in Odivelas Vila and Pontinha.
 
 ---
 
 ## FAQ
 
 ### Is Odivelas good for families?
-Yes. Odivelas-Vila and Ramada have good schools and parks (Parque Urbano da Várzea, Parque dos Castanheiros). T3 rent between €1,000 and €1,250.
+Yes. Odivelas Vila and Ramada have good schools and parks (Parque Urbano da Várzea, Parque dos Castanheiros). T3 rent between €1,000 and €1,250.
 
 ### Is it worth living in Odivelas if I work in central Lisboa?
 Yes. It has the Yellow Line metro direct to Marquês, Saldanha and Rato. 20 minutes to the centre of Lisboa.
 
 ### Odivelas or Amadora: which is better?
-Amadora has more transport options (several metro and train stations). Odivelas has a more direct metro link to north-central Lisboa and is less densely populated.
+Amadora has more transport options (several metro and train stations). Odivelas has a more direct metro link to north central Lisboa and is less densely populated.
 
 ### When does the Violet Line open in Odivelas?
 Opening was scheduled for 2026, but the works are delayed due to issues with the Chinese subcontractor CRRC. New dates have not yet been confirmed.

@@ -115,6 +115,36 @@ export interface Database {
         }
         Relationships: []
       }
+      user_entitlements: {
+        Row: {
+          id: string
+          user_id: string
+          plan: 'dossier' | 'acompanhado'
+          status: 'active' | 'trialing' | 'past_due' | 'cancelled' | 'expired'
+          source: string
+          valid_until: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          plan: 'dossier' | 'acompanhado'
+          status?: 'active' | 'trialing' | 'past_due' | 'cancelled' | 'expired'
+          source?: string
+          valid_until?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          plan?: 'dossier' | 'acompanhado'
+          status?: 'active' | 'trialing' | 'past_due' | 'cancelled' | 'expired'
+          source?: string
+          valid_until?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       waitlist: {
         Row: {
           id: string
@@ -320,6 +350,10 @@ export interface Database {
     }
     Views: Record<string, never>
     Functions: {
+      has_active_paid_plan: {
+        Args: Record<string, never>
+        Returns: boolean
+      }
       start_conversation: {
         Args: { p_property_id: string }
         Returns: string

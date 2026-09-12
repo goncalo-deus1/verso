@@ -139,7 +139,7 @@ export function AlternativasStrip({ alternatives, isLoggedIn }: Props) {
           fontSize: '11px', color: STONE, marginTop: '16px',
           fontFamily: 'IBM Plex Mono, monospace', letterSpacing: '0.08em',
         }}>
-          T2 estimado: {alternatives[0].zone.budgetFitT2.min}–{alternatives[0].zone.budgetFitT2.max}€/mês — valores indicativos, sujeitos a actualização.
+          T2 estimado: {alternatives[0].zone.budgetFitT2.min} a {alternatives[0].zone.budgetFitT2.max}€/mês. Valores indicativos, sujeitos a actualização.
         </p>
       )}
     </section>

@@ -28,7 +28,7 @@ export function SectionHead({ number, label, title, lede, theme = 'paper' }: Pro
     <div className="grid md:grid-cols-[180px_1fr] gap-10 mb-16 md:mb-20 items-start">
       {/* Coluna esquerda: número + label */}
       <div className={`font-mono text-[11px] tracking-[0.15em] uppercase pt-3 border-t ${colors.num} ${colors.numBorder}`}>
-        § {number} — {label}
+        § {number} · {label}
       </div>
 
       {/* Coluna direita: título + lede */}

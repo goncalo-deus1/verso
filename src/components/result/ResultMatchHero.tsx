@@ -17,7 +17,7 @@ function zoneHref(z: ScoredZone) {
 }
 
 function trendLabel(t: string | null | undefined): string {
-  if (!t) return '—'
+  if (!t) return '·'
   return t === 'growing' ? '↑ Em subida' : t === 'declining' ? '↓ Em queda' : '→ Estável'
 }
 
@@ -154,7 +154,7 @@ export function ResultMatchHero({ best, freguesia, lowScoreWarning }: Props) {
         {/* Section head */}
         <div className="grid md:grid-cols-[180px_1fr] gap-10 mb-14 items-start">
           <div className="font-mono text-[11px] tracking-[0.15em] uppercase pt-3 border-t border-verso-paper/20 text-verso-clay">
-            § 03 — Resultado
+            § 03 · Resultado
           </div>
           <div>
             <h2 className="font-display font-normal text-4xl sm:text-5xl leading-[1.02] tracking-[-0.025em] text-verso-paper">
@@ -168,7 +168,7 @@ export function ResultMatchHero({ best, freguesia, lowScoreWarning }: Props) {
         {lowScoreWarning && (
           <div className="mb-10 px-5 py-4 border border-verso-clay/30 bg-verso-clay/10">
             <p className="font-mono text-[11px] tracking-[0.12em] uppercase text-verso-clay">
-              Nota editorial · As tuas respostas revelam um perfil muito específico. A recomendação abaixo é a mais próxima disponível — pode valer a pena rever as prioridades.
+              Nota editorial · As tuas respostas revelam um perfil muito específico. A recomendação abaixo é a mais próxima disponível. Pode valer a pena rever as prioridades.
             </p>
           </div>
         )}
@@ -252,7 +252,7 @@ export function ResultMatchHero({ best, freguesia, lowScoreWarning }: Props) {
                 label="T2 mediano"
                 value={stats?.medianT2RentEuros
                   ? `${stats.medianT2RentEuros.toLocaleString('pt-PT')} €/mês`
-                  : '—'}
+                  : '·'}
               />
             </div>
 

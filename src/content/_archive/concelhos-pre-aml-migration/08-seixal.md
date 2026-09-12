@@ -2,14 +2,14 @@
 title: "Viver no Seixal: guia completo do concelho (2026)"
 slug: concelho/seixal
 meta_description: "Tudo sobre viver no Seixal: renda T2, projeção a 3 anos, transportes para Lisboa, projetos urbanos, escolas e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-04-30
 canonical: https://www.usehabitta.com/concelho/seixal
 ---
 
 # Viver no Seixal: o que precisa de saber antes de escolher esta zona
 
-**Resumo rápido:** O Seixal é um dos concelhos com melhor relação qualidade-preço da AML. Tem 167 mil residentes e a renda mediana de um T2 fica entre 700 e 850 euros. Tem barco direto a Lisboa (Seixal-Cais do Sodré), Metro Sul do Tejo e Fertagus. Boa escolha para famílias jovens que querem mais espaço por menos dinheiro e tolerem 35 a 40 minutos para o centro de Lisboa. Menos indicada para quem trabalha na zona ocidental de Lisboa sem usar a Ponte 25 de Abril.
+**Resumo rápido:** O Seixal é um dos concelhos com melhor relação qualidade-preço da AML. Tem 167 mil residentes e a renda mediana de um T2 fica entre 700 e 850 euros. Tem barco direto a Lisboa (Seixal Cais do Sodré), Metro Sul do Tejo e Fertagus. Boa escolha para famílias jovens que querem mais espaço por menos dinheiro e tolerem 35 a 40 minutos para o centro de Lisboa. Menos indicada para quem trabalha na zona ocidental de Lisboa sem usar a Ponte 25 de Abril.
 
 *Atualizado a 30 de abril de 2026.*
 
@@ -17,7 +17,7 @@ canonical: https://www.usehabitta.com/concelho/seixal
 
 ## Vale a pena viver no Seixal?
 
-O Seixal foi um dos concelhos com maior crescimento populacional da AML na última década (+5,3% entre 2011 e 2021), sinal de que a relação custo-benefício é boa. As freguesias mais procuradas são Corroios (com Metro Sul do Tejo e Fertagus), Amora e Seixal-Vila (com barco). A Aldeia de Paio Pires e Fernão Ferro têm perfil mais rural e oferta de moradias com terreno.
+O Seixal foi um dos concelhos com maior crescimento populacional da AML na última década (+5,3% entre 2011 e 2021), sinal de que a relação custo benefício é boa. As freguesias mais procuradas são Corroios (com Metro Sul do Tejo e Fertagus), Amora e Seixal Vila (com barco). A Aldeia de Paio Pires e Fernão Ferro têm perfil mais rural e oferta de moradias com terreno.
 
 A combinação de barco, metro, comboio e proximidade a praias da Caparica torna o Seixal versátil. A pressão tem vindo a aumentar nos últimos anos.
 
@@ -39,7 +39,7 @@ A população cresce sobretudo em Corroios e Fernão Ferro. Aldeia de Paio Pires
 
 ## Quem mora no Seixal? Perfil de morador
 
-O Seixal tem perfil de classe média trabalhadora, com forte tradição operária industrial. A população é maioritariamente portuguesa, com presença significativa de comunidades cabo-verdiana e brasileira em Corroios e Amora.
+O Seixal tem perfil de classe média trabalhadora, com forte tradição operária industrial. A população é maioritariamente portuguesa, com presença significativa de comunidades cabo verdiana e brasileira em Corroios e Amora.
 
 Famílias jovens procuram o Seixal pelos preços mais acessíveis e pela combinação de bons transportes com qualidade de vida ribeirinha. A imagem turística da Baía do Seixal e dos moinhos de maré tem vindo a atrair também classe média criativa de Lisboa.
 
@@ -47,17 +47,17 @@ Famílias jovens procuram o Seixal pelos preços mais acessíveis e pela combina
 
 O Seixal tem três opções principais para Lisboa:
 
-**Barco (Seixal-Cais do Sodré).** Cerca de 25 minutos de travessia, frequência de 30 minutos.
+**Barco (Seixal Cais do Sodré).** Cerca de 25 minutos de travessia, frequência de 30 minutos.
 
-**Metro Sul do Tejo + Fertagus.** O Metro Sul do Tejo passa por Corroios, com correspondência ao Fertagus para Lisboa (Pragal-Roma-Areeiro-Sete Rios-Entrecampos).
+**Metro Sul do Tejo + Fertagus.** O Metro Sul do Tejo passa por Corroios, com correspondência ao Fertagus para Lisboa (Pragal Roma Areeiro Sete Rios Entrecampos).
 
 **Carro pela Ponte 25 de Abril ou Ponte Vasco da Gama.** A Ponte 25 de Abril dá acesso à zona ocidental e centro de Lisboa. A Ponte Vasco da Gama dá acesso ao Parque das Nações.
 
-A futura Terceira Travessia do Tejo (TTT), anunciada em 2024, vai ligar Lisboa-Chelas a Barreiro com componente rodoviária e ferroviária. O impacto direto no Seixal é menor do que para Almada e Barreiro, mas pode aliviar pressão geral.
+A futura Terceira Travessia do Tejo (TTT), anunciada em 2024, vai ligar Lisboa Chelas a Barreiro com componente rodoviária e ferroviária. O impacto direto no Seixal é menor do que para Almada e Barreiro, mas pode aliviar pressão geral.
 
 ## Projetos urbanos previstos no concelho
 
-**Arco Ribeirinho Sul / Parque Cidades do Tejo.** O Decreto-Lei de setembro de 2025 transferiu a tutela dos antigos projetos do Arco Ribeirinho Sul (que abrange Almada, Barreiro e Seixal) para a nova entidade Parque Cidades do Tejo, S.A. Há terrenos a desenvolver na zona ribeirinha do Seixal.
+**Arco Ribeirinho Sul / Parque Cidades do Tejo.** O Decreto Lei de setembro de 2025 transferiu a tutela dos antigos projetos do Arco Ribeirinho Sul (que abrange Almada, Barreiro e Seixal) para a nova entidade Parque Cidades do Tejo, S.A. Há terrenos a desenvolver na zona ribeirinha do Seixal.
 
 **Habitação pública.** Não há números oficiais públicos disponíveis sobre famílias em lista de espera para o Seixal (o município não respondeu ao levantamento da Lusa em julho de 2025), mas há projetos PRR em execução.
 
@@ -81,7 +81,7 @@ Em comércio, o Riosul Shopping (Seixal) é o principal centro comercial. O com�
 Muito. Corroios, Amora e Aldeia de Paio Pires têm boas escolas, parques e ambiente residencial calmo. Renda T3 entre 850 e 1.050 euros.
 
 ### Vale a pena viver no Seixal se trabalho em Lisboa centro?
-Sim, se gosta de barco. De Seixal-Vila ao Cais do Sodré são 25 minutos de barco. De Corroios à Roma-Areeiro são cerca de 30 minutos por metro mais comboio.
+Sim, se gosta de barco. De Seixal Vila ao Cais do Sodré são 25 minutos de barco. De Corroios à Roma Areeiro são cerca de 30 minutos por metro mais comboio.
 
 ### Seixal ou Almada: qual é melhor?
 Almada tem barco mais rápido (Cacilhas é mais perto), Almada Forum e proximidade direta à Costa da Caparica. O Seixal é mais barato, tem mais espaço e ambiente menos urbano. Para famílias jovens com orçamento, Seixal. Para mais movimento e proximidade a Lisboa, Almada.

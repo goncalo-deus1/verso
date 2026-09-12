@@ -1,5 +1,4 @@
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-// Note: motion is still used for motion.div, motion.h1, etc. — only motion.span was removed
 import { useEffect, useState } from 'react'
 import { useQuiz } from '../../context/QuizContext'
 import { useLang } from '../../context/LanguageContext'
@@ -12,14 +11,9 @@ const ease = [0.22, 1, 0.36, 1] as const
 const CHAR_DELAY = 55   // ms between characters
 
 function TypewriterText({ reduce, text }: { reduce: boolean | null; text: string }) {
-  const [displayed, setDisplayed] = useState(reduce ? text : '')
-  const [done, setDone] = useState(!!reduce)
-
-  // Reset quando o texto muda (mudança de idioma) para a animação re-correr.
-  useEffect(() => {
-    setDisplayed(reduce ? text : '')
-    setDone(!!reduce)
-  }, [text, reduce])
+  const [displayed, setDisplayed] = useState('')
+  const visibleText = reduce ? text : displayed
+  const done = reduce || displayed.length >= text.length
 
   useEffect(() => {
     if (reduce) return
@@ -27,17 +21,14 @@ function TypewriterText({ reduce, text }: { reduce: boolean | null; text: string
     const interval = setInterval(() => {
       i++
       setDisplayed(text.slice(0, i))
-      if (i >= text.length) {
-        clearInterval(interval)
-        setDone(true)
-      }
+      if (i >= text.length) clearInterval(interval)
     }, CHAR_DELAY)
     return () => clearInterval(interval)
   }, [reduce, text])
 
   return (
     <>
-      {displayed}
+      {visibleText}
       {!done && (
         <span
           aria-hidden
@@ -75,9 +66,6 @@ export function HeroEnsaio() {
       className="relative overflow-hidden"
       style={{
         background: '#F2EDE4',
-        backgroundImage:
-          'linear-gradient(rgba(30, 31, 24,0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 31, 24,0.028) 1px, transparent 1px)',
-        backgroundSize: '80px 80px',
         minHeight: '100vh',
       }}
     >
@@ -101,7 +89,7 @@ export function HeroEnsaio() {
               {tr('home.hero.title1')} <br />
               {tr('home.hero.title2')}{' '}
               <em className="italic text-verso-clay font-normal">
-                <TypewriterText reduce={reduce} text={tr('home.hero.typewriter')} />
+                <TypewriterText key={`${lang}-${tr('home.hero.typewriter')}`} reduce={reduce} text={tr('home.hero.typewriter')} />
               </em>
               <span className="text-verso-clay">.</span>
             </motion.h1>
@@ -118,7 +106,7 @@ export function HeroEnsaio() {
             <motion.div variants={item}>
               <button
                 onClick={() => { trackEvent('cta_clicked', { location: 'hero' }); openQuiz('hero') }}
-                className="group inline-flex items-center gap-3.5 bg-verso-midnight text-verso-paper px-7 py-[18px] text-[13px] tracking-[0.14em] uppercase font-medium transition-all duration-300 hover:bg-verso-clay hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#1E1F18] font-mono"
+                className="group inline-flex items-center gap-3.5 rounded-full bg-verso-midnight text-verso-paper px-7 py-[18px] text-[13px] tracking-[0.14em] uppercase font-medium transition-all duration-300 hover:bg-verso-clay hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_#1E1F18] font-mono"
               >
                 {tr('home.hero.cta')}
                 <svg

@@ -22,10 +22,24 @@ const POSTS_PT  = join(ROOT, 'src', 'content', 'posts', 'pt')
 const BASE_URL  = 'https://www.usehabitta.com'
 const NOW       = new Date().toISOString().split('T')[0]
 
+const pathLabels = {
+  'aml-nao-e-lisboa': 'A AML nao e Lisboa',
+  setubal: 'Setúbal',
+  'vila-franca-de-xira': 'Vila Franca de Xira',
+}
+
 function toIsoDate(value) {
   if (!value) return NOW
   if (value instanceof Date) return value.toISOString().split('T')[0]
   return String(value).split('T')[0]
+}
+
+function titleFromSlug(slug) {
+  if (pathLabels[slug]) return pathLabels[slug]
+  return String(slug)
+    .split('-')
+    .map(part => part ? part[0].toUpperCase() + part.slice(1) : part)
+    .join(' ')
 }
 
 // ─── Static routes ────────────────────────────────────────────────────────────
@@ -34,6 +48,10 @@ const staticRoutes = [
   { url: '/',       changefreq: 'weekly',  priority: '1.0', lastmod: NOW },
   { url: '/quiz',   changefreq: 'monthly', priority: '0.9', lastmod: NOW },
   { url: '/blog',   changefreq: 'weekly',  priority: '0.8', lastmod: NOW },
+  { url: '/blog/guia-do-comprador', changefreq: 'monthly', priority: '0.9', lastmod: '2026-05-26' },
+  { url: '/ferramentas', changefreq: 'monthly', priority: '0.8', lastmod: NOW },
+  { url: '/ferramentas/calculadora-credito-habitacao', changefreq: 'monthly', priority: '0.8', lastmod: '2026-05-26' },
+  { url: '/ferramentas/calculadora-entrada-necessaria', changefreq: 'monthly', priority: '0.8', lastmod: NOW },
   { url: '/areas',  changefreq: 'monthly', priority: '0.7', lastmod: NOW },
   { url: '/sobre',  changefreq: 'yearly',  priority: '0.4', lastmod: NOW },
 ]
@@ -166,7 +184,60 @@ Sitemap: ${BASE_URL}/sitemap.xml
   console.log('[sitemap] Generated → dist/robots.txt')
 }
 
+async function buildLlmsTxt() {
+  const posts = readBlogPosts(POSTS_PT)
+  const manifest = await readManifest()
+  const concelhoSlugs = await readConcelhoSlugs()
+
+  const postLines = posts
+    .sort((a, b) => String(b.publishedAt).localeCompare(String(a.publishedAt)))
+    .map(post => `- [${post.title}](${BASE_URL}/blog/${post.slug}): ${post.description}`)
+
+  const concelhoLines = concelhoSlugs
+    .map(slug => `- [${titleFromSlug(slug)}](${BASE_URL}/aml/${slug}): Concelho hub with buyer-fit context, area tradeoffs and local real estate signals.`)
+
+  const guideLines = manifest
+    .filter(entry => entry.type === 'pillar')
+    .map(entry => {
+      const slug = entry.path.split('/').filter(Boolean).at(-1)
+      return `- [${titleFromSlug(slug)}](${BASE_URL}${entry.path}): Long-form guide for choosing where to live in the Lisbon Metropolitan Area.`
+    })
+
+  const content = `# habitta
+
+> Editorial real estate discovery for the Lisbon Metropolitan Area.
+> Pick the zone before the house. Data-driven, sourced, opinionated.
+
+## Core
+- [Início](${BASE_URL}/): The 2-minute zone quiz and main entry point for buyers.
+- [Quiz](${BASE_URL}/quiz): Preference quiz for matching a buyer profile to AML zones.
+- [Sobre](${BASE_URL}/sobre): Methodology behind habitta's recommendations.
+
+## Tools
+- [Ferramentas](${BASE_URL}/ferramentas): Home for buyer calculators.
+- [Calculadora de credito habitacao](${BASE_URL}/ferramentas/calculadora-credito-habitacao): Monthly mortgage payment estimator for Portugal.
+- [Calculadora de entrada necessaria](${BASE_URL}/ferramentas/calculadora-entrada-necessaria): Upfront cash and savings estimator for buying in Portugal.
+
+## Guias
+${guideLines.length ? guideLines.join('\n') : '- Guides are added as they ship under /guias/:slug.'}
+
+## AML
+${concelhoLines.length ? concelhoLines.join('\n') : '- AML concelho hubs ship under /aml/:concelho.'}
+
+## Blog
+${postLines.length ? postLines.join('\n') : '- Published editorial posts ship under /blog/:slug.'}
+
+## Machine-readable files
+- [Sitemap](${BASE_URL}/sitemap.xml): Canonical crawl map.
+- [Robots](${BASE_URL}/robots.txt): Crawl permissions, including explicit AI crawler allow rules.
+`
+
+  writeFileSync(join(DIST, 'llms.txt'), content, 'utf-8')
+  console.log('[sitemap] Generated → dist/llms.txt')
+}
+
 // ─── Run ──────────────────────────────────────────────────────────────────────
 
 await buildSitemap()
 buildRobots()
+await buildLlmsTxt()

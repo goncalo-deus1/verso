@@ -47,7 +47,14 @@ export default function AuthPage() {
   const [marketingConsent, setMarketingConsent] = useState(false)
 
   const redirectParam = params.get('redirect')
-  const from = redirectParam ?? (location.state as { from?: { pathname: string } })?.from?.pathname ?? '/'
+  const stateFrom = (location.state as { from?: string | { pathname: string; search?: string } } | null)?.from
+  const from = redirectParam ?? (
+    typeof stateFrom === 'string'
+      ? stateFrom
+      : stateFrom
+        ? `${stateFrom.pathname}${stateFrom.search ?? ''}`
+        : '/'
+  )
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm(p => ({ ...p, [e.target.name]: e.target.value }))

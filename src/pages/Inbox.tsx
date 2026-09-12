@@ -123,7 +123,7 @@ export default function Inbox() {
 
     load()
     return () => { cancelled = true }
-  }, [user, authLoading])
+  }, [user, authLoading, tr])
 
   if (authLoading || loading) {
     return (

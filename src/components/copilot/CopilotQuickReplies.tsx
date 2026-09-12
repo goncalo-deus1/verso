@@ -71,7 +71,7 @@ export function CopilotQuickReplies({
             }}
           >
             {selected.length > 0
-              ? `Confirmar — ${selected.length} seleccionado${selected.length > 1 ? 's' : ''}`
+              ? `Confirmar · ${selected.length} seleccionado${selected.length > 1 ? 's' : ''}`
               : 'Selecciona pelo menos 1'}
           </button>
         </div>

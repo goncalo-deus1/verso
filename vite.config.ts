@@ -29,6 +29,11 @@ export default defineConfig({
   build: {
     // Raise the warning threshold — 500 KB is a reasonable ceiling for a SPA
     chunkSizeWarningLimit: 500,
+    modulePreload: {
+      resolveDependencies(_url, deps) {
+        return deps.filter(dep => !dep.includes('blog-content'))
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {

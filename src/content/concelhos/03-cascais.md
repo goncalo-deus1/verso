@@ -2,7 +2,7 @@
 title: "Viver em Cascais: guia completo do concelho (2026)"
 slug: aml/cascais
 meta_description: "Tudo sobre viver em Cascais: renda T2, projeção a 3 anos, escolas internacionais, transportes, perfil de morador e projetos urbanos previstos."
-language: pt-PT
+language: pt PT
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/cascais
 ---
@@ -19,7 +19,7 @@ canonical: https://www.usehabitta.com/aml/cascais
 
 Cascais oferece praia, qualidade de vida, escolas internacionais e um ecossistema empresarial em crescimento. Em troca, o custo de vida é o mais alto da AML e o trânsito da A5 e da Marginal em hora de ponta é difícil de evitar. Para quem está disposto a pagar o prémio (e a usar o comboio quando possível), Cascais é a melhor opção da margem norte para qualidade de vida.
 
-Carcavelos, Estoril e Cascais-Vila são as zonas mais procuradas. Alcabideche, São Domingos de Rana e Tires são alternativas com mais espaço por menos dinheiro.
+Carcavelos, Estoril e Cascais Vila são as zonas mais procuradas. Alcabideche, São Domingos de Rana e Tires são alternativas com mais espaço por menos dinheiro.
 
 ## Quanto custa arrendar um T2 em Cascais em 2026?
 
@@ -27,7 +27,7 @@ A renda mediana por metro quadrado em Cascais é 15,31 euros, segundo o INE (4T 
 
 Os valores anunciados online são significativamente mais altos. O Barómetro do Imovirtual de janeiro de 2026 registou uma renda média anunciada de 2.500 euros para Cascais, com subida homóloga de 13,6%. A diferença entre valor anunciado e valor contratado é típica de mercados com forte procura internacional, onde alguns proprietários listam casas em Estoril, Quinta da Marinha e Birre a valores muito acima da mediana.
 
-As zonas mais caras são Quinta da Marinha, Birre, Estoril, Monte Estoril e Cascais-Vila. As mais acessíveis são São Domingos de Rana, Tires, Trajouce e zonas interiores de Alcabideche.
+As zonas mais caras são Quinta da Marinha, Birre, Estoril, Monte Estoril e Cascais Vila. As mais acessíveis são São Domingos de Rana, Tires, Trajouce e zonas interiores de Alcabideche.
 
 ### Projeção da renda T2 a 3 anos (2026 a 2029)
 
@@ -37,7 +37,7 @@ Cascais é um dos mercados onde a Confidencial Imobiliário identifica maior ris
 
 Cascais tinha 214.134 residentes nos Censos 2021, mais 3,7% do que em 2011. A área é de 97,40 km², o que dá uma densidade de cerca de 2.198 habitantes por km².
 
-A população cresce sobretudo na zona oriental do concelho (São Domingos de Rana, Tires, Carcavelos), enquanto Cascais-Vila e Estoril mantêm densidade estável.
+A população cresce sobretudo na zona oriental do concelho (São Domingos de Rana, Tires, Carcavelos), enquanto Cascais Vila e Estoril mantêm densidade estável.
 
 ## Quem mora em Cascais? Perfil de morador
 
@@ -47,11 +47,11 @@ Famílias portuguesas estabelecidas, profissionais liberais, executivos e comuni
 
 ## Transportes e ligação ao centro de Lisboa
 
-A linha de comboio Cascais-Cais do Sodré é o eixo principal. Da estação de Cascais ao Cais do Sodré são cerca de 40 minutos. De Carcavelos ao Cais do Sodré, 25 minutos. A frequência é de 20 minutos em hora de ponta.
+A linha de comboio Cascais Cais do Sodré é o eixo principal. Da estação de Cascais ao Cais do Sodré são cerca de 40 minutos. De Carcavelos ao Cais do Sodré, 25 minutos. A frequência é de 20 minutos em hora de ponta.
 
-De carro, a A5 (Lisboa-Cascais) é a ligação rápida mas tem trânsito intenso entre as 8h e as 9h30 e entre as 18h e as 19h30. A Marginal (estrada N6) é mais cénica mas igualmente congestionada.
+De carro, a A5 (Lisboa Cascais) é a ligação rápida mas tem trânsito intenso entre as 8h e as 9h30 e entre as 18h e as 19h30. A Marginal (estrada N6) é mais cénica mas igualmente congestionada.
 
-**LIOS Ocidental** — `Em estudo`
+**LIOS Ocidental**, `Em estudo`
 Metro ligeiro de superfície entre Oeiras e Alcântara. Quando concluído, poderá beneficiar indiretamente as ligações de Cascais à zona ocidental de Lisboa.
 
 ## Projetos urbanos previstos no concelho
@@ -62,13 +62,13 @@ A autarquia tem identificado solo para nova oferta habitacional, sobretudo em Al
 
 A revitalização da frente ribeirinha continua, com investimentos em equipamentos públicos e desportivos.
 
-Continuam expansões e melhorias do Hospital de Cascais, considerado um dos melhores hospitais públicos do país em parceria público-privada.
+Continuam expansões e melhorias do Hospital de Cascais, considerado um dos melhores hospitais públicos do país em parceria público privada.
 
 ## Escolas, saúde e comércio
 
-Cascais tem a maior concentração de escolas internacionais de Portugal. St. Julian's School (Carcavelos), St. Dominic's International School (São Domingos de Rana), Salesianos do Estoril, Colégio Marista de Carcavelos (Parede) e Externato Nossa Senhora do Rosário são algumas das principais. As escolas públicas têm reputação acima da média nacional, especialmente as de Carcavelos, Estoril e Cascais-Vila.
+Cascais tem a maior concentração de escolas internacionais de Portugal. St. Julian's School (Carcavelos), St. Dominic's International School (São Domingos de Rana), Salesianos do Estoril, Colégio Marista de Carcavelos (Parede) e Externato Nossa Senhora do Rosário são algumas das principais. As escolas públicas têm reputação acima da média nacional, especialmente as de Carcavelos, Estoril e Cascais Vila.
 
-Em saúde, o Hospital de Cascais (gestão público-privada via Ribera Salud, concessão iniciada em 2023, substituiu Lusíadas) é a referência. O Hospital da Luz Oeiras e o CUF Cascais complementam a oferta privada.
+Em saúde, o Hospital de Cascais (gestão público privada via Ribera Salud, concessão iniciada em 2023, substituiu Lusíadas) é a referência. O Hospital da Luz Oeiras e o CUF Cascais complementam a oferta privada.
 
 Em comércio, o CascaiShopping é o maior centro da zona ocidental. O centro de Cascais e o Estoril têm comércio tradicional ainda vivo. Carcavelos tem o Mercado de Carcavelos como ponto de referência local.
 
@@ -80,7 +80,7 @@ Em comércio, o CascaiShopping é o maior centro da zona ocidental. O centro de 
 É a melhor zona da AML para famílias que querem escolas internacionais e proximidade a praia. As rendas T3 começam nos 1.500 euros e podem facilmente chegar aos 3.000 ou mais em zonas premium.
 
 ### Vale a pena viver em Cascais sem trabalhar perto?
-Faz mais sentido para quem trabalha em remoto ou em regime híbrido. Para quem tem de ir todos os dias a Lisboa-Saldanha ou Lisboa-Marquês, o tempo total de deslocação ronda 1h15 a 1h30 ida e volta em hora de ponta.
+Faz mais sentido para quem trabalha em remoto ou em regime híbrido. Para quem tem de ir todos os dias a Lisboa Saldanha ou Lisboa Marquês, o tempo total de deslocação ronda 1h15 a 1h30 ida e volta em hora de ponta.
 
 ### Quais são as zonas mais baratas de Cascais?
 Tires, Trajouce, parte de Alcabideche e zonas interiores de São Domingos de Rana mantêm rendas T2 entre 900 e 1.100 euros. Mais distantes da praia e da estação de comboio.

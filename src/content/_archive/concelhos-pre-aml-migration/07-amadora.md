@@ -2,7 +2,7 @@
 title: "Viver na Amadora: guia completo do concelho (2026)"
 slug: concelho/amadora
 meta_description: "Tudo sobre viver na Amadora: renda T2, projeção a 3 anos, transportes, escolas, saúde, comércio e perfil de morador no concelho mais denso da AML."
-language: pt-PT
+language: pt PT
 last_updated: 2026-04-30
 canonical: https://www.usehabitta.com/concelho/amadora
 ---
@@ -25,7 +25,7 @@ Em troca, a Amadora é densa, urbana e com pouco espaço verde. Não há praia, 
 
 A renda mediana por metro quadrado na Amadora é 12,61 euros, segundo o INE (4T 2024), com uma subida homóloga de 10,4%. Para um T2 de 80 metros quadrados, a renda fica entre 950 e 1.100 euros mensais. É um dos concelhos onde a renda mais subiu nos últimos anos.
 
-As zonas mais caras são Alfragide (junto ao Alegro Alfragide e à fronteira com Lisboa-Benfica) e Reboleira (com metro). As mais acessíveis são Damaia, Buraca e Venteira.
+As zonas mais caras são Alfragide (junto ao Alegro Alfragide e à fronteira com Lisboa Benfica) e Reboleira (com metro). As mais acessíveis são Damaia, Buraca e Venteira.
 
 ### Projeção da renda T2 a 3 anos (2026 a 2029)
 
@@ -39,15 +39,15 @@ A perda populacional contradiz a pressão habitacional, sinal de que muitos apar
 
 ## Quem mora na Amadora? Perfil de morador
 
-A Amadora tem perfil socialmente diverso. Comunidades cabo-verdiana, são-tomense, brasileira, ucraniana e indiana têm forte presença. A classe média portuguesa concentra-se em Alfragide, Reboleira e Mina de Água. A comunidade jovem profissional tem crescido em Mina de Água e Alfragide com a entrada de novos empreendimentos privados.
+A Amadora tem perfil socialmente diverso. Comunidades cabo verdiana, são tomense, brasileira, ucraniana e indiana têm forte presença. A classe média portuguesa concentra-se em Alfragide, Reboleira e Mina de Água. A comunidade jovem profissional tem crescido em Mina de Água e Alfragide com a entrada de novos empreendimentos privados.
 
 A Câmara Municipal reconhece 711 famílias em núcleos precários para realojamento, em paralelo com mais de 1.200 famílias em lista de espera por habitação municipal.
 
 ## Transportes e ligação ao centro de Lisboa
 
-A Amadora tem a melhor cobertura de transportes públicos da AML em proporção da sua área. Quatro estações de metro (Linha Azul: Amadora Este, Reboleira, Pontinha e Alfornelos), várias estações de comboio (Amadora, Damaia, Reboleira, Santa Cruz-Damaia) e múltiplas linhas de autocarro Carris e Vimeca.
+A Amadora tem a melhor cobertura de transportes públicos da AML em proporção da sua área. Quatro estações de metro (Linha Azul: Amadora Este, Reboleira, Pontinha e Alfornelos), várias estações de comboio (Amadora, Damaia, Reboleira, Santa Cruz Damaia) e múltiplas linhas de autocarro Carris e Vimeca.
 
-Da Amadora ao Marquês de Pombal são 15 a 20 minutos por metro. Da Amadora ao Rossio são 12 minutos por comboio. É possivelmente a melhor relação tempo-Lisboa-preço de toda a AML.
+Da Amadora ao Marquês de Pombal são 15 a 20 minutos por metro. Da Amadora ao Rossio são 12 minutos por comboio. É possivelmente a melhor relação tempo Lisboa preço de toda a AML.
 
 De carro, a A37 (Radial de Sintra), a IC19 e a 2ª Circular dão acesso a Lisboa, com trânsito intenso em hora de ponta.
 
@@ -59,13 +59,13 @@ De carro, a A37 (Radial de Sintra), a IC19 e a 2ª Circular dão acesso a Lisboa
 
 **Empreendimentos privados.** Há vários novos empreendimentos em comercialização, sobretudo em Mina de Água e Alfragide. T2 a partir de 280 mil euros nas zonas mais acessíveis.
 
-**LIOS Ocidental.** A futura linha de metro ligeiro Oeiras-Alcântara passa próximo da fronteira sul da Amadora, podendo criar opções complementares de transporte.
+**LIOS Ocidental.** A futura linha de metro ligeiro Oeiras Alcântara passa próximo da fronteira sul da Amadora, podendo criar opções complementares de transporte.
 
 ## Escolas, saúde e comércio
 
 Em ensino, a Amadora tem boa cobertura de escolas públicas básicas e secundárias. Não tem ensino universitário próprio, mas a proximidade a Lisboa permite acesso fácil às universidades da capital.
 
-Em saúde, o Hospital Professor Doutor Fernando Fonseca (Amadora-Sintra) é a referência pública e serve também o concelho de Sintra. A oferta privada é limitada, com clínicas privadas mais pequenas e alguns hospitais privados na proximidade (CUF Tejo, Lusíadas Lisboa).
+Em saúde, o Hospital Professor Doutor Fernando Fonseca (Amadora Sintra) é a referência pública e serve também o concelho de Sintra. A oferta privada é limitada, com clínicas privadas mais pequenas e alguns hospitais privados na proximidade (CUF Tejo, Lusíadas Lisboa).
 
 Em comércio, o Alegro Alfragide é o principal centro comercial. O comércio de proximidade é forte em todas as freguesias, com mercados municipais ativos e ruas comerciais tradicionais em Damaia, Venteira e Mina de Água.
 
@@ -77,7 +77,7 @@ Em comércio, o Alegro Alfragide é o principal centro comercial. O comércio de
 As zonas de Alfragide e Mina de Água são as mais procuradas por famílias. Têm boa oferta escolar, parques (Parque Aventura Amadora) e proximidade a comércio. Renda T3 entre 1.100 e 1.400 euros.
 
 ### Vale a pena viver na Amadora se trabalho em Lisboa centro?
-Sim. É possivelmente a melhor relação proximidade-preço da AML. Entre 12 a 20 minutos para o centro de Lisboa por metro ou comboio.
+Sim. É possivelmente a melhor relação proximidade preço da AML. Entre 12 a 20 minutos para o centro de Lisboa por metro ou comboio.
 
 ### Amadora ou Odivelas: qual é melhor?
 A Amadora tem mais opções de transporte (mais estações de metro e comboio). Odivelas é mais residencial e tem ligeiramente mais espaço. Para perfil estritamente urbano e profissional, Amadora.

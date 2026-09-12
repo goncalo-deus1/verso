@@ -17,7 +17,7 @@ async function sendFeedback(rating: number, message: string) {
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
         access_key: key,
-        subject: `[habitta] Feedback do quiz — ${rating} estrela${rating !== 1 ? 's' : ''}`,
+        subject: `[habitta] Feedback do quiz · ${rating} estrela${rating !== 1 ? 's' : ''}`,
         from_name: 'habitta feedback',
         replyto: 'usehabitta@gmail.com',
         message: message || '(sem comentário)',

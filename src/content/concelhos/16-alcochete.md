@@ -2,7 +2,7 @@
 title: "Viver em Alcochete: guia completo do concelho (2026)"
 slug: aml/alcochete
 meta_description: "Tudo sobre viver em Alcochete: renda T2, projeção a 3 anos, novo aeroporto Luís de Camões, transportes, escolas e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/alcochete
 ---
@@ -23,7 +23,7 @@ A grande questão dos próximos 10 a 15 anos é o impacto do novo aeroporto. As 
 
 ## Quanto custa arrendar um T2 em Alcochete em 2026?
 
-A renda mediana de um T2 em Alcochete fica entre 750 e 900 euros mensais. As zonas mais caras são Alcochete-Vila e a frente ribeirinha. As mais acessíveis são São Francisco e Samouco.
+A renda mediana de um T2 em Alcochete fica entre 750 e 900 euros mensais. As zonas mais caras são Alcochete Vila e a frente ribeirinha. As mais acessíveis são São Francisco e Samouco.
 
 ### Projeção da renda T2 a 3 anos (2026 a 2029)
 
@@ -33,7 +33,7 @@ Cenário base: subida acumulada entre 18% e 30%, levando a renda mediana de um T
 
 Alcochete tinha 19.148 residentes nos Censos 2021, mais 9% do que em 2011, um dos maiores crescimentos da AML em termos relativos. A área é de 128,36 km², com densidade de 149 habitantes por km², a mais baixa da Grande Lisboa e Setúbal Sul depois de Mafra.
 
-A população cresce sobretudo em Alcochete-Vila e em São Francisco.
+A população cresce sobretudo em Alcochete Vila e em São Francisco.
 
 ## Quem mora em Alcochete? Perfil de morador
 
@@ -51,15 +51,15 @@ Os autocarros TST asseguram ligações regulares a Lisboa (Sete Rios, Cais do So
 
 Sem comboio nem barco direto: a ligação fluvial mais próxima é o ferry do Montijo. A ligação ferroviária mais próxima é o Pinhal Novo (Palmela).
 
-A Terceira Travessia do Tejo, anunciada em 2024 com o aeroporto, vai ligar Lisboa-Chelas ao Barreiro. O impacto indireto em Alcochete é positivo, sobretudo se houver melhorias nas acessibilidades complementares.
+A Terceira Travessia do Tejo, anunciada em 2024 com o aeroporto, vai ligar Lisboa Chelas ao Barreiro. O impacto indireto em Alcochete é positivo, sobretudo se houver melhorias nas acessibilidades complementares.
 
 ## Projetos urbanos previstos no concelho
 
-**Aeroporto Luís de Camões** — `Anunciado`
-A ser construído no Campo de Tiro de Alcochete, com área de cerca de 2.500 hectares e capacidade para 45 milhões de passageiros. Conclusão prevista para 2034-2037, com investimento de cerca de 9 mil milhões de euros. O atual aeroporto Humberto Delgado em Lisboa será encerrado.
+**Aeroporto Luís de Camões**, `Anunciado`
+A ser construído no Campo de Tiro de Alcochete, com área de cerca de 2.500 hectares e capacidade para 45 milhões de passageiros. Conclusão prevista para 2034 2037, com investimento de cerca de 9 mil milhões de euros. O atual aeroporto Humberto Delgado em Lisboa será encerrado.
 
-**Parque Cidades do Tejo (terrenos remanescentes)** — `Anunciado`
-Os terrenos do Campo de Tiro não ocupados pelo aeroporto ficam sob tutela da Parque Cidades do Tejo, S.A. (Decreto-Lei de setembro de 2025), a desenvolver com habitação e equipamentos.
+**Parque Cidades do Tejo (terrenos remanescentes)**, `Anunciado`
+Os terrenos do Campo de Tiro não ocupados pelo aeroporto ficam sob tutela da Parque Cidades do Tejo, S.A. (Decreto Lei de setembro de 2025), a desenvolver com habitação e equipamentos.
 
 As medidas preventivas no raio de 15 km estão em vigor desde fevereiro de 2026, com 71 mil hectares abrangidos. Todas as operações urbanísticas novas em parte do território estão sujeitas a verificação prévia da ANAC.
 
@@ -69,23 +69,23 @@ O Freeport Outlet, em São Francisco, mantém-se como um dos maiores destinos co
 
 ## Escolas, saúde e comércio
 
-Em ensino, há boa cobertura pública. As escolas privadas estão sobretudo em Alcochete-Vila. O ensino superior está em Lisboa.
+Em ensino, há boa cobertura pública. As escolas privadas estão sobretudo em Alcochete Vila. O ensino superior está em Lisboa.
 
-Em saúde, o Hospital do Barreiro-Montijo é a referência pública. Os centros de saúde cobrem o essencial.
+Em saúde, o Hospital do Barreiro Montijo é a referência pública. Os centros de saúde cobrem o essencial.
 
-Em comércio, o Freeport Outlet é o principal centro. O comércio tradicional é forte em Alcochete-Vila.
+Em comércio, o Freeport Outlet é o principal centro. O comércio tradicional é forte em Alcochete Vila.
 
 ---
 
 ## Perguntas frequentes
 
 ### Alcochete é bom para famílias?
-Sim. Alcochete-Vila e São Francisco têm boas escolas, parques e ambiente residencial tranquilo. Renda T3 entre 900 e 1.100 euros.
+Sim. Alcochete Vila e São Francisco têm boas escolas, parques e ambiente residencial tranquilo. Renda T3 entre 900 e 1.100 euros.
 
 ### Vale a pena comprar casa em Alcochete antes do aeroporto?
 Para horizontes longos (10 a 15 anos), faz sentido. O potencial de valorização é alto pelo aeroporto e pela TTT. O risco é a alteração urbanística e o ruído associado ao aeroporto após 2034.
 
-### O ruído do aeroporto vai afetar Alcochete-Vila?
+### O ruído do aeroporto vai afetar Alcochete Vila?
 A vila está fora do polígono de implantação do aeroporto (que é no Campo de Tiro, mais a norte). O impacto sonoro depende das rotas finais de aproximação e descolagem. Há simulações ambientais em curso.
 
 ### Quais são as zonas mais baratas de Alcochete?

@@ -30,6 +30,20 @@
     <meta name="twitter:image" content="https://www.usehabitta.com/og-image.png">
     <meta name="twitter:image:alt" content="habitta — A zona certa antes da casa certa">
 
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":["Organization","LocalBusiness","ProfessionalService"],"@id":"https://www.usehabitta.com/#organization","name":"habitta","legalName":"habitta","url":"https://www.usehabitta.com","logo":"https://www.usehabitta.com/favicon.svg","image":"https://www.usehabitta.com/og-image.png","description":"Ferramenta editorial e de decisao para escolher zonas onde viver na Area Metropolitana de Lisboa antes de procurar casa.","areaServed":{"@type":"AdministrativeArea","name":"Area Metropolitana de Lisboa","containedInPlace":{"@type":"Country","name":"Portugal"}},"address":{"@type":"PostalAddress","addressLocality":"Lisboa","addressCountry":"PT"},"priceRange":"€"}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"WebSite","@id":"https://www.usehabitta.com/#website","name":"habitta","url":"https://www.usehabitta.com","inLanguage":"pt-PT","publisher":{"@id":"https://www.usehabitta.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://www.usehabitta.com/blog?search={search_term_string}","query-input":"required name=search_term_string"}}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"WebPage","@id":"https://www.usehabitta.com/#webpage","url":"https://www.usehabitta.com","name":"habitta - A zona certa antes da casa certa","description":"Encontra a zona da AML que faz sentido para a tua vida. Sem agencias, sem pressao, sem compromisso.","inLanguage":"pt-PT","isPartOf":{"@id":"https://www.usehabitta.com/#website"},"about":{"@id":"https://www.usehabitta.com/#organization"}}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"O que e a habitta?","acceptedAnswer":{"@type":"Answer","text":"A habitta ajuda compradores a escolher primeiro a zona certa na Area Metropolitana de Lisboa, antes de comparar casas ou falar com agencias."}},{"@type":"Question","name":"A habitta e uma agencia imobiliaria?","acceptedAnswer":{"@type":"Answer","text":"Nao. A habitta e uma ferramenta editorial e de decisao para compradores. Nao representa vendedores, nao empurra visitas e nao cobra comissoes de mediacao."}},{"@type":"Question","name":"Que zonas cobre a habitta?","acceptedAnswer":{"@type":"Answer","text":"A habitta cobre os 18 concelhos da Area Metropolitana de Lisboa e esta a organizar guias por concelho, freguesia e perfil de comprador."}},{"@type":"Question","name":"Como funciona o quiz da habitta?","acceptedAnswer":{"@type":"Answer","text":"O quiz cruza orcamento, transportes, estilo de vida, familia, tolerancia a risco urbano e prioridades pessoais para recomendar zonas que fazem sentido para cada comprador."}},{"@type":"Question","name":"A habitta mostra casas a venda?","acceptedAnswer":{"@type":"Answer","text":"A habitta foca-se primeiro na escolha da zona. O objetivo e dar contexto suficiente para o comprador procurar imoveis com menos ruido e mais criterio."}}]}
+    </script>
+
     <title>Habitta — A zona certa antes da casa certa.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -72,28 +86,31 @@
     <noscript>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     </noscript>
-    <!-- Meta Pixel Code -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- Meta Pixel — deferred until after page load so it never competes with first paint. -->
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '1755441009161337');
-      fbq('track', 'PageView');
+      window.addEventListener('load', function () {
+        window.setTimeout(function () {
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1755441009161337');
+          fbq('track', 'PageView');
+        }, 1600);
+      });
     </script>
     <noscript>
       <img height="1" width="1" style="display:none"
            src="https://www.facebook.com/tr?id=1755441009161337&ev=PageView&noscript=1" />
     </noscript>
-    <!-- End Meta Pixel Code -->
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
     <!-- Google Analytics — deferred after page content -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LKRP3VC93Q"></script>
     <script>

@@ -1,7 +1,16 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { useAuth } from '../context/AuthContext'
-import { supabase } from '../lib/supabase'
+
+let _sb: SupabaseClient | null = null
+async function getSupabase() {
+  if (!_sb) {
+    const { supabase } = await import('../lib/supabase')
+    _sb = supabase
+  }
+  return _sb
+}
 
 interface ConvRow {
   id: string
@@ -31,7 +40,8 @@ export function useUnreadCount(): number {
   const refetch = useCallback(async () => {
     if (!user) { setCount(0); return }
 
-    const { data, error } = await supabase
+    const sb = await getSupabase()
+    const { data, error } = await sb
       .from('conversations')
       .select(`
         id, buyer_id, seller_id,
@@ -73,12 +83,24 @@ export function useUnreadCount(): number {
   // mas mantém a contagem coerente entre tabs).
   useEffect(() => {
     if (!user) return
-    const channel = supabase
-      .channel(`unread:${user.id}`)
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, refetch)
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'conversations' }, refetch)
-      .subscribe()
-    return () => { supabase.removeChannel(channel) }
+    let cancelled = false
+    let removeChannel: (() => void) | undefined
+
+    getSupabase().then(sb => {
+      if (cancelled) return
+      const channel = sb
+        .channel(`unread:${user.id}`)
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, refetch)
+        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'conversations' }, refetch)
+        .subscribe()
+
+      removeChannel = () => { sb.removeChannel(channel) }
+    })
+
+    return () => {
+      cancelled = true
+      removeChannel?.()
+    }
   }, [user, refetch])
 
   return count

@@ -35,6 +35,10 @@ const EditorialPage      = lazy(() => import('./pages/EditorialPage'))
 const ArticleDetailPage  = lazy(() => import('./pages/ArticleDetailPage'))
 const BlogIndex          = lazy(() => import('./pages/blog/BlogIndex'))
 const BlogPost           = lazy(() => import('./pages/blog/BlogPost'))
+const BuyerGuidePage     = lazy(() => import('./pages/blog/BuyerGuidePage'))
+const ToolsIndexPage     = lazy(() => import('./pages/tools/ToolsIndexPage'))
+const MortgageCalculatorPage = lazy(() => import('./pages/tools/MortgageCalculatorPage'))
+const SavingsCalculatorPage = lazy(() => import('./pages/tools/SavingsCalculatorPage'))
 const AuthPage           = lazy(() => import('./pages/AuthPage'))
 const ProfilePage        = lazy(() => import('./pages/ProfilePage'))
 const QuizResults        = lazy(() => import('./pages/QuizResults'))
@@ -45,6 +49,7 @@ const QuizDossier        = lazy(() => import('./pages/QuizDossier'))
 const QuizPage           = lazy(() => import('./pages/QuizPage'))
 const PropertyListingPage  = lazy(() => import('./pages/PropertyListingPage'))
 const PropertyDetailPage   = lazy(() => import('./pages/PropertyDetailPage'))
+const PricingPage        = lazy(() => import('./pages/PricingPage'))
 const EmBreve            = lazy(() => import('./pages/EmBreve'))
 const ProprietarioEmBreve = lazy(() => import('./pages/ProprietarioEmBreve'))
 const SobrePage          = lazy(() => import('./pages/SobrePage'))
@@ -219,7 +224,11 @@ function AppRoutes() {
         <Route path="/areas/:slug" element={<Layout><AreaRecommendations /></Layout>} />
         {/* Blog — rotas principais */}
         <Route path="/blog" element={<Layout><BlogIndex /></Layout>} />
+        <Route path="/blog/guia-do-comprador" element={<Layout><BuyerGuidePage /></Layout>} />
         <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
+        <Route path="/ferramentas" element={<Layout><ToolsIndexPage /></Layout>} />
+        <Route path="/ferramentas/calculadora-credito-habitacao" element={<Layout><MortgageCalculatorPage /></Layout>} />
+        <Route path="/ferramentas/calculadora-entrada-necessaria" element={<Layout><SavingsCalculatorPage /></Layout>} />
 
         {/* Editorial legacy — mantido para não quebrar links existentes */}
         <Route path="/editorial" element={<Layout><EditorialPage /></Layout>} />
@@ -245,8 +254,10 @@ function AppRoutes() {
         {/* /guias/:slug — pillar guides */}
         <Route path="/guias/:slug" element={<Layout><PillarRoute /></Layout>} />
 
-        <Route path="/imoveis" element={<Layout><PropertyListingPage /></Layout>} />
-        <Route path="/imoveis/:id" element={<Layout><PropertyDetailPage /></Layout>} />
+        <Route path="/imoveis" element={<Layout><ProtectedRoute><PropertyListingPage /></ProtectedRoute></Layout>} />
+        <Route path="/imoveis/:id" element={<Layout><ProtectedRoute><PropertyDetailPage /></ProtectedRoute></Layout>} />
+        <Route path="/precos" element={<Layout><PricingPage /></Layout>} />
+        <Route path="/comparar" element={<Layout><EmBreve /></Layout>} />
         <Route path="/em-breve" element={<Layout><EmBreve /></Layout>} />
         <Route path="/proprietario" element={<Layout><ProprietarioEmBreve /></Layout>} />
         <Route path="/sobre" element={<Layout><SobrePage /></Layout>} />

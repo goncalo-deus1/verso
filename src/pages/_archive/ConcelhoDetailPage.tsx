@@ -57,8 +57,8 @@ export default function ConcelhoDetailPage() {
     {
       label: 'Renda T2 estimada',
       value: concelho.budgetFitT2 != null
-        ? `${concelho.budgetFitT2.min}–${concelho.budgetFitT2.max} €/mês`
-        : '—',
+        ? `${concelho.budgetFitT2.min} a ${concelho.budgetFitT2.max} €/mês`
+        : '·',
     },
     {
       label: 'Transportes',

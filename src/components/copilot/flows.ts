@@ -1,5 +1,6 @@
 // ─── Habitta Copilot — Flow Definitions & Scoring ───────────────────────────────
 import type { FlowStep, BuyerProfile, Recommendation } from './types'
+import type { Area } from '../../types'
 import { areas } from '../../data/areas'
 
 // ─── 01 HOMEPAGE FLOW ─────────────────────────────────────────────────────────
@@ -25,8 +26,8 @@ export const HOME_STEPS: FlowStep[] = [
     type: 'single',
     replies: [
       { label: 'Até 300k€', value: 'under-300k' },
-      { label: '300–600k€', value: '300k-600k' },
-      { label: '600k€–1M€', value: '600k-1m' },
+      { label: '300k€ a 600k€', value: '300k-600k' },
+      { label: '600k€ a 1M€', value: '600k-1m' },
       { label: 'Acima de 1M€', value: 'over-1m' },
     ],
   },
@@ -95,7 +96,7 @@ export const HOME_STEPS: FlowStep[] = [
   },
 ]
 
-function scoreAreaForHome(area: any, profile: BuyerProfile) {
+function scoreAreaForHome(area: Area, profile: BuyerProfile) {
   let score = 55
   const reasons: string[] = []
   const budgetRanges: Record<string, [number, number]> = {
@@ -107,7 +108,7 @@ function scoreAreaForHome(area: any, profile: BuyerProfile) {
     if (area.priceRange.min >= lo && area.priceRange.min <= hi) {
       score += 15; reasons.push('Preços alinhados com o teu orçamento')
     } else if (area.priceRange.min < lo) {
-      score += 8; reasons.push('Preços abaixo do orçamento — margem para negociar')
+      score += 8; reasons.push('Preços abaixo do orçamento, margem para negociar')
     } else {
       score -= 8
     }
@@ -117,11 +118,11 @@ function scoreAreaForHome(area: any, profile: BuyerProfile) {
       area.city.toLowerCase().includes(profile.targetArea.toLowerCase()) ||
       area.name.toLowerCase().includes(profile.targetArea.toLowerCase())
     ) {
-      score += 14; reasons.push(`Na região que preferes — ${profile.targetArea}`)
+      score += 14; reasons.push(`Na região que preferes: ${profile.targetArea}`)
     }
   }
   if (profile.householdType === 'family' && ['Cascais', 'Braga Norte'].includes(area.name)) {
-    score += 12; reasons.push('Excelente para famílias — escolas e espaços verdes')
+    score += 12; reasons.push('Excelente para famílias, com escolas e espaços verdes')
   }
   if (['single', 'couple'].includes(profile.householdType ?? '') && ['Príncipe Real', 'Bonfim', 'Marvila'].includes(area.name)) {
     score += 10; reasons.push('Ideal para perfil urbano e moderno')
@@ -139,7 +140,7 @@ function scoreAreaForHome(area: any, profile: BuyerProfile) {
   if (prefs.includes('beach') && ['Cascais', 'Comporta'].includes(area.name)) { score += 12; reasons.push('Proximidade ao mar') }
   if (prefs.includes('quiet') && ['Cascais', 'Comporta', 'Braga Norte'].includes(area.name)) { score += 8; reasons.push('Zona tranquila') }
   if (prefs.includes('lively') && ['Príncipe Real', 'Bonfim', 'Marvila'].includes(area.name)) { score += 8; reasons.push('Vida urbana activa e cultura') }
-  if (prefs.includes('capital-gain') && area.priceChange > 10) { score += 10; reasons.push(`Valorização forte — +${area.priceChange}% no último ano`) }
+  if (prefs.includes('capital-gain') && area.priceChange > 10) { score += 10; reasons.push(`Valorização forte, +${area.priceChange}% no último ano`) }
   if (prefs.includes('schools') && ['Cascais', 'Braga Norte'].includes(area.name)) { score += 6; reasons.push('Boa oferta de escolas e equipamentos') }
   if (profile.intent === 'investment' && ['Marvila', 'Bonfim'].includes(area.name)) { score += 8; reasons.push('Zona emergente com potencial de retorno') }
   return { score: Math.min(Math.max(score, 25), 99), reasons: reasons.slice(0, 3) }
@@ -250,10 +251,10 @@ export function generatePropertyFit(profile: BuyerProfile): Recommendation {
 
   const reasons: string[] = []
   if (profile.budgetFlexibility === 'comfortable') reasons.push('Preço confortavelmente dentro do orçamento')
-  if (profile.budgetFlexibility === 'tight') reasons.push('Preço no limite — possível com bom financiamento')
+  if (profile.budgetFlexibility === 'tight') reasons.push('Preço no limite, possível com bom financiamento')
   if (profile.budgetFlexibility === 'out') reasons.push('Preço acima do orçamento indicado')
-  if (profile.financingReady === 'approved') reasons.push('Financiamento aprovado — podes avançar imediatamente')
-  if (profile.financingReady === 'cash') reasons.push('Compra a pronto — posição forte na negociação')
+  if (profile.financingReady === 'approved') reasons.push('Financiamento aprovado, podes avançar imediatamente')
+  if (profile.financingReady === 'cash') reasons.push('Compra a pronto, posição forte na negociação')
   if (profile.movingTimeline === 'urgent') reasons.push('Urgência alinhada com disponibilidade do imóvel')
   if (profile.propertyFit === 'great') reasons.push('O imóvel corresponde ao que procuras')
   if (profile.propertyFit === 'partial') reasons.push('O imóvel cobre a maioria dos teus critérios')
@@ -276,7 +277,7 @@ export function generatePropertyFit(profile: BuyerProfile): Recommendation {
 // ─── 03 AREA COMPARISON FLOW ──────────────────────────────────────────────────
 
 export const AREA_INTRO = (areaName: string) =>
-  `Vou comparar ${areaName} com outra zona — segundo o teu orçamento e estilo de vida.`
+  `Vou comparar ${areaName} com outra zona, segundo o teu orçamento e estilo de vida.`
 
 export function getAreaSteps(currentAreaSlug: string): FlowStep[] {
   const others = areas.filter(a => a.slug !== currentAreaSlug).slice(0, 5)
@@ -295,8 +296,8 @@ export function getAreaSteps(currentAreaSlug: string): FlowStep[] {
       type: 'single',
       replies: [
         { label: 'Até 300k€', value: 'under-300k' },
-        { label: '300–600k€', value: '300k-600k' },
-        { label: '600k€–1M€', value: '600k-1m' },
+        { label: '300k€ a 600k€', value: '300k-600k' },
+        { label: '600k€ a 1M€', value: '600k-1m' },
         { label: 'Acima de 1M€', value: 'over-1m' },
       ],
     },
@@ -326,7 +327,7 @@ export function getAreaSteps(currentAreaSlug: string): FlowStep[] {
   ]
 }
 
-function scoreAreaForComparison(area: any, profile: BuyerProfile) {
+function scoreAreaForComparison(area: Area, profile: BuyerProfile) {
   let score = 55
   const reasons: string[] = []
   const budgetRanges: Record<string, [number, number]> = {
@@ -350,8 +351,8 @@ function scoreAreaForComparison(area: any, profile: BuyerProfile) {
     score += 10; reasons.push('Vida urbana activa e cultural')
   }
   if (profile.householdType === 'investor') {
-    if (area.priceChange > 10) { score += 12; reasons.push(`Valorização — +${area.priceChange}% no último ano`) }
-    if (['Marvila', 'Bonfim'].includes(area.name)) { score += 8; reasons.push('Zona emergente — bom potencial de retorno') }
+    if (area.priceChange > 10) { score += 12; reasons.push(`Valorização de +${area.priceChange}% no último ano`) }
+    if (['Marvila', 'Bonfim'].includes(area.name)) { score += 8; reasons.push('Zona emergente com bom potencial de retorno') }
   }
   if (profile.commutePreference === 'essential' && ['Príncipe Real', 'Bonfim', 'Marvila'].includes(area.name)) {
     score += 10; reasons.push('Boa rede de transportes públicos')

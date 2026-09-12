@@ -25,6 +25,24 @@ const ALL_CATEGORIES = [
   'decisao-compra',
 ]
 
+const BUYER_GUIDE_POST: BlogPost = {
+  filePath: '',
+  meta: {
+    slug: 'guia-do-comprador',
+    locale: 'pt',
+    title: 'Guia do comprador de casa em Portugal',
+    description: 'Os passos essenciais para comprar casa: orçamento, crédito, escolha da zona, visitas, documentos, impostos, CPCV e escritura.',
+    publishedAt: '2026-05-26',
+    updatedAt: '2026-05-26',
+    author: 'habitta',
+    category: 'guia-do-comprador',
+    tags: ['comprar casa', 'guia do comprador', 'zona certa'],
+    heroImage: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80',
+    heroImageAlt: 'Documentos, calculadora e notas para comprar casa em Portugal',
+    readingTime: 14,
+  },
+}
+
 function formatDate(iso: string, lang: Lang): string {
   return new Date(iso).toLocaleDateString(lang === 'en' ? 'en-GB' : 'pt-PT', {
     day: 'numeric',
@@ -369,7 +387,9 @@ export default function BlogIndex() {
   const { lang } = useLangSafe()
   const tr = useT(lang)
   const [activeCategory, setActiveCategory] = useState('todos')
-  const allPosts = getPostsByLocale(lang)
+  const allPosts = lang === 'pt'
+    ? [BUYER_GUIDE_POST, ...getPostsByLocale(lang).filter(post => post.meta.slug !== BUYER_GUIDE_POST.meta.slug)]
+    : getPostsByLocale(lang)
 
   // Count posts per category (for hiding empty filter pills)
   const counts = allPosts.reduce<Record<string, number>>((acc, p) => {

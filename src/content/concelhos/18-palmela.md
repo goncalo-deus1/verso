@@ -2,7 +2,7 @@
 title: "Viver em Palmela: guia completo do concelho (2026)"
 slug: aml/palmela
 meta_description: "Tudo sobre viver em Palmela: renda T2, projeção a 3 anos, Autoeuropa, Fertagus, Castelo de Palmela e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/palmela
 ---
@@ -17,13 +17,13 @@ canonical: https://www.usehabitta.com/aml/palmela
 
 ## Vale a pena viver em Palmela?
 
-Palmela tem três realidades distintas. Pinhal Novo é a freguesia mais populosa e funciona como cidade-dormitório com estação Fertagus, ligando-se diretamente a Lisboa. Palmela-Vila é histórica, com castelo, e tem caráter mais tradicional. Quinta do Anjo, Marateca e Águas de Moura têm perfil rural-agrícola, com presença de adegas e produtores de vinho (região vinícola da Península de Setúbal).
+Palmela tem três realidades distintas. Pinhal Novo é a freguesia mais populosa e funciona como cidade dormitório com estação Fertagus, ligando se diretamente a Lisboa. Palmela Vila é histórica, com castelo, e tem caráter mais tradicional. Quinta do Anjo, Marateca e Águas de Moura têm perfil rural agrícola, com presença de adegas e produtores de vinho (região vinícola da Península de Setúbal).
 
 A proximidade à fábrica da Autoeuropa (uma das maiores empregadoras do país, com mais de 5.000 trabalhadores) sustenta uma base económica sólida.
 
 ## Quanto custa arrendar um T2 em Palmela em 2026?
 
-A renda mediana de um T2 em Palmela fica entre 600 e 750 euros mensais, das mais baixas da AML. As zonas mais caras são Pinhal Novo (junto à estação Fertagus) e Palmela-Vila (próxima do castelo). As mais acessíveis são Marateca, Águas de Moura e zonas rurais.
+A renda mediana de um T2 em Palmela fica entre 600 e 750 euros mensais, das mais baixas da AML. As zonas mais caras são Pinhal Novo (junto à estação Fertagus) e Palmela Vila (próxima do castelo). As mais acessíveis são Marateca, Águas de Moura e zonas rurais.
 
 ### Projeção da renda T2 a 3 anos (2026 a 2029)
 
@@ -45,7 +45,7 @@ A presença internacional é baixa, mas tem crescido em zonas rurais (compradore
 
 Palmela tem boas opções para Lisboa:
 
-O comboio Fertagus pelo Pinhal Novo é a opção principal. O Pinhal Novo é a estação principal, com ligação direta a Lisboa (Roma-Areeiro). De Pinhal Novo a Roma-Areeiro são cerca de 45 minutos. A frequência é boa em hora de ponta.
+O comboio Fertagus pelo Pinhal Novo é a opção principal. O Pinhal Novo é a estação principal, com ligação direta a Lisboa (Roma Areeiro). De Pinhal Novo a Roma Areeiro são cerca de 45 minutos. A frequência é boa em hora de ponta.
 
 O comboio Fertagus pelo Coina é a estação alternativa, mais a oeste do concelho.
 
@@ -53,11 +53,11 @@ De carro pela A2 e Ponte 25 de Abril, de Pinhal Novo a Lisboa centro são cerca 
 
 De carro pela A12 e Ponte Vasco da Gama, para o Parque das Nações, cerca de 25 a 30 minutos.
 
-A futura Terceira Travessia do Tejo, anunciada em 2024, vai ligar Lisboa-Chelas ao Barreiro com componente ferroviária, podendo melhorar futuras ligações.
+A futura Terceira Travessia do Tejo, anunciada em 2024, vai ligar Lisboa Chelas ao Barreiro com componente ferroviária, podendo melhorar futuras ligações.
 
 ## Projetos urbanos previstos no concelho
 
-**Aeroporto Luís de Camões — medidas preventivas** — `Anunciado`
+**Aeroporto Luís de Camões, medidas preventivas**, `Anunciado`
 Parte do território de Palmela está incluído no raio de 15 km de medidas preventivas associadas ao novo aeroporto. As operações urbanísticas em algumas zonas ficam sujeitas a verificação prévia da ANAC.
 
 Palmela tem 101 famílias em lista de espera, das mais baixas da AML. A Câmara já atribuiu 49 habitações ao abrigo da Estratégia Local de Habitação. Está em curso um concurso para a construção de mais 21 habitações.
@@ -70,7 +70,7 @@ Continua a valorização do enoturismo na zona da Arrábida e Marateca, com adeg
 
 ## Escolas, saúde e comércio
 
-Em ensino, há cobertura pública adequada, com várias escolas em Pinhal Novo e Palmela-Vila. Não há ensino superior próprio.
+Em ensino, há cobertura pública adequada, com várias escolas em Pinhal Novo e Palmela Vila. Não há ensino superior próprio.
 
 Em saúde, o Hospital de São Bernardo (Setúbal) é a referência pública. Os centros de saúde nas freguesias cobrem cuidados primários.
 
@@ -81,13 +81,13 @@ Em comércio, o Continente de Pinhal Novo e o comércio tradicional cobrem o ess
 ## Perguntas frequentes
 
 ### Palmela é boa para famílias?
-Sim. Pinhal Novo e Palmela-Vila têm boas escolas, parques e ambiente residencial. Renda T3 entre 750 e 900 euros.
+Sim. Pinhal Novo e Palmela Vila têm boas escolas, parques e ambiente residencial. Renda T3 entre 750 e 900 euros.
 
 ### Vale a pena viver em Palmela se trabalho na Autoeuropa?
 Sim, é a opção evidente. A fábrica fica em Quinta do Anjo (Palmela). Os tempos de deslocação são curtos.
 
 ### Vale a pena viver em Palmela se trabalho em Lisboa centro?
-Faz sentido se conseguir usar o Fertagus a partir do Pinhal Novo. De Pinhal Novo a Roma-Areeiro são 45 minutos.
+Faz sentido se conseguir usar o Fertagus a partir do Pinhal Novo. De Pinhal Novo a Roma Areeiro são 45 minutos.
 
 ### Palmela ou Setúbal: qual é melhor?
 Setúbal é mais urbana, com mais serviços e vida noturna. Palmela é mais rural, mais barata e tem identidade vinícola. Setúbal para serviços urbanos, Palmela para tranquilidade e preço.

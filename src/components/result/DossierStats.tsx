@@ -68,7 +68,7 @@ export function DossierStats({ profile }: Props) {
                 color: val >= 70 ? CLAY : STONE,
                 letterSpacing: '0.08em',
               }}>
-                {val >= 70 ? highLabel : val <= 30 ? lowLabel : '—'}
+                {val >= 70 ? highLabel : val <= 30 ? lowLabel : '·'}
               </span>
             </div>
             {/* Bar track */}

@@ -24,7 +24,7 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
                 Contexto Urbanístico
               </h3>
               <p className="text-xs mt-0.5" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
-                {data.municipality} — planeamento territorial
+                {data.municipality} · planeamento territorial
               </p>
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
         {data.planningNotes.length > 0 && (
           <div>
             <p className="text-xs font-semibold uppercase mb-3" style={{ color: '#3A3B2E', letterSpacing: '2px', fontFamily: 'IBM Plex Mono' }}>
-              Condicionantes e zonamento
+              Condicionantes e urbanismo
             </p>
             <ul className="space-y-2">
               {data.planningNotes.map((note, i) => (
@@ -120,7 +120,7 @@ export default function UrbanPlanningPanel({ data, propertyAddress }: UrbanPlann
           className="flex items-center gap-2 text-sm font-medium transition-colors duration-150"
           style={{ color: '#C2553A' }}>
           <ExternalLink size={13} />
-          Fonte oficial — {data.municipality}
+          Fonte oficial · {data.municipality}
         </a>
 
         {/* Disclaimer */}

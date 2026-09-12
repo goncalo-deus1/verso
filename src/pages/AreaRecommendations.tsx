@@ -142,7 +142,7 @@ function ZoneCard({ zone }: { zone: PortugalZone }) {
         </div>
         <div className="flex items-center justify-between">
           <div className="text-xs" style={{ color: '#3A3B2E', fontFamily: 'IBM Plex Mono' }}>
-            {formatSqm(zone.data.pricePerSqm.min)}€ — {formatSqm(zone.data.pricePerSqm.max)}€/m²
+            {formatSqm(zone.data.pricePerSqm.min)}€ a {formatSqm(zone.data.pricePerSqm.max)}€/m²
           </div>
           <span style={{ fontSize: '11px', color: '#C2553A', fontWeight: 500 }}>{tr('area.viewAnalysis')}</span>
         </div>
@@ -177,7 +177,7 @@ export default function AreaRecommendations() {
   const districts = useMemo(() => {
     const d = Array.from(new Set(portugalZones.map(z => z.district))).sort()
     return [ALL_DISTRICTS, ...d]
-  }, [])
+  }, [ALL_DISTRICTS])
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim()
@@ -186,7 +186,7 @@ export default function AreaRecommendations() {
       const matchSearch = !q || z.name.toLowerCase().includes(q) || z.district.toLowerCase().includes(q) || z.data.lifestyle.some(l => l.toLowerCase().includes(q))
       return matchDistrict && matchSearch
     })
-  }, [search, district])
+  }, [search, district, ALL_DISTRICTS])
 
   return (
     <div className="min-h-screen" style={{ background: '#F2EDE4' }}>

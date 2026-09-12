@@ -2,14 +2,14 @@
 title: "Viver em Almada: guia completo do concelho (2026)"
 slug: concelho/almada
 meta_description: "Tudo sobre viver em Almada: renda T2, projeção a 3 anos, transportes para Lisboa, projetos como Ocean Campus, escolas e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-04-30
 canonical: https://www.usehabitta.com/concelho/almada
 ---
 
 # Viver em Almada: o que precisa de saber antes de escolher esta zona
 
-**Resumo rápido:** Almada é o quinto concelho mais populoso da AML, com 177 mil residentes e renda mediana de T2 entre 850 e 950 euros. Está a 5 minutos de Lisboa em barco e a 10 minutos pela Ponte 25 de Abril, o que torna o Cacilhas-Trafaria-Cova da Piedade uma das margens com melhor relação qualidade-preço-tempo de viagem da AML. Boa escolha para quem trabalha em Lisboa centro ou ocidental e gosta de praia. Menos indicada para quem precisa de chegar diariamente ao Saldanha ou ao aeroporto sem usar metro.
+**Resumo rápido:** Almada é o quinto concelho mais populoso da AML, com 177 mil residentes e renda mediana de T2 entre 850 e 950 euros. Está a 5 minutos de Lisboa em barco e a 10 minutos pela Ponte 25 de Abril, o que torna o Cacilhas Trafaria Cova da Piedade uma das margens com melhor relação qualidade-preço-tempo de viagem da AML. Boa escolha para quem trabalha em Lisboa centro ou ocidental e gosta de praia. Menos indicada para quem precisa de chegar diariamente ao Saldanha ou ao aeroporto sem usar metro.
 
 *Atualizado a 30 de abril de 2026.*
 
@@ -17,7 +17,7 @@ canonical: https://www.usehabitta.com/concelho/almada
 
 ## Vale a pena viver em Almada?
 
-Almada tem três realidades distintas. A faixa norte ribeirinha (Cacilhas, Cova da Piedade, Pragal) é urbana e bem servida de transportes para Lisboa. A zona central (Almada-Cidade, Laranjeiro) é residencial e familiar. A zona da Costa da Caparica é mais turística e tem o melhor acesso a praia da margem sul.
+Almada tem três realidades distintas. A faixa norte ribeirinha (Cacilhas, Cova da Piedade, Pragal) é urbana e bem servida de transportes para Lisboa. A zona central (Almada Cidade, Laranjeiro) é residencial e familiar. A zona da Costa da Caparica é mais turística e tem o melhor acesso a praia da margem sul.
 
 A combinação de proximidade a Lisboa, custos mais baixos do que a margem norte e acesso a praia torna Almada particularmente atrativa para casais jovens e profissionais criativos.
 
@@ -43,23 +43,23 @@ A população cresce sobretudo na Costa da Caparica e na Sobreda, enquanto Cacil
 
 Almada atrai um mix interessante. A faixa norte (Cacilhas, Cova da Piedade) é procurada por jovens profissionais e classe criativa que querem proximidade a Lisboa por menos dinheiro. A Costa da Caparica e Charneca da Caparica atraem famílias e surfistas. As zonas centrais têm uma população envelhecida estabelecida há décadas, mas estão a rejuvenescer com a entrada de jovens famílias.
 
-A presença de comunidade brasileira e africana é significativa, sobretudo em Almada-Cidade e Laranjeiro.
+A presença de comunidade brasileira e africana é significativa, sobretudo em Almada Cidade e Laranjeiro.
 
 ## Transportes e ligação ao centro de Lisboa
 
 Almada tem três opções principais de transporte para Lisboa:
 
-**Barco (Cacilhas-Cais do Sodré).** É a ligação mais rápida ao centro de Lisboa. Cerca de 8 a 10 minutos de travessia, frequência de 10 minutos em hora de ponta.
+**Barco (Cacilhas Cais do Sodré).** É a ligação mais rápida ao centro de Lisboa. Cerca de 8 a 10 minutos de travessia, frequência de 10 minutos em hora de ponta.
 
-**Metro Sul do Tejo + comboio.** O Metro Sul do Tejo liga várias zonas de Almada e Seixal. A estação do Pragal tem correspondência com o comboio Fertagus para Lisboa (Roma-Areeiro, Sete Rios, Entrecampos).
+**Metro Sul do Tejo + comboio.** O Metro Sul do Tejo liga várias zonas de Almada e Seixal. A estação do Pragal tem correspondência com o comboio Fertagus para Lisboa (Roma Areeiro, Sete Rios, Entrecampos).
 
 **Carro pela Ponte 25 de Abril.** É a opção mais flexível, mas a mais sujeita a congestionamento em hora de ponta. Em hora calma, são 10 a 15 minutos para chegar à zona ocidental de Lisboa.
 
-A Terceira Travessia do Tejo (TTT), anunciada em 2024 com construção do novo aeroporto, vai ligar Lisboa-Chelas a Barreiro, com componente rodoviária e ferroviária. O impacto direto em Almada é menor, mas vai aliviar pressão sobre a Ponte 25 de Abril e a Ponte Vasco da Gama.
+A Terceira Travessia do Tejo (TTT), anunciada em 2024 com construção do novo aeroporto, vai ligar Lisboa Chelas a Barreiro, com componente rodoviária e ferroviária. O impacto direto em Almada é menor, mas vai aliviar pressão sobre a Ponte 25 de Abril e a Ponte Vasco da Gama.
 
 ## Projetos urbanos previstos no concelho
 
-**Ocean Campus.** Antigo projeto da Lisnave (Margueira, Cacilhas) que prevê a transformação de antigos estaleiros num polo de habitação, ciência marítima e espaços públicos. O Decreto-Lei de setembro de 2025 transferiu a tutela para a Parque Cidades do Tejo, S.A. Promete ser uma das maiores transformações urbanas da AML.
+**Ocean Campus.** Antigo projeto da Lisnave (Margueira, Cacilhas) que prevê a transformação de antigos estaleiros num polo de habitação, ciência marítima e espaços públicos. O Decreto Lei de setembro de 2025 transferiu a tutela para a Parque Cidades do Tejo, S.A. Promete ser uma das maiores transformações urbanas da AML.
 
 **Arco Ribeirinho Sul.** Conjunto de projetos de regeneração urbana entre Almada, Barreiro e Seixal, que ganhou nova vida com a criação da Parque Cidades do Tejo.
 
@@ -73,17 +73,17 @@ Em ensino, Almada tem o campus principal da Universidade Nova de Lisboa (Faculda
 
 Em saúde, o Hospital Garcia de Orta é a referência pública e serve toda a margem sul. A oferta privada inclui o Hospital Particular de Almada e a CUF Almada.
 
-Em comércio, o Almada Forum é o maior centro comercial e um dos principais da AML. O Centro Comercial Cacilhas, mercados municipais e ruas comerciais de Cacilhas e Almada-Cidade complementam a oferta.
+Em comércio, o Almada Forum é o maior centro comercial e um dos principais da AML. O Centro Comercial Cacilhas, mercados municipais e ruas comerciais de Cacilhas e Almada Cidade complementam a oferta.
 
 ---
 
 ## Perguntas frequentes
 
 ### Almada é boa para famílias?
-Sim. Sobreda, Charneca da Caparica e Almada-Cidade têm boas escolas e parques. Charneca tem mais espaço e jardins. Renda T3 entre 1.000 e 1.300 euros.
+Sim. Sobreda, Charneca da Caparica e Almada Cidade têm boas escolas e parques. Charneca tem mais espaço e jardins. Renda T3 entre 1.000 e 1.300 euros.
 
 ### Vale a pena viver em Almada se trabalho em Lisboa centro?
-Faz muito sentido se usar barco ou comboio. De Cacilhas ao Cais do Sodré são 8 a 10 minutos de barco. De Almada à Roma-Areeiro são 25 minutos por comboio.
+Faz muito sentido se usar barco ou comboio. De Cacilhas ao Cais do Sodré são 8 a 10 minutos de barco. De Almada à Roma Areeiro são 25 minutos por comboio.
 
 ### Almada ou Seixal: qual é melhor?
 Almada tem barco direto a Lisboa, tem o Almada Forum e a Costa da Caparica. Seixal é mais barato, mais residencial e tem identidade própria. Almada para quem prioriza proximidade a Lisboa, Seixal para quem prioriza preço.

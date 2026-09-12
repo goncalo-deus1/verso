@@ -1,7 +1,7 @@
 ---
 title: "Living in Amadora: a full guide to the municipality (2026)"
 slug: aml/amadora
-meta_description: "Everything about living in Amadora: T2 rent, three-year projection, transport, schools, healthcare, retail and resident profile in the densest municipality in the AML."
+meta_description: "Everything about living in Amadora: T2 rent, three year projection, transport, schools, healthcare, retail and resident profile in the densest municipality in the AML."
 language: en
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/amadora
@@ -23,19 +23,19 @@ In exchange, Amadora is dense, urban and short on green space. There is no beach
 
 ## How much does it cost to rent a T2 in Amadora in 2026?
 
-The median rent per square metre in Amadora is €12.61, according to INE (Q4 2024), with a year-on-year rise of 10.4%. For an 80 m² T2, rent sits between €950 and €1,100 per month. It is one of the municipalities where rent has risen the most in recent years.
+The median rent per square metre in Amadora is €12.61, according to INE (Q4 2024), with a year on year rise of 10.4%. For an 80 m² T2, rent sits between €950 and €1,100 per month. It is one of the municipalities where rent has risen the most in recent years.
 
-The most expensive areas are Alfragide (next to Alegro Alfragide and the border with Lisboa-Benfica) and Reboleira (with metro). The more affordable ones are Damaia, Buraca and Venteira.
+The most expensive areas are Alfragide (next to Alegro Alfragide and the border with Lisboa Benfica) and Reboleira (with metro). The more affordable ones are Damaia, Buraca and Venteira.
 
-### Three-year T2 rent projection (2026 to 2029)
+### Three year T2 rent projection (2026 to 2029)
 
 Base scenario: accumulated growth between 12% and 18%, taking the median T2 rent to between €1,050 and €1,250 per month by 2029. Amadora continues to benefit from the spillover effect from Lisboa (especially from Benfica and Carnide). Main risk: the arrival of new developments from 2027 onwards could moderate the increase.
 
 ## Population and density
 
-Amadora had 171,719 residents in the 2021 Census, 2% less than in 2011. The area is 23.77 km², which gives a density of 7,226 inhabitants per km² — the highest in the country.
+Amadora had 171,719 residents in the 2021 Census, 2% less than in 2011. The area is 23.77 km², which gives a density of 7,226 inhabitants per km², the highest in the country.
 
-The population loss contradicts the housing pressure, a sign that many flats have left the long-term rental market for short-term lets or are sitting empty.
+The population loss contradicts the housing pressure, a sign that many flats have left the long term rental market for short term lets or are sitting empty.
 
 ## Who lives in Amadora? Resident profile
 
@@ -45,11 +45,11 @@ The City Council acknowledges 711 families in precarious settlements awaiting re
 
 ## Transport and connection to the centre of Lisboa
 
-Amadora has the best public transport coverage in the AML relative to its area. Four metro stations (Blue Line: Amadora Este, Reboleira, Pontinha and Alfornelos), several train stations (Amadora, Damaia, Reboleira, Santa Cruz-Damaia) and multiple Carris and Vimeca bus lines.
+Amadora has the best public transport coverage in the AML relative to its area. Four metro stations (Blue Line: Amadora Este, Reboleira, Pontinha and Alfornelos), several train stations (Amadora, Damaia, Reboleira, Santa Cruz Damaia) and multiple Carris and Vimeca bus lines.
 
-From Amadora to Marquês de Pombal is 15 to 20 minutes by metro. From Amadora to Rossio is 12 minutes by train. It is possibly the best time-to-Lisboa-vs-price ratio in the whole AML.
+From Amadora to Marquês de Pombal is 15 to 20 minutes by metro. From Amadora to Rossio is 12 minutes by train. It is possibly the best time to Lisboa vs price ratio in the whole AML.
 
-**LIOS Ocidental** — `Under study`
+**LIOS Ocidental**, `Under study`
 Light rail line between Oeiras and Alcântara that passes close to Amadora's southern border, potentially creating complementary transport options.
 
 By car, the A37 (Radial de Sintra), the IC19 and the 2ª Circular provide access to Lisboa, with heavy traffic at peak times.
@@ -66,7 +66,7 @@ There are several new developments on the market, especially in Mina de Água an
 
 In education, Amadora has good coverage of public basic and secondary schools. It has no university provision of its own, but proximity to Lisboa allows easy access to the capital's universities.
 
-In healthcare, Hospital Professor Doutor Fernando Fonseca (Amadora-Sintra) is the public reference and also serves the Sintra municipality. Private provision is limited, with smaller private clinics and some private hospitals nearby (CUF Tejo, Lusíadas Lisboa).
+In healthcare, Hospital Professor Doutor Fernando Fonseca (Amadora Sintra) is the public reference and also serves the Sintra municipality. Private provision is limited, with smaller private clinics and some private hospitals nearby (CUF Tejo, Lusíadas Lisboa).
 
 In retail, Alegro Alfragide is the main shopping centre. Local retail is strong in every parish, with active municipal markets and traditional commercial streets in Damaia, Venteira and Mina de Água.
 
@@ -78,7 +78,7 @@ In retail, Alegro Alfragide is the main shopping centre. Local retail is strong 
 Alfragide and Mina de Água are the areas most sought after by families. They have good schools, parks (Parque Aventura Amadora) and proximity to retail. T3 rent between €1,100 and €1,400.
 
 ### Is it worth living in Amadora if I work in central Lisboa?
-Yes. It is possibly the best proximity-vs-price ratio in the AML. Between 12 and 20 minutes to the centre of Lisboa by metro or train.
+Yes. It is possibly the best proximity vs price ratio in the AML. Between 12 and 20 minutes to the centre of Lisboa by metro or train.
 
 ### Amadora or Odivelas: which is better?
 Amadora has more transport options (more metro and train stations). Odivelas is more residential and has slightly more space. For a strictly urban and professional profile, Amadora.

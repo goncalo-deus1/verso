@@ -2,7 +2,7 @@
 title: "Viver em Loures: guia completo do concelho (2026)"
 slug: aml/loures
 meta_description: "Tudo sobre viver em Loures: renda T2, projeção a 3 anos, projetos urbanos como a Linha Violeta, transportes, escolas e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/loures
 ---
@@ -17,7 +17,7 @@ canonical: https://www.usehabitta.com/aml/loures
 
 ## Vale a pena viver em Loures?
 
-Loures combina três realidades. As freguesias mais próximas de Lisboa (Camarate, Sacavém, Bobadela, Moscavide) são urbanas, densas e com forte presença de comunidades imigrantes. Loures-Vila e Santo António dos Cavaleiros são mais residenciais, com perfil de classe média. A zona rural (Bucelas, Fanhões, Lousa) tem caráter mais campestre e atrai quem procura espaço.
+Loures combina três realidades. As freguesias mais próximas de Lisboa (Camarate, Sacavém, Bobadela, Moscavide) são urbanas, densas e com forte presença de comunidades imigrantes. Loures Vila e Santo António dos Cavaleiros são mais residenciais, com perfil de classe média. A zona rural (Bucelas, Fanhões, Lousa) tem caráter mais campestre e atrai quem procura espaço.
 
 Para profissionais que trabalham em Lisboa Oriente ou no Parque das Nações, Loures faz muito sentido em termos de tempo e custo.
 
@@ -41,7 +41,7 @@ A maior parte da população concentra-se nas freguesias do sul (Camarate, Sacav
 
 ## Quem mora em Loures? Perfil de morador
 
-Loures tem um dos perfis mais socialmente diversos da AML. Comunidades cabo-verdiana, são-tomense, brasileira e ucraniana têm forte presença em Camarate, Apelação e Sacavém. A classe média portuguesa concentra-se em Santo António dos Cavaleiros, Loures-Vila e Bucelas. Os antigos núcleos rurais mantêm caráter próprio (Bucelas é conhecida pelo vinho).
+Loures tem um dos perfis mais socialmente diversos da AML. Comunidades cabo verdiana, são tomense, brasileira e ucraniana têm forte presença em Camarate, Apelação e Sacavém. A classe média portuguesa concentra-se em Santo António dos Cavaleiros, Loures Vila e Bucelas. Os antigos núcleos rurais mantêm caráter próprio (Bucelas é conhecida pelo vinho).
 
 A Câmara tem programas ativos de regeneração urbana e habitação acessível, com particular foco em Camarate e Apelação.
 
@@ -49,19 +49,19 @@ A Câmara tem programas ativos de regeneração urbana e habitação acessível,
 
 A grande mudança em Loures é a Linha Violeta do Metro.
 
-**Linha Violeta do Metro** — `Em curso`
-11,5 km de metro ligeiro de superfície entre Odivelas e Loures, com 17 estações (9 em Loures), a servir Loures-Vila, Santo António dos Cavaleiros e Frielas. Adjudicada por 527 milhões de euros via PRR; inauguração prevista para 2026, mas com atrasos confirmados e investigação europeia ao subcontratante CRRC.
+**Linha Violeta do Metro**, `Em curso`
+11,5 km de metro ligeiro de superfície entre Odivelas e Loures, com 17 estações (9 em Loures), a servir Loures Vila, Santo António dos Cavaleiros e Frielas. Adjudicada por 527 milhões de euros via PRR; inauguração prevista para 2026, mas com atrasos confirmados e investigação europeia ao subcontratante CRRC.
 
-**LIOS Oriental** — `Em estudo`
+**LIOS Oriental**, `Em estudo`
 Vai ligar Santa Apolónia a Sacavém, criando outro eixo de transporte rápido na margem norte do Tejo. Pode reforçar a atratividade de Sacavém e Bobadela.
 
-A Linha Vermelha do Metro termina em Moscavide, dentro do concelho. A paragem seguinte é o Aeroporto Humberto Delgado (já em Lisboa-Olivais), o que dá a Loures acesso directo a duas estações estruturantes — uma sua, uma na fronteira. A Linha Amarela termina em Odivelas, vizinha de Loures.
+A Linha Vermelha do Metro termina em Moscavide, dentro do concelho. A paragem seguinte é o Aeroporto Humberto Delgado (já em Lisboa Olivais), o que dá a Loures acesso directo a duas estações estruturantes, uma sua, uma na fronteira. A Linha Amarela termina em Odivelas, vizinha de Loures.
 
 De carro, a A8 e a A1 são as ligações principais. O acesso a Lisboa é bom em hora não pico (15 minutos a Lisboa Oriente), mas o trânsito na A1 e na 2ª Circular é difícil em hora de ponta.
 
 ## Projetos urbanos previstos no concelho
 
-A Linha Violeta vai mudar substancialmente o valor imobiliário em Santo António dos Cavaleiros, Loures-Vila e Frielas.
+A Linha Violeta vai mudar substancialmente o valor imobiliário em Santo António dos Cavaleiros, Loures Vila e Frielas.
 
 Loures tem cerca de 1.000 famílias em lista de espera. Há vários projetos em curso, incluindo um concurso recente para aquisição de habitações com conclusão até março de 2026.
 
@@ -71,9 +71,9 @@ Há mais de uma dezena de empreendimentos privados em comercialização, com for
 
 ## Escolas, saúde e comércio
 
-Em ensino, há boa cobertura de escolas públicas e colégios privados em Loures-Vila. As universidades estão em Lisboa.
+Em ensino, há boa cobertura de escolas públicas e colégios privados em Loures Vila. As universidades estão em Lisboa.
 
-Em saúde, o Hospital Beatriz Ângelo (em Loures-Vila) é a referência pública. O Hospital da Luz Lisboa Oriente (em Sacavém) e a CUF Descobertas (em Lisboa, junto a Moscavide) servem a zona em regime privado.
+Em saúde, o Hospital Beatriz Ângelo (em Loures Vila) é a referência pública. O Hospital da Luz Lisboa Oriente (em Sacavém) e a CUF Descobertas (em Lisboa, junto a Moscavide) servem a zona em regime privado.
 
 Em comércio, o Continente Loures, o LoureShopping e o Vasco da Gama (em Lisboa, mas a poucos minutos de Sacavém e Moscavide) cobrem a oferta.
 
@@ -82,7 +82,7 @@ Em comércio, o Continente Loures, o LoureShopping e o Vasco da Gama (em Lisboa,
 ## Perguntas frequentes
 
 ### Loures é boa para famílias?
-Santo António dos Cavaleiros, Loures-Vila e Bucelas são as zonas mais procuradas por famílias. Têm escolas, parques e ambiente residencial. Rendas T3 ficam entre 950 e 1.200 euros.
+Santo António dos Cavaleiros, Loures Vila e Bucelas são as zonas mais procuradas por famílias. Têm escolas, parques e ambiente residencial. Rendas T3 ficam entre 950 e 1.200 euros.
 
 ### Vale a pena comprar casa em Loures antes de a Linha Violeta abrir?
 A maior parte dos analistas considera que sim. As zonas servidas pelas futuras estações de metro têm potencial de valorização significativo. O risco é o atraso continuado da operação.
@@ -94,7 +94,7 @@ Odivelas tem ligação direta ao metro de Lisboa pela Linha Amarela, vantagem qu
 Apelação, Camarate (interior) e zonas rurais (Lousa, Bucelas) têm rendas T2 abaixo dos 700 euros.
 
 ### Que zonas vão valorizar mais com a Linha Violeta?
-As estações principais previstas em Loures-Vila, Santo António dos Cavaleiros e Frielas devem ver maior pressão de procura.
+As estações principais previstas em Loures Vila, Santo António dos Cavaleiros e Frielas devem ver maior pressão de procura.
 
 ---
 

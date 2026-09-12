@@ -103,6 +103,10 @@ function QuizCard({ screen, answers, onSelectSingle, onToggleQ8, onNext, onPrev 
   const { lang } = useLang()
   const tr = useT(lang)
 
+  // First-option focus
+  const firstRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => { firstRef.current?.focus() }, [screen])
+
   const QUESTION_LABELS = [
     tr('quizPage.label.forWhom'),
     tr('quizPage.label.buyOrRent'),
@@ -116,10 +120,10 @@ function QuizCard({ screen, answers, onSelectSingle, onToggleQ8, onNext, onPrev 
 
   // Tags opcionais por opção (acrescentam contexto técnico)
   const OPTION_TAGS: Record<string, string> = {
-    b1_150: '< 150k', b2_150_250: '150–250k', b3_250_400: '250–400k',
-    b4_400_600: '400–600k', b5_600plus: '600k +', b6_undecided: tr('quizPage.tag.undecided'),
-    r1_600: '< 600 €', r2_600_900: '600–900 €', r3_900_1200: '900–1200 €',
-    r4_1200_1600: '1200–1600 €', r5_1600plus: '1600 € +', r6_undecided: tr('quizPage.tag.undecided'),
+    b1_150: '< 150k', b2_150_250: '150 a 250k', b3_250_400: '250 a 400k',
+    b4_400_600: '400 a 600k', b5_600plus: '600k +', b6_undecided: tr('quizPage.tag.undecided'),
+    r1_600: '< 600 €', r2_600_900: '600 a 900 €', r3_900_1200: '900 a 1200 €',
+    r4_1200_1600: '1200 a 1600 €', r5_1600plus: '1600 € +', r6_undecided: tr('quizPage.tag.undecided'),
     w3_remote: tr('quizPage.tag.flexible'),
     p5_valuation: tr('quizPage.tag.appreciation'),
   }
@@ -153,10 +157,6 @@ function QuizCard({ screen, answers, onSelectSingle, onToggleQ8, onNext, onPrev 
   const selectedMulti  = (answers.q8_priority ?? []) as string[]
   const advance = canAdvance(screen, answers)
   const eyebrow = QUESTION_LABELS[step - 1]
-
-  // First-option focus
-  const firstRef = useRef<HTMLButtonElement>(null)
-  useEffect(() => { firstRef.current?.focus() }, [screen])
 
   return (
     <div className="bg-verso-paper border border-verso-rule-soft relative shadow-[0_20px_40px_-20px_rgba(30, 31, 24,0.12)]"

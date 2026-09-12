@@ -1,7 +1,7 @@
 ---
 title: "Living in Sesimbra: a full guide to the municipality (2026)"
 slug: aml/sesimbra
-meta_description: "Everything about living in Sesimbra: T2 rent, three-year projection, Arrábida Nature Park, transport, schools and resident profile."
+meta_description: "Everything about living in Sesimbra: T2 rent, three year projection, Arrábida Nature Park, transport, schools and resident profile."
 language: en
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/sesimbra
@@ -17,19 +17,19 @@ canonical: https://www.usehabitta.com/aml/sesimbra
 
 ## Is Sesimbra worth living in?
 
-Sesimbra has three realities. Sesimbra-Vila is a fishing town with a life of its own and significant tourism in summer. Quinta do Conde is a residential parish that has grown a lot in recent decades and functions almost as a dormitory town. Castelo, Aldeia do Meco and the inland areas have a more rural character.
+Sesimbra has three realities. Sesimbra Vila is a fishing town with a life of its own and significant tourism in summer. Quinta do Conde is a residential parish that has grown a lot in recent decades and functions almost as a dormitory town. Castelo, Aldeia do Meco and the inland areas have a more rural character.
 
-The combination of sea, mountain, clean air and reasonable proximity to Lisboa attracts more and more remote-working professionals.
+The combination of sea, mountain, clean air and reasonable proximity to Lisboa attracts more and more remote working professionals.
 
 ## How much does it cost to rent a T2 in Sesimbra in 2026?
 
-The median rent for a T2 in Sesimbra sits between €750 and €900 per month. The most expensive areas are Sesimbra-Vila (the riverfront) and Aldeia do Meco. The most affordable are Quinta do Conde (inland) and the areas away from the sea.
+The median rent for a T2 in Sesimbra sits between €750 and €900 per month. The most expensive areas are Sesimbra Vila (the riverfront) and Aldeia do Meco. The most affordable are Quinta do Conde (inland) and the areas away from the sea.
 
-Seasonality is strong. In summer, long-term rental supply shrinks because of short-term holiday lets.
+Seasonality is strong. In summer, long term rental supply shrinks because of short term holiday lets.
 
-### Three-year T2 rent projection (2026 to 2029)
+### Three year T2 rent projection (2026 to 2029)
 
-Base scenario: accumulated growth between 15% and 25%, taking the median T2 rent to between €900 and €1,100 per month by 2029. Sesimbra is one of the most sought-after municipalities in the AML for remote workers and the creative middle class, particularly from Lisboa. Tourist pressure and seasonality reduce long-term supply and accelerate price rises.
+Base scenario: accumulated growth between 15% and 25%, taking the median T2 rent to between €900 and €1,100 per month by 2029. Sesimbra is one of the most sought after municipalities in the AML for remote workers and the creative middle class, particularly from Lisboa. Tourist pressure and seasonality reduce long term supply and accelerate price rises.
 
 ## Population and density
 
@@ -37,7 +37,7 @@ Sesimbra had 52,465 residents in the 2021 Census, 6% more than in 2011. The area
 
 ## Who lives in Sesimbra? Resident profile
 
-Sesimbra has a socially diverse profile. Established fishing and traditional communities in Sesimbra-Vila coexist with the Portuguese middle class in Quinta do Conde, and with expats, surfers and creative professionals in Meco and the coastal areas.
+Sesimbra has a socially diverse profile. Established fishing and traditional communities in Sesimbra Vila coexist with the Portuguese middle class in Quinta do Conde, and with expats, surfers and creative professionals in Meco and the coastal areas.
 
 The international presence has been growing in the coastal areas and in Aldeia do Meco.
 
@@ -45,10 +45,10 @@ The international presence has been growing in the coastal areas and in Aldeia d
 
 Sesimbra has neither its own train nor metro. Connections to Lisboa are mainly:
 
-**Fertagus extension to Quinta do Conde** — `Under study`
+**Fertagus extension to Quinta do Conde**, `Under study`
 Project under discussion to extend the Fertagus line to Quinta do Conde. No firm timeline.
 
-By car via the A2 and the Ponte 25 de Abril, from Quinta do Conde to central Lisboa is around 35 to 50 minutes outside peak hours. From Sesimbra-Vila, 50 to 60 minutes.
+By car via the A2 and the Ponte 25 de Abril, from Quinta do Conde to central Lisboa is around 35 to 50 minutes outside peak hours. From Sesimbra Vila, 50 to 60 minutes.
 
 TST buses link Sesimbra and Quinta do Conde to Lisboa (Sete Rios) and Almada (Pragal, with connection to metro and Fertagus).
 
@@ -60,15 +60,15 @@ The lack of a train is the main limitation.
 
 Sesimbra has 430 families on the waiting list. Three PRR applications have been approved, allowing the refurbishment of 60 municipal units and the acquisition of 88 homes.
 
-There is moderate entry of private developments, especially in Quinta do Conde and the areas close to Sesimbra-Vila.
+There is moderate entry of private developments, especially in Quinta do Conde and the areas close to Sesimbra Vila.
 
-The riverfront and quay refurbishment in Sesimbra-Vila is ongoing.
+The riverfront and quay refurbishment in Sesimbra Vila is ongoing.
 
 The management of Arrábida (shared with Setúbal and Palmela) limits urban expansion in part of the territory, preserving the natural character of the municipality.
 
 ## Schools, healthcare and retail
 
-In education, there is adequate public coverage, with basic and secondary schools in Sesimbra-Vila and Quinta do Conde. There is no higher education locally.
+In education, there is adequate public coverage, with basic and secondary schools in Sesimbra Vila and Quinta do Conde. There is no higher education locally.
 
 In healthcare, the Hospital Garcia de Orta (Almada) is the public reference. There are health centres in the main parishes.
 
@@ -79,13 +79,13 @@ In retail, the Continente Sesimbra and the Continente Quinta do Conde cover the 
 ## FAQ
 
 ### Is Sesimbra good for families?
-Yes. Quinta do Conde is the most sought-after parish for young families, with schools and parks. Sesimbra-Vila attracts families that value the beach and the fishing-town atmosphere. T3 rent between €900 and €1,100.
+Yes. Quinta do Conde is the most sought after parish for young families, with schools and parks. Sesimbra Vila attracts families that value the beach and the fishing town atmosphere. T3 rent between €900 and €1,100.
 
 ### Is it worth living in Sesimbra if I work in Lisboa?
 It makes sense if you work remotely or in hybrid mode. For a rigid schedule with daily trips to Lisboa, the total commute is around 1h30 to 2h per day.
 
 ### Sesimbra or Setúbal: which is better?
-Setúbal has the Fertagus train to Lisboa, more urban offering and more services. Sesimbra has more beach, fishing-town identity and the Arrábida Nature Park. Setúbal for urban services, Sesimbra for natural quality of life.
+Setúbal has the Fertagus train to Lisboa, more urban offering and more services. Sesimbra has more beach, fishing town identity and the Arrábida Nature Park. Setúbal for urban services, Sesimbra for natural quality of life.
 
 ### Which are the cheapest areas in Sesimbra?
 Quinta do Conde (inland) and the rural areas have T2 rents between €650 and €800.

@@ -2,14 +2,14 @@
 title: "Viver em Odivelas: guia completo do concelho (2026)"
 slug: aml/odivelas
 meta_description: "Tudo sobre viver em Odivelas: renda T2, projeção a 3 anos, futura Linha Violeta, transportes, escolas e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/odivelas
 ---
 
 # Viver em Odivelas: o que precisa de saber antes de escolher esta zona
 
-**Resumo rápido:** Odivelas é um dos concelhos da AML com melhor combinação de transportes e preço. Tem 148 mil residentes, metro Linha Amarela já em operação (estação terminal de Odivelas) e a futura Linha Violeta vai ligá-lo a Loures. Renda mediana de T2 entre 850 e 950 euros. Boa escolha para profissionais que trabalham no centro de Lisboa e querem metro à porta. Menos indicada para quem procura ambiente menos urbano ou jardim privado.
+**Resumo rápido:** Odivelas é um dos concelhos da AML com melhor combinação de transportes e preço. Tem 148 mil residentes, metro Linha Amarela já em operação (estação terminal de Odivelas) e a futura Linha Violeta vai ligá lo a Loures. Renda mediana de T2 entre 850 e 950 euros. Boa escolha para profissionais que trabalham no centro de Lisboa e querem metro à porta. Menos indicada para quem procura ambiente menos urbano ou jardim privado.
 
 *Atualizado a 30 de abril de 2026.*
 
@@ -19,13 +19,13 @@ canonical: https://www.usehabitta.com/aml/odivelas
 
 Odivelas tem uma vantagem que a maioria dos concelhos da AML não tem: metro direto ao centro de Lisboa. A Linha Amarela termina em Odivelas, com paragens em Senhor Roubado e Ameixoeira. O concelho é compacto (apenas 26 km²), urbano e com vida comercial própria.
 
-As freguesias mais procuradas são Odivelas-Vila, Pontinha (perto da fronteira com Lisboa) e Olival Basto (junto à futura Linha Violeta). Caneças tem perfil mais rural.
+As freguesias mais procuradas são Odivelas Vila, Pontinha (perto da fronteira com Lisboa) e Olival Basto (junto à futura Linha Violeta). Caneças tem perfil mais rural.
 
 ## Quanto custa arrendar um T2 em Odivelas em 2026?
 
 A renda mediana por metro quadrado em Odivelas fica em torno dos 10 a 11 euros, segundo dados do INE para a Grande Lisboa. Para um T2 de 80 metros quadrados, a renda fica entre 850 e 950 euros mensais.
 
-As zonas mais caras são Odivelas-Vila (junto ao metro) e Pontinha. As mais acessíveis são Caneças e zonas interiores da Ramada.
+As zonas mais caras são Odivelas Vila (junto ao metro) e Pontinha. As mais acessíveis são Caneças e zonas interiores da Ramada.
 
 ### Projeção da renda T2 a 3 anos (2026 a 2029)
 
@@ -39,7 +39,7 @@ A população cresce moderadamente em todas as freguesias. Caneças (a única co
 
 ## Quem mora em Odivelas? Perfil de morador
 
-Odivelas tem perfil socialmente diverso. A classe média portuguesa concentra-se em Odivelas-Vila e Pontinha. Há comunidades brasileira, ucraniana e africana com presença significativa. Famílias jovens têm vindo a chegar nas últimas duas décadas atraídas pela combinação de metro e preços acessíveis.
+Odivelas tem perfil socialmente diverso. A classe média portuguesa concentra-se em Odivelas Vila e Pontinha. Há comunidades brasileira, ucraniana e africana com presença significativa. Famílias jovens têm vindo a chegar nas últimas duas décadas atraídas pela combinação de metro e preços acessíveis.
 
 A Câmara reconhece 1.220 famílias em lista de espera por habitação municipal, sinalizando pressão habitacional.
 
@@ -47,7 +47,7 @@ A Câmara reconhece 1.220 famílias em lista de espera por habitação municipal
 
 Odivelas está bem servida:
 
-**Linha Violeta do Metro** — `Em curso`
+**Linha Violeta do Metro**, `Em curso`
 Metro ligeiro de superfície entre Odivelas e Loures, com 8 estações em Odivelas (Póvoa de Santo Adrião, Olival de Basto, Ramada e Caneças). Inauguração prevista para 2026, com atrasos confirmados; novas datas ainda não confirmadas.
 
 A Linha Amarela tem estação terminal em Odivelas, com estações em Senhor Roubado e Ameixoeira. De Odivelas ao Marquês de Pombal são 20 minutos.
@@ -62,28 +62,28 @@ A Linha Violeta vai criar 8 novas estações em Odivelas, melhorando significati
 
 A Câmara está a executar a reabilitação de 52 fogos (26 prontos em outubro de 2025, restantes em junho de 2026) e a construção de 6 empreendimentos novos. Quatro destes deverão estar concluídos em junho de 2026 e os restantes dois em dezembro de 2027.
 
-Há mais de uma dezena de empreendimentos em comercialização, sobretudo em Odivelas-Vila e Ramada.
+Há mais de uma dezena de empreendimentos em comercialização, sobretudo em Odivelas Vila e Ramada.
 
 ## Escolas, saúde e comércio
 
-Em ensino, a oferta de ensino básico e secundário público é a coluna vertebral — alguns colégios privados complementam, mas Odivelas não é destino de escolas internacionais. Quem quer ensino superior atravessa para Lisboa: a Cidade Universitária fica a 10 minutos de carro de Odivelas-Vila.
+Em ensino, a oferta de ensino básico e secundário público é a coluna vertebral, alguns colégios privados complementam, mas Odivelas não é destino de escolas internacionais. Quem quer ensino superior atravessa para Lisboa: a Cidade Universitária fica a 10 minutos de carro de Odivelas Vila.
 
 Em saúde, o Hospital Beatriz Ângelo (em Loures) é a referência pública mais próxima. A oferta privada inclui clínicas de menor dimensão.
 
-Em comércio, o Odivelas Parque é o principal centro comercial. O comércio de proximidade é forte em Odivelas-Vila e na Pontinha.
+Em comércio, o Odivelas Parque é o principal centro comercial. O comércio de proximidade é forte em Odivelas Vila e na Pontinha.
 
 ---
 
 ## Perguntas frequentes
 
 ### Odivelas é boa para famílias?
-Sim. Odivelas-Vila e Ramada têm boas escolas e parques (Parque Urbano da Várzea, Parque dos Castanheiros). Renda T3 entre 1.000 e 1.250 euros.
+Sim. Odivelas Vila e Ramada têm boas escolas e parques (Parque Urbano da Várzea, Parque dos Castanheiros). Renda T3 entre 1.000 e 1.250 euros.
 
 ### Vale a pena viver em Odivelas se trabalho em Lisboa centro?
 Sim. Tem metro Linha Amarela direto ao Marquês, ao Saldanha e ao Rato. 20 minutos para o centro de Lisboa.
 
 ### Odivelas ou Amadora: qual é melhor?
-A Amadora tem mais opções de transporte (várias estações de metro e comboio). Odivelas tem ligação metro mais direta ao centro-norte de Lisboa e é menos densamente povoada.
+A Amadora tem mais opções de transporte (várias estações de metro e comboio). Odivelas tem ligação metro mais direta ao centro norte de Lisboa e é menos densamente povoada.
 
 ### Quando abre a Linha Violeta em Odivelas?
 A inauguração estava prevista para 2026, mas a obra está atrasada por questões com o subcontratante chinês CRRC. As novas datas ainda não estão confirmadas.

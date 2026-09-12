@@ -52,7 +52,7 @@ export function MapEmbed({ zone, caption }: MapEmbedProps) {
             color: 'rgba(30,31,24,0.4)',
           }}
         >
-          Mapa — {zone}
+          Mapa · {zone}
         </p>
       </div>
       {caption && (

@@ -2,14 +2,14 @@
 title: "Viver em Mafra: guia completo do concelho (2026)"
 slug: aml/mafra
 meta_description: "Tudo sobre viver em Mafra: renda T2, projeção a 3 anos, transportes para Lisboa, projetos urbanos, escolas e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/mafra
 ---
 
 # Viver em Mafra: o que precisa de saber antes de escolher esta zona
 
-**Resumo rápido:** Mafra é o concelho da AML que mais cresceu em população na última década (+12,8%), com 87 mil residentes e renda mediana de T2 entre 750 e 900 euros. Tem zonas litorais (Ericeira, Foz do Lizandro) muito procuradas para qualidade de vida e zonas interiores (Mafra-Vila, Malveira, Venda do Pinheiro) com perfil rural-urbano. Boa escolha para famílias jovens que querem casa com terreno e ambiente menos urbano. Menos indicada para quem precisa de chegar diariamente ao centro de Lisboa de transportes públicos.
+**Resumo rápido:** Mafra é o concelho da AML que mais cresceu em população na última década (+12,8%), com 87 mil residentes e renda mediana de T2 entre 750 e 900 euros. Tem zonas litorais (Ericeira, Foz do Lizandro) muito procuradas para qualidade de vida e zonas interiores (Mafra Vila, Malveira, Venda do Pinheiro) com perfil rural urbano. Boa escolha para famílias jovens que querem casa com terreno e ambiente menos urbano. Menos indicada para quem precisa de chegar diariamente ao centro de Lisboa de transportes públicos.
 
 *Atualizado a 30 de abril de 2026.*
 
@@ -17,13 +17,13 @@ canonical: https://www.usehabitta.com/aml/mafra
 
 ## Vale a pena viver em Mafra?
 
-Mafra cresceu mais de 12% em dez anos, prova de que muita gente está disposta a abdicar da proximidade a Lisboa em troca de mais espaço, ar limpo e acesso à praia (Ericeira). É um concelho com duas realidades: a faixa litoral (Ericeira) é cara, turística e com forte presença internacional. O interior (Mafra-Vila, Malveira, Venda do Pinheiro) é mais residencial e tem mais oferta de moradias.
+Mafra cresceu mais de 12% em dez anos, prova de que muita gente está disposta a abdicar da proximidade a Lisboa em troca de mais espaço, ar limpo e acesso à praia (Ericeira). É um concelho com duas realidades: a faixa litoral (Ericeira) é cara, turística e com forte presença internacional. O interior (Mafra Vila, Malveira, Venda do Pinheiro) é mais residencial e tem mais oferta de moradias.
 
 A maior limitação é a inexistência de comboio. A ligação a Lisboa é 100% rodoviária.
 
 ## Quanto custa arrendar um T2 em Mafra em 2026?
 
-A renda mediana de um T2 em Mafra fica entre 750 e 900 euros mensais nas zonas mais procuradas (Mafra-Vila, Malveira). Na Ericeira, a renda T2 sobe para 900 a 1.300 euros, com forte componente turística e sazonalidade.
+A renda mediana de um T2 em Mafra fica entre 750 e 900 euros mensais nas zonas mais procuradas (Mafra Vila, Malveira). Na Ericeira, a renda T2 sobe para 900 a 1.300 euros, com forte componente turística e sazonalidade.
 
 A oferta de moradias é alta no concelho. Para uma moradia T3 com terreno, as rendas começam nos 1.100 euros em zonas como Sobreiro, Pero Pinheiro ou Achada.
 
@@ -35,7 +35,7 @@ Cenário base: subida acumulada entre 12% e 18% no interior, levando a renda med
 
 Mafra tinha 86.523 residentes nos Censos 2021, mais 12,8% do que em 2011, o maior crescimento da AML em termos relativos. A área é de 291,66 km², com densidade de 297 habitantes por km².
 
-A população cresce em todas as freguesias, com destaque para Malveira, Venda do Pinheiro e Mafra-Vila.
+A população cresce em todas as freguesias, com destaque para Malveira, Venda do Pinheiro e Mafra Vila.
 
 ## Quem mora em Mafra? Perfil de morador
 
@@ -45,9 +45,9 @@ A presença de comunidade brasileira tem aumentado no interior do concelho.
 
 ## Transportes e ligação ao centro de Lisboa
 
-Mafra não tem comboio. As ligações para Lisboa fazem-se sobretudo:
+Mafra não tem comboio. As ligações para Lisboa fazem se sobretudo:
 
-De carro pela A8, que é a opção principal. Da Mafra-Vila a Lisboa centro são cerca de 35 a 50 minutos fora de hora de ponta. Em hora de ponta, a A8 e a CRIL podem ficar congestionadas.
+De carro pela A8, que é a opção principal. Da Mafra Vila a Lisboa centro são cerca de 35 a 50 minutos fora de hora de ponta. Em hora de ponta, a A8 e a CRIL podem ficar congestionadas.
 
 Os autocarros Mafrense ligam Mafra, Malveira e Venda do Pinheiro a Lisboa (Campo Grande). O tempo é de 50 a 75 minutos.
 
@@ -55,29 +55,29 @@ A inexistência de comboio é a principal limitação do concelho. Não há proj
 
 ## Projetos urbanos previstos no concelho
 
-**Póvoa da Galega** — `Em curso`
+**Póvoa da Galega**, `Em curso`
 Operação local no quadro do Plano Metropolitano de Apoio às Comunidades Desfavorecidas, financiado pelo PRR.
 
 A Câmara definiu a implementação de 390 soluções habitacionais e tem um programa que apoia a renda de 130 famílias. Há cerca de 425 famílias em lista de espera.
 
-Há mais de 25 empreendimentos privados em comercialização no concelho, sobretudo em Mafra-Vila, Malveira e Ericeira. T2 em construção a partir de 280 mil euros nas zonas mais acessíveis.
+Há mais de 25 empreendimentos privados em comercialização no concelho, sobretudo em Mafra Vila, Malveira e Ericeira. T2 em construção a partir de 280 mil euros nas zonas mais acessíveis.
 
 Continua a valorização do património histórico (Palácio Nacional de Mafra, Tapada de Mafra) com efeitos turísticos.
 
 ## Escolas, saúde e comércio
 
-Em ensino, há boa cobertura de escolas públicas básicas e secundárias. Existem alguns colégios privados na Ericeira e em Mafra-Vila. O ensino superior está em Lisboa.
+Em ensino, há boa cobertura de escolas públicas básicas e secundárias. Existem alguns colégios privados na Ericeira e em Mafra Vila. O ensino superior está em Lisboa.
 
-Em saúde, o Hospital de Loures (Beatriz Ângelo) é a referência pública mais próxima. Em Mafra-Vila e Ericeira há centros de saúde e clínicas privadas.
+Em saúde, o Hospital de Loures (Beatriz Ângelo) é a referência pública mais próxima. Em Mafra Vila e Ericeira há centros de saúde e clínicas privadas.
 
-Em comércio, há um Mafra Retail Park (em construção), centros comerciais menores em Malveira (Continente) e comércio tradicional em Mafra-Vila e Ericeira. Para compras maiores, a deslocação é normalmente para Loures (LoureShopping) ou Lisboa.
+Em comércio, há um Mafra Retail Park (em construção), centros comerciais menores em Malveira (Continente) e comércio tradicional em Mafra Vila e Ericeira. Para compras maiores, a deslocação é normalmente para Loures (LoureShopping) ou Lisboa.
 
 ---
 
 ## Perguntas frequentes
 
 ### Mafra é boa para famílias?
-Muito. É um dos concelhos da AML mais procurados por famílias com filhos. Mafra-Vila, Malveira e Venda do Pinheiro têm boas escolas, parques e ambiente residencial. Renda T3 entre 950 e 1.200 euros (interior) ou 1.300 a 2.000 euros (Ericeira).
+Muito. É um dos concelhos da AML mais procurados por famílias com filhos. Mafra Vila, Malveira e Venda do Pinheiro têm boas escolas, parques e ambiente residencial. Renda T3 entre 950 e 1.200 euros (interior) ou 1.300 a 2.000 euros (Ericeira).
 
 ### Vale a pena viver em Mafra se trabalho em Lisboa?
 Sem comboio, depende muito do horário e do local de trabalho em Lisboa. Para horário com flexibilidade, faz sentido. Para horário rígido em hora de ponta, o tempo perdido em trânsito na A8 e na CRIL pode tornar a opção penosa.

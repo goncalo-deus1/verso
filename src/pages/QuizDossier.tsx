@@ -39,6 +39,7 @@ import { AlternativasGrid } from '../components/result/AlternativasGrid'
 import { Metodologia }     from '../components/result/Metodologia'
 import { CtaFinal }        from '../components/result/CtaFinal'
 import { QuizConflictModal } from '../components/result/QuizConflictModal'
+import { PremiumZoneComparison } from '../components/result/PremiumZoneComparison'
 import { getUserQuiz, upsertUserQuiz } from '../lib/supabase/userQuiz'
 import { UrbanProjectsSection } from '../components/concelho/UrbanProjectsSection'
 import FeedbackModal, { hasFeedbackDone } from '../components/FeedbackModal'
@@ -48,6 +49,8 @@ import type { UserQuiz }   from '../lib/supabase/userQuiz'
 import type { QuizResult } from '../lib/quiz/scoring'
 import { pickJustification, pickTradeoff } from '../lib/quiz/scoring'
 import type { QuizAnswers } from '../lib/quiz/questions'
+import { buildProfile } from '../lib/quiz/profileBuilder'
+import { hasActivePaidPlan } from '../lib/supabase/entitlements'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -110,20 +113,265 @@ function GatedBlur({ children, active }: { children: React.ReactNode; active: bo
   )
 }
 
+function FreeTopThreeSection({ zones }: { zones: QuizResult['alternatives'] }) {
+  const { lang } = useLang()
+  const tr = useT(lang)
+
+  return (
+    <section
+      className="habitta-px py-16 md:py-20"
+      style={{ background: '#F2EDE4', borderBottom: '1px solid rgba(30, 31, 24, 0.125)' }}
+    >
+      <div style={{ maxWidth: '1180px', margin: '0 auto' }}>
+        <div className="grid md:grid-cols-[220px_1fr] gap-8 md:gap-12 items-start" style={{ marginBottom: '36px' }}>
+          <p
+            style={{
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: '10px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: '#C2553A',
+              borderTop: '1px solid rgba(30, 31, 24, 0.125)',
+              paddingTop: '14px',
+            }}
+          >
+            {tr('dossier.free.eyebrow')}
+          </p>
+          <div>
+            <h2
+              className="font-display"
+              style={{
+                fontSize: 'clamp(34px, 4.8vw, 58px)',
+                lineHeight: 1,
+                letterSpacing: '-0.025em',
+                color: '#1E1F18',
+                fontWeight: 400,
+                maxWidth: '720px',
+              }}
+            >
+              {tr('dossier.free.title')}
+            </h2>
+            <p style={{ marginTop: '18px', color: '#3A3B2E', fontSize: '16px', lineHeight: 1.7, maxWidth: '620px' }}>
+              {tr('dossier.free.body')}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-3" style={{ gap: '12px' }}>
+          {zones.map((zone, index) => (
+            <Link
+              key={zone.slug}
+              to={`/aml/${getZoneConcelhoId(zone.zone)}`}
+              style={{
+                textDecoration: 'none',
+                background: index === 0 ? '#1E1F18' : '#E8E0D0',
+                color: index === 0 ? '#F2EDE4' : '#1E1F18',
+                border: '1px solid rgba(30, 31, 24, 0.125)',
+                padding: '28px',
+                minHeight: '260px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', alignItems: 'baseline', marginBottom: '26px' }}>
+                  <span
+                    style={{
+                      fontFamily: '"JetBrains Mono", monospace',
+                      fontSize: '10px',
+                      letterSpacing: '0.18em',
+                      textTransform: 'uppercase',
+                      color: index === 0 ? '#C2553A' : '#3A3B2E',
+                      opacity: index === 0 ? 1 : 0.65,
+                    }}
+                  >
+                    {tr('dossier.free.rank').replace('{n}', String(index + 1))}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: '"JetBrains Mono", monospace',
+                      fontSize: '13px',
+                      color: index === 0 ? '#F2EDE4' : '#C2553A',
+                    }}
+                  >
+                    {zone.score} / 100
+                  </span>
+                </div>
+                <h3
+                  className="font-display"
+                  style={{
+                    fontSize: 'clamp(28px, 3vw, 38px)',
+                    lineHeight: 1,
+                    letterSpacing: '-0.02em',
+                    fontWeight: 400,
+                    marginBottom: '18px',
+                  }}
+                >
+                  {zone.zone.name}
+                </h3>
+                <p style={{ color: index === 0 ? 'rgba(242, 237, 228, 0.72)' : '#3A3B2E', fontSize: '14px', lineHeight: 1.65 }}>
+                  {pickJustification(zone, lang)}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function DecisionPaywall() {
+  const { lang } = useLang()
+  const tr = useT(lang)
+  const items = [
+    tr('dossier.paywall.item.compare'),
+    tr('dossier.paywall.item.risks'),
+    tr('dossier.paywall.item.budget'),
+    tr('dossier.paywall.item.avoid'),
+    tr('dossier.paywall.item.pdf'),
+  ]
+
+  return (
+    <section
+      className="habitta-px py-16 md:py-20"
+      style={{
+        background: '#1E1F18',
+        color: '#F2EDE4',
+        borderBottom: '1px solid rgba(242, 237, 228, 0.12)',
+      }}
+    >
+      <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-center" style={{ maxWidth: '1180px', margin: '0 auto' }}>
+        <div>
+          <p
+            style={{
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: '10px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: '#C2553A',
+              marginBottom: '18px',
+            }}
+          >
+            {tr('dossier.paywall.eyebrow')}
+          </p>
+          <h2
+            className="font-display"
+            style={{
+              fontSize: 'clamp(34px, 4.8vw, 58px)',
+              lineHeight: 1,
+              letterSpacing: '-0.025em',
+              fontWeight: 400,
+              maxWidth: '620px',
+            }}
+          >
+            {tr('dossier.paywall.title')}
+          </h2>
+          <p style={{ marginTop: '20px', color: 'rgba(242, 237, 228, 0.62)', fontSize: '16px', lineHeight: 1.7, maxWidth: '540px' }}>
+            {tr('dossier.paywall.body')}
+          </p>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '30px' }}>
+            <Link
+              to="/entrar?redirect=/quiz/dossier&mode=register"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '11px 24px',
+                background: '#C2553A',
+                color: '#F2EDE4',
+                borderRadius: '999px',
+                fontSize: '14px',
+                fontWeight: 600,
+                textDecoration: 'none',
+              }}
+            >
+              {tr('dossier.paywall.primary')}
+            </Link>
+            <Link
+              to="/entrar?redirect=/quiz/dossier"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '11px 24px',
+                background: 'transparent',
+                color: '#F2EDE4',
+                border: '1px solid rgba(242, 237, 228, 0.28)',
+                borderRadius: '999px',
+                fontSize: '14px',
+                fontWeight: 500,
+                textDecoration: 'none',
+              }}
+            >
+              {tr('dossier.paywall.secondary')}
+            </Link>
+          </div>
+        </div>
+
+        <div
+          style={{
+            border: '1px solid rgba(242, 237, 228, 0.14)',
+            background: 'rgba(242, 237, 228, 0.04)',
+            padding: '28px',
+          }}
+        >
+          {items.map((item, index) => (
+            <div
+              key={item}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '38px 1fr',
+                gap: '16px',
+                alignItems: 'start',
+                padding: '18px 0',
+                borderTop: index === 0 ? 'none' : '1px solid rgba(242, 237, 228, 0.12)',
+              }}
+            >
+              <span
+                style={{
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '999px',
+                  border: '1px solid rgba(242, 237, 228, 0.22)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontFamily: '"JetBrains Mono", monospace',
+                  fontSize: '10px',
+                  color: '#C2553A',
+                }}
+              >
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <p style={{ color: 'rgba(242, 237, 228, 0.78)', fontSize: '15px', lineHeight: 1.6 }}>
+                {item}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Inner display component (result guaranteed non-null) ─────────────────────
 
 function DossierContent({
   result,
-  isAnonymous,
+  answers,
+  premiumLocked,
 }: {
   result:      QuizResult
-  isAnonymous: boolean
+  answers:     QuizAnswers | null
+  premiumLocked: boolean
 }) {
   const { setQuizResult } = useQuiz()
   const { lang } = useLang()
   const tr = useT(lang)
   const navigate = useNavigate()
   const { best, alternatives } = result
+  const freeTopThree = useMemo(() => [best, ...alternatives].slice(0, 3), [best, alternatives])
+  const userProfile = useMemo(() => answers ? buildProfile(answers) : best.vector, [answers, best.vector])
 
   const [prefs, setPrefs] = useState<SliderPrefs>(() => initPrefs(best.vector))
 
@@ -164,7 +412,7 @@ function DossierContent({
       tradeoff:           undefined,
       tradeoffConfidence: 'none' as const,
     }
-  }, [isQuizTop, sliderTop, best, bestConcelhoSlug])
+  }, [isQuizTop, sliderTop, best, bestConcelhoSlug, lang])
 
   function handleRestart() {
     setQuizResult(null)
@@ -174,7 +422,7 @@ function DossierContent({
   return (
     <div className="min-h-screen bg-verso-paper">
 
-      {/* § 00 — A resposta (nome + summary always visible; score/map/CTAs gated) */}
+      {/* § 00 — A resposta */}
       <ZonaHero
         nome={displayData.nome}
         score={displayData.score}
@@ -184,12 +432,16 @@ function DossierContent({
         slug={displayData.slug}
         concelhoSlug={displayData.concelhoSlug}
         zoneKind={displayData.zoneKind}
-        isGated={isAnonymous}
       />
 
-      {/* §§ 01–05 — fully blurred for anonymous users */}
-      <GatedBlur active={isAnonymous}>
-        {/* § 01 — Porque esta zona */}
+      {/* § 01 — Resultado gratuito generoso */}
+      <FreeTopThreeSection zones={freeTopThree} />
+
+      {premiumLocked && <DecisionPaywall />}
+
+      {/* §§ 02–06 — decision layer, gated after the free value */}
+      <GatedBlur active={premiumLocked}>
+        {/* § 02 — Porque esta zona */}
         <PorqueEstaZona
           nome={best.zone.name}
           contributions={best.contributions}
@@ -198,7 +450,7 @@ function DossierContent({
           tradeoffConfidence={displayData.tradeoffConfidence}
         />
 
-        {/* § 02 — A prova: mapa interactivo */}
+        {/* § 03 — A prova: mapa interactivo */}
         <MapaInterativo
           prefs={prefs}
           onPrefsChange={handlePrefChange}
@@ -207,10 +459,13 @@ function DossierContent({
           zonaNome={displayData.nome}
         />
 
-        {/* § 03 — Alternativas */}
+        {/* § 04 — Alternativas */}
         <AlternativasGrid alternatives={alternatives} />
 
-        {/* § 03b — Projetos urbanos previstos */}
+        {/* § 05 — Comparação premium */}
+        <PremiumZoneComparison best={best} userProfile={userProfile} />
+
+        {/* § 06 — Projetos urbanos previstos */}
         {(() => {
           // Derive concelhoSlug fresh from the zone object — ignores stale stored value
           const concelhoSlug = getZoneConcelhoId(best.zone)
@@ -233,16 +488,16 @@ function DossierContent({
           )
         })()}
 
-        {/* § 04 — Metodologia */}
+        {/* § 07 — Metodologia */}
         <Metodologia onRestart={handleRestart} />
 
-        {/* § 05 — Próximos passos */}
+        {/* § 08 — Próximos passos */}
         <CtaFinal
           nome={best.zone.name}
           slug={best.slug}
           zoneKind={(best.zone.kind ?? 'concelho') as 'freguesia' | 'concelho'}
           onRestart={handleRestart}
-          showRefazer={!isAnonymous}
+          showRefazer={!premiumLocked}
         />
       </GatedBlur>
 
@@ -314,9 +569,12 @@ function DossierContent({
 export default function QuizDossier() {
   const { quizResult, quizAnswers, setQuizResult, setQuizAnswers } = useQuiz()
   const { user, loading: authLoading } = useAuth()
+  const userId = user?.id
 
   const [savedQuiz,      setSavedQuiz]      = useState<UserQuiz | null>(null)
   const [supabaseLoading, setSupabaseLoading] = useState(false)
+  const [hasPaidPlan,     setHasPaidPlan]     = useState(false)
+  const [planLoading,     setPlanLoading]     = useState(false)
   const [conflictState,  setConflictState]  = useState<'none' | 'waiting'>('none')
   const [feedbackOpen,   setFeedbackOpen]   = useState(false)
 
@@ -329,12 +587,12 @@ export default function QuizDossier() {
 
   // ─── Supabase: fetch + sync / migrate (Steps 6 + 8) ─────────────────────────
   useEffect(() => {
-    if (!user) return
+    if (!userId) return
 
     let cancelled = false
     setSupabaseLoading(true)
 
-    getUserQuiz(user.id)
+    getUserQuiz(userId)
       .then(saved => {
         if (cancelled) return
         setSavedQuiz(saved)
@@ -343,7 +601,7 @@ export default function QuizDossier() {
         if (!saved) {
           // No Supabase row — migrate localStorage quiz if present (Step 8)
           if (quizAnswers && quizResult) {
-            upsertUserQuiz(user.id, quizAnswers, quizResult).catch(console.error)
+            upsertUserQuiz(userId, quizAnswers, quizResult).catch(console.error)
           }
         } else if (quizAnswers && !answersEqual(quizAnswers, saved.answers)) {
           // Row exists and differs from localStorage — show conflict modal (Step 6)
@@ -354,7 +612,33 @@ export default function QuizDossier() {
       .catch(() => { if (!cancelled) setSupabaseLoading(false) })
 
     return () => { cancelled = true }
-  }, [user?.id]) // re-runs only when user identity changes (login / logout)
+  }, [userId, quizAnswers, quizResult])
+
+  // ─── Supabase: paid plan entitlement ──────────────────────────────────────
+  useEffect(() => {
+    if (!userId) {
+      setHasPaidPlan(false)
+      setPlanLoading(false)
+      return
+    }
+
+    let cancelled = false
+    setPlanLoading(true)
+
+    hasActivePaidPlan()
+      .then(active => {
+        if (cancelled) return
+        setHasPaidPlan(active)
+        setPlanLoading(false)
+      })
+      .catch(() => {
+        if (cancelled) return
+        setHasPaidPlan(false)
+        setPlanLoading(false)
+      })
+
+    return () => { cancelled = true }
+  }, [userId])
 
   // ─── Conflict modal handlers ──────────────────────────────────────────────
 
@@ -379,11 +663,12 @@ export default function QuizDossier() {
   // After "Replace":    quizResult in context already holds the new result.
   // During conflict:    show the current context result (new quiz) behind the modal.
   const effectiveResult: QuizResult | null = quizResult ?? savedQuiz?.result ?? null
+  const effectiveAnswers: QuizAnswers | null = quizAnswers ?? savedQuiz?.answers ?? null
 
-  const isAnonymous = !authLoading && !user
+  const premiumLocked = !user || !hasPaidPlan
 
   // Show skeleton only when: auth still loading, OR authenticated + fetching Supabase + nothing in context
-  const isLoading = authLoading || (!!user && supabaseLoading && !effectiveResult)
+  const isLoading = authLoading || (!!user && (planLoading || supabaseLoading) && !effectiveResult)
 
   // ─── Guards (after all hooks) ─────────────────────────────────────────────
 
@@ -409,7 +694,8 @@ export default function QuizDossier() {
       />
       <DossierContent
         result={effectiveResult}
-        isAnonymous={isAnonymous}
+        answers={effectiveAnswers}
+        premiumLocked={premiumLocked}
       />
     </>
   )

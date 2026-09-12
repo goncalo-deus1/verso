@@ -42,13 +42,13 @@ const CATEGORIES: Category[] = [
     key: 'performance',
     label: 'Cookies de Desempenho',
     description:
-      'Permitem-nos contar visitas e perceber de onde vêm os utilizadores para medirmos e melhorarmos o desempenho do site. Toda a informação é agregada e anónima.',
+      'Ajudam a contar visitas e a perceber de onde vêm os utilizadores para medirmos e melhorarmos o desempenho do site. Toda a informação é agregada e anónima.',
   },
   {
     key: 'functional',
     label: 'Cookies Funcionais',
     description:
-      'Permitem ao site recordar escolhas que fez — como a língua ou a região — para oferecer funcionalidades mais personalizadas. A informação recolhida não identifica o utilizador.',
+      'Permitem ao site recordar escolhas que fez, como a língua ou a região, para oferecer funcionalidades mais personalizadas. A informação recolhida não identifica o utilizador.',
   },
   {
     key: 'marketing',

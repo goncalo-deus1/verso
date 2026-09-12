@@ -82,7 +82,7 @@ export function Sources({ items }: SourcesProps) {
                 <span style={{ color: INK }}>{src.label}</span>
               )}
               {src.note && (
-                <span style={{ color: 'rgba(30,31,24,0.45)', marginLeft: '8px' }}>— {src.note}</span>
+                <span style={{ color: 'rgba(30,31,24,0.45)', marginLeft: '8px' }}>· {src.note}</span>
               )}
             </span>
           </li>

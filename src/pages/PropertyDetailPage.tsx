@@ -192,10 +192,10 @@ export default function PropertyDetailPage() {
             {/* Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { icon: <Bed size={16} />, label: tr('pd.stat.rooms'), value: property.bedrooms || '—' },
-                { icon: <Bath size={16} />, label: tr('pd.stat.bath'), value: property.bathrooms || '—' },
-                { icon: <Maximize2 size={16} />, label: tr('pd.stat.area'), value: property.sqm ? `${property.sqm} m²` : '—' },
-                { icon: <Car size={16} />, label: tr('pd.stat.parking'), value: property.parking_spots > 0 ? property.parking_spots : '—' },
+                { icon: <Bed size={16} />, label: tr('pd.stat.rooms'), value: property.bedrooms || '·' },
+                { icon: <Bath size={16} />, label: tr('pd.stat.bath'), value: property.bathrooms || '·' },
+                { icon: <Maximize2 size={16} />, label: tr('pd.stat.area'), value: property.sqm ? `${property.sqm} m²` : '·' },
+                { icon: <Car size={16} />, label: tr('pd.stat.parking'), value: property.parking_spots > 0 ? property.parking_spots : '·' },
               ].map(stat => (
                 <div key={stat.label} className="flex flex-col items-center text-center p-4 bg-white"
                   style={{ border: `1px solid ${HAIRLINE}`, borderRadius: '6px' }}>

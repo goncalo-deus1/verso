@@ -166,7 +166,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
 
     addMsg('user', labels)
 
-    const newProfile: BuyerProfile = { ...profile, [steps[step].field]: multi as any }
+    const newProfile: BuyerProfile = { ...profile, [steps[step].field]: multi }
     setProfile(newProfile)
     setMulti([])
 
@@ -209,8 +209,8 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
         recommendations = [generatePropertyFit(finalProfile)]
         const score = recommendations[0].score
         resultMsg = score >= 70
-          ? `Score de compatibilidade: ${score}% — boa correspondência.`
-          : `Score de compatibilidade: ${score}% — considera ver alternativas.`
+          ? `Score de compatibilidade: ${score}%. Boa correspondência.`
+          : `Score de compatibilidade: ${score}%. Considera ver alternativas.`
       } else {
         recommendations = generateAreaComparison(finalProfile, areaSlug ?? '')
         resultMsg = 'Aqui está a comparação detalhada entre as duas zonas.'
@@ -353,7 +353,7 @@ export function CopilotWidget({ context, property, areaSlug, areaName }: Copilot
                       <CopilotRecommendationCard key={rec.id} rec={rec} onCTA={handleCTA} />
                     ))}
                     <p className="text-center text-xs pb-2" style={{ color: 'rgba(30, 31, 24, 0.125)', fontFamily: 'IBM Plex Mono' }}>
-                      Recomendações habitta — baseadas no teu perfil
+                      Recomendações habitta · baseadas no teu perfil
                     </p>
                   </div>
                 )}

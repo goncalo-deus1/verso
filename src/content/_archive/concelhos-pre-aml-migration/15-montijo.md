@@ -2,7 +2,7 @@
 title: "Viver no Montijo: guia completo do concelho (2026)"
 slug: concelho/montijo
 meta_description: "Tudo sobre viver no Montijo: renda T2, projeção a 3 anos, novo aeroporto Luís de Camões, transportes, escolas e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-04-30
 canonical: https://www.usehabitta.com/concelho/montijo
 ---
@@ -17,13 +17,13 @@ canonical: https://www.usehabitta.com/concelho/montijo
 
 ## Vale a pena viver no Montijo?
 
-O Montijo combina três realidades: a vila histórica com centro tradicional e ferry para Lisboa, as freguesias rurais e agrícolas (Canha, Pegões, Atalaia) e a zona industrial-aeronáutica (Base Aérea n.º 6). O concelho tem visto chegar muitos novos residentes nos últimos dez anos atraídos pelo preço e pela qualidade de vida.
+O Montijo combina três realidades: a vila histórica com centro tradicional e ferry para Lisboa, as freguesias rurais e agrícolas (Canha, Pegões, Atalaia) e a zona industrial aeronáutica (Base Aérea n.º 6). O concelho tem visto chegar muitos novos residentes nos últimos dez anos atraídos pelo preço e pela qualidade de vida.
 
 A maior incógnita é o impacto da construção do novo aeroporto Luís de Camões (parte do território de Canha está abrangida) e das medidas preventivas que afetam o uso do solo num raio de 15 km.
 
 ## Quanto custa arrendar um T2 no Montijo em 2026?
 
-A renda mediana de um T2 no Montijo fica entre 700 e 900 euros mensais. As zonas mais caras são Montijo-Vila (junto ao ferry) e zonas residenciais a oeste do centro. As mais acessíveis são Sarilhos Grandes, Canha e Pegões.
+A renda mediana de um T2 no Montijo fica entre 700 e 900 euros mensais. As zonas mais caras são Montijo Vila (junto ao ferry) e zonas residenciais a oeste do centro. As mais acessíveis são Sarilhos Grandes, Canha e Pegões.
 
 ### Projeção da renda T2 a 3 anos (2026 a 2029)
 
@@ -31,7 +31,7 @@ Cenário base: subida acumulada entre 12% e 20%, levando a renda mediana de um T
 
 ## População e densidade
 
-O Montijo tinha 55.732 residentes nos Censos 2021, mais 8,8% do que em 2011, um dos maiores crescimentos da AML. A área é de 348,62 km², com densidade de 160 habitantes por km². A densidade real é alta no Montijo-Vila e muito baixa nas freguesias rurais (Canha, Pegões).
+O Montijo tinha 55.732 residentes nos Censos 2021, mais 8,8% do que em 2011, um dos maiores crescimentos da AML. A área é de 348,62 km², com densidade de 160 habitantes por km². A densidade real é alta no Montijo Vila e muito baixa nas freguesias rurais (Canha, Pegões).
 
 ## Quem mora no Montijo? Perfil de morador
 
@@ -43,13 +43,13 @@ A presença internacional é baixa, mas tem vindo a crescer com a proximidade do
 
 O Montijo tem boas opções:
 
-**Ferry (Montijo-Cais do Sodré).** Cerca de 25 minutos de travessia, frequência adequada em hora de ponta. É a ligação mais usada para Lisboa centro.
+**Ferry (Montijo Cais do Sodré).** Cerca de 25 minutos de travessia, frequência adequada em hora de ponta. É a ligação mais usada para Lisboa centro.
 
 **Carro pela Ponte Vasco da Gama.** Acesso ao Parque das Nações em 10 a 15 minutos. É das ligações mais rápidas da margem sul ao Lisboa Oriente.
 
 **Carro pela Ponte 25 de Abril.** Para a zona ocidental e centro de Lisboa, cerca de 30 a 40 minutos.
 
-A Terceira Travessia do Tejo, anunciada em 2024, vai ligar Lisboa-Chelas ao Barreiro com componente ferroviária, mas o impacto direto no Montijo é menor do que para Almada e Barreiro.
+A Terceira Travessia do Tejo, anunciada em 2024, vai ligar Lisboa Chelas ao Barreiro com componente ferroviária, mas o impacto direto no Montijo é menor do que para Almada e Barreiro.
 
 ## Projetos urbanos previstos no concelho
 
@@ -57,24 +57,24 @@ A Terceira Travessia do Tejo, anunciada em 2024, vai ligar Lisboa-Chelas ao Barr
 
 **Habitação pública.** O Montijo tem 176 famílias em lista de espera. Está em preparação um concurso para atribuição de 15 frações, mais a construção de 91 novas habitações e a requalificação de 100 já existentes, com conclusão prevista para 2026.
 
-**Empreendimentos privados.** Há entrada moderada de empreendimentos privados em Montijo-Vila e Afonsoeiro.
+**Empreendimentos privados.** Há entrada moderada de empreendimentos privados em Montijo Vila e Afonsoeiro.
 
 **Frente ribeirinha do Tejo.** Continua a requalificação da frente ribeirinha junto ao cais do ferry.
 
 ## Escolas, saúde e comércio
 
-Em ensino, há cobertura pública adequada e algumas opções privadas em Montijo-Vila. Não há ensino superior próprio.
+Em ensino, há cobertura pública adequada e algumas opções privadas em Montijo Vila. Não há ensino superior próprio.
 
-Em saúde, o Hospital do Barreiro-Montijo é a referência pública. Os centros de saúde nas freguesias cobrem cuidados primários.
+Em saúde, o Hospital do Barreiro Montijo é a referência pública. Os centros de saúde nas freguesias cobrem cuidados primários.
 
-Em comércio, o Freeport Outlet (em Alcochete, mas próximo) é o principal centro comercial da zona. O comércio tradicional é forte em Montijo-Vila.
+Em comércio, o Freeport Outlet (em Alcochete, mas próximo) é o principal centro comercial da zona. O comércio tradicional é forte em Montijo Vila.
 
 ---
 
 ## Perguntas frequentes
 
 ### O Montijo é bom para famílias?
-Sim. Montijo-Vila, Afonsoeiro e Atalaia têm boas escolas e parques. Renda T3 entre 850 e 1.050 euros.
+Sim. Montijo Vila, Afonsoeiro e Atalaia têm boas escolas e parques. Renda T3 entre 850 e 1.050 euros.
 
 ### Vale a pena viver no Montijo se trabalho em Lisboa Oriente?
 Sim. É uma das melhores opções da margem sul para o Parque das Nações por causa da Ponte Vasco da Gama (10 a 15 minutos).

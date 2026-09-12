@@ -15,6 +15,51 @@ const CLAY     = '#C2553A'
 const BONE     = '#F2EDE4'
 const HAIRLINE = 'rgba(30, 31, 24, 0.125)'
 
+function ChatButton({ unread, size = 36 }: { unread: number; size?: number }) {
+  return (
+    <Link
+      to="/inbox"
+      aria-label={unread > 0 ? `Mensagens: ${unread} ${unread === 1 ? 'não lida' : 'não lidas'}` : 'Mensagens'}
+      style={{
+        position: 'relative',
+        width: size, height: size,
+        borderRadius: 999,
+        border: unread > 0 ? `1px solid ${CLAY}` : `1px solid ${HAIRLINE}`,
+        background: 'white',
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        color: unread > 0 ? CLAY : STONE,
+        textDecoration: 'none', transition: 'all 150ms',
+      }}
+      onMouseEnter={e => { e.currentTarget.style.borderColor = CLAY; e.currentTarget.style.color = CLAY }}
+      onMouseLeave={e => {
+        if (unread === 0) {
+          e.currentTarget.style.borderColor = HAIRLINE
+          e.currentTarget.style.color = STONE
+        }
+      }}
+    >
+      <MessageSquare size={Math.round(size * 0.42)} strokeWidth={2} />
+      {unread > 0 && (
+        <span
+          aria-hidden
+          style={{
+            position: 'absolute', top: -2, right: -2,
+            minWidth: 16, height: 16, padding: '0 4px',
+            background: CLAY, color: BONE,
+            borderRadius: 8, fontSize: 10, fontWeight: 600,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            fontFamily: 'IBM Plex Mono',
+            border: `2px solid ${'#F8F7F4'}`,
+            lineHeight: 1,
+          }}
+        >
+          {unread > 9 ? '9+' : unread}
+        </span>
+      )}
+    </Link>
+  )
+}
+
 export default function Header() {
   const [open, setOpen] = useState(false)               // mobile menu
   const [userMenuOpen, setUserMenuOpen] = useState(false)
@@ -38,56 +83,6 @@ export default function Header() {
   useEffect(() => { setOpen(false); setUserMenuOpen(false) }, [pathname])
 
   const isActive = (to: string) => pathname.startsWith(to)
-
-  /* ------------------------------------------------------------------ *
-   * Sub-renders                                                         *
-   * ------------------------------------------------------------------ */
-
-  // Ícone de chat com badge — usado no cluster da direita (auth) e no mobile.
-  function ChatButton({ size = 36 }: { size?: number }) {
-    return (
-      <Link
-        to="/inbox"
-        aria-label={unread > 0 ? `Mensagens: ${unread} ${unread === 1 ? 'não lida' : 'não lidas'}` : 'Mensagens'}
-        style={{
-          position: 'relative',
-          width: size, height: size,
-          borderRadius: 999,
-          border: unread > 0 ? `1px solid ${CLAY}` : `1px solid ${HAIRLINE}`,
-          background: 'white',
-          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          color: unread > 0 ? CLAY : STONE,
-          textDecoration: 'none', transition: 'all 150ms',
-        }}
-        onMouseEnter={e => { e.currentTarget.style.borderColor = CLAY; e.currentTarget.style.color = CLAY }}
-        onMouseLeave={e => {
-          if (unread === 0) {
-            e.currentTarget.style.borderColor = HAIRLINE
-            e.currentTarget.style.color = STONE
-          }
-        }}
-      >
-        <MessageSquare size={Math.round(size * 0.42)} strokeWidth={2} />
-        {unread > 0 && (
-          <span
-            aria-hidden
-            style={{
-              position: 'absolute', top: -2, right: -2,
-              minWidth: 16, height: 16, padding: '0 4px',
-              background: CLAY, color: BONE,
-              borderRadius: 8, fontSize: 10, fontWeight: 600,
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: 'IBM Plex Mono',
-              border: `2px solid ${'#F8F7F4'}`,
-              lineHeight: 1,
-            }}
-          >
-            {unread > 9 ? '9+' : unread}
-          </span>
-        )}
-      </Link>
-    )
-  }
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center" style={{ padding: '12px 16px' }}>
@@ -138,6 +133,8 @@ export default function Header() {
                   </Link>
                 )}
                 <NavLinkDesktop to="/imoveis" active={isActive('/imoveis')}>{tr('header.properties')}</NavLinkDesktop>
+                <NavLinkDesktop to="/precos" active={isActive('/precos')}>{tr('header.pricing')}</NavLinkDesktop>
+                <NavLinkDesktop to="/ferramentas" active={isActive('/ferramentas')}>{tr('header.tools')}</NavLinkDesktop>
                 <NavLinkDesktop to="/blog" active={isActive('/blog')}>{tr('header.guides')}</NavLinkDesktop>
               </>
             ) : (
@@ -156,6 +153,8 @@ export default function Header() {
                 </button>
                 <NavLinkDesktop to="/areas" active={isActive('/areas')}>{tr('header.areas')}</NavLinkDesktop>
                 <NavLinkDesktop to="/blog" active={isActive('/blog')}>{tr('header.guides')}</NavLinkDesktop>
+                <NavLinkDesktop to="/ferramentas" active={isActive('/ferramentas')}>{tr('header.tools')}</NavLinkDesktop>
+                <NavLinkDesktop to="/precos" active={isActive('/precos')}>{tr('header.pricing')}</NavLinkDesktop>
                 <NavLinkDesktop to="/imoveis" active={isActive('/imoveis')}>{tr('header.properties')}</NavLinkDesktop>
               </>
             )}
@@ -165,7 +164,7 @@ export default function Header() {
           <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'flex-end', gap: 10 }}>
             {user ? (
               <>
-                <ChatButton size={32} />
+                <ChatButton unread={unread} size={32} />
 
                 {/* Avatar dropdown — só inicial + chevron, sem nome no header */}
                 <div className="relative">
@@ -292,7 +291,7 @@ export default function Header() {
           {/* Mobile non-collapsing CTA — visible only <md, fora do hamburger */}
           <div className="flex md:hidden items-center" style={{ gap: 8 }}>
             {user ? (
-              <ChatButton size={36} />
+              <ChatButton unread={unread} size={36} />
             ) : (
               <Link
                 to="/entrar"
@@ -337,6 +336,8 @@ export default function Header() {
                     </Link>
                   )}
                   <NavLinkMobile to="/imoveis" active={isActive('/imoveis')} onClick={() => setOpen(false)}>{tr('header.properties')}</NavLinkMobile>
+                  <NavLinkMobile to="/precos" active={isActive('/precos')} onClick={() => setOpen(false)}>{tr('header.pricing')}</NavLinkMobile>
+                  <NavLinkMobile to="/ferramentas" active={isActive('/ferramentas')} onClick={() => setOpen(false)}>{tr('header.tools')}</NavLinkMobile>
                   <NavLinkMobile to="/blog" active={isActive('/blog')} onClick={() => setOpen(false)}>{tr('header.guides')}</NavLinkMobile>
                   <NavLinkMobile to="/sobre" active={isActive('/sobre')} onClick={() => setOpen(false)}>{tr('header.about')}</NavLinkMobile>
                 </>
@@ -350,6 +351,8 @@ export default function Header() {
                   </button>
                   <NavLinkMobile to="/areas" active={isActive('/areas')} onClick={() => setOpen(false)}>{tr('header.areas')}</NavLinkMobile>
                   <NavLinkMobile to="/blog" active={isActive('/blog')} onClick={() => setOpen(false)}>{tr('header.guides')}</NavLinkMobile>
+                  <NavLinkMobile to="/ferramentas" active={isActive('/ferramentas')} onClick={() => setOpen(false)}>{tr('header.tools')}</NavLinkMobile>
+                  <NavLinkMobile to="/precos" active={isActive('/precos')} onClick={() => setOpen(false)}>{tr('header.pricing')}</NavLinkMobile>
                   <NavLinkMobile to="/imoveis" active={isActive('/imoveis')} onClick={() => setOpen(false)}>{tr('header.properties')}</NavLinkMobile>
                   <NavLinkMobile to="/sobre" active={isActive('/sobre')} onClick={() => setOpen(false)}>{tr('header.about')}</NavLinkMobile>
                 </>

@@ -2,7 +2,7 @@
 title: "Viver em Oeiras: guia completo do concelho (2026)"
 slug: concelho/oeiras
 meta_description: "Tudo sobre viver em Oeiras: renda T2, projeção a 3 anos, escolas, transportes, escritórios, perfil de morador e projetos urbanos previstos."
-language: pt-PT
+language: pt PT
 last_updated: 2026-04-30
 canonical: https://www.usehabitta.com/concelho/oeiras
 ---
@@ -17,9 +17,9 @@ canonical: https://www.usehabitta.com/concelho/oeiras
 
 ## Vale a pena viver em Oeiras?
 
-Oeiras compete com Cascais pelo perfil de classe alta da margem oeste, mas com uma diferença prática: está a 15 a 25 minutos de Lisboa em comboio ou de carro fora de hora de ponta. A combinação de bons salários (média acima dos concelhos vizinhos), urbanismo cuidado e proximidade a empresas torna-o atrativo para profissionais qualificados.
+Oeiras compete com Cascais pelo perfil de classe alta da margem oeste, mas com uma diferença prática: está a 15 a 25 minutos de Lisboa em comboio ou de carro fora de hora de ponta. A combinação de bons salários (média acima dos concelhos vizinhos), urbanismo cuidado e proximidade a empresas torna o atrativo para profissionais qualificados.
 
-Paço de Arcos, Caxias, Algés, Linda-a-Velha e Carnaxide são as freguesias mais procuradas para residir. Oeiras-Vila e Porto Salvo têm o maior crescimento recente.
+Paço de Arcos, Caxias, Algés, Linda-a-Velha e Carnaxide são as freguesias mais procuradas para residir. Oeiras Vila e Porto Salvo têm o maior crescimento recente.
 
 ## Quanto custa arrendar um T2 em Oeiras em 2026?
 
@@ -39,13 +39,13 @@ A população envelhece em zonas estabelecidas (Paço de Arcos, Algés) e cresce
 
 ## Quem mora em Oeiras? Perfil de morador
 
-Oeiras tem o perfil mais empresarial-corporativo da margem norte. Quadros médios e altos de tecnológicas (Microsoft Portugal, Vodafone, Bosch), farmacêuticas (Roche, Bayer, Pfizer) e consultoras concentram-se aqui. A presença internacional é forte em Carnaxide e na Quinta da Beloura (do lado de Cascais).
+Oeiras tem o perfil mais empresarial corporativo da margem norte. Quadros médios e altos de tecnológicas (Microsoft Portugal, Vodafone, Bosch), farmacêuticas (Roche, Bayer, Pfizer) e consultoras concentram se aqui. A presença internacional é forte em Carnaxide e na Quinta da Beloura (do lado de Cascais).
 
 A população portuguesa de classe média alta é dominante nas freguesias estabelecidas. Famílias com filhos privilegiam Algés, Paço de Arcos e Linda-a-Velha pelas escolas e proximidade ao rio.
 
 ## Transportes e ligação ao centro de Lisboa
 
-A linha de comboio Cascais-Cais do Sodré atravessa Oeiras com várias paragens (Algés, Cruz Quebrada, Caxias, Paço de Arcos, Santo Amaro de Oeiras, Oeiras). De Oeiras ao Cais do Sodré são cerca de 25 minutos. De Algés ao Cais do Sodré são 12 minutos. A frequência é de 20 minutos em hora de ponta.
+A linha de comboio Cascais Cais do Sodré atravessa Oeiras com várias paragens (Algés, Cruz Quebrada, Caxias, Paço de Arcos, Santo Amaro de Oeiras, Oeiras). De Oeiras ao Cais do Sodré são cerca de 25 minutos. De Algés ao Cais do Sodré são 12 minutos. A frequência é de 20 minutos em hora de ponta.
 
 De carro, a A5 e a Marginal são as duas opções. A A5 é mais rápida fora de horas de ponta, a Marginal é mais cénica. Ambas têm congestionamento previsível em hora de ponta.
 

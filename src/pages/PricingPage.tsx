@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { ArrowRight, Check, Minus } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowRight, Check, Minus, X } from 'lucide-react'
 import { useQuiz } from '../context/QuizContext'
 
 const INK = '#1E1F18'
@@ -32,7 +32,7 @@ const plans: {
     name: 'Habitta +',
     price: '29€',
     ideal: 'Quem está ativamente à procura',
-    cta: 'Desbloquear dossier',
+    cta: 'Descobrir vantagens',
     featured: true,
   },
   {
@@ -40,35 +40,24 @@ const plans: {
     name: 'Habitta Pro',
     price: '99€',
     ideal: 'Quem quer decidir com apoio personalizado',
-    cta: 'Pedir acompanhamento',
+    cta: 'Descobrir vantagens',
   },
 ]
 
-const features: { label: string; values: Record<PlanKey, Cell> }[] = [
-  { label: 'Nº de diagnósticos / quizzes', values: { explorar: '1 diagnóstico gratuito', dossier: 'Até 5 simulações', acompanhado: 'Ilimitado durante 30 dias' } },
-  { label: 'Top zonas recomendadas', values: { explorar: 'Top 3', dossier: 'Top 7', acompanhado: 'Top 7' } },
-  { label: 'Score geral por zona', values: { explorar: true, dossier: true, acompanhado: true } },
-  { label: 'Score por critério', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Resumo do perfil', values: { explorar: true, dossier: true, acompanhado: true } },
-  { label: 'Razões principais por zona', values: { explorar: 'Básicas', dossier: 'Detalhadas', acompanhado: 'Detalhadas + comentário humano' } },
-  { label: 'Preços medianos', values: { explorar: 'Básicos', dossier: 'Detalhados', acompanhado: 'Detalhados' } },
-  { label: 'Preço por tipologia', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Rendas estimadas', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Comparação lado a lado entre zonas', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Trade-offs de cada zona', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Zonas a evitar para o perfil', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Alternativas menos óbvias', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Transportes e tempos de deslocação', values: { explorar: 'Básico', dossier: 'Detalhado', acompanhado: 'Detalhado' } },
-  { label: 'Projetos urbanos / PDM / riscos futuros', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Checklist personalizada de procura', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Plano de próximos passos', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'PDF exportável', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Guardar resultado', values: { explorar: true, dossier: true, acompanhado: true } },
-  { label: 'Histórico de simulações', values: { explorar: false, dossier: true, acompanhado: true } },
-  { label: 'Revisão humana do resultado', values: { explorar: false, dossier: false, acompanhado: true } },
-  { label: 'Sessão com a equipa Habitta', values: { explorar: false, dossier: false, acompanhado: '30-45 min' } },
-  { label: 'Dúvidas por email', values: { explorar: false, dossier: false, acompanhado: '7 dias' } },
-  { label: 'Acesso a guias públicos', values: { explorar: true, dossier: true, acompanhado: true } },
+const dossierBenefits = [
+  'Até 5 simulações para testar zonas e cenários diferentes.',
+  'Top 7 zonas recomendadas com score geral e score por critério.',
+  'Comparação lado a lado entre zonas, preços, rendas e trade-offs.',
+  'Leitura de riscos futuros, projetos urbanos e zonas a evitar.',
+  'Checklist personalizada, próximos passos e PDF exportável.',
+]
+
+const proBenefits = [
+  'Simulações ilimitadas durante 30 dias.',
+  'Tudo o que está incluído no Habitta +.',
+  'Comentário humano sobre os resultados e principais trade-offs.',
+  'Sessão com a equipa Habitta para discutir zonas, orçamento e próximos passos.',
+  '7 dias de apoio por email para dúvidas depois da sessão.',
 ]
 
 function CellValue({ value, dark = false }: { value: Cell; dark?: boolean }) {
@@ -105,11 +94,10 @@ function CellValue({ value, dark = false }: { value: Cell; dark?: boolean }) {
   return <span>{value}</span>
 }
 
-function PlanCard({ plan }: { plan: typeof plans[number] }) {
+function PlanCard({ plan, onDiscover }: { plan: typeof plans[number]; onDiscover: () => void }) {
   const { open } = useQuiz()
   const isFeatured = plan.featured
   const isExplorar = plan.key === 'explorar'
-  const isAcompanhado = plan.key === 'acompanhado'
 
   const cta = isExplorar ? (
     <button
@@ -130,26 +118,29 @@ function PlanCard({ plan }: { plan: typeof plans[number] }) {
       {plan.cta}
     </button>
   ) : (
-    <Link
-      to={isAcompanhado ? 'mailto:hello@usehabitta.com?subject=Habitta%20Pro' : '/entrar?redirect=/quiz/dossier&mode=register'}
-      style={{
-        width: '100%',
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 8,
-        padding: '13px 18px',
-        borderRadius: 999,
-        background: isFeatured ? CLAY : 'transparent',
-        color: isFeatured ? BONE : INK,
-        border: isFeatured ? `1px solid ${CLAY}` : `1px solid ${HAIRLINE}`,
-        textDecoration: 'none',
-        fontSize: 14,
-        fontWeight: 700,
-      }}
-    >
-      {plan.cta} <ArrowRight size={15} />
-    </Link>
+    plan.key === 'dossier' || plan.key === 'acompanhado' ? (
+      <button
+        type="button"
+        onClick={onDiscover}
+        style={{
+          width: '100%',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 8,
+          padding: '13px 18px',
+          borderRadius: 999,
+          background: isFeatured ? CLAY : 'transparent',
+          color: isFeatured ? BONE : INK,
+          border: isFeatured ? `1px solid ${CLAY}` : `1px solid ${HAIRLINE}`,
+          fontSize: 14,
+          fontWeight: 700,
+          cursor: 'pointer',
+        }}
+      >
+        {plan.cta} <ArrowRight size={15} />
+      </button>
+    ) : null
   )
 
   return (
@@ -166,23 +157,6 @@ function PlanCard({ plan }: { plan: typeof plans[number] }) {
         position: 'relative',
       }}
     >
-      {isFeatured && (
-        <span
-          style={{
-            alignSelf: 'flex-start',
-            background: CLAY,
-            color: BONE,
-            fontFamily: '"JetBrains Mono", monospace',
-            fontSize: 9,
-            letterSpacing: '0.16em',
-            textTransform: 'uppercase',
-            padding: '6px 9px',
-            borderRadius: 999,
-          }}
-        >
-          Mais escolhido
-        </span>
-      )}
       <div>
         <h2 className="font-display" style={{ fontSize: 34, lineHeight: 1, fontWeight: 400, letterSpacing: '-0.025em' }}>
           {plan.name}
@@ -209,6 +183,11 @@ function PlanCard({ plan }: { plan: typeof plans[number] }) {
 }
 
 export default function PricingPage() {
+  const [activeBenefitsPlan, setActiveBenefitsPlan] = useState<'dossier' | 'acompanhado' | null>(null)
+  const activePlan = activeBenefitsPlan === 'acompanhado'
+    ? { title: 'Habitta Pro', benefits: proBenefits }
+    : { title: 'Habitta +', benefits: dossierBenefits }
+
   return (
     <div style={{ minHeight: '100vh', background: BONE }}>
       <section className="habitta-px pt-32 pb-16 md:pt-40 md:pb-20" style={{ background: INK, color: BONE }}>
@@ -223,7 +202,7 @@ export default function PricingPage() {
               marginBottom: 28,
             }}
           >
-            Preços
+            Planos
           </p>
           <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 lg:gap-16 items-end">
             <h1
@@ -247,127 +226,126 @@ export default function PricingPage() {
 
       <section className="habitta-px py-12 md:py-16" style={{ background: SAND }}>
         <div className="grid lg:grid-cols-3" style={{ maxWidth: 1180, margin: '0 auto', gap: 12 }}>
-          {plans.map(plan => <PlanCard key={plan.key} plan={plan} />)}
+          {plans.map(plan => (
+            <PlanCard
+              key={plan.key}
+              plan={plan}
+              onDiscover={() => {
+                if (plan.key === 'dossier' || plan.key === 'acompanhado') setActiveBenefitsPlan(plan.key)
+              }}
+            />
+          ))}
         </div>
       </section>
 
-      <section className="habitta-px py-14 md:py-20" style={{ background: BONE }}>
-        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', gap: 24, flexWrap: 'wrap', marginBottom: 30 }}>
-            <div>
-              <p
+      {activeBenefitsPlan && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="dossier-benefits-title"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 80,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20,
+            background: 'rgba(30, 31, 24, 0.58)',
+          }}
+          onClick={() => setActiveBenefitsPlan(null)}
+        >
+          <div
+            style={{
+              width: 'min(100%, 560px)',
+              background: BONE,
+              color: INK,
+              border: `1px solid ${HAIRLINE}`,
+              boxShadow: '0 28px 90px rgba(30, 31, 24, 0.32)',
+              padding: '26px',
+            }}
+            onClick={event => event.stopPropagation()}
+          >
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20 }}>
+              <div>
+                <p
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    borderRadius: 999,
+                    background: 'rgba(194, 85, 58, 0.1)',
+                    color: CLAY,
+                    fontFamily: '"JetBrains Mono", monospace',
+                    fontSize: 10,
+                    letterSpacing: '0.16em',
+                    textTransform: 'uppercase',
+                    padding: '7px 10px',
+                    marginBottom: 18,
+                  }}
+                >
+                  Coming soon
+                </p>
+                <h2 id="dossier-benefits-title" className="font-display" style={{ fontSize: 'clamp(34px, 5vw, 50px)', lineHeight: 1, fontWeight: 400, color: INK }}>
+                  {activePlan.title}
+                </h2>
+              </div>
+              <button
+                type="button"
+                aria-label="Fechar"
+                onClick={() => setActiveBenefitsPlan(null)}
                 style={{
-                  fontFamily: '"JetBrains Mono", monospace',
-                  fontSize: 10,
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  color: CLAY,
-                  marginBottom: 12,
+                  width: 38,
+                  height: 38,
+                  borderRadius: 999,
+                  border: `1px solid ${HAIRLINE}`,
+                  background: 'transparent',
+                  color: INK,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  flex: '0 0 auto',
                 }}
               >
-                Comparação
-              </p>
-              <h2 className="font-display" style={{ fontSize: 'clamp(32px, 4.2vw, 52px)', lineHeight: 1.04, fontWeight: 400, letterSpacing: '-0.025em', color: INK }}>
-                O que está incluído.
-              </h2>
+                <X size={18} />
+              </button>
             </div>
-            <Link
-              to="/quiz"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                color: CLAY,
-                textDecoration: 'none',
-                fontSize: 14,
-                fontWeight: 700,
-              }}
-            >
-              Fazer diagnóstico <ArrowRight size={15} />
-            </Link>
-          </div>
 
-          <div className="hidden md:block" style={{ overflowX: 'auto', border: `1px solid ${HAIRLINE}`, background: '#F8F4EC' }}>
-            <table style={{ width: '100%', minWidth: 900, borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th style={{ width: '34%', textAlign: 'left', padding: '22px 24px', color: STONE, fontSize: 12, fontFamily: '"JetBrains Mono", monospace', letterSpacing: '0.12em', textTransform: 'uppercase', borderBottom: `1px solid ${HAIRLINE}` }}>
-                    Funcionalidade
-                  </th>
-                  {plans.map(plan => (
-                    <th
-                      key={plan.key}
-                      style={{
-                        textAlign: 'center',
-                        padding: '22px 18px',
-                        color: plan.featured ? CLAY : INK,
-                        fontSize: 13,
-                        fontWeight: 700,
-                        borderBottom: `1px solid ${HAIRLINE}`,
-                        borderLeft: `1px solid ${HAIRLINE}`,
-                      }}
-                    >
-                      {plan.name}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style={{ padding: '18px 24px', fontWeight: 700, borderBottom: `1px solid ${HAIRLINE}` }}>Preço</td>
-                  {plans.map(plan => (
-                    <td key={plan.key} style={{ textAlign: 'center', padding: '18px', fontSize: 24, fontFamily: 'var(--serif)', color: plan.featured ? CLAY : INK, borderLeft: `1px solid ${HAIRLINE}`, borderBottom: `1px solid ${HAIRLINE}` }}>
-                      {plan.price}
-                    </td>
-                  ))}
-                </tr>
-                <tr>
-                  <td style={{ padding: '18px 24px', fontWeight: 700, borderBottom: `1px solid ${HAIRLINE}` }}>Ideal para</td>
-                  {plans.map(plan => (
-                    <td key={plan.key} style={{ textAlign: 'center', padding: '18px', color: STONE, fontSize: 13, lineHeight: 1.5, borderLeft: `1px solid ${HAIRLINE}`, borderBottom: `1px solid ${HAIRLINE}` }}>
-                      {plan.ideal}
-                    </td>
-                  ))}
-                </tr>
-                {features.map(feature => (
-                  <tr key={feature.label}>
-                    <td style={{ padding: '16px 24px', color: INK, fontSize: 14, borderBottom: `1px solid ${HAIRLINE}` }}>
-                      {feature.label}
-                    </td>
-                    {plans.map(plan => (
-                      <td key={plan.key} style={{ textAlign: 'center', padding: '16px 18px', color: STONE, fontSize: 13, lineHeight: 1.45, borderLeft: `1px solid ${HAIRLINE}`, borderBottom: `1px solid ${HAIRLINE}` }}>
-                        <CellValue value={feature.values[plan.key]} />
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+            <p style={{ color: STONE, fontSize: 16, lineHeight: 1.65, marginTop: 18, marginBottom: 22 }}>
+              Estamos a preparar uma camada mais completa para quem já está a comparar zonas e quer decidir com mais contexto antes de visitar imóveis.
+            </p>
 
-          <div className="grid md:hidden" style={{ gap: 12 }}>
-            {plans.map(plan => (
-              <section key={plan.key} style={{ background: '#F8F4EC', border: `1px solid ${HAIRLINE}`, padding: 20 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, marginBottom: 18 }}>
-                  <h3 className="font-display" style={{ fontSize: 28, fontWeight: 400, color: INK }}>{plan.name}</h3>
-                  <strong style={{ color: CLAY, fontSize: 24 }}>{plan.price}</strong>
+            <div style={{ display: 'grid', gap: 12 }}>
+              {activePlan.benefits.map(benefit => (
+                <div key={benefit} style={{ display: 'grid', gridTemplateColumns: '24px 1fr', gap: 10, alignItems: 'start' }}>
+                  <CellValue value />
+                  <span style={{ color: INK, fontSize: 14, lineHeight: 1.5 }}>{benefit}</span>
                 </div>
-                <p style={{ color: STONE, fontSize: 14, lineHeight: 1.55, marginBottom: 18 }}>{plan.ideal}</p>
-                <div style={{ display: 'grid', gap: 0 }}>
-                  {features.map(feature => (
-                    <div key={feature.label} style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 14, alignItems: 'center', padding: '11px 0', borderTop: `1px solid ${HAIRLINE}` }}>
-                      <span style={{ color: INK, fontSize: 13, lineHeight: 1.35 }}>{feature.label}</span>
-                      <span style={{ color: STONE, fontSize: 12, textAlign: 'right', maxWidth: 150 }}>
-                        <CellValue value={feature.values[plan.key]} />
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ))}
+              ))}
+            </div>
+
+            <div style={{ marginTop: 26, paddingTop: 20, borderTop: `1px solid ${HAIRLINE}` }}>
+              <button
+                type="button"
+                disabled
+                style={{
+                  width: '100%',
+                  padding: '13px 18px',
+                  borderRadius: 999,
+                  border: `1px solid ${HAIRLINE}`,
+                  background: 'rgba(30, 31, 24, 0.06)',
+                  color: 'rgba(30, 31, 24, 0.46)',
+                  fontSize: 14,
+                  fontWeight: 700,
+                  cursor: 'not-allowed',
+                }}
+              >
+                Disponível em breve
+              </button>
+            </div>
           </div>
         </div>
-      </section>
+      )}
     </div>
   )
 }

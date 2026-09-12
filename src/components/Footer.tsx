@@ -98,6 +98,13 @@ export default function Footer() {
               {tr('footer.col.resources')}
             </p>
             <ul className="flex flex-col gap-3 text-sm" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              <li>
+                <Link to="/ferramentas" className="transition-colors" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'none' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#F2EDE4')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}>
+                  {tr('footer.res.tools')}
+                </Link>
+              </li>
               {[
                 tr('footer.res.buyerGuide'),
                 tr('footer.res.purchaseCosts'),
@@ -119,8 +126,8 @@ export default function Footer() {
               {[
                 { label: 'SNIT / DGT',       href: 'https://snit.dgterritorio.gov.pt' },
                 { label: 'Portal do Cidadão', href: 'https://www.portaldocidadao.pt' },
-                { label: 'IRN — Escrituras',  href: 'https://www.irn.mj.pt' },
-                { label: 'INE — Estatísticas',href: 'https://www.ine.pt' },
+                { label: 'IRN · Escrituras',  href: 'https://www.irn.mj.pt' },
+                { label: 'INE · Estatísticas',href: 'https://www.ine.pt' },
               ].map(l => (
                 <li key={l.label}>
                   <a href={l.href} target="_blank" rel="noopener noreferrer"
@@ -141,7 +148,7 @@ export default function Footer() {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 py-6 flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center sm:justify-between">
           <p className="text-[10px] sm:text-[11px] leading-relaxed max-w-2xl" style={{ color: 'rgba(255,255,255,0.18)', fontFamily: 'IBM Plex Mono' }}>
-            © {new Date().getFullYear()} Habitta — {tr('footer.disclaimer')}
+            © {new Date().getFullYear()} Habitta · {tr('footer.disclaimer')}
           </p>
           <div className="flex items-center gap-4 sm:gap-6">
             <a

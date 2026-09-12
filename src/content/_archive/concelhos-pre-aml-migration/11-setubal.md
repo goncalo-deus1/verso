@@ -2,7 +2,7 @@
 title: "Viver em Setúbal: guia completo do concelho (2026)"
 slug: concelho/setubal
 meta_description: "Tudo sobre viver em Setúbal: renda T2, projeção a 3 anos, transportes para Lisboa, projetos urbanos, escolas e perfil de morador."
-language: pt-PT
+language: pt PT
 last_updated: 2026-04-30
 canonical: https://www.usehabitta.com/concelho/setubal
 ---
@@ -31,13 +31,13 @@ Por metro quadrado de venda, Setúbal teve uma mediana de 2.320 euros, segundo o
 
 ### Projeção da renda T2 a 3 anos (2026 a 2029)
 
-Cenário base: subida acumulada entre 18% e 25%, levando a renda mediana de um T2 a entre 900 e 1.100 euros mensais em 2029. Setúbal está a ser fortemente impactada pelo efeito derrame de Lisboa e pela atratividade crescente da margem sul. O Idealista identifica-a como uma das cidades médias com maior subida das rendas em 2025. Risco de subida acelerada se o novo aeroporto em Alcochete e a Terceira Travessia do Tejo dinamizarem a margem sul.
+Cenário base: subida acumulada entre 18% e 25%, levando a renda mediana de um T2 a entre 900 e 1.100 euros mensais em 2029. Setúbal está a ser fortemente impactada pelo efeito derrame de Lisboa e pela atratividade crescente da margem sul. O Idealista identifica a como uma das cidades médias com maior subida das rendas em 2025. Risco de subida acelerada se o novo aeroporto em Alcochete e a Terceira Travessia do Tejo dinamizarem a margem sul.
 
 ## População e densidade
 
 Setúbal tinha 123.684 residentes nos Censos 2021, mais 2,1% do que em 2011. A área é de 230,33 km², com densidade de 537 habitantes por km².
 
-A população está concentrada na cidade de Setúbal e em Azeitão. As freguesias rurais (Sado, Gâmbia-Pontes-Alto da Guerra) são pouco povoadas.
+A população está concentrada na cidade de Setúbal e em Azeitão. As freguesias rurais (Sado, Gâmbia Pontes Alto da Guerra) são pouco povoadas.
 
 ## Quem mora em Setúbal? Perfil de morador
 
@@ -49,13 +49,13 @@ Nos últimos anos, Setúbal tem atraído classe criativa de Lisboa, expatriados 
 
 Setúbal tem três opções principais para Lisboa:
 
-**Comboio Fertagus.** Liga Setúbal a Lisboa (Roma-Areeiro, Sete Rios, Entrecampos). De Setúbal a Roma-Areeiro são cerca de 55 minutos. A frequência é de 30 minutos em hora de ponta.
+**Comboio Fertagus.** Liga Setúbal a Lisboa (Roma Areeiro, Sete Rios, Entrecampos). De Setúbal a Roma Areeiro são cerca de 55 minutos. A frequência é de 30 minutos em hora de ponta.
 
 **Carro pela A2 e Ponte Vasco da Gama ou Ponte 25 de Abril.** A A2 é a ligação mais rápida (cerca de 45 minutos a Lisboa fora de hora de ponta). Em hora de ponta, pode demorar 1h15.
 
 **Autocarro TST.** Vários autocarros expresso ligam Setúbal a Lisboa, sobretudo ao Sul/Sueste e ao Pragal (com correspondência ao metro e Fertagus).
 
-A futura Terceira Travessia do Tejo, com componente ferroviária, deverá melhorar significativamente o tempo de ligação Setúbal-Lisboa quando estiver concluída (depois de 2030).
+A futura Terceira Travessia do Tejo, com componente ferroviária, deverá melhorar significativamente o tempo de ligação Setúbal Lisboa quando estiver concluída (depois de 2030).
 
 ## Projetos urbanos previstos no concelho
 

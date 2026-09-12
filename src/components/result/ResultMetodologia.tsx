@@ -47,7 +47,7 @@ export function ResultMetodologia({ onRestart }: Props) {
             não um veredicto.
           </p>
           <p style={{ fontSize: '14px', lineHeight: 1.75, color: STONE, margin: 0 }}>
-            O algoritmo mede distâncias entre o teu perfil e 10 dimensões de cada zona —
+            O algoritmo mede distâncias entre o teu perfil e 10 dimensões de cada zona:
             centralidade, transportes, tranquilidade, ambiente familiar, e mais.
             Score 100 seria correspondência perfeita em todas as dimensões.
             A realidade é sempre mais rica do que um número.

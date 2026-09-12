@@ -621,7 +621,7 @@ export default function BlogPost() {
     setPostComponent(null)
     setLoadError(false)
     loadPostComponent(post.filePath).then(handleLoad).catch(() => setLoadError(true))
-  }, [post?.filePath, handleLoad])
+  }, [post, handleLoad])
 
   useEffect(() => {
     if (PostComponent && post && !tracked.current) {

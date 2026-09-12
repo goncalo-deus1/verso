@@ -2,7 +2,7 @@
 title: "Viver em Lisboa: guia completo do concelho (2026)"
 slug: aml/lisboa
 meta_description: "Tudo sobre viver no concelho de Lisboa: população, renda mediana de um T2, projeção a 3 anos, projetos urbanos previstos, transportes e perfil de quem mora cá."
-language: pt-PT
+language: pt PT
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/lisboa
 ---
@@ -53,13 +53,13 @@ Estando dentro do concelho, "centro" significa Baixa, Avenida da Liberdade ou Ma
 
 A rede de metro tem quatro linhas (Azul, Amarela, Verde, Vermelha) e está a ser expandida. Os projetos a acompanhar:
 
-**Linha Circular do Metro** — `Q1 2027`
+**Linha Circular do Metro**, `Q1 2027`
 Liga Rato a Cais do Sodré, criando as novas estações de Estrela e Santos. Inauguração prevista para o primeiro trimestre de 2027 segundo a presidente do Metropolitano de Lisboa.
 
-**Linha Vermelha (extensão)** — `Pós-2030`
-Prolonga de São Sebastião a Alcântara, com quatro novas estações: Amoreiras, Campo de Ourique, Infante Santo e Alcântara. Obra adjudicada à Mota-Engil e Spie Batignolles por 321,9 milhões de euros; operação plena não deverá acontecer antes de 2030.
+**Linha Vermelha (extensão)**, `Pós-2030`
+Prolonga de São Sebastião a Alcântara, com quatro novas estações: Amoreiras, Campo de Ourique, Infante Santo e Alcântara. Obra adjudicada à Mota Engil e Spie Batignolles por 321,9 milhões de euros; operação plena não deverá acontecer antes de 2030.
 
-**LIOS** — `Em estudo`
+**LIOS**, `Em estudo`
 A Linha Intermodal Sustentável vai ligar Lisboa a Oeiras a ocidente e Santa Apolónia a Sacavém a oriente. Em fase de estudo, sem data confirmada.
 
 Para deslocações regionais, a estação do Oriente, Santa Apolónia, Cais do Sodré, Rossio e Sete Rios concentram a oferta de comboios suburbanos para Sintra, Cascais, Setúbal e Azambuja, além das ligações de longo curso e do TGV em projeto para Madrid.
@@ -68,10 +68,10 @@ Para deslocações regionais, a estação do Oriente, Santa Apolónia, Cais do S
 
 Quatro projetos com impacto direto no mercado imobiliário e na qualidade de vida do concelho:
 
-**Terrenos do Aeroporto Humberto Delgado** — `Pós-2034`
+**Terrenos do Aeroporto Humberto Delgado**, `Pós-2034`
 Com 477 hectares, é a maior reserva fundiária da cidade. A Parque Cidades do Tejo, S.A. vai desenvolver estes terrenos quando o aeroporto fechar (previsivelmente entre 2034 e 2037), com propostas em estudo para habitação acessível, espaço verde e nova centralidade urbana.
 
-**Hub digital do Beato** — `Em curso`
+**Hub digital do Beato**, `Em curso`
 O Beato Innovation District tem atraído tecnológicas internacionais e está a impulsionar a procura habitacional na zona oriental da cidade.
 
 Lisboa tem cerca de 15.700 famílias em lista de espera para habitação municipal. A Câmara está a executar projetos do Plano de Recuperação e Resiliência para reabilitar e construir nova oferta nos próximos dois a três anos.
@@ -80,7 +80,7 @@ A revisão do PDM em curso prevê maior densificação habitacional em zonas de 
 
 ## Escolas, saúde e comércio
 
-Lisboa concentra grande parte da oferta pública e privada de equipamentos do país. Em ensino, há cerca de 50 escolas públicas básicas e secundárias, três pólos universitários estruturantes (Universidade de Lisboa, Universidade Nova, ISCTE) e colégios privados internacionais — Lycée Français Charles Lepierre (Campolide), Colégio Luso-Suíço (Estrela), Escola Alemã de Lisboa (Telheiras) e United Lisbon International School (Parque das Nações). Em saúde, o concelho tem os hospitais universitários de Santa Maria, São José, Curry Cabral e Estefânia, e três grandes redes privadas (Lusíadas, CUF, Luz). Em comércio, há de tudo: hipermercados em quase todas as freguesias, mercados municipais (Campo de Ourique, Arroios, Ribeira), centros comerciais grandes (Colombo, Vasco da Gama, Amoreiras) e ruas de comércio tradicional ainda vivas em Alvalade, Lapa e Bairro Alto.
+Lisboa concentra grande parte da oferta pública e privada de equipamentos do país. Em ensino, há cerca de 50 escolas públicas básicas e secundárias, três pólos universitários estruturantes (Universidade de Lisboa, Universidade Nova, ISCTE) e colégios privados internacionais, Lycée Français Charles Lepierre (Campolide), Colégio Luso Suíço (Estrela), Escola Alemã de Lisboa (Telheiras) e United Lisbon International School (Parque das Nações). Em saúde, o concelho tem os hospitais universitários de Santa Maria, São José, Curry Cabral e Estefânia, e três grandes redes privadas (Lusíadas, CUF, Luz). Em comércio, há de tudo: hipermercados em quase todas as freguesias, mercados municipais (Campo de Ourique, Arroios, Ribeira), centros comerciais grandes (Colombo, Vasco da Gama, Amoreiras) e ruas de comércio tradicional ainda vivas em Alvalade, Lapa e Bairro Alto.
 
 ---
 

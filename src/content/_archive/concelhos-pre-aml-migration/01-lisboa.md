@@ -2,7 +2,7 @@
 title: "Viver em Lisboa: guia completo do concelho (2026)"
 slug: concelho/lisboa
 meta_description: "Tudo sobre viver no concelho de Lisboa: população, renda mediana de um T2, projeção a 3 anos, projetos urbanos previstos, transportes e perfil de quem mora cá."
-language: pt-PT
+language: pt PT
 last_updated: 2026-04-30
 canonical: https://www.usehabitta.com/concelho/lisboa
 ---
@@ -55,7 +55,7 @@ A rede de metro tem quatro linhas (Azul, Amarela, Verde, Vermelha) e está a ser
 
 A Linha Circular vai ligar Rato a Cais do Sodré e cria as novas estações de Estrela e Santos. A inauguração está prevista para o primeiro trimestre de 2027, segundo a presidente do Metropolitano de Lisboa.
 
-A Linha Vermelha vai prolongar-se de São Sebastião até Alcântara, com 4 novas estações (Amoreiras, Campo de Ourique, Infante Santo, Alcântara). A obra foi adjudicada à Mota-Engil e Spie Batignolles por 321,9 milhões de euros, mas a consignação tem sofrido atrasos sucessivos. A operação plena não deverá acontecer antes de 2030.
+A Linha Vermelha vai prolongar se de São Sebastião até Alcântara, com 4 novas estações (Amoreiras, Campo de Ourique, Infante Santo, Alcântara). A obra foi adjudicada à Mota Engil e Spie Batignolles por 321,9 milhões de euros, mas a consignação tem sofrido atrasos sucessivos. A operação plena não deverá acontecer antes de 2030.
 
 A Linha Intermodal Sustentável (LIOS) vai ligar Lisboa a Oeiras a ocidente e Santa Apolónia a Sacavém a oriente. Está em fase de estudo.
 
@@ -65,7 +65,7 @@ Para deslocações regionais, a estação do Oriente, Santa Apolónia, Cais do S
 
 Quatro projetos com impacto direto no mercado imobiliário e na qualidade de vida do concelho:
 
-**Reaproveitamento dos terrenos do Aeroporto Humberto Delgado.** Com 477 hectares, é a maior reserva fundiária da cidade. O Decreto-Lei de setembro de 2025 criou a Parque Cidades do Tejo, S.A., entidade pública que vai desenvolver estes terrenos quando o aeroporto fechar (previsivelmente entre 2034 e 2037). Há propostas em estudo para habitação acessível, espaço verde e nova centralidade urbana.
+**Reaproveitamento dos terrenos do Aeroporto Humberto Delgado.** Com 477 hectares, é a maior reserva fundiária da cidade. O Decreto Lei de setembro de 2025 criou a Parque Cidades do Tejo, S.A., entidade pública que vai desenvolver estes terrenos quando o aeroporto fechar (previsivelmente entre 2034 e 2037). Há propostas em estudo para habitação acessível, espaço verde e nova centralidade urbana.
 
 **Habitação pública via PRR.** Lisboa tem cerca de 15.700 famílias em lista de espera para habitação municipal. A Câmara está a executar projetos do Plano de Recuperação e Resiliência para reabilitar e construir nova oferta nos próximos dois a três anos.
 

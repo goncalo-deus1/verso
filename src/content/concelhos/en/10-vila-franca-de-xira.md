@@ -1,7 +1,7 @@
 ---
 title: "Living in Vila Franca de Xira: a full guide to the municipality (2026)"
 slug: aml/vila-franca-de-xira
-meta_description: "Everything about living in Vila Franca de Xira: T2 rent, three-year projection, trains to Lisboa, urban projects, schools and resident profile."
+meta_description: "Everything about living in Vila Franca de Xira: T2 rent, three year projection, trains to Lisboa, urban projects, schools and resident profile."
 language: en
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/vila-franca-de-xira
@@ -17,9 +17,9 @@ canonical: https://www.usehabitta.com/aml/vila-franca-de-xira
 
 ## Is Vila Franca de Xira worth living in?
 
-Vila Franca de Xira has its own identity as a Ribatejo town, tied to bullfighting and the Tagus river. The southern parishes of the municipality (Alverca, Forte da Casa, Póvoa de Santa Iria, Vialonga) are more urban and act as Lisboa's metropolitan periphery. The northern parishes (Vila Franca de Xira-Vila, Castanheira do Ribatejo, Vialonga) retain a more agricultural and riverside character.
+Vila Franca de Xira has its own identity as a Ribatejo town, tied to bullfighting and the Tagus river. The southern parishes of the municipality (Alverca, Forte da Casa, Póvoa de Santa Iria, Vialonga) are more urban and act as Lisboa's metropolitan periphery. The northern parishes (Vila Franca de Xira Vila, Castanheira do Ribatejo, Vialonga) retain a more agricultural and riverside character.
 
-The Lisboa-Azambuja train line is the structural axis of the municipality.
+The Lisboa Azambuja train line is the structural axis of the municipality.
 
 ## How much does it cost to rent a T2 in Vila Franca de Xira in 2026?
 
@@ -27,7 +27,7 @@ The median rent per square metre in Vila Franca de Xira is around €9 to €10,
 
 The most expensive areas are Alverca do Ribatejo (with strong business activity and higher demand) and Póvoa de Santa Iria (closer to Lisboa). The more affordable ones are Castanheira do Ribatejo, Cachoeiras and inland parts of Vialonga.
 
-### Three-year T2 rent projection (2026 to 2029)
+### Three year T2 rent projection (2026 to 2029)
 
 Base scenario: accumulated growth between 10% and 15%, taking the median T2 rent to between €800 and €950 per month by 2029. Vila Franca de Xira is benefiting from the spillover effect from eastern Lisboa. PRR investments in public housing (more than €8 million for 34 units in Vialonga alone) and the arrival of new private developments could moderate the rise.
 
@@ -37,28 +37,28 @@ Vila Franca de Xira had 137,659 residents in the 2021 Census, 0.6% more than in 
 
 ## Who lives in Vila Franca de Xira? Resident profile
 
-Vila Franca de Xira has a working middle-class profile. Families established for generations, immigrant communities in Vialonga and Forte da Casa, and industrial and logistics professionals from Embraer in Alverca all coexist in the area.
+Vila Franca de Xira has a working middle class profile. Families established for generations, immigrant communities in Vialonga and Forte da Casa, and industrial and logistics professionals from Embraer in Alverca all coexist in the area.
 
 International presence is smaller than in other AML municipalities.
 
 ## Transport and connection to the centre of Lisboa
 
-The Lisboa-Azambuja train line passes through Castanheira do Ribatejo, Vila Franca de Xira, Alhandra, Alverca, Póvoa de Santa Iria and Sacavém (already in Loures). All have a direct connection to Lisboa Oriente and Santa Apolónia. From Vila Franca de Xira to Lisboa Oriente is 25 minutes. From Alverca to Lisboa Oriente is 18 minutes.
+The Lisboa Azambuja train line passes through Castanheira do Ribatejo, Vila Franca de Xira, Alhandra, Alverca, Póvoa de Santa Iria and Sacavém (already in Loures). All have a direct connection to Lisboa Oriente and Santa Apolónia. From Vila Franca de Xira to Lisboa Oriente is 25 minutes. From Alverca to Lisboa Oriente is 18 minutes.
 
 Frequency is good at peak times (10 to 15 minutes). Prices are reasonable with the Navegante pass.
 
-By car, the A1 (Auto-estrada do Norte) and the A10 are the main links. Traffic on the A1 between Alverca and Lisboa can be difficult at peak times.
+By car, the A1 (Auto estrada do Norte) and the A10 are the main links. Traffic on the A1 between Alverca and Lisboa can be difficult at peak times.
 
 ## Planned urban projects in the municipality
 
-**Quinta da Flamenga (Vialonga)** — `In progress`
+**Quinta da Flamenga (Vialonga)**, `In progress`
 Construction of 34 units via PRR, with a total investment of €8.3 million and completion expected in March 2026.
 
 There are other acquisition and rehabilitation projects in Castanheira do Ribatejo, Cachoeiras, Póvoa de Santa Iria, Forte da Casa, Sobralinho and Alverca.
 
 There are several new developments on the market, especially in Alverca, Póvoa de Santa Iria and Forte da Casa.
 
-The refurbishment of the riverside front in Vila Franca de Xira-Vila and Alhandra continues, with investment in public space.
+The refurbishment of the riverside front in Vila Franca de Xira Vila and Alhandra continues, with investment in public space.
 
 The historic presence of Embraer and OGMA keeps Alverca relevant as an aeronautics hub, attracting skilled employment.
 
@@ -68,7 +68,7 @@ In education, there is good coverage of public basic and secondary schools. Ther
 
 In healthcare, Hospital de Vila Franca de Xira is the public reference. Private provision includes clinics and the CUF Belas Clube.
 
-In retail, Loureshopping (in Loures, but nearby) and Vasco da Gama (in Lisboa, accessible via the A1) are the larger shopping centres. Traditional retail is strong in Vila Franca de Xira-Vila and Alverca.
+In retail, Loureshopping (in Loures, but nearby) and Vasco da Gama (in Lisboa, accessible via the A1) are the larger shopping centres. Traditional retail is strong in Vila Franca de Xira Vila and Alverca.
 
 ---
 
@@ -78,7 +78,7 @@ In retail, Loureshopping (in Loures, but nearby) and Vasco da Gama (in Lisboa, a
 Yes. Alverca, Póvoa de Santa Iria and Forte da Casa are sought after by young families. They have good schools, parks and a residential atmosphere. T3 rent between €850 and €1,000.
 
 ### Is it worth living in Vila Franca de Xira if I work in Lisboa Oriente?
-Yes. From Alverca to Lisboa Oriente is 18 minutes by train. From Vila Franca de Xira-Vila it is 25 minutes.
+Yes. From Alverca to Lisboa Oriente is 18 minutes by train. From Vila Franca de Xira Vila it is 25 minutes.
 
 ### Vila Franca de Xira or Loures: which is better?
 Loures will have the future Violet Metro Line and direct proximity to the centre of Lisboa. Vila Franca de Xira has a direct train to Lisboa Oriente, more space and a more pronounced Ribatejo identity.

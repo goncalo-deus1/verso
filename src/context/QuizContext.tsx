@@ -27,7 +27,7 @@ interface QuizContextValue {
 
 const QuizContext = createContext<QuizContextValue>({
   isOpen: false,
-  open: (_source?: string) => {},
+  open: () => {},
   close: () => {},
   quizResult: null,
   setQuizResult: () => {},

@@ -134,7 +134,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
 
   // ─── JSON-LD payloads ─────────────────────────────────────────────────
   const articleLd = articleJsonLd({
-    headline:      `O concelho de ${legacy.name} em 2026 — habitta`,
+    headline:      `O concelho de ${legacy.name} em 2026 · habitta`,
     description:   md.frontmatter.meta_description,
     url,
     datePublished: data.updated,
@@ -192,7 +192,7 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
   // ─── Metadata footer sources ──────────────────────────────────────────
   const metadataSources: MetadataSource[] = [
     { label: INE_2025_FONTE },
-    { label: 'INE — Censos 2021' },
+    { label: 'INE · Censos 2021' },
   ]
 
   // ─── Hard facts grid (legacy data) ────────────────────────────────────
@@ -204,8 +204,8 @@ export default function ConcelhoHub({ data }: ConcelhoHubProps) {
     {
       label: tr('concelhoUI.facts.rendaT2'),
       value: legacy.budgetFitT2
-        ? `${legacy.budgetFitT2.min}–${legacy.budgetFitT2.max} ${tr('concelhoUI.facts.rendaT2.suffix')}`
-        : '—',
+        ? `${legacy.budgetFitT2.min} a ${legacy.budgetFitT2.max} ${tr('concelhoUI.facts.rendaT2.suffix')}`
+        : '·',
     },
     {
       label: tr('concelhoUI.facts.transportes'),

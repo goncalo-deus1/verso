@@ -19,6 +19,10 @@ import FreguesiaPage, { type FreguesiaPageProps } from '../pages/aml/FreguesiaPa
 import ConcelhoHub from '../pages/aml/ConcelhoHub'
 import type { ConcelhoData } from '../data/aml/concelhos/_types'
 import PillarPage, { type PillarPageProps } from '../pages/guias/PillarPage'
+import { BuyerGuideContent, buyerGuideShell } from '../pages/blog/BuyerGuidePage'
+import { ToolsIndexContent, toolsIndexShell } from '../pages/tools/ToolsIndexPage'
+import { MortgageCalculatorContent, mortgageCalculatorShell } from '../pages/tools/MortgageCalculatorPage'
+import { SavingsCalculatorContent, savingsCalculatorShell } from '../pages/tools/SavingsCalculatorPage'
 import { getFreguesia } from '../data/aml/freguesias'
 import { getConcelhoHub, ALL_CONCELHO_SLUGS } from '../data/aml/concelhos'
 import { getPillar } from '../data/guias'
@@ -28,6 +32,7 @@ import {
 } from '../data/prerenderManifest'
 
 export { prerenderManifest, ALL_CONCELHO_SLUGS }
+export { buyerGuideShell, toolsIndexShell, mortgageCalculatorShell, savingsCalculatorShell }
 export type { PrerenderEntry }
 
 // ─── Freguesia ────────────────────────────────────────────────────────────────
@@ -71,4 +76,28 @@ export function renderPillarBySlug(
   const props = getPillar(slug)
   if (!props) return null
   return { html: renderPillar(props), props }
+}
+
+// ─── Buyer guide ─────────────────────────────────────────────────────────────
+
+export function renderBuyerGuide(): string {
+  return renderToString(<BuyerGuideContent />)
+}
+
+// ─── Tools index ────────────────────────────────────────────────────────────
+
+export function renderToolsIndex(): string {
+  return renderToString(<ToolsIndexContent />)
+}
+
+// ─── Mortgage calculator ────────────────────────────────────────────────────
+
+export function renderMortgageCalculator(): string {
+  return renderToString(<MortgageCalculatorContent />)
+}
+
+// ─── Savings calculator ─────────────────────────────────────────────────────
+
+export function renderSavingsCalculator(): string {
+  return renderToString(<SavingsCalculatorContent />)
 }

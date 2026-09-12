@@ -228,7 +228,7 @@ export function HeroFreguesia({ best, freguesia, isLoggedIn, onAuth, lowScoreWar
                 borderLeft: `4px solid ${CLAY}`,
                 fontSize: '13px', color: STONE, lineHeight: 1.6,
               }}>
-                Nenhuma zona atingiu correspondência alta. Este é o resultado mais próximo — considera ajustar as prioridades.
+                Nenhuma zona atingiu correspondência alta. Este é o resultado mais próximo. Considera ajustar as prioridades.
               </div>
             )}
           </div>

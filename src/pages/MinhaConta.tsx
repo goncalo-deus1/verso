@@ -128,9 +128,9 @@ export default function MinhaConta() {
         {tab === 'overview' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <SectionCard title={tr('account.section.info')}>
-              <Row label={tr('account.field.name')} value={name || '—'} />
-              <Row label={tr('account.field.email')} value={user?.email ?? '—'} />
-              <Row label={tr('account.field.memberSince')} value={user?.created_at ? new Date(user.created_at).toLocaleDateString(lang === 'pt' ? 'pt-PT' : 'en-GB', { year: 'numeric', month: 'long' }) : '—'} />
+              <Row label={tr('account.field.name')} value={name || '·'} />
+              <Row label={tr('account.field.email')} value={user?.email ?? '·'} />
+              <Row label={tr('account.field.memberSince')} value={user?.created_at ? new Date(user.created_at).toLocaleDateString(lang === 'pt' ? 'pt-PT' : 'en-GB', { year: 'numeric', month: 'long' }) : '·'} />
             </SectionCard>
 
             <SectionCard title={tr('account.tab.zones')}>
@@ -156,7 +156,7 @@ export default function MinhaConta() {
                       const active = properties.filter(p => p.status === 'active').length
                       const totalLbl = total === 1 ? tr('account.listings.adSingular') : tr('account.listings.adPlural')
                       const activeLbl = active === 1 ? tr('account.listings.activeSingular') : tr('account.listings.activePlural')
-                      return `${total} ${totalLbl} — ${active} ${activeLbl}`
+                      return `${total} ${totalLbl} · ${active} ${activeLbl}`
                     })()
                 }
               </p>

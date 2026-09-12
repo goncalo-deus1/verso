@@ -1,7 +1,7 @@
 ---
 title: "Living in Setúbal: a full guide to the municipality (2026)"
 slug: aml/setubal
-meta_description: "Everything about living in Setúbal: T2 rent, three-year projection, transport to Lisboa, urban projects, schools and resident profile."
+meta_description: "Everything about living in Setúbal: T2 rent, three year projection, transport to Lisboa, urban projects, schools and resident profile."
 language: en
 last_updated: 2026-05-15
 canonical: https://www.usehabitta.com/aml/setubal
@@ -29,7 +29,7 @@ The most expensive areas are the rehabilitated historic centre, Avenida Luísa T
 
 Per square metre for sale, Setúbal had a median of €2,320, according to INE, significantly below Lisboa (€4,691) or Cascais (€4,477).
 
-### Three-year T2 rent projection (2026 to 2029)
+### Three year T2 rent projection (2026 to 2029)
 
 Base scenario: accumulated growth between 18% and 25%, taking the median T2 rent to between €900 and €1,100 per month by 2029. Setúbal is being strongly affected by the spillover effect from Lisboa and by the growing attractiveness of the south bank. Idealista identifies it as one of the mid-sized cities with the largest rent increases in 2025. Risk of accelerated growth if the new airport in Alcochete and the Third Tagus Crossing energise the south bank.
 
@@ -37,11 +37,11 @@ Base scenario: accumulated growth between 18% and 25%, taking the median T2 rent
 
 Setúbal had 123,684 residents in the 2021 Census, 2.1% more than in 2011. The area is 230.33 km², with a density of 537 inhabitants per km².
 
-The population is concentrated in the city of Setúbal and in Azeitão. The rural parishes (Sado, Gâmbia-Pontes-Alto da Guerra) are sparsely populated.
+The population is concentrated in the city of Setúbal and in Azeitão. The rural parishes (Sado, Gâmbia Pontes Alto da Guerra) are sparsely populated.
 
 ## Who lives in Setúbal? Resident profile
 
-Setúbal has a middle-class and established working-class profile. There is an industrial base (Autoeuropa in Palmela, but with strong links to Setúbal; the historic Lisnave; the Mitrena steelworks) that underpins the social structure.
+Setúbal has a middle class and established working class profile. There is an industrial base (Autoeuropa in Palmela, but with strong links to Setúbal; the historic Lisnave; the Mitrena steelworks) that underpins the social structure.
 
 In recent years, Setúbal has been attracting Lisboa's creative class, expatriates and remote workers seeking price, quality of life and proximity to the beach. The international presence is still smaller than in Lisboa or Cascais, but it has been growing.
 
@@ -49,10 +49,10 @@ In recent years, Setúbal has been attracting Lisboa's creative class, expatriat
 
 Setúbal has three main options for Lisboa:
 
-**Third Tagus Crossing** — `Post-2030`
-The rail component of the new crossing should significantly improve the Setúbal-Lisboa journey time once completed.
+**Third Tagus Crossing**, `Post-2030`
+The rail component of the new crossing should significantly improve the Setúbal Lisboa journey time once completed.
 
-The Fertagus train connects Setúbal to Lisboa (Roma-Areeiro, Sete Rios, Entrecampos). From Setúbal to Roma-Areeiro it takes around 55 minutes. Frequency is every 30 minutes during rush hour.
+The Fertagus train connects Setúbal to Lisboa (Roma Areeiro, Sete Rios, Entrecampos). From Setúbal to Roma Areeiro it takes around 55 minutes. Frequency is every 30 minutes during rush hour.
 
 By car along the A2 and the Vasco da Gama Bridge or the 25 de Abril Bridge, the A2 is the fastest connection (around 45 minutes to Lisboa outside rush hour). During rush hour, it can take 1h15.
 
@@ -92,8 +92,8 @@ Almada is closer to Lisboa and has a ferry. Setúbal has more identity of its ow
 ### Which are the cheapest areas in Setúbal?
 São Sebastião and inland areas away from the centre have T2 rents between €600 and €750.
 
-### Is there night-time public transport?
-Night-time provision is limited. The last Fertagus trains leave around 11pm. At night, you mostly depend on a private car or taxi.
+### Is there night time public transport?
+Night time provision is limited. The last Fertagus trains leave around 11pm. At night, you mostly depend on a private car or taxi.
 
 ---
 

@@ -44,7 +44,7 @@ export function Pullquote({ children, cite }: PullquoteProps) {
             marginTop: 'var(--space-2)',
           }}
         >
-          — {cite}
+          {cite}
         </figcaption>
       ) : null}
     </figure>

@@ -34,6 +34,29 @@ const DIST      = join(ROOT, 'dist')
 const POSTS_PT  = join(ROOT, 'src', 'content', 'posts', 'pt')
 const BASE_URL  = 'https://www.usehabitta.com'
 
+const homepageFaqs = [
+  {
+    q: 'O que e a habitta?',
+    a: 'A habitta ajuda compradores a escolher primeiro a zona certa na Area Metropolitana de Lisboa, antes de comparar casas ou falar com agencias.',
+  },
+  {
+    q: 'A habitta e uma agencia imobiliaria?',
+    a: 'Nao. A habitta e uma ferramenta editorial e de decisao para compradores. Nao representa vendedores, nao empurra visitas e nao cobra comissoes de mediacao.',
+  },
+  {
+    q: 'Que zonas cobre a habitta?',
+    a: 'A habitta cobre os 18 concelhos da Area Metropolitana de Lisboa e esta a organizar guias por concelho, freguesia e perfil de comprador.',
+  },
+  {
+    q: 'Como funciona o quiz da habitta?',
+    a: 'O quiz cruza orcamento, transportes, estilo de vida, familia, tolerancia a risco urbano e prioridades pessoais para recomendar zonas que fazem sentido para cada comprador.',
+  },
+  {
+    q: 'A habitta mostra casas a venda?',
+    a: 'A habitta foca-se primeiro na escolha da zona. O objetivo e dar contexto suficiente para o comprador procurar imoveis com menos ruido e mais criterio.',
+  },
+]
+
 // ─── HTML attribute escaping ───────────────────────────────────────────────────
 
 function esc(str) {
@@ -191,6 +214,69 @@ function buildJsonLd(post) {
   return ld
 }
 
+function buildGlobalJsonLd({ includeHomepageFaq = false } = {}) {
+  const organization = {
+    '@context': 'https://schema.org',
+    '@type': ['Organization', 'LocalBusiness', 'ProfessionalService'],
+    '@id': `${BASE_URL}/#organization`,
+    name: 'habitta',
+    legalName: 'habitta',
+    url: BASE_URL,
+    logo: `${BASE_URL}/favicon.svg`,
+    image: `${BASE_URL}/og-image.png`,
+    description: 'Ferramenta editorial e de decisao para escolher zonas onde viver na Area Metropolitana de Lisboa antes de procurar casa.',
+    areaServed: {
+      '@type': 'AdministrativeArea',
+      name: 'Area Metropolitana de Lisboa',
+      containedInPlace: {
+        '@type': 'Country',
+        name: 'Portugal',
+      },
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Lisboa',
+      addressCountry: 'PT',
+    },
+    priceRange: '€',
+  }
+
+  const website = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${BASE_URL}/#website`,
+    name: 'habitta',
+    url: BASE_URL,
+    inLanguage: 'pt-PT',
+    publisher: {
+      '@id': `${BASE_URL}/#organization`,
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${BASE_URL}/blog?search={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
+  const items = [organization, website]
+  if (includeHomepageFaq) {
+    items.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: homepageFaqs.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a,
+        },
+      })),
+    })
+  }
+
+  return jsonLdScripts(items)
+}
+
 // ─── HTML mutation ─────────────────────────────────────────────────────────────
 
 // Matches from <!-- Canonical --> up to (but not including) the <title> line.
@@ -221,10 +307,11 @@ function applyShell(baseHtml, metaBlock, title, jsonLd, bodyHtml) {
   let html = baseHtml
   html = html.replace(META_SECTION_RE, metaBlock)
   html = html.replace(TITLE_RE, `<title>${title}</title>`)
-  if (jsonLd) {
+  const globalJsonLd = buildGlobalJsonLd()
+  if (globalJsonLd || jsonLd) {
     // Inject JSON-LD scripts right before </head>
     // dist/index.html uses 2-space indent for </head>
-    html = html.replace('  </head>', `${jsonLd}  </head>`)
+    html = html.replace('  </head>', `${globalJsonLd}${jsonLd ?? ''}  </head>`)
   }
   if (bodyHtml) {
     if (!ROOT_DIV_RE.test(html)) {
@@ -448,6 +535,88 @@ async function renderPillarShells(baseHtml, ssr) {
   return count
 }
 
+function jsonLdScripts(items) {
+  return (items ?? [])
+    .map(item => `    <script type="application/ld+json">${JSON.stringify(item)}</script>\n`)
+    .join('')
+}
+
+function renderBuyerGuideShell(baseHtml, ssr) {
+  if (!ssr?.renderBuyerGuide || !ssr?.buyerGuideShell) return 0
+  const shell = ssr.buyerGuideShell
+  const html = applyShell(
+    baseHtml,
+    genericMetaBlock({
+      url:         shell.url,
+      title:       shell.title,
+      description: shell.description,
+      ogType:      'article',
+    }),
+    shell.title,
+    jsonLdScripts(shell.jsonLd),
+    ssr.renderBuyerGuide(),
+  )
+  writeShell('blog/guia-do-comprador', html)
+  return 1
+}
+
+function renderMortgageCalculatorShell(baseHtml, ssr) {
+  if (!ssr?.renderMortgageCalculator || !ssr?.mortgageCalculatorShell) return 0
+  const shell = ssr.mortgageCalculatorShell
+  const html = applyShell(
+    baseHtml,
+    genericMetaBlock({
+      url:         shell.url,
+      title:       shell.title,
+      description: shell.description,
+      ogType:      'website',
+    }),
+    shell.title,
+    jsonLdScripts(shell.jsonLd),
+    ssr.renderMortgageCalculator(),
+  )
+  writeShell('ferramentas/calculadora-credito-habitacao', html)
+  return 1
+}
+
+function renderToolsIndexShell(baseHtml, ssr) {
+  if (!ssr?.renderToolsIndex || !ssr?.toolsIndexShell) return 0
+  const shell = ssr.toolsIndexShell
+  const html = applyShell(
+    baseHtml,
+    genericMetaBlock({
+      url:         shell.url,
+      title:       shell.title,
+      description: shell.description,
+      ogType:      'website',
+    }),
+    shell.title,
+    jsonLdScripts(shell.jsonLd),
+    ssr.renderToolsIndex(),
+  )
+  writeShell('ferramentas', html)
+  return 1
+}
+
+function renderSavingsCalculatorShell(baseHtml, ssr) {
+  if (!ssr?.renderSavingsCalculator || !ssr?.savingsCalculatorShell) return 0
+  const shell = ssr.savingsCalculatorShell
+  const html = applyShell(
+    baseHtml,
+    genericMetaBlock({
+      url:         shell.url,
+      title:       shell.title,
+      description: shell.description,
+      ogType:      'website',
+    }),
+    shell.title,
+    jsonLdScripts(shell.jsonLd),
+    ssr.renderSavingsCalculator(),
+  )
+  writeShell('ferramentas/calculadora-entrada-necessaria', html)
+  return 1
+}
+
 async function loadSsrBundle() {
   const ssrPath = join(ROOT, 'dist-ssr', 'render.mjs')
   if (!existsSync(ssrPath)) {
@@ -483,13 +652,17 @@ async function main() {
 
   // Manifest-driven prerender across all editorial page types
   const ssr = await loadSsrBundle()
+  const buyerGuideCount = ssr ? renderBuyerGuideShell(baseHtml, ssr) : 0
+  const toolsIndexCount = ssr ? renderToolsIndexShell(baseHtml, ssr) : 0
+  const mortgageCalculatorCount = ssr ? renderMortgageCalculatorShell(baseHtml, ssr) : 0
+  const savingsCalculatorCount = ssr ? renderSavingsCalculatorShell(baseHtml, ssr) : 0
   const freguesiaCount = ssr ? await renderFreguesiaShells(baseHtml, ssr) : 0
   const concelhoCount  = ssr ? await renderConcelhoHubShells(baseHtml, ssr) : 0
   const pillarCount    = ssr ? await renderPillarShells(baseHtml, ssr) : 0
 
-  const total = 1 + posts.length + freguesiaCount + concelhoCount + pillarCount
+  const total = 1 + posts.length + buyerGuideCount + toolsIndexCount + mortgageCalculatorCount + savingsCalculatorCount + freguesiaCount + concelhoCount + pillarCount
   console.log(`[shells] Done — ${total} shells written ` +
-              `(blog index + ${posts.length} posts + ${freguesiaCount} freguesias + ${concelhoCount} concelhos + ${pillarCount} pillars)`)
+              `(blog index + ${posts.length} posts + ${buyerGuideCount} buyer guide + ${toolsIndexCount} tools index + ${mortgageCalculatorCount} mortgage calculator + ${savingsCalculatorCount} savings calculator + ${freguesiaCount} freguesias + ${concelhoCount} concelhos + ${pillarCount} pillars)`)
 }
 
 main()

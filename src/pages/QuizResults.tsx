@@ -307,7 +307,7 @@ function NoResultsFallback() {
       <div className="max-w-sm text-center">
         <div className="w-12 h-12 flex items-center justify-center mx-auto mb-6"
           style={{ border: '1px solid rgba(30, 31, 24, 0.125)', borderRadius: '2px' }}>
-          <span className="font-display text-lg" style={{ color: '#3A3B2E' }}>—</span>
+          <span className="font-display text-lg" style={{ color: '#3A3B2E' }}>·</span>
         </div>
         <h1 className="font-display text-2xl mb-3" style={{ color: '#1E1F18', letterSpacing: '-0.5px' }}>
           {tr('pages.quizresults.noMatches.title')}
