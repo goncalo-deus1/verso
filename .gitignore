@@ -5,3 +5,4 @@ dist-ssr
 .env
 .env.local
 og-test-output.png
+.DS_Store
